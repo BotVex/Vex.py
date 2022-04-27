@@ -42,7 +42,7 @@ class Contrast(commands.Cog):
 		else:
 			extension = 'no_file.nan'
 		
-		if extension not in ['.gif', '.GIF', '.png', '.PNG', '.jpg', '.JPG']:
+		if extension not in ['.gif', '.GIF', '.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG']:
 			progress.set_author(
 				name='você preciza enviar uma imagem!\n(gif, png ou jpg)', 
 				icon_url=error_gif)
