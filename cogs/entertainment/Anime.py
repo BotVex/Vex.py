@@ -1,7 +1,7 @@
 import json
 import requests
 from io import BytesIO
-from color_thief import ColorThief
+from colorthief import ColorThief
 
 import disnake
 from disnake.ext import commands
