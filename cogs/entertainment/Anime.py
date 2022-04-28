@@ -1,7 +1,6 @@
 import json
 import requests
-from io import BytesIO
-from colorthief import ColorThief
+from utils import dominant_color
 
 import disnake
 from disnake.ext import commands
@@ -28,12 +27,9 @@ class Anime(commands.Cog):
     	random_anime = choice(self.animes)
     	
     	get_image = requests.get(random_anime).content
-    	img = BytesIO(get_image)
-    	color_thief = ColorThief(img)
-    	dominant_color = color_thief.get_color(quality=1)
-    	material = ''.join(f'{i:02X}' for i in dominant_color)
+    	color = dominant_color(img)
     	
-    	embed = disnake.Embed(color=int(material, 16))
+    	embed = disnake.Embed(color=color)
     	embed.set_image(
     		url=random_anime)
     	await ctx.reply(embed=embed)
