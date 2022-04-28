@@ -27,7 +27,7 @@ class Anime(commands.Cog):
     	random_anime = choice(self.animes)
     	
     	get_image = requests.get(random_anime).content
-    	color = dominant_color(img)
+    	color = dominant_color(get_image)
     	
     	embed = disnake.Embed(color=color)
     	embed.set_image(
