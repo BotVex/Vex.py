@@ -14,7 +14,7 @@ class Bot(commands.Cog):
 	
 	@commands.slash_command(
 		name='help',
-		description='exibe a lista de comandos.')
+		description='[🤖] - exibe a lista de comandos.')
 	async def help(self, ctx: disnake.ApplicationCommandInteraction):
 		page1_commands = ['help', 'ping']
 		page2_commands = ['color', 'qrtxt']
@@ -71,7 +71,8 @@ class Bot(commands.Cog):
 				f'/{self.bot.get_slash_command(command).name}',
 				value=f'{self.bot.get_slash_command(command).description}**\n **', inline=True)
 		"""
-		embeds_list = [page1, page2, page3] #page4]
+		embeds_list = [page1, page2, page3] #, page4]
+		
 		await EmbedPaginator(ctx, embeds=embeds_list, timeout=40).start()
 
 def setup(bot):

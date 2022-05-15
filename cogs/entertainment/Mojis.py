@@ -18,7 +18,7 @@ class Kaomojis(commands.Cog):
 		
 	@commands.slash_command(
 		name='mojis',
-		description='te mostro um belo kaomoji. ｡◕‿‿◕｡')
+		description='[🪀] - te mostro um belo kaomoji. ｡◕‿‿◕｡')
 	async def mojis(self, ctx: disnake.ApplicationCommandInteraction):
 		await ctx.response.defer()
 		await ctx.send(choice(self.mojis))

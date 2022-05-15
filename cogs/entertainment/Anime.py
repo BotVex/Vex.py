@@ -18,7 +18,7 @@ class Anime(commands.Cog):
 		
 		@commands.slash_command(
 			name='anime',
-			description='eu envio uma foto de anime aleatória.')
+			description='[🪀] - eu envio uma foto de anime aleatória.')
 		async def anime(self, ctx: disnake.ApplicationCommandInteraction):
 			
 			await ctx.response.defer()

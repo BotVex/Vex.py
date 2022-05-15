@@ -16,26 +16,15 @@ class Contrast(commands.Cog):
 		self.bot: commands.Bot = bot 
 		
 		
-	@commands.command(
+	@commands.slash_command(
 		name='contraste',
-		description=f'*eu vou tentar ajustar o contraste de sua foto automaticamente*',
-		aliases=[
-			'ct',
-			'contrast'
-			])
-	async def contraste(self, ctx):
-		progress = disnake.Embed()
+		description=f'eu vou tentar ajustar o contraste de sua foto automaticamente.')
+	async def contraste(self, inter: disnake.ApplicationCommandInteraction, file: disnake.file):
 		
-		progress_gif = 'https://media.discordapp.net/attachments/965785255321681960/967475227149865010/output-onlinegiftools.gif'
-		error_gif = 'https://media.discordapp.net/attachments/900417473499779102/967871875160105040/output-onlinegiftools_1.gif'
+		await inter.response.defer()
 		
-		#[1/3]
-		progress.set_author(
-			name='baixando... [1/3]', 
-			icon_url=progress_gif)
-		msg = await ctx.reply(embed=progress)
 		
-		attachments = ctx.message.attachments
+		attachments = inter.message.attachments
 		
 		if len(attachments) != 0:
 			name, extension = os.path.splitext(str(attachments[0]))
@@ -60,11 +49,6 @@ class Contrast(commands.Cog):
 			await msg.edit(embed=progress)
 			return
 		
-		#[2/3]
-		progress.set_author(
-			name='gerando...  [2/3]', 
-			icon_url=progress_gif)
-		msg = await msg.edit(embed=progress)
 		try:
 			img = BytesIO(image_bytes)
 				

@@ -15,7 +15,7 @@ class QR(commands.Cog):
 		
 	@commands.slash_command(
 		name='qrtxt',
-		description=f'eu gero um QRcode através do texto que você me mandar. ⬜⬛')
+		description=f'[🛠️] - eu gero um QRcode através do texto que você me mandar.')
 	async def qrtxt(self, ctx: disnake.ApplicationCommandInteraction, *, text: str):
 		await ctx.response.defer()
 			

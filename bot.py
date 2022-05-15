@@ -14,7 +14,8 @@ bot = commands.Bot(
   sync_commands_debug  = True,
   sync_permissions     = True,
   case_insensitive     = True,
-  owner_ids            = config.owner_ids)
+  owner_ids            = config.owner_ids,
+  reload               = True)
   #test_guilds=[957509903273046067])
 
 

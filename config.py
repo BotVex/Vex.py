@@ -21,6 +21,7 @@ def get_game():
 
 extensions  = [
 	'cogs.adm.Clear',
+	'cogs.basic.Botinfo',
 	'cogs.basic.Help',
 	'cogs.basic.Ping',
 	'cogs.entertainment.Anime',
@@ -28,7 +29,7 @@ extensions  = [
 	'cogs.entertainment.Mojis',
 	'cogs.entertainment.Owofy',
 	'cogs.entertainment.Rg',
-	'cogs.image.Contrast',
+	#'cogs.image.Contrast',
 	'cogs.image.Equalize',
 	'cogs.image.Flip',
 	'cogs.image.Mirror',

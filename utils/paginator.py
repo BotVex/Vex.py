@@ -28,7 +28,7 @@ class EmbedPaginator(disnake.ui.View):
 
     async def on_timeout(self) -> None:
         if self.message:
-            await self.ctx.edit_original_message(view=None)
+            await self.message.edit(view=None)
 
     async def show_page(self, inter: MessageInteraction, page_number: int):
         if (

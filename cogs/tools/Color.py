@@ -14,7 +14,7 @@ class Color(commands.Cog):
 		
 	@commands.slash_command(
 		name='color',
-		description='eu gero uma bela cor para você. 🎨')
+		description='[🛠️] - eu gero uma bela cor para você.')
 	async def color(self, ctx: disnake.ApplicationCommandInteraction):
 		
 		await ctx.response.defer()
@@ -35,6 +35,7 @@ class Color(commands.Cog):
 		file = disnake.File('data/Color.png')
 		embed.set_image(file=file)
 		os.remove('data/Color.png')
+		#await self.bot.user.edit(avatar=open('img.png', 'rb').read())
 		await ctx.edit_original_message(content='', embed=embed)
 		
 		

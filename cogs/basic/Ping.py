@@ -13,30 +13,29 @@ class Ping(commands.Cog):
 		
 		@commands.slash_command(
 			name='ping',
-			description='apenas o meu comando de ping. 🏓'
+			description='[🤖] - apenas o meu comando de ping.'
 			)
-		async def ping(self, ctx: disnake.ApplicationCommandInteraction):
+		async def ping(self, inter: disnake.ApplicationCommandInteraction):
 			latency_val = int(round(self.bot.latency * 1000))
 
 			if latency_val <= 190:
-				latency = f'***{latency_val}ms***'
-				latency_color = 0x16ff02
+				latency = latency_val
+				latency_color = 0x8DFF9D
 			
 			elif 191 >= latency_val or latency_val <= 350:
-				latency = f'***{latency_val}ms***'
-				latency_color=0xff7100
+				latency = latency_val
+				latency_color=0xFFFC90
 			
 			elif latency_val >= 351:
-				latency = f'***{latency_val}ms***'
-				latency_color=0xff0000
+				latency = latency_val
+				latency_color=0xFF8787
 			
 			
 			embed = disnake.Embed(
-				title=f'{ctx.author.name}, eu estou com {latency} de ping!',
+				title=f':ping_pong: | {inter.author.name}, eu estou com ***{latency}ms*** de ping!',
 				color=latency_color)
-			embed.set_thumbnail(url='https://cdn-icons-png.flaticon.com/512/147/147227.png')
 			
-			await ctx.send(embed=embed)
+			await inter.send(embed=embed)
 
 
 def setup(bot):

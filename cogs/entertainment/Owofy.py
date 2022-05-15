@@ -12,7 +12,7 @@ class Owofy(commands.Cog):
 		
 	@commands.slash_command(
 		name='owo',
-		description='eu vou deixaw seu texto Kawai. :point_right: :point_left:')
+		description='[🪀] - eu vou deixar seu texto fofo')
 	async def owo(self, ctx: disnake.ApplicationCommandInteraction, *, text: str):
 		await ctx.response.defer()
 		await ctx.send(owo(str(text)))
