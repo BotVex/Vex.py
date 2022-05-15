@@ -16,15 +16,12 @@ class Kaomojis(commands.Cog):
 		self.mojis = mojis
 		
 		
-	@commands.command(
+	@commands.slash_command(
 		name='mojis',
-		description='*te mostro um belo kaomoji* ｡◕‿‿◕｡',
-		aliases=[
-			'kaomoji'
-			])
-	async def mojis(self, ctx):
-		await ctx.reply(choice(self.mojis))
-		
+		description='te mostro um belo kaomoji. ｡◕‿‿◕｡')
+	async def mojis(self, ctx: disnake.ApplicationCommandInteraction):
+		await ctx.response.defer()
+		await ctx.send(choice(self.mojis))
 	
 	
 def setup(bot):

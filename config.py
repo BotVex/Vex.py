@@ -38,7 +38,8 @@ extensions  = [
 	'cogs.image.Sharpness',
 	'cogs.tools.Color',
 	'cogs.tools.Qr',
-	'cogs.Owner'
+	'cogs.Owner',
+	'cogs.Errors'
 ]
 
 

@@ -1,13 +1,8 @@
 import os
-import json
 from pyowo import owo
 
 import disnake
 from disnake.ext import commands
-
-from random import choice
-
-from config import prefix
 
 
 class Owofy(commands.Cog):
@@ -15,20 +10,12 @@ class Owofy(commands.Cog):
 		self.bot: commands.Bot = bot 
 		
 		
-	@commands.command(
+	@commands.slash_command(
 		name='owo',
-		description='*eu vou deixaw seu texto Kawai* :point_right: :point_left:',
-		aliases=[
-			'uwu'
-			])
-	async def owo(self, ctx, *, text=None):
-		if text == None:
-			embed = disnake.Embed(
-				title='você precisa informar um texto!',
-				description=f'EX: `{prefix}owo texto legal`')
-			await ctx.reply(embed=embed)
-		else:
-			await ctx.reply(owo(str(text)))
+		description='eu vou deixaw seu texto Kawai. :point_right: :point_left:')
+	async def owo(self, ctx: disnake.ApplicationCommandInteraction, *, text: str):
+		await ctx.response.defer()
+		await ctx.send(owo(str(text)))
 		
 		
 def setup(bot):

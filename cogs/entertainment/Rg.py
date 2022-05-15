@@ -1,10 +1,9 @@
 import os
 import json
+from random import choice
 
 import disnake
 from disnake.ext import commands
-
-from random import choice
 
 from config import COWNER
 
@@ -17,20 +16,17 @@ class Rg(commands.Cog):
 		self.games = games
 		
 		
-	@commands.command(
+	@commands.slash_command(
 		name='rg',
-		description='*lhe recomendo um belo jogo* :video_game:',
-		aliases=[
-			'jogo',
-			'game'
-			])
-	async def rg(self, ctx):
+		description='lhe recomendo um belo jogo. :video_game:')
+	async def rg(self, ctx: disnake.ApplicationCommandInteraction):
+		await ctx.response.defer()
 		embed = disnake.Embed(
 			title='Você quer uma recomendação de jogo?',
 			description=f'Aqui vai um belo jogo, o nome dele é:\n`{choice(self.games)}`',
 			color=COWNER)
-		embed.set_thumbnail(url='https://media.discordapp.net/attachments/965785255321681960/967259857176657930/images__16_-removebg-preview.jpg')
-		await ctx.reply(embed=embed)
+		embed.set_thumbnail(url='https://cdn-icons-png.flaticon.com/512/2432/2432632.png')
+		await ctx.send(embed=embed)
 		
 	
 	

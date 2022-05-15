@@ -1,2 +1,3 @@
 cmt.sh
-__pycache__/
+**/__pycache__/
+template.py

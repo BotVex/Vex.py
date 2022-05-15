@@ -9,11 +9,12 @@ class Clear(commands.Cog):
     	self.bot: commands.Bot = bot
     
     
-    @commands.command()
+    @commands.slash_command()
     @commands.has_permissions(manage_messages=True) 
-    async def clear(self, ctx, amount=None):
+    async def clear(self, ctx: disnake.ApplicationCommandInteraction, amount: int):
+    	await ctx.response.defer()
     	try:
-    		await ctx.channel.purge(limit=int(amount))
+    		await ctx.channel.purge(limit=amount)
     	except:
     		pass
 

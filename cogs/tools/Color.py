@@ -1,5 +1,6 @@
 import os
 from PIL import Image
+from io import BytesIO
 
 import disnake
 from disnake.ext import commands
@@ -11,19 +12,12 @@ class Color(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot 
 		
-	@commands.command(
+	@commands.slash_command(
 		name='color',
-		description='*eu gero uma bela cor para você!*',
-		aliases=[
-			'cor'
-			])
-	async def color(self, ctx, *, text=None):
-		embed = disnake.Embed(
-			title='',
-			description='')
-		embed.set_author(name='gerando...', icon_url='https://media.discordapp.net/attachments/965785255321681960/967475227149865010/output-onlinegiftools.gif')
+		description='eu gero uma bela cor para você!')
+	async def color(self, ctx: disnake.ApplicationCommandInteraction):
 		
-		msg = await ctx.reply(embed=embed)
+		await ctx.response.defer()
 		
 		RGB = (rint(0, 255), rint(0, 255), rint(0, 255))
 		HEX = ''.join(f'{i:02X}' for i in RGB)
@@ -36,12 +30,12 @@ class Color(commands.Cog):
 		embed.add_field('HEX', value='#'+HEX)
 		
 		color = Image.new(mode='RGB', size=(100, 100), color=RGB)
-		color.save("data/Color.png", format="png")
+		color.save('data/Color.png', format="png")
 		
 		file = disnake.File('data/Color.png')
 		embed.set_image(file=file)
 		os.remove('data/Color.png')
-		await msg.edit(content='', embed=embed)
+		await ctx.edit_original_message(content='', embed=embed)
 		
 		
 def setup(bot):
