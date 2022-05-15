@@ -18,7 +18,7 @@ class Rg(commands.Cog):
 		
 	@commands.slash_command(
 		name='rg',
-		description='lhe recomendo um belo jogo. :video_game:')
+		description='lhe recomendo um belo jogo. 🎮')
 	async def rg(self, ctx: disnake.ApplicationCommandInteraction):
 		await ctx.response.defer()
 		embed = disnake.Embed(

@@ -18,7 +18,7 @@ class Bot(commands.Cog):
 	async def help(self, ctx: disnake.ApplicationCommandInteraction):
 		page1_commands = ['help', 'ping']
 		page2_commands = ['color', 'qrtxt']
-		page3_commands = ['anime', 'mojis', 'owo', 'rg']
+		page3_commands = ['anime', 'mojis', 'owo', 'rg', 'xingar']
 		page4_commands = ['contraste', 'equalizar', 'espelhar', 'flip', 'gray', 'inverter', 'posterizar', 'solarizar', 'nitidez']
 		
 		#page1

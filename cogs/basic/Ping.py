@@ -13,7 +13,7 @@ class Ping(commands.Cog):
 		
 		@commands.slash_command(
 			name='ping',
-			description='apenas o meu comando de ping, nada mais.'
+			description='apenas o meu comando de ping. 🏓'
 			)
 		async def ping(self, ctx: disnake.ApplicationCommandInteraction):
 			latency_val = int(round(self.bot.latency * 1000))

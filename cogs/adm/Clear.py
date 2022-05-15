@@ -9,7 +9,9 @@ class Clear(commands.Cog):
     	self.bot: commands.Bot = bot
     
     
-    @commands.slash_command()
+    @commands.slash_command(
+    	name='clear',
+    	description='apago uma quantidade específica de mensagens.')
     @commands.has_permissions(manage_messages=True) 
     async def clear(self, ctx: disnake.ApplicationCommandInteraction, amount: int):
     	await ctx.response.defer()

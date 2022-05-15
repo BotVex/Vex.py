@@ -24,6 +24,7 @@ extensions  = [
 	'cogs.basic.Help',
 	'cogs.basic.Ping',
 	'cogs.entertainment.Anime',
+	'cogs.entertainment.Curse',
 	'cogs.entertainment.Mojis',
 	'cogs.entertainment.Owofy',
 	'cogs.entertainment.Rg',

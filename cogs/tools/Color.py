@@ -14,7 +14,7 @@ class Color(commands.Cog):
 		
 	@commands.slash_command(
 		name='color',
-		description='eu gero uma bela cor para você!')
+		description='eu gero uma bela cor para você. 🎨')
 	async def color(self, ctx: disnake.ApplicationCommandInteraction):
 		
 		await ctx.response.defer()
