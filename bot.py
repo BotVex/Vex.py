@@ -15,8 +15,8 @@ bot = commands.InteractionBot(
   sync_permissions     = True,
   case_insensitive     = True,
   owner_ids            = config.owner_ids,
-  reload               = True,
-  test_guilds=[957509903273046067])
+  reload               = True)
+  #test_guilds=[957509903273046067])
 
 
 

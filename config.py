@@ -27,6 +27,7 @@ extensions  = [
 	'cogs.entertainment.Owofy',
 	'cogs.entertainment.Rg',
 	'cogs.tools.Color',
+	'cogs.tools.ImageFilter',
 	'cogs.tools.Qr',
 ]
 
