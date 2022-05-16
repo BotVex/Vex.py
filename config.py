@@ -30,7 +30,7 @@ extensions  = [
 	'cogs.entertainment.Mojis',
 	'cogs.entertainment.Owofy',
 	'cogs.entertainment.Rg',
-	'cogs.image.Contrast',
+	#'cogs.image.Contrast',
 	'cogs.image.Equalize',
 	'cogs.image.Flip',
 	'cogs.image.Mirror',
