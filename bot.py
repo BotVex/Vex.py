@@ -7,7 +7,7 @@ import config
 
 os.system('clear')
 
-bot = commands.Bot(
+bot = commands.InteractionBot(
   command_prefix       = config.prefix,
   intents              = config.intents,
   help_command         = None,
@@ -15,8 +15,8 @@ bot = commands.Bot(
   sync_permissions     = True,
   case_insensitive     = True,
   owner_ids            = config.owner_ids,
-  reload               = True)
-  #test_guilds=[957509903273046067])
+  reload               = True,
+  test_guilds=[957509903273046067])
 
 
 

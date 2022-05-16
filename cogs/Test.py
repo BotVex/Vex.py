@@ -1,5 +1,6 @@
 import os
 import json
+from typing import List
 
 import disnake
 from disnake.ext import commands
@@ -14,11 +15,17 @@ class Test(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.command()
-	async def test(self, ctx):
-		
-			
-		await ctx.reply()
+	@commands.slash_command()
+	async def languages(inter: disnake.ApplicationCommandInteraction, language: str):
+		await inter.send(language)
+	
+	
+	@languages.autocomplete("language")
+	async def test_autocomp(self, inter: disnake.ApplicationCommandInteraction, string: str):
+		return ["XD", ":D", ":)", ":|", ":("]
+
+	
+	
 	
 	
 def setup(bot):

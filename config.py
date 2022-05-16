@@ -20,17 +20,26 @@ def get_game():
 
 
 extensions  = [
-	'cogs.adm.Clear',
-	'cogs.basic.Botinfo',
-	'cogs.basic.Help',
+	'cogs.adm.Clear'.
 	'cogs.basic.Ping',
 	'cogs.entertainment.Anime',
-	'cogs.entertainment.Curse',
-	'cogs.entertainment.Furry',
 	'cogs.entertainment.Mojis',
 	'cogs.entertainment.Owofy',
 	'cogs.entertainment.Rg',
-	#'cogs.image.Contrast',
+	'cogs.tools.Color',
+	'cogs.tools.Qr',
+]
+
+"""
+extensions  = [
+	'cogs.adm.Clear',
+	'cogs.basic.Help',
+	'cogs.basic.Ping',
+	'cogs.entertainment.Anime',
+	'cogs.entertainment.Mojis',
+	'cogs.entertainment.Owofy',
+	'cogs.entertainment.Rg',
+	'cogs.image.Contrast',
 	'cogs.image.Equalize',
 	'cogs.image.Flip',
 	'cogs.image.Mirror',
@@ -41,10 +50,9 @@ extensions  = [
 	'cogs.image.Sharpness',
 	'cogs.tools.Color',
 	'cogs.tools.Qr',
-	'cogs.Owner',
-	'cogs.Errors'
+	'cogs.Owner'
 ]
-
+"""
 
 
 

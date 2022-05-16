@@ -1,5 +1,5 @@
 colorthief==0.2.1
-disnake==2.4.0
+pip install git+https://github.com/DisnakeDev/disnake.git
 Pillow==9.1.0
 pyowo==1.0.1
 qrcode==7.3.1
