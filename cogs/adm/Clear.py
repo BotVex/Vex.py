@@ -20,6 +20,10 @@ class Clear(commands.Cog):
 			if amount >= 2001:
 				embed = disnake.Embed(title='<:svTick_Nao:975225649029578782> | eu posso limpar até 2000 mensagens!')
 				await inter.send(embed=embed)
+			
+			elif amount <= 1:
+				embed = disnake.Embed(title='<:svTick_Nao:975225649029578782> | eu só posso limpar a partir de 2 mensagens!')
+				await inter.send(embed=embed)
 				return
 			else:
 				try:
