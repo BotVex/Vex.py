@@ -23,8 +23,8 @@ class Contrast(commands.Cog):
 		
 		await inter.response.defer()
 		
-		
-		attachments = inter.message.attachments
+		await inter.send(file=file)
+		"""
 		
 		if len(attachments) != 0:
 			name, extension = os.path.splitext(str(attachments[0]))
@@ -86,6 +86,6 @@ class Contrast(commands.Cog):
 			await msg.edit(embed=progress)
 			return
 		
-		
+		"""
 def setup(bot):
     bot.add_cog(Contrast(bot))
