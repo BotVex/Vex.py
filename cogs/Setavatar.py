@@ -23,8 +23,8 @@ class Setavatar(commands.Cog):
 		try:
 			self.bot.user.edit(avatar=requests.get(avatar.url).content)
 			await inter.send('avatar alterado!')
-		except:
-			await inter.send('falha ao setar o avatar')
+		except exception as e:
+			await inter.send(f'falha ao setar o avatar:\n\n{e}')
 	
 	
 def setup(bot):
