@@ -29,7 +29,7 @@ extensions  = [
 	'cogs.tools.Color',
 	'cogs.tools.ImageFilter',
 	'cogs.tools.Qr',
-	'cogs.Setavatar'
+	'cogs.Owner'
 ]
 
 """
@@ -61,6 +61,6 @@ extensions  = [
 TOKEN = 'NzgzNzE2ODgyODk2OTEyNDA1.X8ezOQ.QuCeUnPJf2Mp9KHxdrELDcr0i7Y'
 
 
-
+CDEFAULT = 0x000000
 COWNER = 0xFF3889
 CERROR = 0xFF4141
