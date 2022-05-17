@@ -13,288 +13,253 @@ def _restart():
 	
 
 class Owner(commands.Cog):
-    def __init__(self, bot):
-        self.bot: commands.Bot = bot
+		def __init__(self, bot):
+				self.bot: commands.Bot = bot
 
 
 #owner commands
-    @commands.command(
-      hidden=True,
-      aliases=[
-        'adm'
-        ])
-    @commands.is_owner()
-    async def owner(self, ctx):
-      embed = disnake.Embed(
-        title='comandos',
-        description='comandos disponíveis apenas para os meus donos :3',
-        color=COWNER)
-        
-      embed.add_field(
+		@commands.slash_command(
+			name='adm',
+			hidden=True)
+		@commands.is_owner()
+		async def owner(self, inter: disnake.ApplicationCommandInteraction):
+			embed = disnake.Embed(
+				title='comandos',
+				description='comandos disponíveis apenas para os meus donos :3',
+				color=COWNER)
+				
+			embed.add_field(
 name=f'{prefix}owner',
-        value="""
+				value="""
 *exibe esta mensagem.*
 ***aliases: `adm`***
 """,
-        inline=True)
+				inline=True)
 
-      embed.add_field(
+			embed.add_field(
 name=f'{prefix}shutdown',
-        value="""
+				value="""
 *me desliga. **(requer religamento manual)***
 ***aliases: `desligar` `off`***
 """,
-        inline=False)
+				inline=False)
 
-      embed.add_field(
+			embed.add_field(
 name=f'{prefix}restart',
-        value="""
+				value="""
 *me reinicia. Útil para atualizações gerais ou fora das cogs.*
 ***aliases: `reiniciar`***
 """,
-        inline=False)
+				inline=False)
 
-      embed.add_field(
+			embed.add_field(
 name=f'{prefix}load',
-        value="""
+				value="""
 *carrega uma cog **apenas uma vez**.*
 ***aliases: `carregar`***
 """,
-        inline=True)
+				inline=True)
 
-      embed.add_field(
+			embed.add_field(
 name=f'{prefix}unload',
-        value="""
+				value="""
 *descarrega uma cog **apenas uma vez**.*
 ***aliases: `descarregar`***
 """,
-        inline=True)
+				inline=True)
 
-      embed.add_field(
+			embed.add_field(
 name=f'{prefix}reload',
-        value="""
+				value="""
 *recarrega uma cog **apenas uma vez**.*
 ***aliases: `recarregar`***
 """,
-        inline=True)
+				inline=True)
 
-      embed.add_field(
+			embed.add_field(
 name=f'{prefix}extensions',
-        value="""
+				value="""
 *exibe uma lista com todas as extensões encontradas.*
 ***aliases: `extensoes` `plugins`***
 """,
-        inline=False)
-      
-      await ctx.reply(embed=embed)
+				inline=False)
+			
+			await inter.send(embed=embed)
 
 
 #shutdown
-    @commands.command(
-      hidden=True,
-      aliases=[
-        'desligar',
-        'off',
-        ])
-    @commands.is_owner()
-    async def shutdown(self, ctx):
-        await ctx.message.add_reaction('🛑')
-        await self.bot.close()
+		@commands.slash_command(
+			hidden=True)
+		@commands.is_owner()
+		async def shutdown(inter: disnake.ApplicationCommandInteraction):
+				await self.bot.close()
 
 
-    @shutdown.error
-    async def shutdown_error(self, ctx, error):
-      embed = disnake.Embed(
-        title='houve um erro no comando shutdown:',
-        description=f"""```py
-        {error}
-        ```""",
-        color=CERROR)
-        
-      await ctx.reply(embed=embed, delete_after=20.0)
+		@shutdown.error
+		async def shutdown_error(inter: disnake.ApplicationCommandInteraction, error):
+			embed = disnake.Embed(
+				title='houve um erro no comando shutdown:',
+				description=f"""```py
+				{error}
+				```""",
+				color=CERROR)
+				
+			await inter.send(embed=embed, delete_after=20.0)
 
 
 #restart
-    @commands.command(
-      hidden=True,
-      aliases=[
-        'reiniciar'
-        ])
-    @commands.is_owner()
-    async def restart(self, ctx, wait=None):
-      if wait == None:
-        await ctx.message.add_reaction('🔄')
-        _restart()
-      
-      else:
-        await ctx.message.add_reaction('⌛')
-        await sleep(int(wait))
-        
-        await ctx.message.clear_reaction('⌛')
-        await ctx.message.add_reaction('🔄')
-        _restart()
+		@commands.slash_command(
+			hidden=True)
+		@commands.is_owner()
+		async def restart(inter: disnake.ApplicationCommandInteraction, wait=None):
+			if wait == None:
+				_restart()
+			
+			else:
+				await sleep(int(wait))
+				_restart()
 
 
-    @restart.error
-    async def restart_error(self, ctx, error):
-      embed = disnake.Embed(
-        title='houve um erro no comando restart:',
-        description=f"""```py
-        {error}
-        ```""",
-        color=CERROR)
-        
-      await ctx.reply(embed=embed, delete_after=20.0)
+		@restart.error
+		async def restart_error(inter: disnake.ApplicationCommandInteraction, error):
+			embed = disnake.Embed(
+				title='houve um erro no comando restart:',
+				description=f"""```py
+				{error}
+				```""",
+				color=CERROR)
+				
+			await inter.send(embed=embed, delete_after=20.0)
 
 
 #load
-    @commands.command(
-      hidden=True,
-      aliases=[
-        'carregar'
-        ])
-    @commands.is_owner()
-    async def load(self, ctx, extension=None):
-        if extension == None:
-          embed = disnake.Embed(
-            title='informe uma extensão!',
-            description=f'verifique as extensões com o comando `{prefix}extensions`',
-            color=CERROR)
-        
-          await ctx.reply(embed=embed)
-          await ctx.message.add_reaction('❌')
-        else:
-           #extension = extension.capitalize()
-          extension = f'cogs.{extension}'
-          
-          self.bot.load_extension(extension)
-          await ctx.message.add_reaction('✅')
+		@commands.slash_command(
+			hidden=True)
+		@commands.is_owner()
+		async def load(inter: disnake.ApplicationCommandInteraction, extension=None):
+				if extension == None:
+					embed = disnake.Embed(
+						title='informe uma extensão!',
+						description=f'verifique as extensões com o comando `{prefix}extensions`',
+						color=CERROR)
+				
+					await inter.send(embed=embed)
+				else:
+					 #extension = extension.capitalize()
+					extension = f'cogs.{extension}'
+					
+					self.bot.load_extension(extension)
 
 
-    @load.error
-    async def load_error(self, ctx, error):
-      embed = disnake.Embed(
-        title='houve um erro no comando load:',
-        description=f"""```py
-        {error}
-        ```""",
-        color=CERROR)
-        
-      await ctx.reply(embed=embed, delete_after=20.0)
+		@load.error
+		async def load_error(inter: disnake.ApplicationCommandInteraction, error):
+			embed = disnake.Embed(
+				title='houve um erro no comando load:',
+				description=f"""```py
+				{error}
+				```""",
+				color=CERROR)
+				
+			await inter.send(embed=embed, delete_after=20.0)
 
 
 #unload
-    @commands.command(
-      hidden=True,
-      aliases=[
-        'descarregar'
-        ])
-    @commands.is_owner()
-    async def unload(self, ctx, extension=None):
-        if extension == None:
-          embed = disnake.Embed(
-            title='informe uma extensão!',
-            description=f'verifique as extensões com o comando `{prefix}extensions`',
-            color=CERROR)
-        
-          await ctx.reply(embed=embed)
-          await ctx.message.add_reaction('❌')
-        else:
-           #extension = extension.capitalize()
-          extension = f'cogs.{extension}'
-          
-          self.bot.unload_extension(extension)
-          await ctx.message.add_reaction('✅')
+		@commands.slash_command(
+			hidden=True)
+		@commands.is_owner()
+		async def unload(inter: disnake.ApplicationCommandInteraction, extension=None):
+				if extension == None:
+					embed = disnake.Embed(
+						title='informe uma extensão!',
+						description=f'verifique as extensões com o comando `{prefix}extensions`',
+						color=CERROR)
+				
+					await inter.send(embed=embed)
+				else:
+					 #extension = extension.capitalize()
+					extension = f'cogs.{extension}'
+					
+					self.bot.unload_extension(extension)
 
 
-    @unload.error
-    async def unload_error(self, ctx, error):
-      embed = disnake.Embed(
-        title='houve um erro no comando unload:',
-        description=f"""```py
-        {error}
-        ```""",
-        color=CERROR)
-        
-      await ctx.reply(embed=embed, delete_after=20.0)
+		@unload.error
+		async def unload_error(inter: disnake.ApplicationCommandInteraction, error):
+			embed = disnake.Embed(
+				title='houve um erro no comando unload:',
+				description=f"""```py
+				{error}
+				```""",
+				color=CERROR)
+				
+			await inter.send(embed=embed, delete_after=20.0)
 
 
 #extensions
-    @commands.command(
-      hidden=True,
-      aliases=[
-        'extensoes',
-        'plugins'
-        ])
-    @commands.is_owner()
-    async def extensions(self, ctx):
-      
-      extensions_list = []
-      for dir_, folds, files in os.walk('cogs/'):
-        files_list = []
-        for file in files:
-          files_list.append(os.path.join(dir_, file))
-        for path in files_list:
-          if path.endswith('.py'):
-            extensions_list.append(f'**{path[:-3]}**')
-      
-      extensions_list.sort()
-      
-      embed = disnake.Embed(
-        title=f"extensões encontradas - ({len(extensions_list)}):",
-        description='\n'.join(extensions_list).replace('/', '.').replace('cogs.', ''),
-        color=COWNER)
-      
-      await ctx.reply(embed=embed)
-      await ctx.message.add_reaction('📃')
+		@commands.slash_command(
+			hidden=True)
+		@commands.is_owner()
+		async def extensions(inter: disnake.ApplicationCommandInteraction):
+			
+			extensions_list = []
+			for dir_, folds, files in os.walk('cogs/'):
+				files_list = []
+				for file in files:
+					files_list.append(os.path.join(dir_, file))
+				for path in files_list:
+					if path.endswith('.py'):
+						extensions_list.append(f'**{path[:-3]}**')
+			
+			extensions_list.sort()
+			
+			embed = disnake.Embed(
+				title=f"extensões encontradas - ({len(extensions_list)}):",
+				description='\n'.join(extensions_list).replace('/', '.').replace('cogs.', ''),
+				color=COWNER)
+			
+			await inter.send(embed=embed)
 
 
-    @extensions.error
-    async def extensions_error(self, ctx, error):
-      embed = disnake.Embed(
-        title='houve um erro no comando extensions:',
-        description=f"""```py
-        {error}
-        ```""",
-        color=CERROR)
-        
-      await ctx.reply(embed=embed, delete_after=20.0)
+		@extensions.error
+		async def extensions_error(inter: disnake.ApplicationCommandInteraction, error):
+			embed = disnake.Embed(
+				title='houve um erro no comando extensions:',
+				description=f"""```py
+				{error}
+				```""",
+				color=CERROR)
+				
+			await inter.send(embed=embed, delete_after=20.0)
 
 
  #reload
-    @commands.command(
-      hidden=True,
-      aliases=[
-        'recarregar'
-        ])
-    @commands.is_owner()
-    async def reload(self, ctx, extension=None):
-      if extension == None:
-        embed = disnake.Embed(
-            title='informe uma extensão!',
-            description=f'verifique as extensões com o comando `{prefix}extensions`',
-            color=CERROR)
-        await ctx.reply(embed=embed)
-        await ctx.message.add_reaction('❌')
-      else:
-        #extension = extension.capitalize()
-        extension = f'cogs.{extension}'
-        self.bot.unload_extension(extension)
-        self.bot.load_extension(extension)
-        await ctx.message.add_reaction('✅')
+		@commands.slash_command(
+			hidden=True)
+		@commands.is_owner()
+		async def reload(inter: disnake.ApplicationCommandInteraction, extension=None):
+			if extension == None:
+				embed = disnake.Embed(
+						title='informe uma extensão!',
+						description=f'verifique as extensões com o comando `{prefix}extensions`',
+						color=CERROR)
+				await inter.send(embed=embed)
+			else:
+				#extension = extension.capitalize()
+				extension = f'cogs.{extension}'
+				self.bot.unload_extension(extension)
+				self.bot.load_extension(extension)
 
 
-    @reload.error
-    async def reload_error(self, ctx, error):
-      embed = disnake.Embed(
-        title='houve um erro no comando reload:',
-        description=f"""```py
-        {error}
-        ```""",
-        color=CERROR)
-        
-      await ctx.reply(embed=embed, delete_after=20.0)
+		@reload.error
+		async def reload_error(inter: disnake.ApplicationCommandInteraction, error):
+			embed = disnake.Embed(
+				title='houve um erro no comando reload:',
+				description=f"""```py
+				{error}
+				```""",
+				color=CERROR)
+				
+			await inter.send(embed=embed, delete_after=20.0)
 
 
 def setup(bot):
-    bot.add_cog(Owner(bot))
+		bot.add_cog(Owner(bot))

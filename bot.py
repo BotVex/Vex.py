@@ -8,15 +8,14 @@ import config
 os.system('clear')
 
 bot = commands.InteractionBot(
-  command_prefix       = config.prefix,
-  intents              = config.intents,
-  help_command         = None,
-  sync_commands_debug  = True,
-  sync_permissions     = True,
-  case_insensitive     = True,
-  owner_ids            = config.owner_ids,
-  reload               = True)
-  #test_guilds=[957509903273046067])
+	intents							= config.intents,
+	help_command				= None,
+	sync_commands_debug	= True,
+	sync_permissions		= True,
+	case_insensitive		= True,
+	owner_ids						= config.owner_ids,
+	reload							= True)
+	#test_guilds=[957509903273046067])
 
 
 
@@ -31,20 +30,14 @@ async def on_ready():
 
 @tasks.loop(seconds=7200)
 async def status_task():
-	try:
-		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=config.get_game()))
-		print('changed status task')
-	except RuntimeError:
-		print('runtime error - retry')
-		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=config.get_game()))
-  	
- 
- 
+	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=config.get_game()))
+	print('changed status task')
+
 
 if __name__ == '__main__':
-  for extension in config.extensions:
-    bot.load_extension(extension)
-    print(f'{extension} loaded')
+	for extension in config.extensions:
+		bot.load_extension(extension)
+		print(f'{extension} loaded')
 
 
 bot.run(config.TOKEN)

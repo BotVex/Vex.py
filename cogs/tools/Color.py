@@ -36,7 +36,7 @@ class Color(commands.Cog):
 		embed.set_image(file=file)
 		os.remove('data/Color.png')
 		#await self.bot.user.edit(avatar=open('img.png', 'rb').read())
-		await ctx.edit_original_message(content='', embed=embed)
+		await ctx.send(content='', embed=embed)
 		
 		
 def setup(bot):

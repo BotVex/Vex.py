@@ -8,6 +8,7 @@ from disnake.ext import commands
 from random import choice
 
 from config import COWNER
+import requests 
 
 
 class Test(commands.Cog):
@@ -15,17 +16,15 @@ class Test(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.slash_command()
-	async def languages(inter: disnake.ApplicationCommandInteraction, language: str):
-		await inter.send(language)
-	
-	
-	@languages.autocomplete("language")
-	async def test_autocomp(self, inter: disnake.ApplicationCommandInteraction, string: str):
-		return ["XD", ":D", ":)", ":|", ":("]
-
-	
-	
+	@commands.slash_command(guild_ids=[957509903273046067])
+	async def setavatar(inter: disnake.ApplicationCommandInteraction, avatar: disnake.Attachment):
+		await inter.response.defer()
+		
+		try:
+			self.bot.user.edit(avatar=requests.get(avatar.url).content)
+			await inter.send('avatar alterado!')
+		except:
+			await inter.send('falha ao setar o avatar')
 	
 	
 def setup(bot):
