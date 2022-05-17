@@ -21,7 +21,7 @@ class Setavatar(commands.Cog):
 		await inter.response.defer()
 		
 		try:
-			self.bot.user.edit(avatar=requests.get(avatar.url).content)
+			await self.bot.user.edit(avatar=requests.get(avatar.url).content)
 			await inter.send('avatar alterado!')
 		except:
 			await inter.send(f'falha ao setar o avatar')
