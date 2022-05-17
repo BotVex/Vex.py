@@ -29,6 +29,7 @@ extensions  = [
 	'cogs.tools.Color',
 	'cogs.tools.ImageFilter',
 	'cogs.tools.Qr',
+	'cogs.Setavatar'
 ]
 
 """

@@ -11,7 +11,7 @@ from config import COWNER
 import requests 
 
 
-class Test(commands.Cog):
+class Setavatar(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 	
@@ -28,4 +28,4 @@ class Test(commands.Cog):
 	
 	
 def setup(bot):
-    bot.add_cog(Test(bot))
+    bot.add_cog(Setavatar(bot))
