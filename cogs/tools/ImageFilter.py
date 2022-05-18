@@ -1,8 +1,8 @@
 import os
 import json
+import requests
 from io import BytesIO
 from PIL import Image, ImageOps, ImageFilter
-import requests
 
 from colorthief import ColorThief
 
@@ -10,8 +10,8 @@ import disnake
 from disnake.ext import commands
 EB = disnake.Embed
 
-from config import COWNER, CERROR
-
+from utils.assets import Emojis as E
+from utils.assets import Colors as C
 
 class Imagefilter(commands.Cog):
 	def __init__(self, bot):
@@ -72,12 +72,22 @@ class Imagefilter(commands.Cog):
 				img_obj = Image.open(img).convert('RGB')
 				filtered_image = img_obj.filter(ImageFilter.GaussianBlur(radius=10))
 			
-			elif filter == 'pixelizar':
+			elif filter == 'pixelizar 16bits':
+				img_obj = Image.open(img).convert('RGB')
+				imgSmall = img_obj.resize((16, 16),resample=Image.BILINEAR)
+				filtered_image = imgSmall.resize(img_obj.size, Image.NEAREST)
+			
+			elif filter == 'pixelizar 32bits':
 				img_obj = Image.open(img).convert('RGB')
 				imgSmall = img_obj.resize((32,32),resample=Image.BILINEAR)
 				filtered_image = imgSmall.resize(img_obj.size, Image.NEAREST)
+			
+			elif filter == 'pixelizar 64bits':
+				img_obj = Image.open(img).convert('RGB')
+				imgSmall = img_obj.resize((64, 64),resample=Image.BILINEAR)
+				filtered_image = imgSmall.resize(img_obj.size, Image.NEAREST)
 			else:
-				await inter.send(embed=EB(title='<:unavailable_filter:975888355051044874> | filtro indisponível', color=CERROR))
+				await inter.send(embed=EB(title=f'{E.unavailable_filter} | filtro indisponível', color=CERROR))
 				return
 			
 			
@@ -98,7 +108,9 @@ class Imagefilter(commands.Cog):
 			'acizentar',
 			'clareza',
 			'borrar',
-			'pixelizar'
+			'pixelizar 16bits'
+			'pixelizar 32bits'
+			'pixelizar 64bits'
 		]
 	
 	
