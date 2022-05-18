@@ -19,7 +19,7 @@ class Imagefilter(commands.Cog):
 	
 	
 	@commands.slash_command(
-		name='imagefilter',
+		name='image filter',
 		description='[🛠️] - eu adiciono efeitos a uma imagem.')
 	async def imagefilter(self, inter: disnake.ApplicationCommandInteraction, filter: str, file: disnake.Attachment):
 		await inter.response.defer()
@@ -108,8 +108,8 @@ class Imagefilter(commands.Cog):
 			'acizentar',
 			'clareza',
 			'borrar',
-			'pixelizar 16bits'
-			'pixelizar 32bits'
+			'pixelizar 16bits',
+			'pixelizar 32bits',
 			'pixelizar 64bits'
 		]
 	
