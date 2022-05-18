@@ -4,6 +4,8 @@ from random import choice
 import disnake
 from disnake.ext import commands
 
+from utils.assets import Emojis as E
+from utils.assets import Colors as C
 
 class Clear(commands.Cog):
 		def __init__(self, bot):
@@ -18,11 +20,15 @@ class Clear(commands.Cog):
 			await inter.response.defer()
 			
 			if amount >= 2001:
-				embed = disnake.Embed(title='<:svTick_Nao:975225649029578782> | eu posso limpar até 2000 mensagens!')
+				embed = disnake.Embed(
+					title=f'{E.error} | eu posso limpar até 2000 mensagens!',
+					color=C.error)
 				await inter.send(embed=embed, delete_after=10.0)
 			
 			elif amount <= 1:
-				embed = disnake.Embed(title='<:svTick_Nao:975225649029578782> | eu só posso limpar a partir de 2 mensagens!')
+				embed = disnake.Embed(
+					title=f'{E.error} | eu só posso limpar a partir de 2 mensagens!',
+					color=C.error)
 				await inter.send(embed=embed, delete_after=10.0)
 				return
 			else:

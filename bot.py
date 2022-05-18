@@ -1,9 +1,11 @@
 import os
+from requests import get
 
 import disnake
 from disnake.ext import commands, tasks
 
 import config
+
 
 os.system('clear')
 

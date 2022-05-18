@@ -22,9 +22,11 @@ def get_game():
 extensions  = [
 	'cogs.adm.Clear',
 	'cogs.basic.Ping',
+	'cogs.basic.Botinfo',
 	'cogs.entertainment.Anime',
 	'cogs.entertainment.Mojis',
 	'cogs.entertainment.Owofy',
+	'cogs.Entertainment',
 	'cogs.entertainment.Rg',
 	'cogs.tools.Color',
 	'cogs.tools.ImageFilter',

@@ -2,7 +2,9 @@ import disnake
 from disnake.ext import commands
 
 import platform
-from config import COWNER
+
+from utils.assets import Emojis as E
+from utils.assets import Colors as C
 
 
 class Botinfo(commands.Cog):
@@ -25,15 +27,15 @@ class Botinfo(commands.Cog):
 :id: | {self.bot.user.id}
 
 **Python:**
-<:python:975497682149863444> | {platform.python_version( )}
-<:disnake:975495299067965471> | {disnake.__version__}
+{E.python_icon} | {platform.python_version( )}
+{E.disnake_incon} | {disnake.__version__}
 
 **Sistema:**
 💻 | {"não identificado" if platform.system() == '' else platform.system()}
-<:arquitetura:975501599633977404> | {platform.architecture()[0]}
+{E.architecture} | {platform.architecture()[0]}
 🌐 | {"não identificado" if platform.node() == '' else platform.node()}
 				""",
-				color=COWNER)
+				color=C.general)
 			
 			#for guild in self.bot.guilds:
 				#print(f"{guild.name}, add por {guild.owner} com {guild.member_count} membros")

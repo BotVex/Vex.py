@@ -69,8 +69,13 @@ class Imagefilter(commands.Cog):
 				filtered_image = img_obj.filter(ImageFilter.UnsharpMask())
 			
 			elif filter == 'borrar':
-				img_obj = Image.open(img).convert('RGB') 
+				img_obj = Image.open(img).convert('RGB')
 				filtered_image = img_obj.filter(ImageFilter.GaussianBlur(radius=10))
+			
+			elif filter == 'pixelizar':
+				img_obj = Image.open(img).convert('RGB')
+				imgSmall = img_obj.resize((32,32),resample=Image.BILINEAR)
+				filtered_image = imgSmall.resize(img_obj.size, Image.NEAREST)
 			else:
 				await inter.send(embed=EB(title='<:unavailable_filter:975888355051044874> | filtro indisponível', color=CERROR))
 				return
@@ -92,7 +97,8 @@ class Imagefilter(commands.Cog):
 			'solarizar',
 			'acizentar',
 			'clareza',
-			'borrar'
+			'borrar',
+			'pixelizar'
 		]
 	
 	
