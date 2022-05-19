@@ -20,7 +20,7 @@ class Imagefilter(commands.Cog):
 	
 	@commands.slash_command(
 		name='imagefilter',
-		description='[🛠️] - eu adiciono efeitos a uma imagem.')
+		description=f'{E.image_emoji} - eu adiciono efeitos a uma imagem.')
 	async def imagefilter(self, inter: disnake.ApplicationCommandInteraction, filter: str, file: disnake.Attachment):
 		await inter.response.defer()
 		

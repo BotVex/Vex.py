@@ -4,3 +4,4 @@ Pillow==9.1.0
 pyowo==1.0.1
 qrcode==7.3.1
 requests==2.27.1
+kaomoji==0.1.0

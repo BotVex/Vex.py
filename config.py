@@ -25,13 +25,10 @@ extensions  = [
 	'cogs.basic.Botinfo',
 	'cogs.entertainment.Anime',
 	'cogs.entertainment.Mojis',
-	'cogs.entertainment.Owofy',
 	'cogs.Entertainment',
-	'cogs.entertainment.Rg',
-	'cogs.tools.Color',
-	'cogs.tools.ImageFilter',
-	'cogs.tools.Qr',
-	'cogs.Owner'
+	'cogs.ImageFilter',
+	'cogs.Owner',
+	'cogs.Tools'
 ]
 
 """

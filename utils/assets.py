@@ -1,7 +1,18 @@
+from random import randint
+
+
 class Colors:
 	success = 0xB0FFA9
 	error = 0xFFA9A9
 	general = 0xFF68C6
+	
+	
+	def RGB2HEX(RGB):
+		return ''.join(f'{i:02X}' for i in RGB)
+	
+	
+	def genRGBtuple():
+		return (randint(0, 255), randint(0, 255), randint(0, 255))
 	
 
 class Emojis:
@@ -14,3 +25,6 @@ class Emojis:
 	architecture = '<:arquitetura:975501599633977404>'
 	disnake_icon = '<:disnake:975495299067965471>'
 	python_icon = '<:python:975497682149863444>'
+	tools_emoji = '🛠️'
+	ioio_emoji = '🪀'
+	image_emoji = '🖼️'
