@@ -28,7 +28,7 @@ class Botinfo(commands.Cog):
 
 **Python:**
 {E.python_icon} | {platform.python_version( )}
-{E.disnake_incon} | {disnake.__version__}
+{E.disnake_icon} | {disnake.__version__}
 
 **Sistema:**
 💻 | {"não identificado" if platform.system() == '' else platform.system()}

@@ -28,7 +28,7 @@ class Imagefilter(commands.Cog):
 		
 		
 		if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
-			await inter.send(embed=EB(title='<:unknown_file:975886833181421661> | formato de arquivo não suportado', color=CERROR))
+			await inter.send(embed=EB(title='<:unknown_file:975886833181421661> | formato de arquivo não suportado', color=C.error))
 			return
 		else:
 			img = BytesIO(await file.read())
@@ -87,7 +87,7 @@ class Imagefilter(commands.Cog):
 				imgSmall = img_obj.resize((64, 64),resample=Image.BILINEAR)
 				filtered_image = imgSmall.resize(img_obj.size, Image.NEAREST)
 			else:
-				await inter.send(embed=EB(title=f'{E.unavailable_filter} | filtro indisponível', color=CERROR))
+				await inter.send(embed=EB(title=f'{E.unavailable_filter} | filtro indisponível', color=C.error))
 				return
 			
 			
