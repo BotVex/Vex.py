@@ -18,7 +18,7 @@ class Tools(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot 
 	
-	
+	"""
 	@commands.slash_command(
 		name='servericon',
 		description=f'{E.tools_emoji} | lhe envio o ícone do servidor.')
@@ -41,50 +41,60 @@ class Tools(commands.Cog):
 		embed.set_image(url=icon)
 		
 		await inter.send(embed=embed)
-	
+	"""
 	
 	@commands.slash_command(
 		name='color',
 		description=f'{E.tools_emoji} | eu gero uma bela cor para você.')
 	async def color(self, inter: disnake.ApplicationCommandInteraction):
-		
-		await inter.response.defer()
-		
-		RGB = C.genRGBtuple()
-		
-		embed = EB(
-			title='informações sobre a cor:',
-			color=int(C.RGB2HEX(RGB), 16))
-		embed.add_field('RGB', value=RGB)
-		embed.add_field('HEX', value='#'+C.RGB2HEX(RGB))
-		
-		color_img_obj = Image.new(mode='RGB', size=(100, 100), color=RGB)
-		color_img_obj.save('data/Color.png', format="png")
-		
-		embed.set_image(file=disnake.File('data/Color.png'))
-		os.remove('data/Color.png')
-		await inter.send(embed=embed)
-	
+		try:
+			await inter.response.defer()
+			
+			RGB = C.genRGBtuple()
+			
+			embed = EB(
+				title='informações sobre a cor:',
+				color=int(C.RGB2HEX(RGB), 16))
+			embed.add_field('RGB', value=RGB)
+			embed.add_field('HEX', value='#'+C.RGB2HEX(RGB))
+			
+			color_img_obj = Image.new(mode='RGB', size=(100, 100), color=RGB)
+			color_img_obj.save('data/Color.png', format="png")
+			
+			embed.set_image(file=disnake.File('data/Color.png'))
+			os.remove('data/Color.png')
+			await inter.send(embed=embed)
+		except:
+			embed = EB(
+				title=f'{E.error} | não foi possivel gerar a cor.',
+				color=C.error)
+			await inter.send(embed=embed)
+			
 	
 	@commands.slash_command(
 		name='qrcode',
 		description=f'{E.tools_emoji} | eu vou gerar um belo qrcode para você.')
 	async def qrcode(self, inter: disnake.ApplicationCommandInteraction, text: str):
-		
-		await inter.response.defer()
-		
-		embed = disnake.Embed(
-			description=f'**{text}**',
-			color=0xFFFFFF)
+		try:
+			await inter.response.defer()
 			
-		qr = qrcode.make(text)
-		qr.save('data/QRcode.png')
-		
-		embed.set_image(file=disnake.File('data/QRcode.png'))
-		
-		os.remove('data/QRcode.png')
-		
-		await inter.send(embed=embed)
+			embed = disnake.Embed(
+				description=f'**{text}**',
+				color=0xFFFFFF)
+				
+			qr = qrcode.make(text)
+			qr.save('data/QRcode.png')
+			
+			embed.set_image(file=disnake.File('data/QRcode.png'))
+			
+			os.remove('data/QRcode.png')
+			
+			await inter.send(embed=embed)
+		except:
+			embed = EB(
+				title=f'{E.error} | não foi possivel gerar o qrcode.',
+				color=C.error)
+			await inter.send(embed=embed)
 	
 	
 def setup(bot):

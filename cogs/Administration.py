@@ -6,7 +6,7 @@ from utils.assets import Emojis as E
 from utils.assets import Colors as C
 
 
-class Clear(commands.Cog):
+class Administration(commands.Cog):
 		def __init__(self, bot):
 			self.bot: commands.Bot = bot
 		
@@ -52,4 +52,4 @@ class Clear(commands.Cog):
 
 
 def setup(bot):
-		bot.add_cog(Clear(bot))
+		bot.add_cog(Administration(bot))
