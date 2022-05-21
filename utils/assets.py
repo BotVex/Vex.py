@@ -2,9 +2,9 @@ from random import randint
 
 
 class Colors:
-	success = 0xB0FFA9
-	error = 0xFFA9A9
-	general = 0xFF68C6
+	success = 0xff30c088
+	error = 0xfff80058
+	general = 0xfff8c0c0
 	
 	
 	def RGB2HEX(RGB):
@@ -25,6 +25,6 @@ class Emojis:
 	architecture = '<:arquitetura:975501599633977404>'
 	disnake_icon = '<:disnake:975495299067965471>'
 	python_icon = '<:python:975497682149863444>'
-	tools_emoji = '🛠️'
-	ioio_emoji = '🪀'
-	image_emoji = '🖼️'
+	tools = '🛠️'
+	entertainment = '🪀'
+	image = '🖼️'

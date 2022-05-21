@@ -2,7 +2,6 @@ import os
 import qrcode
 import requests
 from PIL import Image
-from random import randint as rint
 
 
 import disnake
@@ -45,7 +44,7 @@ class Tools(commands.Cog):
 	
 	@commands.slash_command(
 		name='color',
-		description=f'{E.tools_emoji} | eu gero uma bela cor para você.')
+		description=f'{E.tools} | eu gero uma bela cor para você.')
 	async def color(self, inter: disnake.ApplicationCommandInteraction):
 		try:
 			await inter.response.defer()
@@ -73,13 +72,17 @@ class Tools(commands.Cog):
 	
 	@commands.slash_command(
 		name='qrcode',
-		description=f'{E.tools_emoji} | eu vou gerar um belo qrcode para você.')
+		description=f'{E.tools} | eu vou gerar um belo qrcode para você.',
+		options=[
+			disnake.Option(
+				name='text',
+				description='informe um texto para transformar em qrcode.',
+				required=True)])
 	async def qrcode(self, inter: disnake.ApplicationCommandInteraction, text: str):
+		await inter.response.defer()
 		try:
-			await inter.response.defer()
-			
 			embed = disnake.Embed(
-				description=f'**{text}**',
+				description=f'**{text[0:2000]}**',
 				color=0xFFFFFF)
 				
 			qr = qrcode.make(text)

@@ -13,39 +13,38 @@ EB = disnake.Embed
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
+from utils import dominant_color
+
 
 class Entertainment(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
-		
+		with open('data/animes.json', 'r', encoding='utf8') as animes:
+			animes = json.loads(animes.read())
+		self.animes = animes
+	
+	
 	@commands.slash_command(
-		name='stonks',
-		description=f'{E.image_emoji} | stonks')
-	async def stonks(self, inter: disnake.ApplicationCommandInteraction, user: disnake.Member=None):
+		name='anime',
+		description=f'{E.entertainment} | eu envio uma foto de anime aleatória.')
+	async def anime(self, inter: disnake.ApplicationCommandInteraction):
 		
 		await inter.response.defer()
 		
-		if user == None:
-			user = inter.author
+		random_anime = choice(self.animes)
 		
-		stonks_img = Image.open("data/stonks.jpg")
-		stonks_obj = stonks_img.copy()
-		avatar = user.avatar.with_size(128)
-		avatar_obj = Image.open(BytesIO(await avatar.read()))
-		avatar_obj = avatar_obj.resize((140, 140))
-		stonks_obj.paste(avatar_obj, (83, 45))
+		get_image = requests.get(random_anime).content
+		color = dominant_color(get_image)
 		
-		stonks_obj.save("data/stonked.jpg")
-		file = disnake.File("data/stonked.jpg", filename='stonked.jpg')
-		os.remove("data/stonked.jpg")
-		embed = EB()
-		embed.set_image(file=file)
+		embed = disnake.Embed(color=color)
+		embed.set_image(
+			url=random_anime)
 		await inter.send(embed=embed)
 	
 	
 	@commands.slash_command(
 		name='owo',
-		description=f'{E.ioio_emoji} | eu vou deixar seu texto fofo',
+		description=f'{E.entertainment} | eu vou deixar seu texto fofo.',
 		options=[
 			disnake.Option(
 				name='text',
@@ -61,7 +60,16 @@ class Entertainment(commands.Cog):
 	
 	@commands.slash_command(
 		name='kaomoji',
-		description=f'{E.ioio_emoji} | eu gero um belo kaomoji para você.')
+		description=f'{E.entertainment} | eu gero um belo kaomoji para você.',
+		options=[
+			disnake.Option(
+				name='category',
+				description='selecione uma categoria.',
+				type=disnake.OptionType.string,
+				required=True
+				)
+			]
+		)
 	async def kaomoji(self, inter: disnake.ApplicationCommandInteraction, category: str):
 		
 		await inter.response.defer()

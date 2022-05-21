@@ -25,6 +25,7 @@ class Administration(commands.Cog):
 						)
 				]
 		)
+		@commands.cooldown(1, 5, commands.BucketType.user)
 		@commands.has_permissions(manage_messages=True) 
 		async def clear(self, inter: disnake.ApplicationCommandInteraction, amount: int):
 			await inter.response.defer()
@@ -41,14 +42,6 @@ class Administration(commands.Cog):
 						title=f'{E.error} | não foi possivel apagar as mensagens.',
 						color=C.error)
 					await inter.channel.send(embed=embed)
-		
-		
-		@clear.error
-		async def clear_error(inter: disnake .ApplicationCommandInteraction, error):
-			embed = EB(
-				title=f'{E.error} | algo muito errado aconteceu.',
-				color=C.error)
-			await inter.send(embed=embed)
 
 
 def setup(bot):

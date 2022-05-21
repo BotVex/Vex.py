@@ -1,8 +1,12 @@
 import os
-from requests import get
+from datetime import timedelta
 
 import disnake
 from disnake.ext import commands, tasks
+EB = disnake.Embed
+
+from utils.assets import Emojis as E
+from utils.assets import Colors as C
 
 import config
 
@@ -40,6 +44,51 @@ if __name__ == '__main__':
 	for extension in config.extensions:
 		bot.load_extension(extension)
 		print(f'{extension} loaded')
+
+
+
+@bot.event
+async def on_slash_command(inter: disnake.ApplicationCommandInteraction):
+	
+	print(f'Executed {inter.data.name} command in {inter.guild.name} (ID: {inter.guild.id}) by {inter.author} (ID: {inter.author.id})')
+
+
+@bot.event
+async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, error: Exception):
+	
+	if isinstance(error, commands.CommandOnCooldown):
+			
+			embed = disnake.Embed(
+				title=f'{E.error} | comando em cooldown!',
+				description=f'<@{inter.author.id}>, este comando está em cooldown, você só poderá executá-lo novamente em `{str(timedelta(seconds=error.retry_after)).split(".")[0]}`.',
+				color=C.error)
+				
+			await inter.send(embed=embed, ephemeral=True)
+	
+	elif isinstance(error, commands.NotOwner):
+			
+			embed = disnake.Embed(
+				title=f'{E.error} | apenas pessoas especiais podem usar este comando.',
+				color=C.error)
+			
+			await inter.send(embed=embed, ephemeral=True)
+
+
+	elif isinstance(error, commands.errors.MissingPermissions):
+		
+			embed = EB(
+					title='você não tem as permissões nescessárias para executar este comando!',
+					description='você preciza das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
+					color=C.error)
+			await inter.send(embed=embed, ephemeral=True)
+
+	elif isinstance(error, commands.errors.BotMissingPermissions):
+		
+			embed = EB(
+					title='eu não tem as permissões nescessárias para executar este comando!',
+					description='eu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions),
+					color=C.error)+'`'
+			await inter.send(embed=embed, ephemeral=True)
 
 
 bot.run(config.TOKEN)
