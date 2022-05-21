@@ -9,51 +9,7 @@ from utils.assets import Colors as C
 class Errors(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
-"""
-		
-		@commands.Cog.listener()
-		async def on_command_error(self, ctx, error: Exception):
-			
-			if isinstance(error, commands.NotOwner):
-				
-				embed = disnake.Embed(
-					title='você não é o meu donu :rage:',
-					color=CERROR)
-				
-				await ctx.reply(embed=embed)
-			
-			
-			if isinstance(error, commands.CommandNotFound):
-				
-				embed = disnake.Embed(
-					title='eu não tenho esse comando não :cold_sweat:',
-					color=CERROR)
-				
-				await ctx.reply(embed=embed)
-			
-			
-			if isinstance(error, commands.MissingPermissions):
-				
-				embed = disnake.Embed(
-					title='hmmmmmmmmmmmm', 
-					description=f'{ctx.author.name}, você não tem permissão para executar esse comando :face_with_raised_eyebrow:', 
-					color=CERROR)
-				
-				await ctx.reply(embed=embed)
-			
-			
-			if isinstance(error, commands.CommandOnCooldown):
-				
-				embed = disnake.Embed(
-					title='comando em cooldown!',
-					description=f'{ctx.author.name}, este comando está em cooldown, você só poderá executá-lo novamente em `{str(timedelta(seconds=error.retry_after)).split(".")[0]}`. :cold_sweat:',
-					color=CERROR)
-					
-				await ctx.reply(embed=embed)
-			
 
-
-"""
 	
 	
 	@commands.event
