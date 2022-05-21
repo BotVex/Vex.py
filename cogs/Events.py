@@ -12,13 +12,13 @@ class Errors(commands.Cog):
 
 	
 	
-	@self.event
+	@self.bot.event
 	async def on_slash_command(inter: ApplicationCommandinteraction):
 		
 		print(f'Executed {inter.data.name} command in {inter.guild.name} (ID: {inter.guild.id}) by {inter.author} (ID: {inter.author.id})')
 		
 	
-	@self.event
+	@self.bot.event
 	async def on_slash_command_error(inter: ApplicationCommandinteraction, error: Exception):
 		
 		if isinstance(error, commands.CommandOnCooldown):
