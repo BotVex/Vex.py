@@ -23,7 +23,6 @@ extensions  = [
 	'cogs.adm.Clear',
 	'cogs.basic.Ping',
 	'cogs.entertainment.Anime',
-	'cogs.entertainment.Mojis',
 	'cogs.Entertainment',
 	'cogs.ImageFilter',
 	'cogs.Owner',
