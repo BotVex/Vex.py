@@ -38,7 +38,7 @@ class Clear(commands.Cog):
 					await inter.channel.send(embed=embed)
 			except:
 					embed = EB(
-						title=f'{E.error} | não foi possivel apagar as mensagens, desculpa. (・–・)',
+						title=f'{E.error} | não foi possivel apagar as mensagens.',
 						color=C.error)
 					await inter.channel.send(embed=embed)
 		
@@ -46,7 +46,7 @@ class Clear(commands.Cog):
 		@clear.error
 		async def clear_error(inter: disnake .ApplicationCommandInteraction, error):
 			embed = EB(
-				title=f'{E.error} | algo muito errado aconteceu no comando, desculpe a incoveniência.',
+				title=f'{E.error} | algo muito errado aconteceu.',
 				color=C.error)
 			await inter.send(embed=embed)
 

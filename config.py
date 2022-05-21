@@ -22,7 +22,6 @@ def get_game():
 extensions  = [
 	'cogs.adm.Clear',
 	'cogs.basic.Ping',
-	'cogs.basic.Botinfo',
 	'cogs.entertainment.Anime',
 	'cogs.entertainment.Mojis',
 	'cogs.Entertainment',
