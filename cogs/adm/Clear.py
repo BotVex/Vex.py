@@ -1,11 +1,10 @@
-import json
-from random import choice
-
 import disnake
 from disnake.ext import commands
+EB = disnake.Embed
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
+
 
 class Clear(commands.Cog):
 		def __init__(self, bot):
@@ -13,31 +12,44 @@ class Clear(commands.Cog):
 		
 		
 		@commands.slash_command(
-			name='clear',
-			description='apago uma quantidade específica de mensagens.')
+				name='clear',
+				description='deleto a quantidade de mensagens especificadas.',
+				options=[
+						disnake.Option(
+								name='amount',
+								description='A quantidade de mensagens que serão apagadas. Deve estar entre 2 e 1000.',
+								type=disnake.OptionType.integer,
+								required=True,
+								min_value=2,
+								max_value=1000
+						)
+				]
+		)
 		@commands.has_permissions(manage_messages=True) 
 		async def clear(self, inter: disnake.ApplicationCommandInteraction, amount: int):
 			await inter.response.defer()
 			
-			if amount >= 2001:
-				embed = disnake.Embed(
-					title=f'{E.error} | eu posso limpar até 2000 mensagens!',
-					color=C.error)
-				await inter.send(embed=embed, delete_after=10.0)
-			
-			elif amount <= 1:
-				embed = disnake.Embed(
-					title=f'{E.error} | eu só posso limpar a partir de 2 mensagens!',
-					color=C.error)
-				await inter.send(embed=embed, delete_after=10.0)
-				return
-			else:
-				try:
-					await inter.channel.purge(limit=amount)
-					#embed = disnake.Embed(title=f'<:svTick_sim:975225579479646258> | {amount} mensagens apagadas!')
-					#await inter.send(embed=embed, ephemeral=True, delete_after=30)
-				except:
-					pass
+			try:
+					purged_messages = await inter.channel.purge(limit=amount)
+					embed = EB(
+						title=f'{E.success} | mensagens apagadas!',
+						description=f"**<@{inter.author.id}>** apagou **{len(purged_messages)}** mensagens!",
+						color=C.success)
+					await inter.channel.send(embed=embed)
+			except:
+					embed = EB(
+						title=f'{E.error} | não foi possivel apagar as mensagens, desculpa. (・–・)',
+						color=C.error)
+					await inter.channel.send(embed=embed)
+		
+		
+		@clear.error
+		async def clear_error(inter: disnake .ApplicationCommandInteraction, error):
+			embed = EB(
+				title=f'{E.error} | algo muito errado aconteceu no comando, desculpe a incoveniência.',
+				color=C.error)
+			await inter.send(embed=embed)
+
 
 def setup(bot):
 		bot.add_cog(Clear(bot))

@@ -4,6 +4,8 @@ import requests
 from PIL import Image
 from random import randint as rint
 
+from simpcalc import simpcalc
+
 import disnake
 from disnake.ext import commands
 EB = disnake.Embed

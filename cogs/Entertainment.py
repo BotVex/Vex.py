@@ -45,10 +45,18 @@ class Entertainment(commands.Cog):
 	
 	@commands.slash_command(
 		name='owo',
-		description=f'{E.ioio_emoji} | eu vou deixar seu texto fofo')
+		description=f'{E.ioio_emoji} | eu vou deixar seu texto fofo',
+		options=[
+			disnake.Option(
+				name='text',
+				description='insira um texto para deixá-lo fofo uwu',
+				type=disnake.OptionType.string,
+				required=True)
+			]
+		)
 	async def owo(self, inter: disnake.ApplicationCommandInteraction, *, text: str):
 		await inter.response.defer()
-		await inter.send(owo(str(text)))
+		await inter.send(embed=EB(description=f'**{owo(text[0:4000])}**'))
 	
 	
 	@commands.slash_command(
