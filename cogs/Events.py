@@ -13,13 +13,13 @@ class Errors(commands.Cog):
 	
 	
 	@commands.Cog.listener()
-	async def on_slash_command(inter: ApplicationCommandinteraction):
+	async def on_slash_command(inter: disnake.ApplicationCommandinteraction):
 		
 		print(f'Executed {inter.data.name} command in {inter.guild.name} (ID: {inter.guild.id}) by {inter.author} (ID: {inter.author.id})')
 		
 	
 	@commands.Cog.listener()
-	async def on_slash_command_error(inter: ApplicationCommandinteraction, error: Exception):
+	async def on_slash_command_error(inter: disnake.ApplicationCommandinteraction, error: Exception):
 		
 		if isinstance(error, commands.CommandOnCooldown):
 				
