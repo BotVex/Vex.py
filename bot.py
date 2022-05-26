@@ -89,6 +89,8 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 					description='eu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions),
 					color=C.error)+'`'
 			await inter.send(embed=embed, ephemeral=True)
+	else:
+		print(error)
 
 
 bot.run(config.TOKEN)

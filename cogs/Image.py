@@ -8,113 +8,511 @@ from PIL import Image, ImageOps, ImageFilter
 import disnake
 from disnake.ext import commands
 EB = disnake.Embed
+ACI = disnake.ApplicationCommandInteraction
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
 from utils.imagefilter import Filters as F
 
-class Image(commands.Cog):
+class Image_(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.slash_command(
-		name='imagefilter',
-		description=f'{E.image} | eu adiciono efeitos a uma imagem.')
-	async def imagefilter(self, inter: disnake.ApplicationCommandInteraction, filter: str, file: disnake.Attachment):
-		await inter.response.defer()
-		
-		filter = filter.strip()
-		
-		
-		if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
-			await inter.send(embed=EB(title='<:unknown_file:975886833181421661> | formato de arquivo não suportado', color=C.error))
-			return
-		else:
-			img = BytesIO(await file.read())
-			
-			if filter == 'contraste':
-				img_obj = Image.open(img).convert('RGB')
-				filtered_image = ImageOps.autocontrast(img_obj, cutoff=5, ignore=5)
-			
-			elif filter == 'equalizar':
-				img_obj = Image.open(img).convert('RGB')
-				filtered_image = ImageOps.equalize(img_obj, mask=None)
-			
-			elif filter == 'virar':
-				img_obj = Image.open(img).convert('RGB')
-				filtered_image = ImageOps.flip(img_obj)
-			
-			elif filter == 'espelhar':
-				img_obj = Image.open(img).convert('RGB')
-				filtered_image = ImageOps.mirror(img_obj)
-			
-			elif filter == 'inverter':
-				img_obj = Image.open(img).convert('RGB')
-				filtered_image = ImageOps.invert(img_obj)
-			
-			elif filter == 'posterizar':
-				img_obj = Image.open(img).convert('RGB')
-				filtered_image = ImageOps.posterize(img_obj, 2)
-			
-			elif filter == 'solarizar':
-				img_obj = Image.open(img).convert('RGB')
-			
-			elif filter == 'acizentar':
-				img_obj = Image.open(img).convert('RGB')
-				filtered_image = ImageOps.grayscale(img_obj)
-			
-			elif filter == 'clareza':
-				img_obj = Image.open(img).convert('RGB')
-				filtered_image = img_obj.filter(ImageFilter.UnsharpMask())
-			
-			elif filter == 'borrar':
-				img_obj = Image.open(img).convert('RGB')
-				filtered_image = img_obj.filter(ImageFilter.GaussianBlur(radius=10))
-			
-			elif filter == 'pixelizar 16bits':
-				img_obj = Image.open(img).convert('RGB')
-				imgSmall = img_obj.resize((16, 16),resample=Image.BILINEAR)
-				filtered_image = imgSmall.resize(img_obj.size, Image.NEAREST)
-			
-			elif filter == 'pixelizar 32bits':
-				img_obj = Image.open(img).convert('RGB')
-				imgSmall = img_obj.resize((32,32),resample=Image.BILINEAR)
-				filtered_image = imgSmall.resize(img_obj.size, Image.NEAREST)
-			
-			elif filter == 'pixelizar 64bits':
-				img_obj = Image.open(img).convert('RGB')
-				imgSmall = img_obj.resize((64, 64),resample=Image.BILINEAR)
-				filtered_image = imgSmall.resize(img_obj.size, Image.NEAREST)
-			else:
-				await inter.send(embed=EB(title=f'{E.unavailable_filter} | filtro indisponível', color=C.error))
+	@commands.slash_command()
+	async def image(self, inter: ACI):
+		pass
+	
+	@image.sub_command_group()
+	async def filter(self, inter: ACI):
+		pass
+	
+	@image.sub_command_group()
+	async def fun(self, inter: ACI):
+		pass
+	
+	
+	#autocontrast
+	@filter.sub_command(
+		name='autocontrast',
+		description=f'{E.image} | normalize o contraste da imagem.',
+		options=[
+			disnake.Option(
+				name='file',
+				description='envie uma mídia.',
+				type=disnake.OptionType.attachment,
+				required=True
+				),
+			disnake.Option(
+				name='cutoff',
+				description='porcentagem a remover dos pixels claros e escuros. [0-100]',
+				type=disnake.OptionType.integer,
+				required=False,
+				min_value=0,
+				max_value=100
+				),
+			disnake.Option(
+				name='ignore',
+				description='o valor do pixel a ser ignorado [0-255]',
+				type=disnake.OptionType.integer,
+				required=False,
+				min_value=0,
+				max_value=255
+				),
+			disnake.Option(
+				name='preserve_tone',
+				description='preserva o tom da imagem.',
+				type=disnake.OptionType.boolean,
+				required=False
+				)
+			]
+		)
+	async def autocontrast(
+		self, 
+		inter: ACI,
+		file: disnake.Attachment,
+		cutoff: int=0,
+		ignore: int=None,
+		preserve_tone: bool=False):
+			await inter.response.defer()
+			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
+				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
 				return
-			
-			
-			filtered_image.save(f'data/{file.filename}', format='png')
-			await inter.send(file=disnake.File(f'data/{file.filename}', filename=file.filename))
-			os.remove(f'data/{file.filename}')
-
-	@imagefilter.autocomplete('filter')
-	async def filters_list(self, inter: disnake.ApplicationCommandInteraction, string: str):
-		return [
-			'contraste',
-			'equalizar',
-			'virar',
-			'espelhar',
-			'inverter',
-			'posterizar',
-			'solarizar',
-			'acizentar',
-			'clareza',
-			'borrar',
-			'pixelizar 16bits',
-			'pixelizar 32bits',
-			'pixelizar 64bits'
-		]
+			elif int(file.size) > 4000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+				return
+			else:
+				img = F.autocontrast(await file.read(), cutoff, ignore, preserve_tone=preserve_tone)
+				img.save('data/autocontrast.png', 'png')
+				
+				file = disnake.File('data/autocontrast.png')
+				os.remove('data/autocontrast.png')
+				embed = EB()
+				embed.set_image(file=file)
+				await inter.send(embed=embed)
 	
 	
-	@commands.slash_command(
+	#equalize
+	@filter.sub_command(
+		name='equalize',
+		description=f'{E.image} | cria uma distribuição uniforme de tons de cinza na imagem.',
+		options=[
+			disnake.Option(
+				name='file',
+				description='envie uma mídia.',
+				type=disnake.OptionType.attachment,
+				required=True
+				)
+			]
+		)
+	async def equalize(
+		self, 
+		inter: ACI,
+		file: disnake.Attachment):
+			await inter.response.defer()
+			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
+				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
+				return
+			elif int(file.size) > 4000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+				return
+			else:
+				img = F.equalize(await file.read())
+				img.save('data/equalize.png', 'png')
+				
+				file = disnake.File('data/equalize.png')
+				os.remove('data/equalize.png')
+				embed = EB()
+				embed.set_image(file=file)
+				await inter.send(embed=embed)
+	
+	
+	#flip
+	@filter.sub_command(
+		name='flip',
+		description=f'{E.image} | vire a imagem verticalmente (de cima para baixo).',
+		options=[
+			disnake.Option(
+				name='file',
+				description='envie uma mídia.',
+				type=disnake.OptionType.attachment,
+				required=True
+				)
+			]
+		)
+	async def flip(
+		self, 
+		inter: ACI,
+		file: disnake.Attachment):
+			await inter.response.defer()
+			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
+				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
+				return
+			elif int(file.size) > 4000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+				return
+			else:
+				img = F.flip(await file.read())
+				img.save('data/flip.png', 'png')
+				
+				file = disnake.File('data/flip.png')
+				os.remove('data/flip.png')
+				embed = EB()
+				embed.set_image(file=file)
+				await inter.send(embed=embed)
+	
+	
+	#mirror
+	@filter.sub_command(
+		name='mirror',
+		description=f'{E.image} | vire a imagem horizontalmente (da esquerda para a direita).',
+		options=[
+			disnake.Option(
+				name='file',
+				description='envie uma mídia.',
+				type=disnake.OptionType.attachment,
+				required=True
+				)
+			]
+		)
+	async def mirror(
+		self, 
+		inter: ACI,
+		file: disnake.Attachment):
+			await inter.response.defer()
+			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
+				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
+				return
+			elif int(file.size) > 4000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+				return
+			else:
+				img = F.mirror(await file.read())
+				img.save('data/mirror.png', 'png')
+				
+				file = disnake.File('data/mirror.png')
+				os.remove('data/mirror.png')
+				embed = EB()
+				embed.set_image(file=file)
+				await inter.send(embed=embed)
+	
+	
+	#invert
+	@filter.sub_command(
+		name='invert',
+		description=f'{E.image} | inverta as cores da imagem.',
+		options=[
+			disnake.Option(
+				name='file',
+				description='envie uma mídia.',
+				type=disnake.OptionType.attachment,
+				required=True
+				)
+			]
+		)
+	async def invert(
+		self, 
+		inter: ACI,
+		file: disnake.Attachment):
+			await inter.response.defer()
+			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
+				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
+				return
+			elif int(file.size) > 4000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+				return
+			else:
+				img = F.invert(await file.read())
+				img.save('data/invert.png', 'png')
+				
+				file = disnake.File('data/invert.png')
+				os.remove('data/invert.png')
+				embed = EB()
+				embed.set_image(file=file)
+				await inter.send(embed=embed)
+	
+	
+	#grayscale
+	@filter.sub_command(
+		name='grayscale',
+		description=f'{E.image} | converta a imagem para tons de cinza.',
+		options=[
+			disnake.Option(
+				name='file',
+				description='envie uma mídia.',
+				type=disnake.OptionType.attachment,
+				required=True
+				)
+			]
+		)
+	async def grayscale(
+		self, 
+		inter: ACI,
+		file: disnake.Attachment):
+			await inter.response.defer()
+			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
+				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
+				return
+			elif int(file.size) > 4000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+				return
+			else:
+				img = F.grayscale(await file.read())
+				img.save('data/grayscale.png', 'png')
+				
+				file = disnake.File('data/grayscale.png')
+				os.remove('data/grayscale.png')
+				embed = EB()
+				embed.set_image(file=file)
+				await inter.send(embed=embed)
+	
+	
+	#posterize
+	@filter.sub_command(
+		name='posterize',
+		description=f'{E.image} | reduza o número de bits da imagem.',
+		options=[
+			disnake.Option(
+				name='file',
+				description='envie uma mídia.',
+				type=disnake.OptionType.attachment,
+				required=True
+				),
+			disnake.Option(
+				name='bits',
+				description='o número de bits a serem mantidos. [1-8]',
+				type=disnake.OptionType.integer,
+				required=False,
+				min_value=1,
+				max_value=8
+				)
+			]
+		)
+	async def posterize(
+		self, 
+		inter: ACI,
+		file: disnake.Attachment,
+		bits: int=3):
+			await inter.response.defer()
+			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
+				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
+				return
+			elif int(file.size) > 4000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+				return
+			else:
+				img = F.posterize(await file.read(), bits=bits)
+				img.save('data/posterize.png', 'png')
+				
+				file = disnake.File('data/posterize.png')
+				os.remove('data/posterize.png')
+				embed = EB()
+				embed.set_image(file=file)
+				await inter.send(embed=embed)
+	
+	
+	#solarize
+	@filter.sub_command(
+		name='solarize',
+		description=f'{E.image} | inverta todos os valores de um pixel acima de um limite.',
+		options=[
+			disnake.Option(
+				name='file',
+				description='envie uma mídia.',
+				type=disnake.OptionType.attachment,
+				required=True
+				),
+			disnake.Option(
+				name='threshold',
+				description='todos os pixels acima deste nível de escala de cinza são invertidos. [0-255]',
+				type=disnake.OptionType.integer,
+				required=False,
+				min_value=0,
+				max_value=255
+				)
+			]
+		)
+	async def solarize(
+		self, 
+		inter: ACI,
+		file: disnake.Attachment,
+		threshold: int=20):
+			await inter.response.defer()
+			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
+				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
+				return
+			elif int(file.size) > 4000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+				return
+			else:
+				img = F.solarize(await file.read(), threshold=threshold)
+				img.save('data/solarize.png', 'png')
+				
+				file = disnake.File('data/solarize.png')
+				os.remove('data/solarize.png')
+				embed = EB()
+				embed.set_image(file=file)
+				await inter.send(embed=embed)
+	
+	
+	#unsharp
+	@filter.sub_command(
+		name='unsharp',
+		description=f'{E.image} | nitidez.',
+		options=[
+			disnake.Option(
+				name='file',
+				description='envie uma mídia.',
+				type=disnake.OptionType.attachment,
+				required=True
+				),
+			disnake.Option(
+				name='radius',
+				description='raio de desfoque. [0-100]',
+				type=disnake.OptionType.integer,
+				required=False,
+				min_value=0,
+				max_value=100
+				),
+			disnake.Option(
+				name='percent',
+				description='intensidade. [0-100]',
+				type=disnake.OptionType.integer,
+				required=False,
+				min_value=0,
+				max_value=100
+				),
+			disnake.Option(
+				name='threshold',
+				description='mudança mínima de brilho que será aprimorada. [0-100]',
+				type=disnake.OptionType.integer,
+				required=False,
+				min_value=0,
+				max_value=100
+				)
+			]
+		)
+	async def unsharp(
+		self, 
+		inter: ACI,
+		file: disnake.Attachment,
+		radius: int=0,
+		percent: int=10,
+		threshold: int=3):
+			await inter.response.defer()
+			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
+				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
+				return
+			elif int(file.size) > 4000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+				return
+			else:
+				img = F.unsharp(await file.read(), radius=radius, percent=percent, threshold=threshold)
+				img.save('data/unsharp.png', 'png')
+				
+				file = disnake.File('data/unsharp.png')
+				os.remove('data/unsharp.png')
+				embed = EB()
+				embed.set_image(file=file)
+				await inter.send(embed=embed)
+	
+	
+	#blur
+	@filter.sub_command(
+		name='blur',
+		description=f'{E.image} | desfoca a imagem.',
+		options=[
+			disnake.Option(
+				name='file',
+				description='envie uma mídia.',
+				type=disnake.OptionType.attachment,
+				required=True
+				),
+			disnake.Option(
+				name='intensity',
+				description='intensidade do desfocamento. [0-100]',
+				type=disnake.OptionType.integer,
+				required=False,
+				min_value=0,
+				max_value=100
+				)
+			]
+		)
+	async def blur(
+		self, 
+		inter: ACI,
+		file: disnake.Attachment,
+		intensity: int=10):
+			await inter.response.defer()
+			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
+				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
+				return
+			elif int(file.size) > 4000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+				return
+			else:
+				img = F.gaussianblur(await file.read(), radius=intensity)
+				img.save('data/blur.png', 'png')
+				
+				file = disnake.File('data/blur.png')
+				os.remove('data/blur.png')
+				embed = EB()
+				embed.set_image(file=file)
+				await inter.send(embed=embed)
+	
+	
+	#pixelize
+	@filter.sub_command(
+		name='pixelize',
+		description=f'{E.image} | pixelize a imagem.',
+		options=[
+			disnake.Option(
+				name='file',
+				description='envie uma mídia.',
+				type=disnake.OptionType.attachment,
+				required=True
+				),
+			disnake.Option(
+				name='pixels',
+				description='a quantidade de pixels da imagem. [1-512]',
+				type=disnake.OptionType.integer,
+				required=True,
+				min_value=0,
+				max_value=512
+				),
+			disnake.Option(
+				name='resize',
+				description='manter a imagem no tamanho original?',
+				type=disnake.OptionType.boolean,
+				required=False
+				)
+			]
+		)
+	async def pixelize(
+		self, 
+		inter: ACI,
+		file: disnake.Attachment,
+		pixels: int,
+		resize: bool=True):
+			await inter.response.defer()
+			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
+				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
+				return
+			elif int(file.size) > 4000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+				return
+			else:
+				img = F.pixelize(await file.read(), bits=pixels, resize=resize)
+				img.save('data/pixelize.png', 'png')
+				
+				file = disnake.File('data/pixelize.png')
+				os.remove('data/pixelize.png')
+				embed = EB()
+				embed.set_image(file=file)
+				await inter.send(embed=embed)
+	
+	
+	@fun.sub_command(
 		name='stonks',
 		description=f'{E.image} | faço um meme do stonks com o avatar de algum usuário.',
 		options=[
@@ -122,10 +520,13 @@ class Image(commands.Cog):
 				name='user',
 				description='mencione um usuário.',
 				type=disnake.OptionType.user,
-				required=True)
+				required=False)
 			]
 		)
-	async def stonks(self, inter: disnake.ApplicationCommandInteraction, user: disnake.Member=None):
+	async def stonks(
+		self, 
+		inter: ACI, 
+		user: disnake.Member=None):
 		
 		await inter.response.defer()
 		
@@ -146,6 +547,6 @@ class Image(commands.Cog):
 		embed.set_image(file=file)
 		await inter.send(embed=embed)
 	
-	
+
 def setup(bot):
-	bot.add_cog(Image(bot))
+	bot.add_cog(Image_(bot))

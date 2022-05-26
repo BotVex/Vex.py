@@ -2,9 +2,9 @@ from random import randint
 
 
 class Colors:
-	success = 0xff30c088
-	error = 0xfff80058
-	general = 0xfff8c0c0
+	success = 0x38c48c
+	error   = 0xff045c
+	general = 0xfad4fb
 	
 	
 	def RGB2HEX(RGB):
