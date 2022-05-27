@@ -7,6 +7,7 @@ from PIL import Image
 import disnake
 from disnake.ext import commands
 EB = disnake.Embed
+ACI = disnake.ApplicationCommandInteraction
 
 from utils.assets import Colors as C
 from utils.assets import Emojis as E
@@ -42,10 +43,20 @@ class Tools(commands.Cog):
 		await inter.send(embed=embed)
 	"""
 	
-	@commands.slash_command(
-		name='color',
+	@commands.slash_command(name='tools')
+	async def tools(self, inter: ACI):
+		pass
+	
+	
+	@tools.sub_command_group(name='colors')
+	async def colors(self, inter: ACI):
+		pass
+	
+	
+	@colors.sub_command(
+		name='generate',
 		description=f'{E.tools} | eu gero uma bela cor para você.')
-	async def color(self, inter: disnake.ApplicationCommandInteraction):
+	async def color(self, inter: ACI):
 		try:
 			await inter.response.defer()
 			
@@ -54,8 +65,11 @@ class Tools(commands.Cog):
 			embed = EB(
 				title='informações sobre a cor:',
 				color=int(C.RGB2HEX(RGB), 16))
-			embed.add_field('RGB', value=RGB)
-			embed.add_field('HEX', value='#'+C.RGB2HEX(RGB))
+			embed.add_field('RGB:', value=RGB, inline=False)
+			
+			embed.add_field('HEX:', value='#'+C.RGB2HEX(RGB), inline=False)
+			
+			embed.add_field('HSV:', value=C.RGB2HSVtuple(RGB), inline=False)
 			
 			color_img_obj = Image.new(mode='RGB', size=(100, 100), color=RGB)
 			color_img_obj.save('data/Color.png', format="png")
@@ -65,12 +79,117 @@ class Tools(commands.Cog):
 			await inter.send(embed=embed)
 		except:
 			embed = EB(
-				title=f'{E.error} | não foi possivel gerar a cor.',
+				title=f'{E.error} | não foi #possivel gerar a cor.',
+				color=C.error)
+			await inter.send(embed=embed)
+	
+	
+	@colors.sub_command(
+		name='render_rgb',
+		description=f'{E.tools} | eu vou renderizar uma cor através de um RGB.',
+		options=[
+			disnake.Option(
+				name='r',
+				description='red',
+				type=disnake.OptionType.integer,
+				required=False,
+				min_value=0,
+				max_value=255
+				),
+			disnake.Option(
+				name='g',
+				description='green',
+				type=disnake.OptionType.integer,
+				required=False,
+				min_value=0,
+				max_value=255
+				),
+			disnake.Option(
+				name='b',
+				description='blue',
+				type=disnake.OptionType.integer,
+				required=False,
+				min_value=0,
+				max_value=255
+				)
+			])
+	async def renderRGB(
+		self, 
+		inter: ACI,
+		r: int=0,
+		g: int=0,
+		b: int=0):
+		try:
+			await inter.response.defer()
+			
+			RGB = (r, g, b)
+			
+			embed = EB(
+				title='informações sobre a cor:',
+				color=int(C.RGB2HEX(RGB), 16))
+			embed.add_field('RGB', value=RGB)
+			embed.add_field('HEX', value='#'+C.RGB2HEX(RGB))
+			embed.add_field('HSV:', value=C.RGB2HSVtuple(RGB), inline=False)
+			
+			color_img_obj = Image.new(mode='RGB', size=(100, 100), color=RGB)
+			color_img_obj.save('data/Color.png', format="png")
+			
+			embed.set_image(file=disnake.File('data/Color.png'))
+			os.remove('data/Color.png')
+			await inter.send(embed=embed)
+		except:
+			embed = EB(
+				title=f'{E.error} | não foi possivel renderizar a cor.',
+				color=C.error)
+			await inter.send(embed=embed)
+	
+	
+
+	@colors.sub_command(
+		name='render_hex',
+		description=f'{E.tools} | eu vou renderizar uma cor através de um código hexadecimal.',
+		options=[
+			disnake.Option(
+				name='hex_code',
+				description='o código hexadecimal. (EX: #B12345)',
+				type=disnake.OptionType.string,
+				required=True
+				)
+			])
+	async def renderHEX(
+		self, 
+		inter: ACI,
+		hex_code: str):
+		try:
+			await inter.response.defer()
+			
+			if not hex_code.startswith('#'):
+				hex_code = '#'+hex_code
+			
+			RGB = C.HEX2RGBtuple(hex_code)
+			print(RGB)
+			
+			embed = EB(
+				title='informações sobre a cor:',
+				color=int(C.RGB2HEX(RGB), 16))
+			embed.add_field('RGB', value=RGB)
+			embed.add_field('HEX', value='#'+C.RGB2HEX(RGB)) 
+			embed.add_field('HSV:', value=C.RGB2HSVtuple(RGB), inline=False)
+			
+			color_img_obj = Image.new(mode='RGB', size=(100, 100), color=RGB)
+			color_img_obj.save('data/Color.png', format="png")
+			
+			embed.set_image(file=disnake.File('data/Color.png'))
+			os.remove('data/Color.png')
+			await inter.send(embed=embed)
+		except:
+			embed = EB(
+				title=f'{E.error} | não foi possivel renderizar a cor.',
 				color=C.error)
 			await inter.send(embed=embed)
 			
 	
-	@commands.slash_command(
+	@tools.sub_command(
 		name='qrcode',
 		description=f'{E.tools} | eu vou gerar um belo qrcode para você.',
 		options=[
@@ -78,7 +197,7 @@ class Tools(commands.Cog):
 				name='text',
 				description='informe um texto para transformar em qrcode.',
 				required=True)])
-	async def qrcode(self, inter: disnake.ApplicationCommandInteraction, text: str):
+	async def qrcode(self, inter: ACI, text: str):
 		await inter.response.defer()
 		try:
 			embed = disnake.Embed(

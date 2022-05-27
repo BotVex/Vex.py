@@ -46,6 +46,11 @@ if __name__ == '__main__':
 		print(f'{extension} loaded')
 
 
+@bot.event
+async def on_message(msg: disnake.Message):
+	if int(msg.channel.id) == 967464232021020683:
+		await msg.delete(delay=120.0)
+
 
 @bot.event
 async def on_slash_command(inter: disnake.ApplicationCommandInteraction):

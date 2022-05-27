@@ -1,4 +1,6 @@
 from random import randint
+from PIL import ImageColor
+from colorir import sRGB, HSV
 
 
 class Colors:
@@ -9,6 +11,22 @@ class Colors:
 	
 	def RGB2HEX(RGB):
 		return ''.join(f'{i:02X}' for i in RGB)
+	
+	
+	def HEX2RGBtuple(HEX):
+		return ImageColor.getcolor(HEX, 'RGB')
+	
+	
+	def RGB2HSVtuple(RGB):
+		r, g, b = RGB
+		H, S, V = sRGB(r, g, b).hsv(round_to=1)
+		return H, S, V
+	
+	
+	def HSV2RGBtuple(HSV_):
+		h, s, v = HSV_
+		R, G, B = HSV(h, s, v).sRGB()
+		return R, G, B
 	
 	
 	def genRGBtuple():

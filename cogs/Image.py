@@ -78,12 +78,12 @@ class Image_(commands.Cog):
 			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
 				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
 				return
-			elif int(file.size) > 4000000:
-				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+			elif int(file.size) > 2000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
 				return
 			else:
 				img = F.autocontrast(await file.read(), cutoff, ignore, preserve_tone=preserve_tone)
-				img.save('data/autocontrast.png', 'png')
+				img.save('data/autocontrast.png', 'png', optimize=True, quality=80)
 				
 				file = disnake.File('data/autocontrast.png')
 				os.remove('data/autocontrast.png')
@@ -113,12 +113,12 @@ class Image_(commands.Cog):
 			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
 				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
 				return
-			elif int(file.size) > 4000000:
-				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+			elif int(file.size) > 2000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
 				return
 			else:
 				img = F.equalize(await file.read())
-				img.save('data/equalize.png', 'png')
+				img.save('data/equalize.png', 'png', optimize=True, quality=80)
 				
 				file = disnake.File('data/equalize.png')
 				os.remove('data/equalize.png')
@@ -148,12 +148,12 @@ class Image_(commands.Cog):
 			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
 				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
 				return
-			elif int(file.size) > 4000000:
-				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+			elif int(file.size) > 2000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
 				return
 			else:
 				img = F.flip(await file.read())
-				img.save('data/flip.png', 'png')
+				img.save('data/flip.png', 'png', optimize=True, quality=80)
 				
 				file = disnake.File('data/flip.png')
 				os.remove('data/flip.png')
@@ -183,12 +183,12 @@ class Image_(commands.Cog):
 			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
 				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
 				return
-			elif int(file.size) > 4000000:
-				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+			elif int(file.size) > 2000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
 				return
 			else:
 				img = F.mirror(await file.read())
-				img.save('data/mirror.png', 'png')
+				img.save('data/mirror.png', 'png', optimize=True, quality=80)
 				
 				file = disnake.File('data/mirror.png')
 				os.remove('data/mirror.png')
@@ -218,12 +218,12 @@ class Image_(commands.Cog):
 			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
 				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
 				return
-			elif int(file.size) > 4000000:
-				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+			elif int(file.size) > 2000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
 				return
 			else:
 				img = F.invert(await file.read())
-				img.save('data/invert.png', 'png')
+				img.save('data/invert.png', 'png', optimize=True, quality=80)
 				
 				file = disnake.File('data/invert.png')
 				os.remove('data/invert.png')
@@ -253,12 +253,12 @@ class Image_(commands.Cog):
 			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
 				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
 				return
-			elif int(file.size) > 4000000:
-				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+			elif int(file.size) > 2000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
 				return
 			else:
 				img = F.grayscale(await file.read())
-				img.save('data/grayscale.png', 'png')
+				img.save('data/grayscale.png', 'png', optimize=True, quality=80)
 				
 				file = disnake.File('data/grayscale.png')
 				os.remove('data/grayscale.png')
@@ -297,12 +297,12 @@ class Image_(commands.Cog):
 			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
 				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
 				return
-			elif int(file.size) > 4000000:
-				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+			elif int(file.size) > 2000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
 				return
 			else:
 				img = F.posterize(await file.read(), bits=bits)
-				img.save('data/posterize.png', 'png')
+				img.save('data/posterize.png', 'png', optimize=True, quality=80)
 				
 				file = disnake.File('data/posterize.png')
 				os.remove('data/posterize.png')
@@ -341,12 +341,12 @@ class Image_(commands.Cog):
 			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
 				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
 				return
-			elif int(file.size) > 4000000:
-				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+			elif int(file.size) > 2000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
 				return
 			else:
 				img = F.solarize(await file.read(), threshold=threshold)
-				img.save('data/solarize.png', 'png')
+				img.save('data/solarize.png', 'png', optimize=True, quality=80)
 				
 				file = disnake.File('data/solarize.png')
 				os.remove('data/solarize.png')
@@ -403,12 +403,12 @@ class Image_(commands.Cog):
 			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
 				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
 				return
-			elif int(file.size) > 4000000:
-				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+			elif int(file.size) > 2000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
 				return
 			else:
 				img = F.unsharp(await file.read(), radius=radius, percent=percent, threshold=threshold)
-				img.save('data/unsharp.png', 'png')
+				img.save('data/unsharp.png', 'png', optimize=True, quality=80)
 				
 				file = disnake.File('data/unsharp.png')
 				os.remove('data/unsharp.png')
@@ -447,20 +447,58 @@ class Image_(commands.Cog):
 			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
 				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
 				return
-			elif int(file.size) > 4000000:
-				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+			elif int(file.size) > 2000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
 				return
 			else:
 				img = F.gaussianblur(await file.read(), radius=intensity)
-				img.save('data/blur.png', 'png')
+				img.save('data/blur.png', 'png', optimize=True, quality=80)
 				
 				file = disnake.File('data/blur.png')
 				os.remove('data/blur.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
-	
-	
+				"""	
+	#ascii
+	@filter.sub_command(
+		name='ascii',
+		description=f'{E.image} | converte a imagem em um texto ascii',
+		options=[
+			disnake.Option(
+				name='file',
+				description='envie uma mídia.',
+				type=disnake.OptionType.attachment,
+				required=True
+				),
+			disnake.Option(
+				name='characters',
+				description='caracteres que serão usados para formar a imagem. (EX: .:!?%$@&#)',
+				type=disnake.OptionType.string,
+				required=False
+				)
+			]
+		)
+	async def ascii_(
+		self, 
+		inter: ACI,
+		file: disnake.Attachment,
+		characters: str='.:!?%$@&#'):
+			await inter.response.defer()
+			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
+				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
+				return
+			elif int(file.size) > 2000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
+				return
+			else:
+				ascii_text = F.image2ascii(await file.read(), ascii_chars=characters)
+				
+				with open('data/ascii_art.txt', 'w') as f:
+					f.write(ascii_text)
+				file_ = disnake.File('data/ascii_art.txt')
+				os.remove('data/ascii_art.txt')
+				await inter.send(file=file_)"""
 	#pixelize
 	@filter.sub_command(
 		name='pixelize',
@@ -498,12 +536,12 @@ class Image_(commands.Cog):
 			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
 				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
 				return
-			elif int(file.size) > 4000000:
-				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 4MB', color=C.error))
+			elif int(file.size) > 2000000:
+				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
 				return
 			else:
 				img = F.pixelize(await file.read(), bits=pixels, resize=resize)
-				img.save('data/pixelize.png', 'png')
+				img.save('data/pixelize.png', 'png', optimize=True, quality=80)
 				
 				file = disnake.File('data/pixelize.png')
 				os.remove('data/pixelize.png')

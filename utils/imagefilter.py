@@ -62,5 +62,29 @@ class Filters:
 			return imgSmall.resize(img_obj.size, Image.NEAREST)
 		else:
 			return imgSmall
-			
 	
+	
+	def image2ascii(imagebytes, ascii_chars):
+		
+		image = Image.open(BytesIO(imagebytes))
+		
+		ASCII_CHARS = []
+		for i in ascii_chars:
+			ASCII_CHARS.append(i.replace(' ', ''))
+		new_width = 100
+		
+		width, height = image.size
+		ratio = height/width
+		new_height = int(new_width * ratio)
+		resized_image = image.resize((new_width, new_height))
+		
+		
+		grayscale_image = resized_image.convert("L")
+		
+		pixels = grayscale_image.getdata()
+		characters = "".join([ASCII_CHARS[pixel//25] for pixel in pixels])
+		
+		pixel_count = len(characters)  
+		ascii_image = "\n".join([characters[index:(index+new_width)] for index in range(0, pixel_count, new_width)])
+		
+		return ascii_image
