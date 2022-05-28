@@ -25,7 +25,7 @@ class Owner(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.command(name='owner')
+	@commands.slash_command(name='owner')
 	async def owner(self, inter: ACI):
 		pass
 	
