@@ -37,7 +37,7 @@ class Owner(commands.Cog):
 	
 	#setavatar
 	@set_.sub_command(
-		name='avatar'
+		name='avatar',
 		description='alterar avatar.', 
 		guild_ids=[957509903273046067],
 		options=[
