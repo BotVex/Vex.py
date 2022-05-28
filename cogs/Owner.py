@@ -63,7 +63,7 @@ class Owner(commands.Cog):
 	
 	
 	@set_.sub_command(
-		name='name'
+		name='name',
 		description='alterar nome.', 
 		guild_ids=[957509903273046067],
 		options=[
