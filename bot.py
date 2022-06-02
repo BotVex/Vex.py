@@ -49,7 +49,7 @@ if __name__ == '__main__':
 @bot.event
 async def on_message(msg: disnake.Message):
 	if int(msg.channel.id) == 967464232021020683:
-		await msg.delete(delay=120.0)
+		await msg.delete(delay=30.0)
 
 
 @bot.event
