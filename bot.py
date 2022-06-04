@@ -67,7 +67,7 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 				title=f'{E.error} | comando em cooldown!',
 				description=f'<@{inter.author.id}>, este comando está em cooldown, você só poderá executá-lo novamente em `{str(timedelta(seconds=error.retry_after)).split(".")[0]}`.',
 				color=C.error)
-				
+			embed.set_image(url='https://media.discordapp.net/attachments/965785255321681960/982479233806897242/102_Sem_Titulo_20220604000113.png')
 			await inter.send(embed=embed, ephemeral=True)
 	
 	elif isinstance(error, commands.NotOwner):
