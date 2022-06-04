@@ -10,7 +10,7 @@ class Filters:
 	
 	
 	def equalize(imagebytes, mask=None):
-		img_obj = Image.open(BytesIO(imagebytes))
+		img_obj = Image.open(BytesIO(imagebytes)).convert('RGB')
 		return ImageOps.equalize(img_obj, mask=mask)
 	
 	
