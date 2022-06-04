@@ -95,8 +95,7 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 		
 			embed = EB(
 				title=f'{E.error} | não autorizado!',
-					description='eu não tenho as permissões nescessárias para executar este comando!',
-					description='eu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
+					description='eu não tenho as permissões nescessárias para executar este comando!\n\nEu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
 					color=C.error)
 			embed.set_image(url='https://media.discordapp.net/attachments/965787411865018379/982655404611887104/102_Sem_Titulo_20220604114118.png')
 			await inter.send(embed=embed, ephemeral=True)
