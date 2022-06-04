@@ -36,12 +36,12 @@ class Administration(commands.Cog):
 						title=f'{E.success} | mensagens apagadas!',
 						description=f"**<@{inter.author.id}>** apagou **{len(purged_messages)}** mensagens!",
 						color=C.success)
-					await inter.channel.send(embed=embed)
+					await inter.channel.send(embed=embed, delete_after=15.0)
 			except:
 					embed = EB(
 						title=f'{E.error} | não foi possivel apagar as mensagens.',
 						color=C.error)
-					await inter.channel.send(embed=embed)
+					await inter.channel.send(embed=embed, delete_after=15.0, ephemeral=True)
 
 
 def setup(bot):
