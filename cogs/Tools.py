@@ -36,7 +36,7 @@ class Tools(commands.Cog):
 	
 	@discord.sub_command(
 		name='servericon',
-		description=f'{E.tools_emoji} | lhe envio o ícone do servidor.')
+		description=f'{E.tools} | lhe envio o ícone do servidor.')
 	async def Tools(self, inter: disnake.ApplicationCommandInteraction):
 		await inter.response.defer()
 		
