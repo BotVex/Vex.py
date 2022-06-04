@@ -25,17 +25,17 @@ class Owner(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.slash_command(name='owner')
+	@commands.slash_command(name='owner', guild_ids=[957509903273046067])
 	async def owner(self, inter: ACI):
 		pass
 	
 	
-	@owner.sub_command_group(name='set')
+	@owner.sub_command_group(name='set', guild_ids=[957509903273046067])
 	async def set(self, inter: ACI):
 		pass
 	
 	
-	@owner.sub_command_group(name='cog')
+	@owner.sub_command_group(name='cog', guild_ids=[957509903273046067])
 	async def cog(self, inter: ACI):
 		pass
 	

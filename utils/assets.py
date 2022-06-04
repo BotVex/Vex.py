@@ -46,3 +46,4 @@ class Emojis:
 	tools = '🛠️'
 	entertainment = '🪀'
 	image = '🖼️'
+	administration = '⚙️'

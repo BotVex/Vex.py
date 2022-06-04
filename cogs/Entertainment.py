@@ -11,6 +11,7 @@ kao = Kaomoji()
 import disnake
 from disnake.ext import commands
 EB = disnake.Embed
+ACI = disnake.ApplicationCommandInteraction
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
@@ -25,7 +26,12 @@ class Entertainment(commands.Cog):
 		self.animes = animes
 	
 	
-	@commands.slash_command(
+	@commands.slash_command()
+	async def fun(self, inter: ACI):
+		pass
+	
+	
+	@fun.sub_command(
 		name='anime',
 		description=f'{E.entertainment} | eu envio uma foto de anime aleatória.')
 	@commands.cooldown(1, 15, commands.BucketType.user)
@@ -44,7 +50,7 @@ class Entertainment(commands.Cog):
 		await inter.send(embed=embed)
 	
 	
-	@commands.slash_command(
+	@fun.sub_command(
 		name='owo',
 		description=f'{E.entertainment} | eu vou deixar seu texto fofo.',
 		options=[
@@ -61,7 +67,7 @@ class Entertainment(commands.Cog):
 		await inter.send(embed=EB(description=f'**{owo(text[0:4000])}**'))
 	
 	
-	@commands.slash_command(
+	@fun.sub_command(
 		name='kaomoji',
 		description=f'{E.entertainment} | eu gero um belo kaomoji para você.',
 		options=[
@@ -78,13 +84,15 @@ class Entertainment(commands.Cog):
 		
 		await inter.response.defer()
 		
-		if category == 'indiferença':
+		if category == 'neutral':
 			kaomoji = kao.create('indifference')
-		elif category == 'felicidade':
+		elif category == 'happy':
 			kaomoji = kao.create('joy')
-		elif category == 'amoroso':
+		elif category == 'random':
+			kaomoji = kao.create()
+		elif category == 'love':
 			kaomoji = kao.create('love')
-		elif category == 'tristeza':
+		elif category == 'sad':
 			kaomoji = kao.create('sadness')
 		
 		await inter.send(kaomoji)
@@ -93,10 +101,11 @@ class Entertainment(commands.Cog):
 	@kaomoji.autocomplete('category')
 	async def categories(self, inter: disnake.ApplicationCommandInteraction, string: str):
 		return [
-			'indiferença',
-			'felicidade',
-			'amoroso',
-			'tristeza'
+			'random',
+			'neutral',
+			'happy',
+			'love',
+			'sad'
 			]
 	
 def setup(bot):

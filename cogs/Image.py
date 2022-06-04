@@ -561,6 +561,7 @@ class Image_(commands.Cog):
 				await inter.send(embed=embed)
 	
 	
+	@commands.guild_only()
 	@fun.sub_command(
 		name='stonks',
 		description=f'{E.image} | faço um meme do stonks com o avatar de algum usuário.',

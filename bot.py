@@ -36,7 +36,10 @@ async def on_ready():
 
 @tasks.loop(seconds=15)
 async def status_task():
-	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'ping: {int(round(bot.latency * 1000))}ms'))
+	try:
+		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'ping: {int(round(bot.latency * 1000))}ms'))
+	except OverflowError:
+		pass
 
 
 if __name__ == '__main__':
@@ -54,9 +57,15 @@ async def on_message(msg: disnake.Message):
 @bot.event
 async def on_slash_command(inter: disnake.ApplicationCommandInteraction):
 	
-	print(f"""\ncommand: {inter.data.name}
+	try:
+		print(f"""\ncommand: {inter.data.name}
 guild: {inter.guild.name} ({inter.guild.id})
 author: {inter.author} ({inter.author.id})\n""")
+	except AttributeError:
+		print(f"""\ncommand: {inter.data.name}
+DM COMMAND
+author: {inter.author} ({inter.author.id})\n""")
+		
 
 
 @bot.event
@@ -98,6 +107,16 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 					description='eu não tenho as permissões nescessárias para executar este comando!\n\nEu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
 					color=C.error)
 			embed.set_image(url='https://media.discordapp.net/attachments/965787411865018379/982655404611887104/102_Sem_Titulo_20220604114118.png')
+			await inter.send(embed=embed, ephemeral=True)
+	
+	
+	elif isinstance(error, commands.errors.NoPrivateMessage):
+		
+			embed = EB(
+				title=f'{E.error} | apenas para servidores!',
+					description='este comando só pode ser utilizado em servidores!', 
+					color=C.error) 
+			embed.set_image(url='https://media.discordapp.net/attachments/848181565128835104/982694555029766214/102_Sem_Titulo_20220604141342.png')
 			await inter.send(embed=embed, ephemeral=True)
 	else:
 		print(error)

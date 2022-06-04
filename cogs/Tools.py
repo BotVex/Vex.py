@@ -34,6 +34,7 @@ class Tools(commands.Cog):
 		pass
 	
 	
+	@commands.guild_only()
 	@discord.sub_command(
 		name='servericon',
 		description=f'{E.tools} | lhe envio o ícone do servidor.')
@@ -58,6 +59,7 @@ class Tools(commands.Cog):
 		await inter.send(embed=embed)
 	
 	
+	@commands.guild_only()
 	@discord.sub_command(
 		name='avatar',
 		description=f'{E.tools} | lhe mostro o avatar de um usuário do servidor.',
@@ -73,13 +75,14 @@ class Tools(commands.Cog):
 		self,
 		inter: ACI,
 		user: disnake.Member=None):
+			await inter.response.defer()
 			if user==None:
 				user = inter.author
 			
 			avatar = user.display_avatar
 			
 			embed = EB(
-				title=f'avatar de <@{user.id}>',
+				description=f'**avatar de <@{user.id}>**',
 				color=dominant_color(requests.get(avatar).content))
 			embed.set_image(url=avatar)
 			

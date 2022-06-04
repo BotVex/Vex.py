@@ -11,9 +11,10 @@ class Administration(commands.Cog):
 			self.bot: commands.Bot = bot
 		
 		
+		@commands.guild_only()
 		@commands.slash_command(
 				name='clear',
-				description='deleto a quantidade de mensagens especificadas.',
+				description=f'{E.administration} | deleto a quantidade de mensagens especificadas.',
 				options=[
 						disnake.Option(
 								name='amount',
