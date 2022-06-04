@@ -36,7 +36,7 @@ async def on_ready():
 
 @tasks.loop(seconds=15)
 async def status_task():
-	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'ping: {int(round(bot.latency * 1000)))}ms'
+	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'ping: {int(round(bot.latency * 1000))}ms'))
 
 
 if __name__ == '__main__':
