@@ -5,7 +5,7 @@ from PIL import Image, ImageOps, ImageFilter
 class Filters:
 	
 	def autocontrast(imagebytes, cutoff: int=0, ignore: int=None, mask=None, preserve_tone: bool=False):
-		img_obj = Image.open(BytesIO(imagebytes))
+		img_obj = Image.open(BytesIO(imagebytes)).convert('RGB')
 		return ImageOps.autocontrast(img_obj, cutoff=cutoff, ignore=ignore, mask=mask, preserve_tone=preserve_tone)
 	
 	
