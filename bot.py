@@ -34,10 +34,9 @@ async def on_ready():
 	await channel.send('online')
 
 
-@tasks.loop(seconds=7200)
+@tasks.loop(seconds=15)
 async def status_task():
-	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=config.get_game()))
-	print('changed status task')
+	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'ping: {int(round(bot.latency * 1000)))}ms'
 
 
 if __name__ == '__main__':
@@ -55,7 +54,7 @@ async def on_message(msg: disnake.Message):
 @bot.event
 async def on_slash_command(inter: disnake.ApplicationCommandInteraction):
 	
-	print(f'Executed {inter.data.name} command in {inter.guild.name} (ID: {inter.guild.id}) by {inter.author} (ID: {inter.author.id})')
+	print(f'\ncommand: {inter.data.name}\nguild: {inter.guild.name} ({inter.guild.id})\nauthor: {inter.author} ({inter.author.id})\n')
 
 
 @bot.event
@@ -84,17 +83,21 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 	elif isinstance(error, commands.errors.MissingPermissions):
 		
 			embed = EB(
-					title='você não tem as permissões nescessárias para executar este comando!',
+					title=f'{E.error} | sem permissão!',
+					description='você não tem as permissões nescessárias para executar este comando!',
 					description='você preciza das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
+			embed.set_image(url='https://media.discordapp.net/attachments/965787411865018379/982655404611887104/102_Sem_Titulo_20220604114118.png')
 					color=C.error)
 			await inter.send(embed=embed, ephemeral=True)
 
 	elif isinstance(error, commands.errors.BotMissingPermissions):
 		
 			embed = EB(
-					title='eu não tem as permissões nescessárias para executar este comando!',
-					description='eu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions),
-					color=C.error)+'`'
+				title=f'{E.error} | não autorizado!',
+					description='eu não tenho as permissões nescessárias para executar este comando!',
+					description='eu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
+					color=C.error
+			embed.set_image(url='https://media.discordapp.net/attachments/965787411865018379/982655404611887104/102_Sem_Titulo_20220604114118.png')
 			await inter.send(embed=embed, ephemeral=True)
 	else:
 		print(error)
