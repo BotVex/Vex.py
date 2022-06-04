@@ -49,7 +49,7 @@ class Owner(commands.Cog):
 				)
 			])
 	@commands.is_owner()
-	async def avatar(
+	async def avatar_(
 		self, 
 		inter: ACI, 
 		avatar: disnake.Attachment):
@@ -75,7 +75,7 @@ class Owner(commands.Cog):
 				)
 			])
 	@commands.is_owner()
-	async def name(
+	async def name_(
 		self, 
 		inter: ACI, 
 		name: str):
