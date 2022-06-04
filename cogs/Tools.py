@@ -44,6 +44,7 @@ class Tools(commands.Cog):
 	"""
 	
 	@commands.slash_command(name='tools')
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	async def tools(self, inter: ACI):
 		pass
 	

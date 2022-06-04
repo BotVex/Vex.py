@@ -1,6 +1,6 @@
 import json
 import requests
-from utils import dominant_color
+from utils.dominant_color import dominant_color
 
 import disnake
 from disnake.ext import commands
@@ -19,7 +19,8 @@ class Anime(commands.Cog):
 		@commands.slash_command(
 			name='anime',
 			description='[🪀] - eu envio uma foto de anime aleatória.')
-		async def anime(self, ctx: disnake.ApplicationCommandInteraction):
+		@commands.cooldown(1, 7, commands.BucketType.user)
+		async def anime(self, inter: disnake.ApplicationCommandInteraction):
 			
 			await ctx.response.defer()
 			
@@ -31,7 +32,7 @@ class Anime(commands.Cog):
 			embed = disnake.Embed(color=color)
 			embed.set_image(
 				url=random_anime)
-			await ctx.send(embed=embed)
+			await inter.send(embed=embed)
 
 
 def setup(bot):

@@ -13,7 +13,7 @@ EB = disnake.Embed
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
-from utils import dominant_color
+from utils.dominant_color import dominant_color
 
 
 class Entertainment(commands.Cog):
@@ -27,7 +27,8 @@ class Entertainment(commands.Cog):
 	@commands.slash_command(
 		name='anime',
 		description=f'{E.entertainment} | eu envio uma foto de anime aleatória.')
-	async def anime(self, inter: disnake.ApplicationCommandInteraction):
+	@commands.cooldown(1, 7, commands.BucketType.user)
+	async def anime_(self, inter: disnake.ApplicationCommandInteraction):
 		
 		await inter.response.defer()
 		
@@ -53,6 +54,7 @@ class Entertainment(commands.Cog):
 				required=True)
 			]
 		)
+	@commands.cooldown(1, 5, commands.BucketType.user)
 	async def owo(self, inter: disnake.ApplicationCommandInteraction, *, text: str):
 		await inter.response.defer()
 		await inter.send(embed=EB(description=f'**{owo(text[0:4000])}**'))
@@ -70,6 +72,7 @@ class Entertainment(commands.Cog):
 				)
 			]
 		)
+	@commands.cooldown(1, 5, commands.BucketType.user)
 	async def kaomoji(self, inter: disnake.ApplicationCommandInteraction, category: str):
 		
 		await inter.response.defer()

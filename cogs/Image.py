@@ -20,6 +20,7 @@ class Image_(commands.Cog):
 	
 	
 	@commands.slash_command()
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def image(self, inter: ACI):
 		pass
 	
