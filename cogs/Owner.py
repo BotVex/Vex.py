@@ -31,12 +31,12 @@ class Owner(commands.Cog):
 	
 	
 	@owner.sub_command_group(name='set')
-	async def set_(self, inter: ACI):
+	async def set(self, inter: ACI):
 		pass
 	
 	
 	#setavatar
-	@set_.sub_command(
+	@set.sub_command(
 		name='avatar',
 		description='alterar avatar.', 
 		guild_ids=[957509903273046067],
@@ -49,47 +49,23 @@ class Owner(commands.Cog):
 				)
 			])
 	@commands.is_owner()
-	async def avatar_(
+	async def avatar(
 		self, 
 		inter: ACI, 
-		avatar: disnake.Attachment):
+		file: disnake.Attachment):
 		await inter.response.defer()
 		
+		
 		try:
-			await self.bot.user.edit(avatar=await avatar.read())
+			await self.bot.user.edit(avatar=await file.read())
 			await inter.send(embed=EB(title='<:svTick_sim:975225579479646258> | avatar alterado!'))
 		except:
 			await inter.send(embed=EB(title=f'<:svTick_Nao:975225649029578782> | falha ao alterar o avatar'))
 	
 	
-	@set_.sub_command(
-		name='name',
-		description='alterar nome.', 
-		guild_ids=[957509903273046067],
-		options=[
-			disnake.Option(
-				name='text',
-				description='digite o nome.',
-				type=disnake.OptionType.string,
-				required=True
-				)
-			])
-	@commands.is_owner()
-	async def name_(
-		self, 
-		inter: ACI, 
-		name: str):
-		await inter.response.defer()
-		
-		try:
-			await self.bot.user.edit(username=text)
-			await inter.send(embed=EB(title='<:svTick_sim:975225579479646258> | nome alterado!'))
-		except:
-			await inter.send(embed=EB(title=f'<:svTick_Nao:975225649029578782> | falha ao alterar o nome'))
-	
 	
 	#restart
-	@commands.slash_command(
+	@owner.sub_command(
 		description='owner command', 
 		guild_ids=[957509903273046067])
 	@commands.is_owner()
@@ -100,7 +76,7 @@ class Owner(commands.Cog):
 		_restart()
 	
 	
-	@commands.slash_command(
+	@owner.sub_command(
 		description='owner command', 
 		guild_ids=[957509903273046067])
 	@commands.is_owner()
