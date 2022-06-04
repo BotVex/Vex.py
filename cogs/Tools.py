@@ -44,7 +44,6 @@ class Tools(commands.Cog):
 	"""
 	
 	@commands.slash_command(name='tools')
-	@commands.cooldown(1, 7, commands.BucketType.user)
 	async def tools(self, inter: ACI):
 		pass
 	
@@ -57,6 +56,7 @@ class Tools(commands.Cog):
 	@colors.sub_command(
 		name='generate',
 		description=f'{E.tools} | eu gero uma bela cor para você.')
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	async def color(self, inter: ACI):
 		try:
 			await inter.response.defer()
@@ -114,6 +114,7 @@ class Tools(commands.Cog):
 				max_value=255
 				)
 			])
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	async def renderRGB(
 		self, 
 		inter: ACI,
@@ -157,6 +158,7 @@ class Tools(commands.Cog):
 				required=True
 				)
 			])
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	async def renderHEX(
 		self, 
 		inter: ACI,
@@ -198,6 +200,7 @@ class Tools(commands.Cog):
 				name='text',
 				description='informe um texto para transformar em qrcode.',
 				required=True)])
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	async def qrcode(self, inter: ACI, text: str):
 		await inter.response.defer()
 		try:

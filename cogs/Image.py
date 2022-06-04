@@ -20,7 +20,6 @@ class Image_(commands.Cog):
 	
 	
 	@commands.slash_command()
-	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def image(self, inter: ACI):
 		pass
 	
@@ -68,6 +67,7 @@ class Image_(commands.Cog):
 				)
 			]
 		)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def autocontrast(
 		self, 
 		inter: ACI,
@@ -106,6 +106,7 @@ class Image_(commands.Cog):
 				)
 			]
 		)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def equalize(
 		self, 
 		inter: ACI,
@@ -141,6 +142,7 @@ class Image_(commands.Cog):
 				)
 			]
 		)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def flip(
 		self, 
 		inter: ACI,
@@ -176,6 +178,7 @@ class Image_(commands.Cog):
 				)
 			]
 		)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def mirror(
 		self, 
 		inter: ACI,
@@ -211,6 +214,7 @@ class Image_(commands.Cog):
 				)
 			]
 		)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def invert(
 		self, 
 		inter: ACI,
@@ -246,6 +250,7 @@ class Image_(commands.Cog):
 				)
 			]
 		)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def grayscale(
 		self, 
 		inter: ACI,
@@ -289,6 +294,7 @@ class Image_(commands.Cog):
 				)
 			]
 		)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def posterize(
 		self, 
 		inter: ACI,
@@ -333,6 +339,7 @@ class Image_(commands.Cog):
 				)
 			]
 		)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def solarize(
 		self, 
 		inter: ACI,
@@ -393,6 +400,7 @@ class Image_(commands.Cog):
 				)
 			]
 		)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def unsharp(
 		self, 
 		inter: ACI,
@@ -439,6 +447,7 @@ class Image_(commands.Cog):
 				)
 			]
 		)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def blur(
 		self, 
 		inter: ACI,
@@ -527,6 +536,7 @@ class Image_(commands.Cog):
 				)
 			]
 		)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def pixelize(
 		self, 
 		inter: ACI,
@@ -562,6 +572,7 @@ class Image_(commands.Cog):
 				required=False)
 			]
 		)
+	@commands.cooldown(1, 10, commands.BucketType.user)	
 	async def stonks(
 		self, 
 		inter: ACI, 

@@ -1,5 +1,6 @@
 import os
 import json
+import requests
 from pyowo import owo
 from PIL import Image
 from io import BytesIO
