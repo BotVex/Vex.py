@@ -68,14 +68,16 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 				description=f'<@{inter.author.id}>, este comando está em cooldown, você só poderá executá-lo novamente em `{str(timedelta(seconds=error.retry_after)).split(".")[0]}`.',
 				color=C.error)
 			embed.set_image(url='https://media.discordapp.net/attachments/965785255321681960/982479233806897242/102_Sem_Titulo_20220604000113.png')
+			embed.set_footer(text='você está executando comandos rapidamente!')
 			await inter.send(embed=embed, ephemeral=True)
 	
 	elif isinstance(error, commands.NotOwner):
 			
 			embed = disnake.Embed(
-				title=f'{E.error} | apenas pessoas especiais podem usar este comando.',
+				title=f'{E.error} | Não desenvolvedor!',
+				description='apenas pessoas especiais podem usar este comando.',
 				color=C.error)
-			
+			embed.set_image(url='https://media.discordapp.net/attachments/965787411865018379/982483656595611688/102_Sem_Titulo_20220604001852.png')
 			await inter.send(embed=embed, ephemeral=True)
 
 

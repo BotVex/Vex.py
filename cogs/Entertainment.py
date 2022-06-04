@@ -28,7 +28,7 @@ class Entertainment(commands.Cog):
 	@commands.slash_command(
 		name='anime',
 		description=f'{E.entertainment} | eu envio uma foto de anime aleatória.')
-	@commands.cooldown(1, 7, commands.BucketType.user)
+	@commands.cooldown(1, 15, commands.BucketType.user)
 	async def anime_(self, inter: disnake.ApplicationCommandInteraction):
 		
 		await inter.response.defer()
