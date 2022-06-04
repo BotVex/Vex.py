@@ -18,8 +18,23 @@ class Tools(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot 
 	
-	"""
-	@commands.slash_command(
+	
+	@commands.slash_command(name='tools')
+	async def tools(self, inter: ACI):
+		pass
+	
+	
+	@tools.sub_command_group(name='colors')
+	async def colors(self, inter: ACI):
+		pass
+	
+	
+	@tools.sub_command_group(name='discord')
+	async def discord(self, inter: ACI):
+		pass
+	
+	
+	@discord.sub_command(
 		name='servericon',
 		description=f'{E.tools_emoji} | lhe envio o ícone do servidor.')
 	async def Tools(self, inter: disnake.ApplicationCommandInteraction):
@@ -41,16 +56,34 @@ class Tools(commands.Cog):
 		embed.set_image(url=icon)
 		
 		await inter.send(embed=embed)
-	"""
-	
-	@commands.slash_command(name='tools')
-	async def tools(self, inter: ACI):
-		pass
 	
 	
-	@tools.sub_command_group(name='colors')
-	async def colors(self, inter: ACI):
-		pass
+	@discord.sub_command(
+		name='avatar',
+		description=f'{E.tools} | lhe mostro o avatar de um usuário do servidor.',
+		option=[
+			disnake.Option(
+				name='user',
+				description='selecione um usuário.',
+				type=disnake.OptionType.user,
+				required=False
+				)
+			])
+	async def avatar(
+		self,
+		inter: ACI,
+		user: disnake.Member=None):
+			if user==None:
+				user = inter.author
+			
+			avatar = user.display_avatar
+			
+			embed = EB(
+				title=f'avatar de <@{user.id}>',
+				color=dominant_color(requests.get(avatar).content))
+			embed.set_image(url=avatar)
+			
+			await inter.send(embed=embed)
 	
 	
 	@colors.sub_command(

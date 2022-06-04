@@ -35,6 +35,11 @@ class Owner(commands.Cog):
 		pass
 	
 	
+	@owner.sub_command_group(name='cog')
+	async def cog(self, inter: ACI):
+		pass
+	
+	
 	#setavatar
 	@set.sub_command(
 		name='avatar',
@@ -80,17 +85,18 @@ class Owner(commands.Cog):
 		description='owner command', 
 		guild_ids=[957509903273046067])
 	@commands.is_owner()
-	async def push(self, inter: disnake.ApplicationCommandInteraction):
+	async def push(self, inter: disnake.ApplicationCommandInteraction, commit_text: str='a'):
 		await inter.response.defer()
 		
 		try:
-			os.system('git add . && git commit -am "a" && git push heroku master')
+			os.system(f'git add . && git commit -am "{commit_text}" && git push heroku master')
 			await inter.send('susseso')
+			os.system('^Z')
 		except:
 			await inter.send('erro')
 	
 	#load
-	@commands.slash_command(
+	@cog.sub_command(
 		description='owner command', 
 		guild_ids=[957509903273046067])
 	@commands.is_owner()
@@ -108,7 +114,7 @@ class Owner(commands.Cog):
 	
 	
 	#unload
-	@commands.slash_command(
+	@cog.sub_command(
 		description='owner command', 
 		guild_ids=[957509903273046067])
 	@commands.is_owner()
@@ -126,7 +132,7 @@ class Owner(commands.Cog):
 	
 	
 	#reload
-	@commands.slash_command(
+	@cog.sub_command(
 		description='owner command', 
 		guild_ids=[957509903273046067])
 	@commands.is_owner()
