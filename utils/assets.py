@@ -43,6 +43,7 @@ class Emojis:
 	architecture = '<:arquitetura:975501599633977404> | '
 	disnake_icon = '<:disnake:975495299067965471> | '
 	python_icon = '<:python:975497682149863444> | '
+	botTag = '<:BOT:975225765836767252>'
 	tools = '🛠️ | '
 	entertainment = '🪀 | '
 	image = '🖼️ | '

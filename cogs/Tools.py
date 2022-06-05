@@ -42,8 +42,8 @@ class Tools(commands.Cog):
 		name='servericon',
 		description=f'{E.tools}Obtém o ícone do servidor.')
 	async def servericon(
-	  self, 
-	  inter: ACI):
+		self, 
+		inter: ACI):
 		await inter.response.defer()
 		
 		if inter.guild.icon == None:
@@ -123,6 +123,88 @@ class Tools(commands.Cog):
 			await inter.send(embed=embed)
 	
 	
+	@commands.guild_only()
+	@commands.cooldown(1, 7, commands.BucketType.user)
+	@discord.sub_command(
+		name='userinfo',
+		description='Obtém informações de um usuário do servidor.',
+		options=[
+			disnake.Option(
+				name='user',
+				description='Selecione um usuário.',
+				type=disnake.OptionType.user,
+				required=False)
+			])
+	async def userinfo(
+		self, 
+		inter: ACI, 
+		user: disnake.Member=None):
+			if user is None:
+					user = inter.author
+			
+			if user.bot is True:
+				name = f'{user.name} {E.botTag}'
+			else:
+				name= f'{user.name}'
+			
+			if user.nick is None:
+				nick = name 
+			else: 
+				nick = user.nick
+				#nick = f'{nick} {E.botTag}'
+			
+			id = f'`{user.id}`'
+			status = f'`{user.status}`' 
+	
+			voice_state = 'Não está em call' if not user.voice else user.voice.channel
+			voice = f'`{voice_state}`'
+			toprole = f'{user.top_role.name}'
+			if toprole == '@everyone':
+					toprole = 'Não possui cargo'
+			else:
+				toprole = f'<@&{user.top_role.id}>'
+			
+			roles = ' '.join([r.mention for r in user.roles][1:])
+			
+			avatar = f'{user.display_avatar}'
+			embed = disnake.Embed(
+					title=f'Informações de {name}:', 
+					color=user.colour
+					)
+			embed.set_thumbnail(
+					url=avatar
+					)
+			embed.add_field(
+					name='Nick:',
+					value=nick,
+					inline=True
+					)
+			embed.add_field(
+					name='ID:',
+					value=id,
+					inline=True
+					)
+			embed.add_field(
+					name='Em call em:',
+					value=voice,
+					inline=False
+					)
+			embed.add_field(
+					name=f'Cargos - ({len(user.roles)-1}):',
+					value=roles,
+					inline=False
+					)
+			embed.add_field(
+					name='Maior cargo:',
+					value=toprole,
+					inline=False
+					)
+			user_fetch = await self.bot.fetch_user(user.id)
+			if user_fetch.banner != None:
+				embed.set_image(url=user_fetch.banner)
+			await inter.send(embed=embed)
+
+
 	#generate
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@colors.sub_command(
@@ -144,7 +226,7 @@ class Tools(commands.Cog):
 			embed.add_field('HSV:', value=C.RGB2HSVtuple(RGB), inline=False)
 			
 			color_img_obj = Image.new(mode='RGB', size=(100, 100), color=RGB)
-			color_img_obj.save('data/temp/Color.png', format="png")
+			color_img_obj.save('data/temp/Color.png', format='png')
 			
 			embed.set_image(file=disnake.File('data/temp/Color.png'))
 			os.remove('data/temp/Color.png')
@@ -206,7 +288,7 @@ class Tools(commands.Cog):
 			embed.add_field('HSV:', value=C.RGB2HSVtuple(RGB), inline=False)
 			
 			color_img_obj = Image.new(mode='RGB', size=(100, 100), color=RGB)
-			color_img_obj.save('data/temp/Color.png', format="png")
+			color_img_obj.save('data/temp/Color.png', format='png')
 			
 			embed.set_image(file=disnake.File('data/temp/Color.png'))
 			os.remove('data/temp/Color.png')
@@ -252,7 +334,7 @@ class Tools(commands.Cog):
 			embed.add_field('HSV:', value=C.RGB2HSVtuple(RGB), inline=False)
 			
 			color_img_obj = Image.new(mode='RGB', size=(100, 100), color=RGB)
-			color_img_obj.save('data/temp/Color.png', format="png")
+			color_img_obj.save('data/temp/Color.png', format='png')
 			
 			embed.set_image(file=disnake.File('data/temp/Color.png'))
 			os.remove('data/temp/Color.png')
