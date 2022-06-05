@@ -25,17 +25,17 @@ class Owner(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.slash_command(name='owner', guild_ids=guilds_ids)
+	@commands.slash_command(name='owner', guild_ids=guild_ids)
 	async def owner(self, inter: ACI):
 		pass
 	
 	
-	@owner.sub_command_group(name='set', guild_ids=guilds_ids)
+	@owner.sub_command_group(name='set', guild_ids=guild_ids)
 	async def set(self, inter: ACI):
 		pass
 	
 	
-	@owner.sub_command_group(name='cog', guild_ids=guilds_ids)
+	@owner.sub_command_group(name='cog', guild_ids=guild_ids)
 	async def cog(self, inter: ACI):
 		pass
 	
@@ -44,7 +44,7 @@ class Owner(commands.Cog):
 	@set.sub_command(
 		name='avatar', 
 		description=f'{E.owner}Changes bot avatar.', 
-		guild_ids=guilds_ids,
+		guild_ids=guild_ids,
 		options=[
 			disnake.Option(
 				name='file',
@@ -65,7 +65,7 @@ class Owner(commands.Cog):
 			await self.bot.user.edit(avatar=await file.read())
 			
 			embed = EB(
-				title=f'{E.success}Avatar alterado!'
+				title=f'{E.success}Avatar alterado!',
 				color=C.success)
 			
 			await inter.send(embed=embed)
@@ -80,22 +80,22 @@ class Owner(commands.Cog):
 	#restart
 	@owner.sub_command(
 		description=f'{E.owner}Restart the bot', 
-		guild_ids=guilds_ids)
+		guild_ids=guild_ids)
 	@commands.is_owner()
 	async def restart(
 		self, 
 	inter: ACI):
 		await inter.response.defer()
 		
-		await msg = inter.send('restarting...')
-		await msg.delete(delay=2.0)
+		await inter.send('restarting...')
+		#await msg.delete(delay=2.0)
 		_restart()
 	
 	
 	#load
 	@cog.sub_command(
 		description=f'{E.owner}Loads a specific bot cog.', 
-		guild_ids=guilds_ids,
+		guild_ids=guild_ids,
 		options=[
 			disnake.Option(
 				name='cog',
@@ -141,7 +141,7 @@ class Owner(commands.Cog):
 	#unload
 	@cog.sub_command(
 		description=f'{E.owner}Unloads a specific bot cog.', 
-		guild_ids=guilds_ids,
+		guild_ids=guild_ids,
 		options=[
 			disnake.Option(
 				name='cog',
@@ -187,7 +187,7 @@ class Owner(commands.Cog):
 	#reload
 	@cog.sub_command(
 		description=f'{E.owner}Reloads a specific bot cog.', 
-		guild_ids=guilds_ids,
+		guild_ids=guild_ids,
 		options=[
 			disnake.Option(
 				name='cog',
@@ -197,7 +197,7 @@ class Owner(commands.Cog):
 				)
 			])
 	@commands.is_owner()
-	async def unload(
+	async def reload(
 		self, 
 		inter: ACI, 
 		cog: str):
@@ -220,7 +220,7 @@ class Owner(commands.Cog):
 		await inter.send(embed=embed)
 	
 	
-	@unload.autocomplete('cog')
+	@reload.autocomplete('cog')
 	async def cog_list(self, inter: disnake.ApplicationCommandInteraction, string: str):
 		
 		extensions_list = []

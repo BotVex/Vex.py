@@ -73,9 +73,9 @@ class Tools(commands.Cog):
 	async def banner(self, inter: disnake.ApplicationCommandInteraction):
 		await inter.response.defer()
 		
-		if inter.guild.icon == None:
+		if inter.guild.banner == None:
 			no_icon = True
-			icon = 'https://media.discordapp.net/attachments/845865181283352616/976544576640794624/9152fdef6eda843249ed83a5606fa745279afbae7681b1b33a8f1b43746cdb99_3.jpg'
+			icon = MediaUrl.noguildicon
 		else:
 			no_icon = False
 			icon = inter.guild.icon
@@ -84,7 +84,7 @@ class Tools(commands.Cog):
 		
 		embed = EB(
 			title=inter.guild.name,
-			description='' if no_icon == False else 'como o servidor não possuí um ícone, eu decidi te mostrar essa bela imagem.',
+			description='' if no_icon == False else 'Como o servidor não possuí um baner, eu decidi te mostrar essa bela imagem.',
 			color=color)
 		embed.set_image(url=icon)
 		
@@ -129,8 +129,8 @@ class Tools(commands.Cog):
 		name='generate',
 		description=f'{E.tools}Gera uma cor.')
 	async def color(self, inter: ACI):
+		await inter.response.defer()
 		try:
-			await inter.response.defer()
 			
 			RGB = C.genRGBtuple()
 			
@@ -193,8 +193,8 @@ class Tools(commands.Cog):
 		r: int=0,
 		g: int=0,
 		b: int=0):
+		await inter.response.defer()
 		try:
-			await inter.response.defer()
 			
 			RGB = (r, g, b)
 			
@@ -235,8 +235,8 @@ class Tools(commands.Cog):
 		self, 
 		inter: ACI,
 		hex_code: str):
+		await inter.response.defer()
 		try:
-			await inter.response.defer()
 			
 			if not hex_code.startswith('#'):
 				hex_code = '#'+hex_code

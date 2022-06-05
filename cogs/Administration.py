@@ -1,6 +1,7 @@
 import disnake
 from disnake.ext import commands
 EB = disnake.Embed
+ACI = disnake.ApplicationCommandInteraction
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
@@ -11,9 +12,9 @@ class Administration(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.slash_command(name='administration'):
-		async def administration(self, inter: ACI):
-			pass
+	@commands.slash_command(name='administration')
+	async def administration(self, inter: ACI):
+		pass
 	
 	
 	#clear
@@ -64,7 +65,7 @@ class Administration(commands.Cog):
 						description='O usuário a ser quicado.',
 						type=disnake.OptionType.user,
 						required=True
-				)
+				),
 				disnake.Option(
 						name='reason',
 						description='O motivo pelo qual o usuário está sendo quicado.',
@@ -90,7 +91,7 @@ class Administration(commands.Cog):
 					try:
 							embed = EB(
 									title=f'{E.success} Usuário quicado!',
-									description=f'**<@{member}>** foi quicado por **<@{inter.author}>**!',
+									description=f'**<@{member.id}>** foi quicado por **<@{inter.id}>**!',
 									color=C.success)
 							embed.add_field(
 									name='Motivo:',
@@ -105,7 +106,7 @@ class Administration(commands.Cog):
 					except:
 							embed = EB(
 									title=f'{E.error}Erro!',
-									description=f'Ocorreu um erro ao tentar quicar o usuário. Certifique-se de que meu cargo estejam acima dos cargos de <@{member}> e tente novamente.',
+									description=f'Ocorreu um erro ao tentar quicar o usuário. Certifique-se de que meu cargo estejam acima dos cargos de <@{member.id}> e tente novamente.',
 									color=C.error)
 							await inter.send(embed=embed, ephemeral=True)
 	
@@ -143,13 +144,13 @@ class Administration(commands.Cog):
 					await member.edit(nick=nickname)
 					embed = EB(
 							title=f'{E.success}nick alterado!',
-							description=f'O novo nick de **<@{member}>** é **`{nickname}`**!',
+							description=f'Nick alterado para **`{nickname}`**!',
 							color=C.success)
 					await inter.send(embed=embed)
 			except:
 					embed = EB(
 							title=f'{E.error}Erro!',
-							description=f'Ocorreu um erro ao tentar alterar o nick do usuário. Certifique-se de que meu cargo esteja acima do cargo de <@{member}> e tente novamente.',
+							description=f'Ocorreu um erro ao tentar alterar o nick do usuário. Certifique-se de que meu cargo esteja acima do cargo de <@{member.id}> e tente novamente.',
 							color=C.error)
 					await inter.send(embed=embed, ephemeral=True)
 	
@@ -178,7 +179,7 @@ class Administration(commands.Cog):
 	)
 	async def ban(
 		self, 
-		interaction: ACI, 
+		inter: ACI, 
 		user: disnake.User,
 		reason: str='Motivo não informado.'):
 			
@@ -193,7 +194,7 @@ class Administration(commands.Cog):
 					else:
 							embed = EB(
 									title='Usuário banido!',
-									description=f'**<@{member}>** foi banido por **<@{inter.author}>**!',
+									description=f'**<@{member.id}>** foi banido por **<@{inter.id}>**!',
 									color=C.success)
 							embed.add_field(
 									name='Motivo:',
@@ -207,7 +208,7 @@ class Administration(commands.Cog):
 			except:
 					embed = EB(
 							title=f'{E.error}Erro!',
-							description=f'Ocorreu um erro ao tentar banir o usuário. Certifique-se de que meu cargo esteja acima do cargo de <@{member}> e tente novamente.',
+							description=f'Ocorreu um erro ao tentar banir o usuário. Certifique-se de que meu cargo esteja acima do cargo de <@{member.id}> e tente novamente.',
 							color=C.error)
 					await inter.send(embed=embed, ephemeral=True)
 	
@@ -223,7 +224,7 @@ class Administration(commands.Cog):
 					disnake.Option(
 							name='user_id',
 							description='O id do usuário a ser banido.',
-							type=disnake.OptionType.integer,
+							type=disnake.OptionType.string,
 							required=True
 					),
 					disnake.Option(
@@ -236,16 +237,16 @@ class Administration(commands.Cog):
 	)
 	async def hackban(
 		self, 
-		interaction: ACI, 
-		user_id: int,
+		inter: ACI, 
+		user_id: str,
 		reason: str='Motivo não informado.'):
 			
 			try:
 					await self.bot.http.ban(str(user_id), inter.guild.id, reason=reason)
-					user = await self.bot.get_or_fetch_user(user_id)
+					user = await self.bot.get_or_fetch_user(int(user_id))
 					embed = EB(
 						title='Usuário banido!',
-						description=f'**<@{member}>** foi banido por **<@{inter.author}>**!',
+						description=f'**({user_id})** foi banido por **<@{inter.author.id}>**!',
 						color=C.success)
 					embed.add_field(
 						name='Motivo:',
@@ -253,7 +254,7 @@ class Administration(commands.Cog):
 					await inter.send(embed=embed)
 			except Exception as e:
 					embed = EB(
-							title='Error!',
+							title='Erro!',
 							description=f'Ocorreu um erro ao tentar banir o usuário ({user_id}). Certifique-se de que o ID é um ID existente e que pertence a um usuário.',
 							color=C.error)
 					await inter.send(embed=embed)
