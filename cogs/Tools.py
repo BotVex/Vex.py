@@ -11,6 +11,7 @@ ACI = disnake.ApplicationCommandInteraction
 
 from utils.assets import Colors as C
 from utils.assets import Emojis as E
+from utils.assets import MediaUrl
 from utils.dominant_color import dominant_color
 
 
@@ -34,11 +35,42 @@ class Tools(commands.Cog):
 		pass
 	
 	
+	#servericon
 	@commands.guild_only()
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
 		name='servericon',
-		description=f'{E.tools} | lhe envio o ícone do servidor.')
-	async def Tools(self, inter: disnake.ApplicationCommandInteraction):
+		description=f'{E.tools}Obtém o ícone do servidor.')
+	async def servericon(
+	  self, 
+	  inter: ACI):
+		await inter.response.defer()
+		
+		if inter.guild.icon == None:
+			no_icon = True
+			icon = MediaUrl.noguildicon
+		else:
+			no_icon = False
+			icon = inter.guild.icon
+		
+		color = dominant_color(requests.get(icon).content)
+		
+		embed = EB(
+			title=inter.guild.name,
+			description='' if no_icon == False else 'Como o servidor não possuí um ícone, eu decidi te mostrar essa bela imagem.',
+			color=color)
+		embed.set_image(url=icon)
+		
+		await inter.send(embed=embed)
+	
+	
+	#serverbanner
+	@commands.guild_only()
+	@commands.cooldown(1, 7, commands.BucketType.user)
+	@discord.sub_command(
+		name='serverbanner',
+		description=f'{E.tools}Obtém o baner do servidor.')
+	async def banner(self, inter: disnake.ApplicationCommandInteraction):
 		await inter.response.defer()
 		
 		if inter.guild.icon == None:
@@ -52,21 +84,23 @@ class Tools(commands.Cog):
 		
 		embed = EB(
 			title=inter.guild.name,
-			description='' if no_icon == False else 'como o servidor não tem um ícone, eu decidi te mostrar essa bela imagem.',
+			description='' if no_icon == False else 'como o servidor não possuí um ícone, eu decidi te mostrar essa bela imagem.',
 			color=color)
 		embed.set_image(url=icon)
 		
 		await inter.send(embed=embed)
 	
 	
+	#avatar
 	@commands.guild_only()
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
 		name='avatar',
-		description=f'{E.tools} | lhe mostro o avatar de um usuário do servidor.',
+		description=f'{E.tools}Obtém o avatar de um usuário do servidor.',
 		option=[
 			disnake.Option(
 				name='user',
-				description='selecione um usuário.',
+				description='Selecione um usuário.',
 				type=disnake.OptionType.user,
 				required=False
 				)
@@ -82,17 +116,18 @@ class Tools(commands.Cog):
 			avatar = user.display_avatar
 			
 			embed = EB(
-				description=f'**avatar de <@{user.id}>**',
+				description=f'**Avatar de <@{user.id}>**',
 				color=dominant_color(requests.get(avatar).content))
 			embed.set_image(url=avatar)
 			
 			await inter.send(embed=embed)
 	
 	
+	#generate
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	@colors.sub_command(
 		name='generate',
-		description=f'{E.tools} | eu gero uma bela cor para você.')
-	@commands.cooldown(1, 7, commands.BucketType.user)
+		description=f'{E.tools}Gera uma cor.')
 	async def color(self, inter: ACI):
 		try:
 			await inter.response.defer()
@@ -100,7 +135,7 @@ class Tools(commands.Cog):
 			RGB = C.genRGBtuple()
 			
 			embed = EB(
-				title='informações sobre a cor:',
+				title='Informações sobre a cor:',
 				color=int(C.RGB2HEX(RGB), 16))
 			embed.add_field('RGB:', value=RGB, inline=False)
 			
@@ -109,21 +144,23 @@ class Tools(commands.Cog):
 			embed.add_field('HSV:', value=C.RGB2HSVtuple(RGB), inline=False)
 			
 			color_img_obj = Image.new(mode='RGB', size=(100, 100), color=RGB)
-			color_img_obj.save('data/Color.png', format="png")
+			color_img_obj.save('data/temp/Color.png', format="png")
 			
-			embed.set_image(file=disnake.File('data/Color.png'))
-			os.remove('data/Color.png')
+			embed.set_image(file=disnake.File('data/temp/Color.png'))
+			os.remove('data/temp/Color.png')
 			await inter.send(embed=embed)
 		except:
 			embed = EB(
-				title=f'{E.error} | não foi #possivel gerar a cor.',
+				title=f'{E.error}Não foi possivel gerar a cor.',
 				color=C.error)
 			await inter.send(embed=embed)
 	
 	
+	#renderrgb
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	@colors.sub_command(
 		name='render_rgb',
-		description=f'{E.tools} | eu vou renderizar uma cor através de um RGB.',
+		description=f'{E.tools}Renderiza uma cor através de um RGB.',
 		options=[
 			disnake.Option(
 				name='r',
@@ -150,7 +187,6 @@ class Tools(commands.Cog):
 				max_value=255
 				)
 			])
-	@commands.cooldown(1, 7, commands.BucketType.user)
 	async def renderRGB(
 		self, 
 		inter: ACI,
@@ -163,38 +199,38 @@ class Tools(commands.Cog):
 			RGB = (r, g, b)
 			
 			embed = EB(
-				title='informações sobre a cor:',
+				title='Informações sobre a cor:',
 				color=int(C.RGB2HEX(RGB), 16))
 			embed.add_field('RGB', value=RGB)
 			embed.add_field('HEX', value='#'+C.RGB2HEX(RGB))
 			embed.add_field('HSV:', value=C.RGB2HSVtuple(RGB), inline=False)
 			
 			color_img_obj = Image.new(mode='RGB', size=(100, 100), color=RGB)
-			color_img_obj.save('data/Color.png', format="png")
+			color_img_obj.save('data/temp/Color.png', format="png")
 			
-			embed.set_image(file=disnake.File('data/Color.png'))
-			os.remove('data/Color.png')
+			embed.set_image(file=disnake.File('data/temp/Color.png'))
+			os.remove('data/temp/Color.png')
 			await inter.send(embed=embed)
 		except:
 			embed = EB(
-				title=f'{E.error} | não foi possivel renderizar a cor.',
+				title=f'{E.error}Não foi possivel renderizar a cor.',
 				color=C.error)
 			await inter.send(embed=embed)
 	
 	
-
+	#renderhex
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	@colors.sub_command(
 		name='render_hex',
-		description=f'{E.tools} | eu vou renderizar uma cor através de um código hexadecimal.',
+		description=f'{E.tools}Renderiza uma cor através de um código hexadecimal.',
 		options=[
 			disnake.Option(
 				name='hex_code',
-				description='o código hexadecimal. (EX: #B12345)',
+				description='Código hexadecimal. (EX: #B12345)',
 				type=disnake.OptionType.string,
 				required=True
 				)
 			])
-	@commands.cooldown(1, 7, commands.BucketType.user)
 	async def renderHEX(
 		self, 
 		inter: ACI,
@@ -209,34 +245,35 @@ class Tools(commands.Cog):
 			print(RGB)
 			
 			embed = EB(
-				title='informações sobre a cor:',
+				title='Informações sobre a cor:',
 				color=int(C.RGB2HEX(RGB), 16))
 			embed.add_field('RGB', value=RGB)
 			embed.add_field('HEX', value='#'+C.RGB2HEX(RGB)) 
 			embed.add_field('HSV:', value=C.RGB2HSVtuple(RGB), inline=False)
 			
 			color_img_obj = Image.new(mode='RGB', size=(100, 100), color=RGB)
-			color_img_obj.save('data/Color.png', format="png")
+			color_img_obj.save('data/temp/Color.png', format="png")
 			
-			embed.set_image(file=disnake.File('data/Color.png'))
-			os.remove('data/Color.png')
+			embed.set_image(file=disnake.File('data/temp/Color.png'))
+			os.remove('data/temp/Color.png')
 			await inter.send(embed=embed)
 		except:
 			embed = EB(
-				title=f'{E.error} | não foi possivel renderizar a cor.',
+				title=f'{E.error}Não foi possivel renderizar a cor.',
 				color=C.error)
 			await inter.send(embed=embed)
-			
 	
+	
+	#qrcode
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	@tools.sub_command(
 		name='qrcode',
-		description=f'{E.tools} | eu vou gerar um belo qrcode para você.',
+		description=f'{E.tools}Gera um qrcode.',
 		options=[
 			disnake.Option(
 				name='text',
-				description='informe um texto para transformar em qrcode.',
+				description='Informe um texto para transformar em qrcode.',
 				required=True)])
-	@commands.cooldown(1, 7, commands.BucketType.user)
 	async def qrcode(self, inter: ACI, text: str):
 		await inter.response.defer()
 		try:
@@ -245,16 +282,16 @@ class Tools(commands.Cog):
 				color=0xFFFFFF)
 				
 			qr = qrcode.make(text)
-			qr.save('data/QRcode.png')
+			qr.save('data/temp/QRcode.png')
 			
-			embed.set_image(file=disnake.File('data/QRcode.png'))
+			embed.set_image(file=disnake.File('data/temp/QRcode.png'))
 			
-			os.remove('data/QRcode.png')
+			os.remove('data/temp/QRcode.png')
 			
 			await inter.send(embed=embed)
 		except:
 			embed = EB(
-				title=f'{E.error} | não foi possivel gerar o qrcode.',
+				title=f'{E.error}Não foi possivel gerar o qrcode.',
 				color=C.error)
 			await inter.send(embed=embed)
 	

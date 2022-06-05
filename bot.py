@@ -7,17 +7,18 @@ EB = disnake.Embed
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
-
+from utils.assets import MediaUrl
 import config
 
 
 os.system('clear')
 
+
 bot = commands.InteractionBot(
 	intents							= config.intents,
 	help_command				= None,
 	sync_commands_debug	= True,
-	sync_permissions		= True,
+	#sync_permissions		= True,
 	case_insensitive		= True,
 	owner_ids						= config.owner_ids,
 	reload							= True)
@@ -49,9 +50,10 @@ if __name__ == '__main__':
 
 
 @bot.event
-async def on_message(msg: disnake.Message):
+async def on_message(
+  msg: disnake.Message):
 	if int(msg.channel.id) == 967464232021020683:
-		await msg.delete(delay=30.0)
+		await msg.delete(delay=60.0)
 
 
 @bot.event
@@ -65,58 +67,53 @@ author: {inter.author} ({inter.author.id})\n""")
 		print(f"""\ncommand: {inter.data.name}
 DM COMMAND
 author: {inter.author} ({inter.author.id})\n""")
-		
 
 
 @bot.event
 async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, error: Exception):
-	
 	if isinstance(error, commands.CommandOnCooldown):
-			
 			embed = disnake.Embed(
-				title=f'{E.error} | comando em cooldown!',
+				title=f'{E.error}Comando em cooldown!',
 				description=f'<@{inter.author.id}>, este comando está em cooldown, você só poderá executá-lo novamente em `{str(timedelta(seconds=error.retry_after)).split(".")[0]}`.',
 				color=C.error)
-			embed.set_image(url='https://media.discordapp.net/attachments/965785255321681960/982479233806897242/102_Sem_Titulo_20220604000113.png')
-			embed.set_footer(text='você está executando comandos rapidamente!')
+			embed.set_image(url=MediaUrl.commandoncooldownbanner)
+			embed.set_footer(text='Você está executando comandos rapidamente!')
 			await inter.send(embed=embed, ephemeral=True)
 	
+	
 	elif isinstance(error, commands.NotOwner):
-			
 			embed = disnake.Embed(
-				title=f'{E.error} | Não desenvolvedor!',
-				description='apenas pessoas especiais podem usar este comando.',
+				title=f'{E.error}Não desenvolvedor!',
+				description='Apenas pessoas especiais podem utilizar este comando.',
 				color=C.error)
-			embed.set_image(url='https://media.discordapp.net/attachments/965787411865018379/982483656595611688/102_Sem_Titulo_20220604001852.png')
+			embed.set_image(url=MediaUrl.notownerbanner)
 			await inter.send(embed=embed, ephemeral=True)
-
-
+	
+	
 	elif isinstance(error, commands.errors.MissingPermissions):
-		
 			embed = EB(
-					title=f'{E.error} | sem permissão!',
-					description='você não tem as permissões nescessárias para executar este comando!\n\nVocê preciza das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
+					title=f'{E.error}Sem permissão!',
+					description='Você não tem as permissões nescessárias para executar este comando!\n\nVocê preciza das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
 					color=C.error)
-			embed.set_image(url='https://media.discordapp.net/attachments/965787411865018379/982655404611887104/102_Sem_Titulo_20220604114118.png')
+			embed.set_image(url=MediaUrl.missingpermissionsbanner)
 			await inter.send(embed=embed, ephemeral=True)
-
+	
+	
 	elif isinstance(error, commands.errors.BotMissingPermissions):
-		
 			embed = EB(
-				title=f'{E.error} | não autorizado!',
-					description='eu não tenho as permissões nescessárias para executar este comando!\n\nEu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
+				title=f'{E.error}Não autorizado!',
+					description='Eu não tenho as permissões nescessárias para executar este comando!\n\nEu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
 					color=C.error)
-			embed.set_image(url='https://media.discordapp.net/attachments/965787411865018379/982655404611887104/102_Sem_Titulo_20220604114118.png')
+			embed.set_image(url=MediaUrl.botmissingpermissionsbanner)
 			await inter.send(embed=embed, ephemeral=True)
 	
 	
 	elif isinstance(error, commands.errors.NoPrivateMessage):
-		
 			embed = EB(
-				title=f'{E.error} | apenas para servidores!',
-					description='este comando só pode ser utilizado em servidores!', 
+				title=f'{E.error}Apenas para servidores!',
+					description='Este comando só pode ser utilizado em servidores!', 
 					color=C.error) 
-			embed.set_image(url='https://media.discordapp.net/attachments/848181565128835104/982694555029766214/102_Sem_Titulo_20220604141342.png')
+			embed.set_image(url=MediaUrl.noprivatemessagebanner)
 			await inter.send(embed=embed, ephemeral=True)
 	else:
 		print(error)

@@ -33,9 +33,11 @@ class Entertainment(commands.Cog):
 	
 	@fun.sub_command(
 		name='anime',
-		description=f'{E.entertainment} | eu envio uma foto de anime aleatória.')
+		description=f'{E.entertainment}eu envio uma foto de anime aleatória.')
 	@commands.cooldown(1, 15, commands.BucketType.user)
-	async def anime_(self, inter: disnake.ApplicationCommandInteraction):
+	async def anime_(
+		self, 
+		inter: ACI):
 		
 		await inter.response.defer()
 		
@@ -52,7 +54,7 @@ class Entertainment(commands.Cog):
 	
 	@fun.sub_command(
 		name='owo',
-		description=f'{E.entertainment} | eu vou deixar seu texto fofo.',
+		description=f'{E.entertainment}eu vou deixar seu texto fofo.',
 		options=[
 			disnake.Option(
 				name='text',
@@ -69,7 +71,7 @@ class Entertainment(commands.Cog):
 	
 	@fun.sub_command(
 		name='kaomoji',
-		description=f'{E.entertainment} | eu gero um belo kaomoji para você.',
+		description=f'{E.entertainment}eu gero um belo kaomoji para você.',
 		options=[
 			disnake.Option(
 				name='category',
@@ -80,7 +82,10 @@ class Entertainment(commands.Cog):
 			]
 		)
 	@commands.cooldown(1, 5, commands.BucketType.user)
-	async def kaomoji(self, inter: disnake.ApplicationCommandInteraction, category: str):
+	async def kaomoji(
+		self, 
+		inter: ACI, 
+		category: str):
 		
 		await inter.response.defer()
 		
@@ -99,7 +104,10 @@ class Entertainment(commands.Cog):
 	
 	
 	@kaomoji.autocomplete('category')
-	async def categories(self, inter: disnake.ApplicationCommandInteraction, string: str):
+	async def categories(
+		self, 
+	inter: ACI, 
+	string: str):
 		return [
 			'random',
 			'neutral',
@@ -107,6 +115,55 @@ class Entertainment(commands.Cog):
 			'love',
 			'sad'
 			]
+	
+	
+	@fun.sub_command(
+		name='coinflip',
+		description=f'{E.entertainment}jogue o clássico cara ou coroa.',
+		options=[
+			disnake.Option(
+				name='choose',
+				description='escolha entre cara ou coroa.',
+				type=disnake.OptionType.string,
+				required=True
+				)
+			]
+		)
+	@commands.cooldown(1, 5, commands.BucketType.user)
+	async def coinflip(self, 
+	inter: ACI, 
+	choose: str):
+		
+		await inter.response.defer()
+		
+		bot_choose = choice(['cara', 'coroa'])
+		
+		if bot_choose == choose:
+			embed = EB(
+				title=f'`{bot_choose}` x `{choose}`'
+				,
+				description='você ganhou!',
+				color=C.general)
+		else:
+			embed = EB(
+				title=f'`{bot_choose}` x `{choose}`'
+				,
+				description='você perdeu!',
+				color=C.general)
+		
+		await inter.send(embed=embed)
+	
+	
+	@coinflip.autocomplete('choose')
+	async def categories(
+		self, 
+		inter: ACI, 
+		string: str):
+		return [
+			'cara',
+			'coroa'
+			]
+	
 	
 def setup(bot):
 	bot.add_cog(Entertainment(bot))

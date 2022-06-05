@@ -35,7 +35,7 @@ class Image_(commands.Cog):
 	#autocontrast
 	@filter.sub_command(
 		name='autocontrast',
-		description=f'{E.image} | normalize o contraste da imagem.',
+		description=f'{E.image}normalize o contraste da imagem.',
 		options=[
 			disnake.Option(
 				name='file',
@@ -84,10 +84,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.autocontrast(await file.read(), cutoff, ignore, preserve_tone=preserve_tone)
-				img.save('data/autocontrast.png', 'png', optimize=True, quality=80)
+				img.save('data/temp/autocontrast.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/autocontrast.png')
-				os.remove('data/autocontrast.png')
+				file = disnake.File('data/temp/autocontrast.png')
+				os.remove('data/temp/autocontrast.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -96,7 +96,7 @@ class Image_(commands.Cog):
 	#equalize
 	@filter.sub_command(
 		name='equalize',
-		description=f'{E.image} | cria uma distribuição uniforme de tons de cinza na imagem.',
+		description=f'{E.image}cria uma distribuição uniforme de tons de cinza na imagem.',
 		options=[
 			disnake.Option(
 				name='file',
@@ -120,10 +120,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.equalize(await file.read())
-				img.save('data/equalize.png', 'png', optimize=True, quality=80)
+				img.save('data/temp/equalize.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/equalize.png')
-				os.remove('data/equalize.png')
+				file = disnake.File('data/temp/equalize.png')
+				os.remove('data/temp/equalize.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -132,7 +132,7 @@ class Image_(commands.Cog):
 	#flip
 	@filter.sub_command(
 		name='flip',
-		description=f'{E.image} | vire a imagem verticalmente (de cima para baixo).',
+		description=f'{E.image}vire a imagem verticalmente (de cima para baixo).',
 		options=[
 			disnake.Option(
 				name='file',
@@ -156,10 +156,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.flip(await file.read())
-				img.save('data/flip.png', 'png', optimize=True, quality=80)
+				img.save('data/temp/flip.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/flip.png')
-				os.remove('data/flip.png')
+				file = disnake.File('data/temp/flip.png')
+				os.remove('data/temp/flip.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -168,7 +168,7 @@ class Image_(commands.Cog):
 	#mirror
 	@filter.sub_command(
 		name='mirror',
-		description=f'{E.image} | vire a imagem horizontalmente (da esquerda para a direita).',
+		description=f'{E.image}vire a imagem horizontalmente (da esquerda para a direita).',
 		options=[
 			disnake.Option(
 				name='file',
@@ -192,10 +192,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.mirror(await file.read())
-				img.save('data/mirror.png', 'png', optimize=True, quality=80)
+				img.save('data/temp/mirror.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/mirror.png')
-				os.remove('data/mirror.png')
+				file = disnake.File('data/temp/mirror.png')
+				os.remove('data/temp/mirror.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -204,7 +204,7 @@ class Image_(commands.Cog):
 	#invert
 	@filter.sub_command(
 		name='invert',
-		description=f'{E.image} | inverta as cores da imagem.',
+		description=f'{E.image}inverta as cores da imagem.',
 		options=[
 			disnake.Option(
 				name='file',
@@ -228,10 +228,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.invert(await file.read())
-				img.save('data/invert.png', 'png', optimize=True, quality=80)
+				img.save('data/temp/invert.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/invert.png')
-				os.remove('data/invert.png')
+				file = disnake.File('data/temp/invert.png')
+				os.remove('data/temp/invert.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -240,7 +240,7 @@ class Image_(commands.Cog):
 	#grayscale
 	@filter.sub_command(
 		name='grayscale',
-		description=f'{E.image} | converta a imagem para tons de cinza.',
+		description=f'{E.image}converta a imagem para tons de cinza.',
 		options=[
 			disnake.Option(
 				name='file',
@@ -264,10 +264,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.grayscale(await file.read())
-				img.save('data/grayscale.png', 'png', optimize=True, quality=80)
+				img.save('data/temp/grayscale.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/grayscale.png')
-				os.remove('data/grayscale.png')
+				file = disnake.File('data/temp/grayscale.png')
+				os.remove('data/temp/grayscale.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -276,7 +276,7 @@ class Image_(commands.Cog):
 	#posterize
 	@filter.sub_command(
 		name='posterize',
-		description=f'{E.image} | reduza o número de bits da imagem.',
+		description=f'{E.image}reduza o número de bits da imagem.',
 		options=[
 			disnake.Option(
 				name='file',
@@ -309,10 +309,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.posterize(await file.read(), bits=bits)
-				img.save('data/posterize.png', 'png', optimize=True, quality=80)
+				img.save('data/temp/posterize.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/posterize.png')
-				os.remove('data/posterize.png')
+				file = disnake.File('data/temp/posterize.png')
+				os.remove('data/temp/posterize.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -321,7 +321,7 @@ class Image_(commands.Cog):
 	#solarize
 	@filter.sub_command(
 		name='solarize',
-		description=f'{E.image} | inverta todos os valores de um pixel acima de um limite.',
+		description=f'{E.image}inverta todos os valores de um pixel acima de um limite.',
 		options=[
 			disnake.Option(
 				name='file',
@@ -354,10 +354,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.solarize(await file.read(), threshold=threshold)
-				img.save('data/solarize.png', 'png', optimize=True, quality=80)
+				img.save('data/temp/solarize.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/solarize.png')
-				os.remove('data/solarize.png')
+				file = disnake.File('data/temp/solarize.png')
+				os.remove('data/temp/solarize.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -366,7 +366,7 @@ class Image_(commands.Cog):
 	#unsharp
 	@filter.sub_command(
 		name='unsharp',
-		description=f'{E.image} | nitidez.',
+		description=f'{E.image}nitidez.',
 		options=[
 			disnake.Option(
 				name='file',
@@ -417,10 +417,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.unsharp(await file.read(), radius=radius, percent=percent, threshold=threshold)
-				img.save('data/unsharp.png', 'png', optimize=True, quality=80)
+				img.save('data/temp/unsharp.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/unsharp.png')
-				os.remove('data/unsharp.png')
+				file = disnake.File('data/temp/unsharp.png')
+				os.remove('data/temp/unsharp.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -429,7 +429,7 @@ class Image_(commands.Cog):
 	#blur
 	@filter.sub_command(
 		name='blur',
-		description=f'{E.image} | desfoca a imagem.',
+		description=f'{E.image}desfoca a imagem.',
 		options=[
 			disnake.Option(
 				name='file',
@@ -462,57 +462,19 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.gaussianblur(await file.read(), radius=intensity)
-				img.save('data/blur.png', 'png', optimize=True, quality=80)
+				img.save('data/temp/blur.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/blur.png')
-				os.remove('data/blur.png')
+				file = disnake.File('data/temp/blur.png')
+				os.remove('data/temp/blur.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
-				"""	
-	#ascii
-	@filter.sub_command(
-		name='ascii',
-		description=f'{E.image} | converte a imagem em um texto ascii',
-		options=[
-			disnake.Option(
-				name='file',
-				description='envie uma mídia.',
-				type=disnake.OptionType.attachment,
-				required=True
-				),
-			disnake.Option(
-				name='characters',
-				description='caracteres que serão usados para formar a imagem. (EX: .:!?%$@&#)',
-				type=disnake.OptionType.string,
-				required=False
-				)
-			]
-		)
-	async def ascii_(
-		self, 
-		inter: ACI,
-		file: disnake.Attachment,
-		characters: str='.:!?%$@&#'):
-			await inter.response.defer()
-			if file.content_type not in ['image/bmp', 'image/jpeg', 'image/x-icon', 'image/x-portable-pixmap', 'image/png']:
-				await inter.send(embed=EB(title=f'{E.unknown_file} | formato de arquivo não suportado.', color=C.error))
-				return
-			elif int(file.size) > 2000000:
-				await inter.send(embed=EB(title=f'{E.error} | o arquivo é muito grante.', description='máximo 2MB', color=C.error))
-				return
-			else:
-				ascii_text = F.image2ascii(await file.read(), ascii_chars=characters)
 				
-				with open('data/ascii_art.txt', 'w') as f:
-					f.write(ascii_text)
-				file_ = disnake.File('data/ascii_art.txt')
-				os.remove('data/ascii_art.txt')
-				await inter.send(file=file_)"""
+				
 	#pixelize
 	@filter.sub_command(
 		name='pixelize',
-		description=f'{E.image} | pixelize a imagem.',
+		description=f'{E.image}pixelize a imagem.',
 		options=[
 			disnake.Option(
 				name='file',
@@ -552,10 +514,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.pixelize(await file.read(), bits=pixels, resize=resize)
-				img.save('data/pixelize.png', 'png', optimize=True, quality=80)
+				img.save('data/temp/pixelize.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/pixelize.png')
-				os.remove('data/pixelize.png')
+				file = disnake.File('data/temp/pixelize.png')
+				os.remove('data/temp/pixelize.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -564,7 +526,7 @@ class Image_(commands.Cog):
 	@commands.guild_only()
 	@fun.sub_command(
 		name='stonks',
-		description=f'{E.image} | faço um meme do stonks com o avatar de algum usuário.',
+		description=f'{E.image}faço um meme do stonks com o avatar de algum usuário.',
 		options=[
 			disnake.Option(
 				name='user',
@@ -584,16 +546,16 @@ class Image_(commands.Cog):
 		if user == None:
 			user = inter.author
 		
-		stonks_img = Image.open("data/stonks.jpg")
+		stonks_img = Image.open("data/images/stonks.jpg")
 		stonks_obj = stonks_img.copy()
 		avatar = user.avatar.with_size(128)
 		avatar_obj = Image.open(BytesIO(await avatar.read()))
 		avatar_obj = avatar_obj.resize((140, 140))
 		stonks_obj.paste(avatar_obj, (83, 45))
 		
-		stonks_obj.save("data/stonked.jpg")
-		file = disnake.File("data/stonked.jpg", filename='stonked.jpg')
-		os.remove("data/stonked.jpg")
+		stonks_obj.save("data/temp/stonked.jpg")
+		file = disnake.File("data/temp/stonked.jpg", filename='stonked.jpg')
+		os.remove("data/temp/stonked.jpg")
 		embed = EB()
 		embed.set_image(file=file)
 		await inter.send(embed=embed)

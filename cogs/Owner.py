@@ -7,12 +7,12 @@ from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from config import extensions
+from config import guild_ids
 import requests 
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
-from utils import dominant_color
+from utils.dominant_color import dominant_color
 
 
 def _restart():
@@ -25,30 +25,30 @@ class Owner(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.slash_command(name='owner', guild_ids=[957509903273046067])
+	@commands.slash_command(name='owner', guild_ids=guilds_ids)
 	async def owner(self, inter: ACI):
 		pass
 	
 	
-	@owner.sub_command_group(name='set', guild_ids=[957509903273046067])
+	@owner.sub_command_group(name='set', guild_ids=guilds_ids)
 	async def set(self, inter: ACI):
 		pass
 	
 	
-	@owner.sub_command_group(name='cog', guild_ids=[957509903273046067])
+	@owner.sub_command_group(name='cog', guild_ids=guilds_ids)
 	async def cog(self, inter: ACI):
 		pass
 	
 	
 	#setavatar
 	@set.sub_command(
-		name='avatar',
-		description='alterar avatar.', 
-		guild_ids=[957509903273046067],
+		name='avatar', 
+		description=f'{E.owner}Changes bot avatar.', 
+		guild_ids=guilds_ids,
 		options=[
 			disnake.Option(
 				name='file',
-				description='envie uma mídia.',
+				description='Envie uma imagem.',
 				type=disnake.OptionType.attachment,
 				required=True
 				)
@@ -63,93 +63,174 @@ class Owner(commands.Cog):
 		
 		try:
 			await self.bot.user.edit(avatar=await file.read())
-			await inter.send(embed=EB(title='<:svTick_sim:975225579479646258> | avatar alterado!'))
+			
+			embed = EB(
+				title=f'{E.success}Avatar alterado!'
+				color=C.success)
+			
+			await inter.send(embed=embed)
 		except:
-			await inter.send(embed=EB(title=f'<:svTick_Nao:975225649029578782> | falha ao alterar o avatar'))
-	
+			embed = EB(
+				title=f'{E.error}Falha ao alterar o avatar.',
+				description='Verifique se a mídia é uma imagem e de está nas proporções corretas.',
+				color=C.error)
+			await inter.send(embed=embed)
 	
 	
 	#restart
 	@owner.sub_command(
-		description='owner command', 
-		guild_ids=[957509903273046067])
+		description=f'{E.owner}Restart the bot', 
+		guild_ids=guilds_ids)
 	@commands.is_owner()
-	async def restart(self, inter: disnake.ApplicationCommandInteraction):
+	async def restart(
+		self, 
+	inter: ACI):
 		await inter.response.defer()
 		
-		await inter.send('<:svTick_sim:975225579479646258>')
+		await msg = inter.send('restarting...')
+		await msg.delete(delay=2.0)
 		_restart()
 	
 	
-	@owner.sub_command(
-		description='owner command', 
-		guild_ids=[957509903273046067])
+	#load
+	@cog.sub_command(
+		description=f'{E.owner}Loads a specific bot cog.', 
+		guild_ids=guilds_ids,
+		options=[
+			disnake.Option(
+				name='cog',
+				description='Select a cog to load.',
+				type=disnake.OptionType.string,
+				required=True
+				)
+			])
 	@commands.is_owner()
-	async def push(self, inter: disnake.ApplicationCommandInteraction, commit_text: str='a'):
+	async def load(
+		self, 
+		inter: ACI, 
+		cog: str):
 		await inter.response.defer()
 		
 		try:
-			os.system(f'git add . && git commit -am "{commit_text}" && git push heroku master')
-			await inter.send('susseso')
-			os.system('^Z')
+			self.bot.load_extension(cog)
+		
+			embed = EB(
+				title=f'{E.success}Cog carregada!',
+				description=f'A cog `{cog}` foi carregada com sucesso!',
+				color=C.success)
 		except:
-			await inter.send('erro')
-	
-	#load
-	@cog.sub_command(
-		description='owner command', 
-		guild_ids=[957509903273046067])
-	@commands.is_owner()
-	async def load(self, inter: disnake.ApplicationCommandInteraction, cog: str):
-		await inter.response.defer()
+			embed = EB(
+				title=f'{E.error}Cog não carregada!',
+				description=f'Não foi possível carregar a cog `{cog}`!',
+				color=C.error)
 		
-		self.bot.load_extension(cog)
-		
-		await inter.send(embed=EB(title=f'<:svTick_sim:975225579479646258> | a cog {cog} foi carregada'))
+		await inter.send(embed=embed)
 
 
 	@load.autocomplete('cog')
 	async def cog_list(self, inter: disnake.ApplicationCommandInteraction, string: str):
-		return extensions
+		
+		extensions_list = []
+		for extension_file in os.listdir('./cogs'):
+			if extension_file.endswith('.py'):
+				extensions_list.append(extension_file[:-3])
+		
+		return extensions_list.sort()
 	
 	
 	#unload
 	@cog.sub_command(
-		description='owner command', 
-		guild_ids=[957509903273046067])
+		description=f'{E.owner}Unloads a specific bot cog.', 
+		guild_ids=guilds_ids,
+		options=[
+			disnake.Option(
+				name='cog',
+				description='Select a cog to unload.',
+				type=disnake.OptionType.string,
+				required=True
+				)
+			])
 	@commands.is_owner()
-	async def unload(self, inter: disnake.ApplicationCommandInteraction, cog: str):
+	async def unload(
+		self, 
+		inter: ACI, 
+		cog: str):
 		await inter.response.defer()
 		
-		self.bot.unload_extension(cog)
+		try:
+			self.bot.unload_extension(cog)
 		
-		await inter.send(embed=EB(title=f'<:svTick_sim:975225579479646258> | a cog {cog} foi descarregada'))
-
-
+			embed = EB(
+				title=f'{E.success}Cog descarregada!',
+				description=f'A cog `{cog}` foi descarregada com sucesso!',
+				color=C.success)
+		except:
+			embed = EB(
+				title=f'{E.error}Cog não descarregada!',
+				description=f'Não foi possível descarregar a cog `{cog}`!',
+				color=C.error)
+		
+		await inter.send(embed=embed)
+	
+	
 	@unload.autocomplete('cog')
 	async def cog_list(self, inter: disnake.ApplicationCommandInteraction, string: str):
-		return extensions
+		
+		extensions_list = []
+		for extension_file in os.listdir('./cogs'):
+			if extension_file.endswith('.py'):
+				extensions_list.append(extension_file[:-3])
+		
+		return extensions_list.sort()
 	
 	
 	#reload
 	@cog.sub_command(
-		description='owner command', 
-		guild_ids=[957509903273046067])
+		description=f'{E.owner}Reloads a specific bot cog.', 
+		guild_ids=guilds_ids,
+		options=[
+			disnake.Option(
+				name='cog',
+				description='Select a cog to reload.',
+				type=disnake.OptionType.string,
+				required=True
+				)
+			])
 	@commands.is_owner()
-	async def reload(self, inter: disnake.ApplicationCommandInteraction, cog: str):
+	async def unload(
+		self, 
+		inter: ACI, 
+		cog: str):
 		await inter.response.defer()
 		
-		self.bot.unload_extension(cog)
-		self.bot.load_extension(cog)
+		try:
+			self.bot.unload_extension(cog)
+			self.bot.load_extension(cog)
 		
-		await inter.send(embed=EB(title=f'<:svTick_sim:975225579479646258> | a cog {cog} foi recarregada'))
-
-
-	@reload.autocomplete('cog')
+			embed = EB(
+				title=f'{E.success}Cog recarregada!',
+				description=f'A cog `{cog}` foi recarregada com sucesso!',
+				color=C.success)
+		except:
+			embed = EB(
+				title=f'{E.error}Cog não recarregada!',
+				description=f'Não foi possível recarregar a cog `{cog}`!',
+				color=C.error)
+		
+		await inter.send(embed=embed)
+	
+	
+	@unload.autocomplete('cog')
 	async def cog_list(self, inter: disnake.ApplicationCommandInteraction, string: str):
-		return extensions
+		
+		extensions_list = []
+		for extension_file in os.listdir('./cogs'):
+			if extension_file.endswith('.py'):
+				extensions_list.append(extension_file[:-3])
+		
+		return extensions_list.sort()
 	
-	
-	
+
+
 def setup(bot):
-    bot.add_cog(Owner(bot))
+	bot.add_cog(Owner(bot))
