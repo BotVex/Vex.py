@@ -323,7 +323,7 @@ class Administration(commands.Cog):
 	@commands.has_permissions(ban_members=True)
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@administration.sub_command(
-			name='hackban',
+			name='unban',
 			description='Desbane um usuário que foi banido no servidor.',
 			options=[
 					disnake.Option(
@@ -340,7 +340,7 @@ class Administration(commands.Cog):
 					)
 			]
 	)
-	async def hackban(
+	async def unban(
 		self, 
 		inter: ACI, 
 		user_id: str,
