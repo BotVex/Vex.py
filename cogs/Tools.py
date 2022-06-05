@@ -123,6 +123,64 @@ class Tools(commands.Cog):
 			await inter.send(embed=embed)
 	
 	
+	#channelinfo
+	@commands.guild_only()
+	@commands.cooldown(1, 7, commands.BucketType.user)
+	@discord.sub_command(
+		name='channelinfo',
+		description='Obtém informações de um canal do servidor.',
+		options=[
+			disnake.Option(
+				name='channel',
+				description='Selecione um canal.',
+				type=disnake.OptionType.channel
+				)
+			]
+		)
+	async def channelinfo(
+	self, 
+	inter: ACI, 
+	channel: disnake.TextChannel):
+			embed = disnake.Embed(
+					color=C.general, 
+					description=channel.mention)
+			embed.add_field(
+					name='Nome:', 
+					value=channel.name
+					)
+			embed.add_field(
+					name='Servidor:', 
+					value=channel.guild
+					)
+			embed.add_field(
+					name='ID:', 
+					value=channel.id
+					)
+			embed.add_field(
+					name='ID da categoria:', 
+					value=channel.category_id
+					)
+			embed.add_field(
+					name='Posição:', 
+					value=channel.position
+					)
+			embed.add_field(
+					name='NSFW:', 
+					value=str(channel.is_nsfw())
+					)
+			embed.add_field(
+					name='Membros (em cache)', 
+					value=str(len(channel.members))
+					)
+			embed.add_field(
+					name='Categoria:', 
+					value=channel.category
+					)
+			
+			await inter.send(embed=embed)
+
+	
+	#userinfo
 	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
