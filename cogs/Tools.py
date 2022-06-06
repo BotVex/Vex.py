@@ -166,7 +166,7 @@ class Tools(commands.Cog):
 					)
 			embed.add_field(
 					name='NSFW:', 
-					value=str(channel.is_nsfw())
+					value=str('Não' if channel.is_nsfw() is False else 'Sim')
 					)
 			embed.add_field(
 					name='Membros (em cache)', 
