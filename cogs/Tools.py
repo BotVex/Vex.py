@@ -133,7 +133,8 @@ class Tools(commands.Cog):
 			disnake.Option(
 				name='channel',
 				description='Selecione um canal.',
-				type=disnake.OptionType.channel
+				type=disnake.OptionType.channel,
+				required=True
 				)
 			]
 		)
@@ -174,7 +175,7 @@ class Tools(commands.Cog):
 					)
 			embed.add_field(
 					name='Categoria:', 
-					value=channel.category
+					value='Sem categoria' if channel.category is None else channel.category
 					)
 			
 			await inter.send(embed=embed)
