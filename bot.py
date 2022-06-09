@@ -35,7 +35,7 @@ async def on_ready():
 	await channel.send('online')
 
 
-@tasks.loop(seconds=15)
+@tasks.loop(seconds=150)
 async def status_task():
 	try:
 		#await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'ping: {int(round(bot.latency * 1000))}ms'))
