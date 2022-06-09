@@ -38,7 +38,8 @@ async def on_ready():
 @tasks.loop(seconds=15)
 async def status_task():
 	try:
-		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'ping: {int(round(bot.latency * 1000))}ms'))
+		#await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'ping: {int(round(bot.latency * 1000))}ms'))
+		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name='Made By: Lobo 🐺'))
 	except OverflowError:
 		pass
 
