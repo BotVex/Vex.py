@@ -56,10 +56,6 @@ async def on_message(
   msg: disnake.Message):
 	if int(msg.channel.id) == 967464232021020683:
 		await msg.delete(delay=60.0)
-	while True:
-		pietro = await msg.guild.get_or_fetch_member(943482131189993512)
-		await pietro.edit(nick='Proxy, o furry')
-		sleep(30)
 
 
 @bot.event
