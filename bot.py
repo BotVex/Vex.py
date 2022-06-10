@@ -30,15 +30,11 @@ bot = commands.InteractionBot(
 @bot.event
 async def on_ready():
 	print(f'{bot.user} online')
-	status_task.start()
+	#status_task.start()
 	print('status task started')
 	channel = bot.get_channel(967464232021020683)
-	await channel.send('online')
-
-
-#@tasks.loop(seconds=150)
-async def status_task():
 	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name='Made By: Lobo 🐺'))
+	await channel.send('online')
 
 
 if __name__ == '__main__':

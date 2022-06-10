@@ -94,8 +94,10 @@ class Owner(commands.Cog):
 	async def status(
 		self, 
 		inter: ACI, 
-		status: str):
+		status: str=None):
 		await inter.response.defer()
+		if status == None:
+			status = 'Made by: 🐺'
 		try:
 			await self.bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=status))
 			

@@ -142,6 +142,8 @@ class Administration(commands.Cog):
 			member = await inter.guild.get_or_fetch_member(user.id)
 			try:
 					await member.edit(nick=nickname)
+					if nickname is None:
+						nickname = member.name
 					embed = EB(
 							title=f'{E.success}nick alterado!',
 							description=f'Nick alterado para **`{nickname}`**!',
