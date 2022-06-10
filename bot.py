@@ -38,9 +38,7 @@ async def on_ready():
 
 #@tasks.loop(seconds=150)
 async def status_task():
-	try:
-		#await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'ping: {int(round(bot.latency * 1000))}ms'))
-		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name='Made By: Lobo 🐺'))
+	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name='Made By: Lobo 🐺'))
 
 
 if __name__ == '__main__':
@@ -50,8 +48,7 @@ if __name__ == '__main__':
 
 
 @bot.event
-async def on_message(
-  msg: disnake.Message):
+async def on_message(msg: disnake.Message):
 	if int(msg.channel.id) == 967464232021020683:
 		await msg.delete(delay=60.0)
 
