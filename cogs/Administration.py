@@ -220,7 +220,7 @@ class Administration(commands.Cog):
 	@commands.has_permissions(ban_members=True)
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@adm.sub_command(
-			name='hackban',
+			name='hack-ban',
 			description=f'{E.administration}Bane um usuário sem que ele esteja no servidor.',
 			options=[
 					disnake.Option(

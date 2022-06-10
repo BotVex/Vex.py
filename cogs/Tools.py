@@ -68,7 +68,7 @@ class Tools(commands.Cog):
 	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
-		name='serverbanner',
+		name='server-banner',
 		description=f'{E.tools}Obtém o baner do servidor.')
 	async def banner(self, inter: disnake.ApplicationCommandInteraction):
 		await inter.response.defer()
@@ -127,7 +127,7 @@ class Tools(commands.Cog):
 	@commands.is_owner()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
-		name='channelinfo',
+		name='channel-info',
 		description='Obtém informações de um canal do servidor.',
 		options=[
 			disnake.Option(
@@ -185,7 +185,7 @@ class Tools(commands.Cog):
 	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
-		name='userinfo',
+		name='user-info',
 		description='Obtém informações de um usuário do servidor.',
 		options=[
 			disnake.Option(
@@ -300,7 +300,7 @@ class Tools(commands.Cog):
 	#renderrgb
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@colors.sub_command(
-		name='render_rgb',
+		name='render-rgb',
 		description=f'{E.tools}Renderiza uma cor através de um RGB.',
 		options=[
 			disnake.Option(
@@ -362,7 +362,7 @@ class Tools(commands.Cog):
 	#renderhex
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@colors.sub_command(
-		name='render_hex',
+		name='render-hex',
 		description=f'{E.tools}Renderiza uma cor através de um código hexadecimal.',
 		options=[
 			disnake.Option(
