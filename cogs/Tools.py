@@ -39,7 +39,7 @@ class Tools(commands.Cog):
 	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
-		name='servericon',
+		name='server-icon',
 		description=f'{E.tools}Obtém o ícone do servidor.')
 	async def servericon(
 		self, 
@@ -124,7 +124,7 @@ class Tools(commands.Cog):
 	
 	
 	#channelinfo
-	@commands.guild_only()
+	@commands.is_owner()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
 		name='channelinfo',
