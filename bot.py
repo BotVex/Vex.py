@@ -111,5 +111,6 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 	else:
 		print(error)
 
-
+bot.i18n.load("locale/")
+print('locales loaded')
 bot.run(config.TOKEN)
