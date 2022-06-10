@@ -68,7 +68,7 @@ class Entertainment(commands.Cog):
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	async def owo(self, inter: disnake.ApplicationCommandInteraction, *, text: str):
 		await inter.response.defer()
-		await inter.send(embed=EB(description=f'**{owo(text[0:4000])}**'))
+		await inter.send(f'**{owo(text[0:4000])}**')
 	
 	
 	@fun.sub_command(
@@ -92,7 +92,7 @@ class Entertainment(commands.Cog):
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	async def zalgo(self, inter: disnake.ApplicationCommandInteraction, *, text: str, intensity: int=20):
 		await inter.response.defer()
-		await inter.send(embed=EB(description=f'**{enzalgofy(text[0:4000])}**'))
+		await inter.send(f'**{enzalgofy(text[0:4000])}**')
 	
 	
 	@fun.sub_command(
