@@ -77,6 +77,41 @@ class Owner(commands.Cog):
 			await inter.send(embed=embed)
 	
 	
+	#setstatus
+	@set.sub_command(
+		name='status', 
+		description=f'{E.owner}Changes bot status.', 
+		guild_ids=guild_ids,
+		options=[
+			disnake.Option(
+				name='status',
+				description='Escreva uma mensagem.',
+				type=disnake.OptionType.string,
+				required=False
+				)
+			])
+	@commands.is_owner()
+	async def status(
+		self, 
+		inter: ACI, 
+		status: str):
+		await inter.response.defer()
+		try:
+			await self.bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=status))
+			
+			embed = EB(
+				title=f'{E.success}Status alterado!',
+				color=C.success)
+			
+			await inter.send(embed=embed)
+		except:
+			embed = EB(
+				title=f'{E.error}Falha ao alterar o Status.',
+				description='',
+				color=C.error)
+			await inter.send(embed=embed)
+	
+	
 	#restart
 	@owner.sub_command(
 		description=f'{E.owner}Restart the bot', 
