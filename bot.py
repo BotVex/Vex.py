@@ -10,7 +10,6 @@ from utils.assets import Colors as C
 from utils.assets import MediaUrl
 import config
 
-from asyncio import sleep
 
 os.system('clear')
 
