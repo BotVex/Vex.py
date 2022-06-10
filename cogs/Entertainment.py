@@ -86,7 +86,7 @@ class Entertainment(commands.Cog):
 				description='intensidade.',
 				type=disnake.OptionType.integer,
 				min_value=1,
-				max_value=100
+				max_value=100,
 				required=False)
 			]
 		)
