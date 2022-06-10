@@ -20,7 +20,7 @@ class Administration(commands.Cog):
 	#clear
 	@commands.guild_only()
 	@commands.has_permissions(manage_messages=True)
-	@commands.cooldown(1, 5, commands.BucketType.user)
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	@adm.sub_command(
 			name='clear',
 			description=f'{E.administration}Deleto a quantidade de mensagens especificadas.',
@@ -114,7 +114,7 @@ class Administration(commands.Cog):
 	#nick
 	@commands.guild_only()
 	@commands.has_permissions(manage_nicknames=True)
-	@commands.cooldown(1, 5, commands.BucketType.user)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	@adm.sub_command(
 			name='nick',
 			description=f'{E.administration}Altera o nick de um usuário do server.',

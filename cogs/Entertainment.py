@@ -34,7 +34,7 @@ class Entertainment(commands.Cog):
 	@fun.sub_command(
 		name='anime',
 		description=f'{E.entertainment}eu envio uma foto de anime aleatória.')
-	@commands.cooldown(1, 15, commands.BucketType.user)
+	@commands.cooldown(1, 60, commands.BucketType.user)
 	async def anime_(
 		self, 
 		inter: ACI):
