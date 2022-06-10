@@ -5,6 +5,7 @@ from pyowo import owo
 from PIL import Image
 from io import BytesIO
 from random import choice
+from zalgolib import enzalgofy
 from kaomoji.kaomoji import Kaomoji
 kao = Kaomoji()
 
@@ -33,6 +34,7 @@ class Entertainment(commands.Cog):
 	
 	
 	@fun.sub_command(
+		name='anime',
 		name='anime',
 		description=f'{E.entertainment}Eu envio uma imagem de anime aleatória.')
 	@commands.cooldown(1, 60, commands.BucketType.user)
@@ -68,6 +70,30 @@ class Entertainment(commands.Cog):
 	async def owo(self, inter: disnake.ApplicationCommandInteraction, *, text: str):
 		await inter.response.defer()
 		await inter.send(embed=EB(description=f'**{owo(text[0:4000])}**'))
+	
+	
+	@fun.sub_command(
+		name='zalgo',
+		description=f'{E.entertainment}eu vou z̸̢̝̈́͋͘a̸̡̫̗̿̈́̇̚ĺ̸̨̥g̴̬̓̈́͠i̷̯̫̎͗̇f̴̅͐ͅḭ̵̧͕̓̓̚c̴̙͆̋͠ͅā̴͇̟̎̄̏r̶̼̳̻͒͝ seu texto.',
+		options=[
+			disnake.Option(
+				name='text',
+				description='insira um texto.',
+				type=disnake.OptionType.string,
+				required=True),
+			disnake.Option(
+				name='intensity',
+				description='intensidade.',
+				type=disnake.OptionType.integer,
+				min_value=1,
+				max_value=100
+				required=False)
+			]
+		)
+	@commands.cooldown(1, 5, commands.BucketType.user)
+	async def zalgo(self, inter: disnake.ApplicationCommandInteraction, *, text: str, intensity: int=20):
+		await inter.response.defer()
+		await inter.send(embed=EB(description=f'**{enzalgofy(text[0:4000])}**'))
 	
 	
 	@fun.sub_command(
