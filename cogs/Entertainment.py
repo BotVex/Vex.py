@@ -11,7 +11,7 @@ kao = Kaomoji()
 
 import disnake
 from disnake.ext import commands
-Localized = disnake.Localized
+#Localized = disnake.Localized
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
@@ -71,6 +71,7 @@ class Entertainment(commands.Cog):
 		await inter.send(f'**{owo(text[0:4000])}**')
 	
 	
+	@commands.is_owner()
 	@fun.sub_command(
 		name='zalgo',
 		description=f'{E.entertainment}eu vou z̸̢̝̈́͋͘a̸̡̫̗̿̈́̇̚ĺ̸̨̥g̴̬̓̈́͠i̷̯̫̎͗̇f̴̅͐ͅḭ̵̧͕̓̓̚c̴̙͆̋͠ͅā̴͇̟̎̄̏r̶̼̳̻͒͝ seu texto.',
@@ -92,7 +93,7 @@ class Entertainment(commands.Cog):
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	async def zalgo(self, inter: disnake.ApplicationCommandInteraction, *, text: str, intensity: int=20):
 		await inter.response.defer()
-		await inter.send(f'**{enzalgofy(text[0:4000])}**')
+		await inter.send(f'{enzalgofy(text[0:4000])}')
 	
 	
 	@fun.sub_command(

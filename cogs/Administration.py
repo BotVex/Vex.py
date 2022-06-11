@@ -18,9 +18,9 @@ class Administration(commands.Cog):
 	
 	
 	#clear
-	@commands.guild_only()
 	@commands.has_permissions(manage_messages=True)
 	@commands.cooldown(1, 7, commands.BucketType.user)
+	@commands.guild_only()
 	@adm.sub_command(
 			name='clear',
 			description=f'{E.administration}Deleto a quantidade de mensagens especificadas.',
@@ -53,9 +53,9 @@ class Administration(commands.Cog):
 	
 	
 	#kick
-	@commands.guild_only()
 	@commands.has_permissions(kick_members=True)
 	@commands.cooldown(1, 5, commands.BucketType.user)
+	@commands.guild_only()
 	@adm.sub_command(
 		name='kick',
 		description=f'{E.administration}Quica o usuário do servidor.',
@@ -89,7 +89,6 @@ class Administration(commands.Cog):
 					await inter.send(embed=embed, ephemeral=True)
 			else:
 					try:
-							await member.kick(reason=reason)
 							embed = EB(
 									title=f'{E.success} Usuário quicado!',
 									description=f'**<@{member.id}>** foi quicado por **<@{inter.id}>**!',
@@ -98,6 +97,7 @@ class Administration(commands.Cog):
 									name='Motivo:',
 									value=reason)
 							await inter.send(embed=embed)
+							await member.kick(reason=reason)
 							try:
 									await member.send(
 											f'Você foi quicado de **{inter.guild.name}** por **{inter.author}**!\n\nMotivo: {reason}')
@@ -112,9 +112,9 @@ class Administration(commands.Cog):
 	
 	
 	#nick
-	@commands.guild_only()
 	@commands.has_permissions(manage_nicknames=True)
 	@commands.cooldown(1, 10, commands.BucketType.user)
+	@commands.guild_only()
 	@adm.sub_command(
 			name='nick',
 			description=f'{E.administration}Altera o nick de um usuário do server.',
@@ -158,9 +158,9 @@ class Administration(commands.Cog):
 	
 	
 	#ban
-	@commands.guild_only()
 	@commands.has_permissions(ban_members=True)
 	@commands.cooldown(1, 5, commands.BucketType.user)
+	@commands.guild_only()
 	@adm.sub_command(
 			name='ban',
 			description=f'{E.administration}Bane um usuário do servidor.',
@@ -176,6 +176,14 @@ class Administration(commands.Cog):
 							description='Motivo do banimento.',
 							type=disnake.OptionType.string,
 							required=False
+					),
+					disnake.Option(
+							name='delete_message_days',
+							description='O número de dias de mensagens a serem excluídas do usuário No server. O mínimo é 0 e o máximo é 7.',
+							type=disnake.OptionType.integer,
+							min_value=0,
+							max_value=7,
+							required=False
 					)
 			]
 	)
@@ -183,6 +191,7 @@ class Administration(commands.Cog):
 		self, 
 		inter: ACI, 
 		user: disnake.User,
+		delete_message_days: int=0,
 		reason: str='Motivo não informado.'):
 			
 			member = await inter.guild.get_or_fetch_member(user.id)
@@ -194,14 +203,18 @@ class Administration(commands.Cog):
 									color=C.error)
 							await inter.send(embed=embed)
 					else:
-							await member.ban(reason=reason)
 							embed = EB(
-									title='Usuário banido!',
+									title=f'{E.success}Usuário banido!',
 									description=f'**<@{member.id}>** foi banido por **<@{inter.id}>**!',
 									color=C.success)
 							embed.add_field(
 									name='Motivo:',
 									value=reason)
+							if delete_message_days != 0:
+								embed.add_field(
+										name='dias de mensagens deletadas:',
+										value=delete_message_days)
+							await member.ban(reason=reason, delete_message_days=delete_message_days)
 							await inter.send(embed=embed)
 							try:
 									await member.send(f'Você foi banido de {inter.guild.name} por **{inter.author}**!\n\nMotivo: {reason}')
@@ -216,9 +229,9 @@ class Administration(commands.Cog):
 	
 	
 	#hackban
-	@commands.guild_only()
 	@commands.has_permissions(ban_members=True)
 	@commands.cooldown(1, 5, commands.BucketType.user)
+	@commands.guild_only()
 	@adm.sub_command(
 			name='hack-ban',
 			description=f'{E.administration}Bane um usuário sem que ele esteja no servidor.',
@@ -247,7 +260,7 @@ class Administration(commands.Cog):
 					await self.bot.http.ban(str(user_id), inter.guild.id, reason=reason)
 					user = await self.bot.get_or_fetch_user(int(user_id))
 					embed = EB(
-						title='Usuário banido!',
+						title=f'{E.success}Usuário banido!',
 						description=f'**({user_id})** foi banido por **<@{inter.author.id}>**!',
 						color=C.success)
 					embed.add_field(
@@ -256,7 +269,7 @@ class Administration(commands.Cog):
 					await inter.send(embed=embed)
 			except Exception as e:
 					embed = EB(
-							title='Erro!',
+							title=f'{E.error}Erro!',
 							description=f'Ocorreu um erro ao tentar banir o usuário ({user_id}). Certifique-se de que o ID é um ID existente e que pertence a um usuário.',
 							color=C.error)
 					await inter.send(embed=embed)
@@ -264,9 +277,9 @@ class Administration(commands.Cog):
 
 
 	#unban
-	@commands.guild_only()
 	@commands.has_permissions(ban_members=True)
 	@commands.cooldown(1, 5, commands.BucketType.user)
+	@commands.guild_only()
 	@adm.sub_command(
 			name='unban',
 			description=f'{E.administration}Desbane um usuário que foi banido no servidor.',
@@ -295,7 +308,7 @@ class Administration(commands.Cog):
 					await self.bot.http.unban(str(user_id), inter.guild.id, reason=reason)
 					user = await self.bot.get_or_fetch_user(int(user_id))
 					embed = EB(
-						title='Usuário desbanido!',
+						title=f'{E.success}Usuário desbanido!',
 						description=f'**({user_id})** foi desbanido por **<@{inter.author.id}>**!',
 						color=C.success)
 					embed.add_field(
@@ -304,7 +317,7 @@ class Administration(commands.Cog):
 					await inter.send(embed=embed)
 			except Exception as e:
 					embed = EB(
-							title='Erro!',
+							title=f'{E.error}Erro!',
 							description=f'Ocorreu um erro ao tentar desbanir o usuário ({user_id}). Certifique-se de que o ID é um ID existente e que pertence a um usuário.',
 							color=C.error)
 					await inter.send(embed=embed)

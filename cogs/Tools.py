@@ -17,7 +17,7 @@ from utils.dominant_color import dominant_color
 
 class Tools(commands.Cog):
 	def __init__(self, bot):
-		self.bot: commands.Bot = bot 
+		self.bot: commands.Bot = bot
 	
 	
 	@commands.slash_command(name='tools')
