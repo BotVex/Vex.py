@@ -238,6 +238,11 @@ class Tools(commands.Cog):
 					url=avatar
 					)
 			embed.add_field(
+					name='Hash:',
+					value=str(hash(user)),
+					inline=True
+					)
+			embed.add_field(
 					name='Nick:',
 					value=nick,
 					inline=True
