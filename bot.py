@@ -13,9 +13,10 @@ import config
 
 os.system('clear')
 
-"""
-bot = commands.AutoShardedInteractionBot(
-	shard_count=10,
+
+#bot = commands.AutoShardedInteractionBot(
+bot = commands.InteractionBot(
+	#shard_count=10,
 	intents							= config.intents,
 	help_command				= None,
 	sync_commands_debug	= True,
@@ -26,7 +27,7 @@ bot = commands.AutoShardedInteractionBot(
 	strict_localization=True)
 	#test_guilds=[957509903273046067])
 
-"""
+
 @bot.event
 async def on_ready():
 	print(f'{bot.user} online')
