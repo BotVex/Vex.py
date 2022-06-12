@@ -146,6 +146,10 @@ class Tools(commands.Cog):
 					color=C.general, 
 					description=channel.mention)
 			embed.add_field(
+					name='Hash:', 
+					value=str(hash(user))
+					)
+			embed.add_field(
 					name='Nome:', 
 					value=channel.name
 					)
@@ -236,6 +240,11 @@ class Tools(commands.Cog):
 			embed.add_field(
 					name='Nick:',
 					value=nick,
+					inline=True
+					)
+			embed.add_field(
+					name='Discriminador:',
+					value=user.discriminator,
 					inline=True
 					)
 			embed.add_field(
