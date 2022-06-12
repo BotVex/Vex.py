@@ -84,10 +84,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.autocontrast(await file.read(), cutoff, ignore, preserve_tone=preserve_tone)
-				img.save('data/temp/autocontrast.png', 'png', optimize=True, quality=80)
+				img.save('data/autocontrast.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/temp/autocontrast.png')
-				os.remove('data/temp/autocontrast.png')
+				file = disnake.File('data/autocontrast.png')
+				os.remove('data/autocontrast.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -120,10 +120,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.equalize(await file.read())
-				img.save('data/temp/equalize.png', 'png', optimize=True, quality=80)
+				img.save('data/equalize.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/temp/equalize.png')
-				os.remove('data/temp/equalize.png')
+				file = disnake.File('data/equalize.png')
+				os.remove('data/equalize.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -156,10 +156,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.flip(await file.read())
-				img.save('data/temp/flip.png', 'png', optimize=True, quality=80)
+				img.save('data/flip.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/temp/flip.png')
-				os.remove('data/temp/flip.png')
+				file = disnake.File('data/flip.png')
+				os.remove('data/flip.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -192,10 +192,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.mirror(await file.read())
-				img.save('data/temp/mirror.png', 'png', optimize=True, quality=80)
+				img.save('data/mirror.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/temp/mirror.png')
-				os.remove('data/temp/mirror.png')
+				file = disnake.File('data/mirror.png')
+				os.remove('data/mirror.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -228,10 +228,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.invert(await file.read())
-				img.save('data/temp/invert.png', 'png', optimize=True, quality=80)
+				img.save('data/invert.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/temp/invert.png')
-				os.remove('data/temp/invert.png')
+				file = disnake.File('data/invert.png')
+				os.remove('data/invert.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -264,10 +264,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.grayscale(await file.read())
-				img.save('data/temp/grayscale.png', 'png', optimize=True, quality=80)
+				img.save('data/grayscale.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/temp/grayscale.png')
-				os.remove('data/temp/grayscale.png')
+				file = disnake.File('data/grayscale.png')
+				os.remove('data/grayscale.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -309,10 +309,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.posterize(await file.read(), bits=bits)
-				img.save('data/temp/posterize.png', 'png', optimize=True, quality=80)
+				img.save('data/posterize.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/temp/posterize.png')
-				os.remove('data/temp/posterize.png')
+				file = disnake.File('data/posterize.png')
+				os.remove('data/posterize.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -354,10 +354,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.solarize(await file.read(), threshold=threshold)
-				img.save('data/temp/solarize.png', 'png', optimize=True, quality=80)
+				img.save('data/solarize.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/temp/solarize.png')
-				os.remove('data/temp/solarize.png')
+				file = disnake.File('data/solarize.png')
+				os.remove('data/solarize.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -417,10 +417,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.unsharp(await file.read(), radius=radius, percent=percent, threshold=threshold)
-				img.save('data/temp/unsharp.png', 'png', optimize=True, quality=80)
+				img.save('data/unsharp.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/temp/unsharp.png')
-				os.remove('data/temp/unsharp.png')
+				file = disnake.File('data/unsharp.png')
+				os.remove('data/unsharp.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -462,10 +462,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.gaussianblur(await file.read(), radius=intensity)
-				img.save('data/temp/blur.png', 'png', optimize=True, quality=80)
+				img.save('data/blur.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/temp/blur.png')
-				os.remove('data/temp/blur.png')
+				file = disnake.File('data/blur.png')
+				os.remove('data/blur.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -514,10 +514,10 @@ class Image_(commands.Cog):
 				return
 			else:
 				img = F.pixelize(await file.read(), bits=pixels, resize=resize)
-				img.save('data/temp/pixelize.png', 'png', optimize=True, quality=80)
+				img.save('data/pixelize.png', 'png', optimize=True, quality=80)
 				
-				file = disnake.File('data/temp/pixelize.png')
-				os.remove('data/temp/pixelize.png')
+				file = disnake.File('data/pixelize.png')
+				os.remove('data/pixelize.png')
 				embed = EB()
 				embed.set_image(file=file)
 				await inter.send(embed=embed)
@@ -553,9 +553,9 @@ class Image_(commands.Cog):
 		avatar_obj = avatar_obj.resize((140, 140))
 		stonks_obj.paste(avatar_obj, (83, 45))
 		
-		stonks_obj.save("data/temp/stonked.jpg")
-		file = disnake.File("data/temp/stonked.jpg", filename='stonked.jpg')
-		os.remove("data/temp/stonked.jpg")
+		stonks_obj.save("data/stonked.jpg")
+		file = disnake.File("data/stonked.jpg", filename='stonked.jpg')
+		os.remove("data/stonked.jpg")
 		embed = EB()
 		embed.set_image(file=file)
 		await inter.send(embed=embed)
