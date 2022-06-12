@@ -19,7 +19,7 @@ class Image_(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.slash_command()
+	@commands.slash_command(name='img')
 	async def image(self, inter: ACI):
 		pass
 	
