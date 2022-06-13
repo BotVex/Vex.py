@@ -1,9 +1,11 @@
 import json
 from random import choice
 from disnake import Intents
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
-prefix         = '-'
 owner_ids      = [
   783120232134082580,
   728409113847136341
@@ -25,4 +27,4 @@ extensions  = [
 ]
 
 
-TOKEN = 'NzgzNzE2ODgyODk2OTEyNDA1.X8ezOQ.QuCeUnPJf2Mp9KHxdrELDcr0i7Y'
+TOKEN = os.environ["TOKEN"]

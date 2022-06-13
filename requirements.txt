@@ -8,3 +8,4 @@ kaomoji==0.1.0
 colorir==1.1.1
 zalgolib
 rich
+python-dotenv

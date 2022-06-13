@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import requests 
 
 import disnake
 from disnake.ext import commands
@@ -8,7 +9,6 @@ EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
 from config import guild_ids
-import requests 
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C

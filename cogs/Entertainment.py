@@ -1,13 +1,10 @@
 import os
 import json
-import requests
-from pyowo import owo
-from PIL import Image
-from io import BytesIO
+import requests #Replace 
 from random import choice
-from zalgolib import enzalgofy
+from pyowo import owo as owofy
 from kaomoji.kaomoji import Kaomoji
-kao = Kaomoji()
+kaofy = Kaomoji()
 
 import disnake
 from disnake.ext import commands
@@ -68,32 +65,7 @@ class Entertainment(commands.Cog):
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	async def owo(self, inter: disnake.ApplicationCommandInteraction, *, text: str):
 		await inter.response.defer()
-		await inter.send(f'**{owo(text[0:4000])}**')
-	
-	
-	@commands.is_owner()
-	@fun.sub_command(
-		name='zalgo',
-		description=f'{E.entertainment}eu vou z̸̢̝̈́͋͘a̸̡̫̗̿̈́̇̚ĺ̸̨̥g̴̬̓̈́͠i̷̯̫̎͗̇f̴̅͐ͅḭ̵̧͕̓̓̚c̴̙͆̋͠ͅā̴͇̟̎̄̏r̶̼̳̻͒͝ seu texto.',
-		options=[
-			disnake.Option(
-				name='text',
-				description='insira um texto.',
-				type=disnake.OptionType.string,
-				required=True),
-			disnake.Option(
-				name='intensity',
-				description='intensidade.',
-				type=disnake.OptionType.integer,
-				min_value=1,
-				max_value=100,
-				required=False)
-			]
-		)
-	@commands.cooldown(1, 5, commands.BucketType.user)
-	async def zalgo(self, inter: disnake.ApplicationCommandInteraction, *, text: str, intensity: int=20):
-		await inter.response.defer()
-		await inter.send(f'{enzalgofy(text[0:4000])}')
+		await inter.send(f'**{owofy(text[0:4000])}**')
 	
 	
 	@fun.sub_command(
@@ -117,15 +89,15 @@ class Entertainment(commands.Cog):
 		await inter.response.defer()
 		
 		if category == 'neutral':
-			kaomoji = kao.create('indifference')
+			kaomoji = kaofy.create('indifference')
 		elif category == 'happy':
-			kaomoji = kao.create('joy')
+			kaomoji = kaofy.create('joy')
 		elif category == 'random':
-			kaomoji = kao.create()
+			kaomoji = kaofy.create()
 		elif category == 'love':
-			kaomoji = kao.create('love')
+			kaomoji = kaofy.create('love')
 		elif category == 'sad':
-			kaomoji = kao.create('sadness')
+			kaomoji = kaofy.create('sadness')
 		
 		await inter.send(kaomoji)
 	

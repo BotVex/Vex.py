@@ -4,7 +4,6 @@ import requests
 from io import BytesIO
 from PIL import Image, ImageOps, ImageFilter
 
-
 import disnake
 from disnake.ext import commands
 EB = disnake.Embed
