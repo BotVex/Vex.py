@@ -10,6 +10,8 @@ from utils.assets import Colors as C
 from utils.assets import MediaUrl
 import config
 
+from rich.console import Console
+C = Console()
 
 os.system('clear')
 
@@ -30,9 +32,9 @@ bot = commands.InteractionBot(
 
 @bot.event
 async def on_ready():
-	print(f'{bot.user} online')
+	C.print(f'\n[orange_red1]{bot.user}[/] [green]online[/]')
 	#status_task.start()
-	print('status task started')
+	C.print('[green]status task started[/]')
 	channel = bot.get_channel(967464232021020683)
 	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name='Made By: Lobo 🐺'))
 	await channel.send('online')
@@ -40,10 +42,15 @@ async def on_ready():
 #bot.i18n.load("locale/")
 #print('locales loaded')
 
+c = 0
 if __name__ == '__main__':
+	C.print(f'\n[red]COGS TO LOAD:[/]')
 	for extension in config.extensions:
 		bot.load_extension(extension)
-		print(f'{extension} loaded')
+		C.print(f'  [cyan]{c}[/] [yellow]:[/]  [green]{extension}[/]')
+		c += 1
+
+C.print(f'\n[red]DISNAKE:[/]')
 
 @bot.event
 async def on_message(msg: disnake.Message):
@@ -55,14 +62,15 @@ async def on_message(msg: disnake.Message):
 async def on_slash_command(inter: disnake.ApplicationCommandInteraction):
 	
 	try:
-		print(f"""\ncommand: {inter.data.name}
-guild: {inter.guild.name} ({inter.guild.id})
-author: {inter.author} ({inter.author.id})\n""")
+		C.print(f"""
+[yellow]COMMAND:[/] [bright_magenta]{inter.data.name}[/]
+[yellow]GUILD:  [/] [bright_magenta]{inter.guild.name}[/] [orange_red1]([/][aquamarine1]{inter.guild.id}[/][orange_red1])[/]
+[yellow]AUTHOR: [/] [bright_magenta]{inter.author}[/] [orange_red1]([/][aquamarine1]{inter.author.id}[/][orange_red1])[/]""")
 	except AttributeError:
-		print(f"""\ncommand: {inter.data.name}
-DM COMMAND
-author: {inter.author} ({inter.author.id})\n""")
-
+		C.print(f"""
+[yellow]COMMAND:[/] [bright_magenta]{inter.data.name}[/]
+[yellow]DM COMMAND[/]
+[yellow]AUTHOR: [/] [bright_magenta]{inter.author}[/] [orange_red1]([/][aquamarine1]{inter.author.id}[/][orange_red1])[/]""")
 
 @bot.event
 async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, error: Exception):
@@ -111,7 +119,6 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 			embed.set_image(url=MediaUrl.noprivatemessagebanner)
 			await inter.send(embed=embed, ephemeral=True)
 	else:
-		print(error)
-
+		Console.log(error)
 
 bot.run(config.TOKEN)

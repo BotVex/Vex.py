@@ -95,7 +95,8 @@ class Administration(commands.Cog):
 									color=C.success)
 							embed.add_field(
 									name='Motivo:',
-									value=reason)
+									value=reason,
+									inline=False)
 							await inter.send(embed=embed)
 							await member.kick(reason=reason)
 							try:
@@ -209,11 +210,13 @@ class Administration(commands.Cog):
 									color=C.success)
 							embed.add_field(
 									name='Motivo:',
-									value=reason)
+									value=reason,
+									inline=False)
 							if delete_message_days != 0:
 								embed.add_field(
 										name='dias de mensagens deletadas:',
-										value=delete_message_days)
+										value=delete_message_days,
+										inline=False)
 							await member.ban(reason=reason, delete_message_days=delete_message_days)
 							await inter.send(embed=embed)
 							try:
@@ -265,7 +268,8 @@ class Administration(commands.Cog):
 						color=C.success)
 					embed.add_field(
 						name='Motivo:',
-						value=reason)
+						value=reason,
+						inline=False)
 					await inter.send(embed=embed)
 			except Exception as e:
 					embed = EB(
@@ -313,7 +317,8 @@ class Administration(commands.Cog):
 						color=C.success)
 					embed.add_field(
 						name='Motivo:',
-						value=reason)
+						value=reason,
+						inline=False)
 					await inter.send(embed=embed)
 			except Exception as e:
 					embed = EB(

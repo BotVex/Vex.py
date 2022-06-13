@@ -238,11 +238,6 @@ class Tools(commands.Cog):
 					url=avatar
 					)
 			embed.add_field(
-					name='Hash:',
-					value=str(hash(user)),
-					inline=True
-					)
-			embed.add_field(
 					name='Nick:',
 					value=nick,
 					inline=True
@@ -251,6 +246,11 @@ class Tools(commands.Cog):
 					name='Discriminador:',
 					value=user.discriminator,
 					inline=True
+					)
+			embed.add_field(
+					name='Hash:',
+					value=str(hash(user)),
+					inline=False
 					)
 			embed.add_field(
 					name='ID:',
@@ -292,9 +292,9 @@ class Tools(commands.Cog):
 			embed = EB(
 				title='Informações sobre a cor:',
 				color=int(C.RGB2HEX(RGB), 16))
-			embed.add_field('RGB:', value=RGB, inline=False)
+			embed.add_field('RGB:', value=RGB, inline=True)
 			
-			embed.add_field('HEX:', value='#'+C.RGB2HEX(RGB), inline=False)
+			embed.add_field('HEX:', value='#'+C.RGB2HEX(RGB), inline=True)
 			
 			embed.add_field('HSV:', value=C.RGB2HSVtuple(RGB), inline=False)
 			

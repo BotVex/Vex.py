@@ -7,3 +7,4 @@ requests==2.27.1
 kaomoji==0.1.0
 colorir==1.1.1
 zalgolib
+rich
