@@ -27,4 +27,4 @@ extensions  = [
 ]
 
 
-TOKEN = os.getenv["TOKEN"]
+TOKEN = os.environ["TOKEN"]
