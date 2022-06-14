@@ -25,6 +25,3 @@ extensions  = [
 	'cogs.Administration',
 	'cogs.Tools'
 ]
-
-
-TOKEN = os.getenv["TOKEN"]
