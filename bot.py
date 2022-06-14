@@ -13,10 +13,6 @@ import config
 from rich.console import Console
 C = Console()
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
 os.system('clear')
 
 
@@ -125,4 +121,4 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 	else:
 		Console.log(error)
 
-bot.run(os.getenv["TOKEN"])
+bot.run(config.TOKEN)
