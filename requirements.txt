@@ -1,11 +1,10 @@
+colorir==1.1.1
 colorthief==0.2.1
 git+https://github.com/DisnakeDev/disnake.git
+kaomoji==0.1.0
 Pillow==9.1.0
 pyowo==1.0.1
+python-dotenv==0.20.0
 qrcode==7.3.1
 requests==2.27.1
-kaomoji==0.1.0
-colorir==1.1.1
-zalgolib
-rich
-python-dotenv
+rich=12.4.4
