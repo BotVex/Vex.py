@@ -32,7 +32,7 @@ class Entertainment(commands.Cog):
 	
 	@fun.sub_command(
 		name='anime',
-		description=Localized(f'{E.entertainment}Eu envio uma imagem de anime aleatória.', key='ANIME_DESC'))
+		description=Localized(f'{E.entertainment}Eu envio uma imagem de anime aleatória.', key='A'))
 	@commands.cooldown(1, 60, commands.BucketType.user)
 	async def anime_(
 		self, 
