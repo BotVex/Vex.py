@@ -16,6 +16,8 @@ guild_ids      = [
 
 intents = Intents.default()
 intents.members = True
+intents.presences = True
+
 
 
 extensions  = [

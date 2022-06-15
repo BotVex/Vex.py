@@ -1,2 +1,8 @@
 cmt.sh
 **/__pycache__/
+locale/en_US.json
+utils/paginator.py
+utils/confirm.py 
+utils/buttonLink.py 
+data/curses.json
+data/games.json
