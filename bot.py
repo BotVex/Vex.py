@@ -29,6 +29,9 @@ bot = commands.InteractionBot(
 	strict_localization=True)
 	#test_guilds=[957509903273046067])
 
+bot.i18n.load("Vex.py/locale")
+print('locales loaded')
+
 
 @bot.event
 async def on_ready():
@@ -118,8 +121,5 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 			await inter.send(embed=embed, ephemeral=True)
 	else:
 		Console.log(error)
-
-bot.i18n.load("locale")
-print('locales loaded')
 
 bot.run(config.TOKEN)
