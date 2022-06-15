@@ -8,7 +8,7 @@ kaofy = Kaomoji()
 
 import disnake
 from disnake.ext import commands
-#Localized = disnake.Localized
+from disnake import Localized
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
@@ -32,7 +32,7 @@ class Entertainment(commands.Cog):
 	
 	@fun.sub_command(
 		name='anime',
-		description=f'{E.entertainment}Eu envio uma imagem de anime aleatória.')
+		description=Localized(f'{E.entertainment}Eu envio uma imagem de anime aleatória.', key='ANIME_DESC'))
 	@commands.cooldown(1, 60, commands.BucketType.user)
 	async def anime_(
 		self, 

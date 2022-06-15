@@ -39,8 +39,6 @@ async def on_ready():
 	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name='Made By: Lobo 🐺'))
 	await channel.send('online')
 
-#bot.i18n.load("locale/")
-#print('locales loaded')
 
 c = 0
 if __name__ == '__main__':
@@ -120,5 +118,8 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 			await inter.send(embed=embed, ephemeral=True)
 	else:
 		Console.log(error)
+
+bot.i18n.load("locale/")
+print('locales loaded')
 
 bot.run(config.TOKEN)
