@@ -29,8 +29,8 @@ bot = commands.InteractionBot(
 	strict_localization=True)
 	#test_guilds=[957509903273046067])
 
-bot.i18n.load("./locale")
-print('locales loaded')
+#bot.i18n.load("./locale")
+#print('locales loaded')
 
 
 @bot.event

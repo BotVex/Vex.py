@@ -24,6 +24,10 @@ class Entertainment(commands.Cog):
 			animes = json.loads(animes.read())
 		self.animes = animes
 	
+		with open('data/anime_roleplay.json', 'r', encoding='utf8') as animes:
+			anime_roleplay = json.loads(animes.read())
+		self.anime_roleplay = anime_roleplay
+	
 	
 	@commands.slash_command()
 	async def fun(self, inter: ACI):
@@ -32,7 +36,7 @@ class Entertainment(commands.Cog):
 	
 	@fun.sub_command(
 		name='anime',
-		description=Localized(f'{E.entertainment}Eu envio uma imagem de anime aleatória.', key='A'))
+		description=f'{E.entertainment}Eu envio uma imagem de anime aleatória.')
 	@commands.cooldown(1, 60, commands.BucketType.user)
 	async def anime_(
 		self, 
@@ -49,7 +53,57 @@ class Entertainment(commands.Cog):
 		embed.set_image(
 			url=random_anime)
 		await inter.send(embed=embed)
-	
+
+
+	@fun.sub_command(
+		name='roleplay',
+		description=f'{E.entertainment}Faça um roleplay.',
+		options=[
+			disnake.Option(
+				name='user',
+				description='Escolha um usuário.',
+				type=disnake.OptionType.user,
+				required=True
+				),
+			disnake.Option(
+				name='roleplay',
+				description='Escolha uma categoria.',
+				type=disnake.OptionType.string,
+				required=True
+				)
+			])
+	@commands.cooldown(1, 7, commands.BucketType.user)
+	async def roleplay(
+		self, 
+		inter: ACI,
+		user: disnake.Member,
+		roleplay: str):
+		
+		await inter.response.defer()
+		
+		chosen_anime = choice(self.anime_roleplay[roleplay])
+		name = chosen_anime['name']
+		url = chosen_anime['url']
+		color = chosen_anime['color']
+		
+		embed = disnake.Embed(
+			color=color)
+		embed.set_image(
+			url=url)
+		await inter.send(embed=embed)
+
+
+	@kaomoji.autocomplete('roleplay')
+	async def categories_(
+		self, 
+	inter: ACI, 
+	string: str):
+		categories = []
+		for category in self.anime_roleplay:
+			if category not in ['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'bite']:
+				categories.append(category)
+		return categories
+
 	
 	@fun.sub_command(
 		name='owo',
