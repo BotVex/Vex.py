@@ -120,6 +120,6 @@ async def on_slash_command_error(inter: disnake.ApplicationCommandInteraction, e
 			embed.set_image(url=MediaUrl.noprivatemessagebanner)
 			await inter.send(embed=embed, ephemeral=True)
 	else:
-		Console.log(error)
+		print(error)
 
 bot.run(config.TOKEN)

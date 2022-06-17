@@ -1,5 +1,3 @@
-import json
-from random import choice
 from disnake import Intents
 import os
 from dotenv import load_dotenv
