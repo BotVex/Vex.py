@@ -88,39 +88,39 @@ class Entertainment(commands.Cog):
 		
 		message = ''
 		if roleplay == 'highfive':
-			message=f'<@{inter.author.id}> deu um highfive em <@{user.id}>!'
+			message=f'🙏 | <@{inter.author.id}> deu um highfive em <@{user.id}>!'
 		elif roleplay == 'handhold':
-			message=f'<@{inter.author.id}> segurou a mão de <@{user.id}>!'
+			message=f'🤝 | <@{inter.author.id}> segurou a mão de <@{user.id}>!'
 		elif roleplay == 'kiss':
-			message=f'<@{inter.author.id}> beijou <@{user.id}> :flushed:!'
+			message=f'💋 | <@{inter.author.id}> beijou <@{user.id}>!'
 		elif roleplay == 'wave':
-			message=f'<@{inter.author.id}> acenou para  <@{user.id}>!'
+			message=f'👋 | <@{inter.author.id}> acenou para  <@{user.id}>!'
 		elif roleplay == 'thumbsup':
-			message=f'<@{inter.author.id}> fez um "👍" para <@{user.id}>!'
+			message=f'👍 | <@{inter.author.id}> fez um "👍" para <@{user.id}>!'
 		elif roleplay == 'stare':
-			message=f'<@{inter.author.id}> olhou fixamente para <@{user.id}>!'
+			message=f'👀 | <@{inter.author.id}> olhou fixamente para <@{user.id}>!'
 		elif roleplay == 'cuddle':
-			message=f'<@{inter.author.id}> fez carinho em <@{user.id}>!'
+			message=f'🥺 | <@{inter.author.id}> fez carinho em <@{user.id}>!'
 		elif roleplay == 'baka':
-			message=f'<@{inter.author.id}> chamou <@{user.id}> de idiota!'
+			message=f'🤬 | <@{inter.author.id}> chamou <@{user.id}> de idiota!'
 		elif roleplay == 'wink':
-			message=f'<@{inter.author.id} piscou para <@{user.id}>!'
+			message=f'😉 | <@{inter.author.id} piscou para <@{user.id}>!'
 		elif roleplay == 'shoot':
-			message=f'<@{inter.author.id} deu um TIRO em <@{user.id}>!'
+			message=f'🔫 | <@{inter.author.id} deu um TIRO em <@{user.id}>!'
 		elif roleplay == 'shrug':
-			message=f'<@{inter.author.id} fez um ¯\_(ツ)_/¯ para <@{user.id}>!'
+			message=f'🤷 | <@{inter.author.id} fez um ¯\_(ツ)_/¯ para <@{user.id}>!'
 		elif roleplay == 'kick':
-			message=f'<@{inter.author.id} chutou <@{user.id}>!'
+			message=f'🦶 | <@{inter.author.id} chutou <@{user.id}>!'
 		elif roleplay == 'hug':
-			message=f'<@{inter.author.id} abraçou <@{user.id}>!'
+			message=f'🤗 | <@{inter.author.id} abraçou <@{user.id}>!'
 		elif roleplay == 'slap':
-			message=f'<@{inter.author.id} deu um tapa em <@{user.id}>!'
+			message=f'👋 | <@{inter.author.id} deu um tapa em <@{user.id}>!'
 		elif roleplay == 'pat':
-			message=f'<@{inter.author.id} fez cafuné em <@{user.id}>!'
+			message=f'🥰 | <@{inter.author.id} fez cafuné em <@{user.id}>!'
 		elif roleplay == 'punch':
-			message=f'<@{inter.author.id} deu um soco em <@{user.id}>!'
+			message=f'👊 | <@{inter.author.id} deu um soco em <@{user.id}>!'
 		elif roleplay == 'dance':
-			message=f'<@{inter.author.id} dançou com <@{user.id}>!'
+			message=f'🕺 | <@{inter.author.id} dançou com <@{user.id}>!'
 		
 		embed = disnake.Embed(
 		color=color)
