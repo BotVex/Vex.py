@@ -104,25 +104,25 @@ class Entertainment(commands.Cog):
 		elif roleplay == 'baka':
 			message=f'🤬 | <@{inter.author.id}> chamou <@{user.id}> de idiota!'
 		elif roleplay == 'wink':
-			message=f'😉 | <@{inter.author.id} piscou para <@{user.id}>!'
+			message=f'😉 | <@{inter.author.id}> piscou para <@{user.id}>!'
 		elif roleplay == 'shoot':
-			message=f'🔫 | <@{inter.author.id} deu um TIRO em <@{user.id}>!'
+			message=f'🔫 | <@{inter.author.id}> deu um TIRO em <@{user.id}>!'
 		elif roleplay == 'shrug':
-			message=f'🤷 | <@{inter.author.id} fez um ¯\_(ツ)_/¯ para <@{user.id}>!'
+			message=f'🤷 | <@{inter.author.id}> fez um ¯\_(ツ)_/¯ para <@{user.id}>!'
 		elif roleplay == 'kick':
-			message=f'🦶 | <@{inter.author.id} chutou <@{user.id}>!'
+			message=f'🦶 | <@{inter.author.id}> chutou <@{user.id}>!'
 		elif roleplay == 'hug':
-			message=f'🤗 | <@{inter.author.id} abraçou <@{user.id}>!'
+			message=f'🤗 | <@{inter.author.id}> abraçou <@{user.id}>!'
 		elif roleplay == 'slap':
-			message=f'👋 | <@{inter.author.id} deu um tapa em <@{user.id}>!'
+			message=f'👋 | <@{inter.author.id}> deu um tapa em <@{user.id}>!'
 		elif roleplay == 'pat':
-			message=f'🥰 | <@{inter.author.id} fez cafuné em <@{user.id}>!'
+			message=f'🥰 | <@{inter.author.id}> fez cafuné em <@{user.id}>!'
 		elif roleplay == 'punch':
-			message=f'👊 | <@{inter.author.id} deu um soco em <@{user.id}>!'
+			message=f'👊 | <@{inter.author.id}> deu um soco em <@{user.id}>!'
 		elif roleplay == 'dance':
-			message=f'🕺 |  <@{inter.author.id} dançou com <@{user.id}>!'
+			message=f'🕺 |  <@{inter.author.id}> dançou com <@{user.id}>!'
 		elif roleplay == 'bite':
-			message=f'😳 |  <@{inter.author.id} deu um chupão em <@{user.id}>!'
+			message=f'😳 |  <@{inter.author.id}> deu um chupão em <@{user.id}>!'
 		
 		embed = disnake.Embed(
 		color=color)
