@@ -122,7 +122,7 @@ class Entertainment(commands.Cog):
 		elif roleplay == 'dance':
 			message=f'🕺 |  <@{inter.author.id}> dançou com <@{user.id}>!'
 		elif roleplay == 'bite':
-			message=f'😳 |  <@{inter.author.id}> deu um chupão em <@{user.id}>!'
+			message=f'😳 |  <@{inter.author.id} mordeu <@{user.id}>!'
 		
 		embed = disnake.Embed(
 		color=color)
