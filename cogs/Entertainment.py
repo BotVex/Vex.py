@@ -120,7 +120,9 @@ class Entertainment(commands.Cog):
 		elif roleplay == 'punch':
 			message=f'👊 | <@{inter.author.id} deu um soco em <@{user.id}>!'
 		elif roleplay == 'dance':
-			message=f'🕺 | <@{inter.author.id} dançou com <@{user.id}>!'
+			message=f'🕺 |  <@{inter.author.id} dançou com <@{user.id}>!'
+		elif roleplay == 'bite':
+			message=f'😳 |  <@{inter.author.id} deu um chupão em <@{user.id}>!'
 		
 		embed = disnake.Embed(
 		color=color)
@@ -137,7 +139,7 @@ class Entertainment(commands.Cog):
 	string: str):
 		categories = []
 		for category in self.anime_roleplay:
-			if category not in ['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'bite', 'blush', 'think', 'pout', 'facepalm', 'bored', 'cry']:
+			if category not in ['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'blush', 'think', 'pout', 'facepalm', 'bored', 'cry']:
 				categories.append(category)
 		return categories
 
