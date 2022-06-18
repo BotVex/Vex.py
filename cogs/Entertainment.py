@@ -1,6 +1,6 @@
 import os
 import json
-import requests #Replace 
+ 
 from random import choice
 from pyowo import owo as owofy
 from kaomoji.kaomoji import Kaomoji
@@ -32,28 +32,6 @@ class Entertainment(commands.Cog):
 	@commands.slash_command()
 	async def fun(self, inter: ACI):
 		pass
-	
-	
-	#@fun.sub_command(
-	#	name='anime',
-	#	description=f'{E.entertainment}Eu envio uma imagem de anime aleatória.')
-	@commands.cooldown(1, 60, commands.BucketType.user)
-	async def anime_(
-		self, 
-		inter: ACI):
-		
-		await inter.response.defer()
-		
-		random_anime = choice(self.animes)
-		
-		get_image = requests.get(random_anime).content
-		color = dominant_color(get_image)
-		
-		embed = disnake.Embed(color=color)
-		embed.set_image(
-			url=random_anime)
-		await inter.send(embed=embed)
-
 
 	@fun.sub_command(
 		name='roleplay',
@@ -88,39 +66,39 @@ class Entertainment(commands.Cog):
 		
 		match roleplay:
 			case 'highfive':
-				message = f'🙏 | <@{inter.author.id}> deu um highfive em <@{user.id}>!'
+				message = f'🙏 | {inter.author.mention} deu um highfive em {user.mention}!'
 			case 'handhold':
-				message = f'🤝 | <@{inter.author.id}> segurou a mão de <@{user.id}>!'
+				message = f'🤝 | {inter.author.mention} segurou a mão de {user.mention}!'
 			case 'kiss':
-				message = f'💋 | <@{inter.author.id}> beijou <@{user.id}>!'
+				message = f'💋 | {inter.author.mention} beijou {user.mention}!'
 			case 'wave':
-				message = f'👋 | <@{inter.author.id}> acenou para  <@{user.id}>!'
+				message = f'👋 | {inter.author.mention} acenou para  {user.mention}!'
 			case 'thumbsup':
-				message = f'👍 | <@{inter.author.id}> fez um "👍" para <@{user.id}>!'
+				message = f'👍 | {inter.author.mention} fez um "👍" para {user.mention}!'
 			case 'stare':
-				message = f'👀 | <@{inter.author.id}> olhou fixamente para <@{user.id}>!'
+				message = f'👀 | {inter.author.mention} olhou fixamente para {user.mention}!'
 			case 'stare':
-				message = f'🥺 | <@{inter.author.id}> fez carinho em <@{user.id}>!'
+				message = f'🥺 | {inter.author.mention} fez carinho em {user.mention}!'
 			case 'baka':
-				message = f'🤬 | <@{inter.author.id}> chamou <@{user.id}> de idiota!'
+				message = f'🤬 | {inter.author.mention} chamou {user.mention} de idiota!'
 			case 'wink':
-				message = f'🔫 | <@{inter.author.id}> deu um TIRO em <@{user.id}>!'
+				message = f'🔫 | {inter.author.mention} deu um TIRO em {user.mention}!'
 			case 'shrug':
-				message = f'🤷 | <@{inter.author.id}> fez um ¯\_(ツ)_/¯ para <@{user.id}>!'
+				message = f'🤷 | {inter.author.mention} fez um ¯\_(ツ)_/¯ para {user.mention}!'
 			case 'kick':
-				message = f'🦶 | <@{inter.author.id}> chutou <@{user.id}>!'
+				message = f'🦶 | {inter.author.mention} chutou {user.mention}!'
 			case 'hug':
-				message = f'🤗 | <@{inter.author.id}> abraçou <@{user.id}>!'
+				message = f'🤗 | {inter.author.mention} abraçou {user.mention}!'
 			case 'slap':
-				message = f'👋 | <@{inter.author.id}> deu um tapa em <@{user.id}>!'
+				message = f'👋 | {inter.author.mention} deu um tapa em {user.mention}!'
 			case 'pat':
-				message = f'🥰 | <@{inter.author.id}> fez cafuné em <@{user.id}>!'
+				message = f'🥰 | {inter.author.mention} fez cafuné em {user.mention}!'
 			case 'punch':
-				message = f'👊 | <@{inter.author.id}> deu um soco em <@{user.id}>!'
+				message = f'👊 | {inter.author.mention} deu um soco em {user.mention}!'
 			case 'dance':
-				message = f'🕺 |  <@{inter.author.id}> dançou com <@{user.id}>!'
+				message = f'🕺 |  {inter.author.mention} dançou com {user.mention}!'
 			case 'bite':
-				message = f'😳 |  <@{inter.author.id} mordeu <@{user.id}>!'
+				message = f'🍽️ |  {inter.author.mention} mordeu {user.mention}!'
 			case _:
 				message = ''
 	
@@ -140,9 +118,9 @@ class Entertainment(commands.Cog):
 	string: str):
 		categories = []
 		for category in self.anime_roleplay:
-			if category not in ['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'blush', 'think', 'pout', 'facepalm', 'bored', 'cry']:
+			if category not in ['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'blush', 'think', 'pout', 'facepalm', 'bored', 'cry', 'cuddle']:
 				categories.append(category)
-		return categories
+		return sorted(categories)
 
 	
 	@fun.sub_command(
@@ -182,16 +160,17 @@ class Entertainment(commands.Cog):
 		
 		await inter.response.defer()
 		
-		if category == 'neutral':
-			kaomoji = kaofy.create('indifference')
-		elif category == 'happy':
-			kaomoji = kaofy.create('joy')
-		elif category == 'random':
-			kaomoji = kaofy.create()
-		elif category == 'love':
-			kaomoji = kaofy.create('love')
-		elif category == 'sad':
-			kaomoji = kaofy.create('sadness')
+		match category:
+			case 'neutral':
+				kaomoji = kaofy.create('indifference')
+			case 'happy':
+				kaomoji = kaofy.create('joy')
+			case 'random':
+				kaomoji = kaofy.create()
+			case 'love':
+				kaomoji = kaofy.create('love')
+			case 'sad':
+				kaomoji = kaofy.create('sadness')
 		
 		await inter.send(kaomoji)
 	
@@ -201,13 +180,13 @@ class Entertainment(commands.Cog):
 		self, 
 	inter: ACI, 
 	string: str):
-		return [
+		return sorted([
 			'random',
 			'neutral',
 			'happy',
 			'love',
 			'sad'
-			]
+			])
 	
 	
 	@fun.sub_command(

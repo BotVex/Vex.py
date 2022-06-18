@@ -1,11 +1,14 @@
 import disnake
 
-
 class ButtonLink(disnake.ui.View):
-		def __init__(self):
-				super().__init__()
-
-
-		@disnake.ui.button(label='ver no navegador', url=url)
-		async def buttonlink(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction)
-				self.stop()
+	def __init__(self, label, url):
+		super().__init__()
+		self.button_label = label
+		self.button_url = url
+		self.add_item(
+			disnake.ui.Button(
+				style=disnake.ButtonStyle.link,
+				label=self.button_label,
+				url=self.button_url
+			)
+		)

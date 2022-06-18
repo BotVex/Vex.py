@@ -1,6 +1,6 @@
 import os
 import qrcode
-import requests
+import aiohttp
 from PIL import Image
 
 
@@ -11,6 +11,7 @@ ACI = disnake.ApplicationCommandInteraction
 
 from utils.assets import Colors as C
 from utils.assets import Emojis as E
+from utils.buttonLink import ButtonLink
 from utils.assets import MediaUrl
 from utils.dominant_color import dominant_color
 
@@ -39,7 +40,7 @@ class Tools(commands.Cog):
 	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
-		name='server-icon',
+		name='servericon',
 		description=f'{E.tools}Obtém o ícone do servidor.')
 	async def servericon(
 		self, 
@@ -48,47 +49,53 @@ class Tools(commands.Cog):
 		
 		if inter.guild.icon == None:
 			no_icon = True
-			icon = MediaUrl.noguildicon
 		else:
 			no_icon = False
-			icon = inter.guild.icon
+			icon_color = inter.guild.icon.with_size(16)
+			async with aiohttp.ClientSession() as session:
+				async with session.get(str(icon_color)) as resp:
+					color = dominant_color(await resp.content.read())
 		
-		color = dominant_color(requests.get(icon).content)
+		image_icon = MediaUrl.noguildicon if no_icon is True else inter.guild.icon
 		
 		embed = EB(
-			title=inter.guild.name,
-			description='' if no_icon == False else 'Como o servidor não possuí um ícone, eu decidi te mostrar essa bela imagem.',
-			color=color)
-		embed.set_image(url=icon)
+			title=f'Ícone de `{inter.guild.name}`.',
+			description='' if no_icon is False else 'Como o servidor não possuí um ícone, eu decidi te mostrar essa bela imagem.',
+			color=0xFFFFFF if no_icon is True else color)
+		embed.set_image(url=image_icon)
+	
 		
-		await inter.send(embed=embed)
+		await inter.send(embed=embed, view=ButtonLink('ver no navegador', str(image_icon)))
 	
 	
 	#serverbanner
 	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
-		name='server-banner',
+		name='serverbanner',
 		description=f'{E.tools}Obtém o baner do servidor.')
 	async def banner(self, inter: disnake.ApplicationCommandInteraction):
 		await inter.response.defer()
 		
 		if inter.guild.banner == None:
 			no_icon = True
-			icon = MediaUrl.noguildicon
 		else:
 			no_icon = False
-			icon = inter.guild.icon
+			icon_color = inter.guild.icon.with_size(16)
+			async with aiohttp.ClientSession() as session:
+				async with session.get(str(icon_color)) as resp:
+					color = dominant_color(await resp.content.read())
 		
-		color = dominant_color(requests.get(icon).content)
-		
+		image_icon = MediaUrl.noguildicon if no_icon is True else inter.guild.banner
+
 		embed = EB(
-			title=inter.guild.name,
+			title=f'Baner de `{inter.guild.name}`.',
 			description='' if no_icon == False else 'Como o servidor não possuí um baner, eu decidi te mostrar essa bela imagem.',
-			color=color)
-		embed.set_image(url=icon)
+			color=0xFFFFFF if no_icon is True else color)
+		embed.set_image(url=image_icon)
+
 		
-		await inter.send(embed=embed)
+		await inter.send(embed=embed, view=ButtonLink('ver no navegador', str(image_icon)))
 	
 	
 	#avatar
@@ -114,20 +121,23 @@ class Tools(commands.Cog):
 				user = inter.author
 			
 			avatar = user.display_avatar
+			avatar_color = avatar.with_size(16)
 			
-			embed = EB(
-				description=f'**Avatar de <@{user.id}>**',
-				color=dominant_color(requests.get(avatar).content))
+			async with aiohttp.ClientSession() as session:
+				async with session.get(str(avatar_color)) as resp:
+					color = dominant_color(await resp.content.read())
+			
+			embed = EB(color=color)
 			embed.set_image(url=avatar)
 			
-			await inter.send(embed=embed)
-	
-	
+			await inter.send(f'Avatar de {user.mention}', embed=embed, view=ButtonLink('ver no navegador', str(user.display_avatar)))
+
+	"""
 	#channelinfo
-	@commands.is_owner()
-	@commands.cooldown(1, 7, commands.BucketType.user)
+	commands.is_owner()
+	commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
-		name='channel-info',
+		name='channelinfo',
 		description='Obtém informações de um canal do servidor.',
 		options=[
 			disnake.Option(
@@ -183,13 +193,13 @@ class Tools(commands.Cog):
 					)
 			
 			await inter.send(embed=embed)
-
+"""
 	
 	#userinfo
 	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
-		name='user-info',
+		name='userinfo',
 		description='Obtém informações de um usuário do servidor.',
 		options=[
 			disnake.Option(
@@ -279,6 +289,7 @@ class Tools(commands.Cog):
 
 
 	#generate
+	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@colors.sub_command(
 		name='generate',
@@ -312,9 +323,10 @@ class Tools(commands.Cog):
 	
 	
 	#renderrgb
+	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@colors.sub_command(
-		name='render-rgb',
+		name='renderrgb',
 		description=f'{E.tools}Renderiza uma cor através de um RGB.',
 		options=[
 			disnake.Option(
@@ -366,7 +378,8 @@ class Tools(commands.Cog):
 			embed.set_image(file=disnake.File('data/temp/Color.png'))
 			os.remove('data/temp/Color.png')
 			await inter.send(embed=embed)
-		except:
+		except Exception as e:
+			print(e)
 			embed = EB(
 				title=f'{E.error}Não foi possivel renderizar a cor.',
 				color=C.error)
@@ -374,9 +387,10 @@ class Tools(commands.Cog):
 	
 	
 	#renderhex
+	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@colors.sub_command(
-		name='render-hex',
+		name='renderhex',
 		description=f'{E.tools}Renderiza uma cor através de um código hexadecimal.',
 		options=[
 			disnake.Option(
@@ -420,6 +434,7 @@ class Tools(commands.Cog):
 	
 	
 	#qrcode
+	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@tools.sub_command(
 		name='qrcode',

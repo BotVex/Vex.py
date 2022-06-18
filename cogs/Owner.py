@@ -1,7 +1,6 @@
 import os
 import sys
 import json
-import requests 
 
 import disnake
 from disnake.ext import commands

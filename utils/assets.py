@@ -52,9 +52,9 @@ class Emojis:
 
 
 class MediaUrl:
-	noguildicon = 'https://media.discordapp.net/attachments/845865181283352616/976544576640794624/9152fdef6eda843249ed83a5606fa745279afbae7681b1b33a8f1b43746cdb99_3.jpg'
-	commandoncooldownbanner = 'https://media.discordapp.net/attachments/965785255321681960/982479233806897242/102_Sem_Titulo_20220604000113.png'
-	notownerbanner = 'https://media.discordapp.net/attachments/965787411865018379/982483656595611688/102_Sem_Titulo_20220604001852.png'
-	missingpermissionsbanner = 'https://media.discordapp.net/attachments/965787411865018379/982655404611887104/102_Sem_Titulo_20220604114118.png'
-	botmissingpermissionsbanner = 'https://media.discordapp.net/attachments/965787411865018379/982655404611887104/102_Sem_Titulo_20220604114118.png'
-	noprivatemessagebanner = 'https://media.discordapp.net/attachments/848181565128835104/982694555029766214/102_Sem_Titulo_20220604141342.png'
+	noguildicon = 'https://i.postimg.cc/KvpGZvz3/9152fdef6eda843249ed83a5606fa745279afbae7681b1b33a8f1b43746cdb99-3.jpg'
+	commandoncooldownbanner = 'https://i.postimg.cc/vHmfqMN7/102-Sem-Titulo-20220604000113.png'
+	notownerbanner = 'https://i.postimg.cc/QxVSBphr/102-Sem-Titulo-20220604001852.png'
+	missingpermissionsbanner = 'https://i.postimg.cc/TYGLFxNN/102-Sem-Titulo-20220604114118.png'
+	botmissingpermissionsbanner = 'https://i.postimg.cc/TYGLFxNN/102-Sem-Titulo-20220604114118.png'
+	noprivatemessagebanner = 'https://i.postimg.cc/Twx8JtQS/102-Sem-Titulo-20220604141342.png'

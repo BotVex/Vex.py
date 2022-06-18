@@ -11,13 +11,13 @@ from utils.assets import MediaUrl
 import config
 
 from rich.console import Console
-C = Console()
+CO = Console()
 
 os.system('clear')
 
 
-#bot = commands.AutoShardedInteractionBot(
-bot = commands.InteractionBot(
+bot = commands.AutoShardedInteractionBot(
+#bot = commands.InteractionBot(
 	#shard_count=10,
 	intents							= config.intents,
 	help_command				= None,
@@ -26,7 +26,10 @@ bot = commands.InteractionBot(
 	case_insensitive		= True,
 	owner_ids						= config.owner_ids,
 	reload							= True,
-	strict_localization=True)
+	strict_localization = True,
+	chunk_guilds_at_startup=False)
+
+
 	#test_guilds=[957509903273046067])
 
 #bot.i18n.load("./locale")
@@ -35,9 +38,9 @@ bot = commands.InteractionBot(
 
 @bot.event
 async def on_ready():
-	C.print(f'\n[orange_red1]{bot.user}[/] [green]online[/]')
+	CO.print(f'\n[orange_red1]{bot.user}[/] [green]online[/]')
 	#status_task.start()
-	C.print('[green]status task started[/]')
+	CO.print('[green]status task started[/]')
 	channel = bot.get_channel(967464232021020683)
 	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name='Made By: Lobo 🐺'))
 	await channel.send('online')
@@ -45,13 +48,13 @@ async def on_ready():
 
 c = 0
 if __name__ == '__main__':
-	C.print(f'\n[red]COGS TO LOAD:[/]')
+	CO.print(f'\n[red]COGS TO LOAD:[/]')
 	for extension in config.extensions:
 		bot.load_extension(extension)
-		C.print(f'  [cyan]{c}[/] [yellow]:[/]  [green]{extension}[/]')
+		CO.print(f'  [cyan]{c}[/] [yellow]:[/]  [green]{extension}[/]')
 		c += 1
 
-C.print(f'\n[red]DISNAKE:[/]')
+CO.print(f'\n[red]DISNAKE:[/]')
 
 @bot.event
 async def on_message(msg: disnake.Message):
@@ -63,12 +66,12 @@ async def on_message(msg: disnake.Message):
 async def on_slash_command(inter: disnake.ApplicationCommandInteraction):
 	
 	try:
-		C.print(f"""
+		CO.print(f"""
 [yellow]COMMAND:[/] [bright_magenta]{inter.data.name}[/]
 [yellow]GUILD:  [/] [bright_magenta]{inter.guild.name}[/] [orange_red1]([/][aquamarine1]{inter.guild.id}[/][orange_red1])[/]
 [yellow]AUTHOR: [/] [bright_magenta]{inter.author}[/] [orange_red1]([/][aquamarine1]{inter.author.id}[/][orange_red1])[/]""")
 	except AttributeError:
-		C.print(f"""
+		CO.print(f"""
 [yellow]COMMAND:[/] [bright_magenta]{inter.data.name}[/]
 [yellow]DM COMMAND[/]
 [yellow]AUTHOR: [/] [bright_magenta]{inter.author}[/] [orange_red1]([/][aquamarine1]{inter.author.id}[/][orange_red1])[/]""")

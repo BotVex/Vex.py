@@ -42,7 +42,7 @@ class Administration(commands.Cog):
 				purged_messages = await inter.channel.purge(limit=amount)
 				embed = EB(
 					title=f'{E.success}Mensagens apagadas!',
-					description=f'**<@{inter.author.id}>** apagou **{len(purged_messages)}** mensagens!',
+					description=f'{inter.mention} apagou **{len(purged_messages)}** mensagens!',
 					color=C.success)
 				await inter.channel.send(embed=embed, delete_after=15.0)
 		except:
@@ -91,7 +91,7 @@ class Administration(commands.Cog):
 					try:
 							embed = EB(
 									title=f'{E.success} Usuário quicado!',
-									description=f'**<@{member.id}>** foi quicado por **<@{inter.id}>**!',
+									description=f'{member.mention} foi quicado por {inter.author.mention}!',
 									color=C.success)
 							embed.add_field(
 									name='Motivo:',
@@ -107,7 +107,7 @@ class Administration(commands.Cog):
 					except:
 							embed = EB(
 									title=f'{E.error}Erro!',
-									description=f'Ocorreu um erro ao tentar quicar o usuário. Certifique-se de que meu cargo estejam acima dos cargos de <@{member.id}> e tente novamente.',
+									description=f'Ocorreu um erro ao tentar quicar o usuário. Certifique-se de que meu cargo estejam acima dos cargos de {member.mention} e tente novamente.',
 									color=C.error)
 							await inter.send(embed=embed, ephemeral=True)
 	
@@ -153,7 +153,7 @@ class Administration(commands.Cog):
 			except:
 					embed = EB(
 							title=f'{E.error}Erro!',
-							description=f'Ocorreu um erro ao tentar alterar o nick do usuário. Certifique-se de que meu cargo esteja acima do cargo de <@{member.id}> e tente novamente.',
+							description=f'Ocorreu um erro ao tentar alterar o nick do usuário. Certifique-se de que meu cargo esteja acima do cargo de {member.mention} e tente novamente.',
 							color=C.error)
 					await inter.send(embed=embed, ephemeral=True)
 	
@@ -206,7 +206,7 @@ class Administration(commands.Cog):
 					else:
 							embed = EB(
 									title=f'{E.success}Usuário banido!',
-									description=f'**<@{member.id}>** foi banido por **<@{inter.id}>**!',
+									description=f'{member.mention} foi banido por {inter.author.mention}!',
 									color=C.success)
 							embed.add_field(
 									name='Motivo:',
@@ -226,7 +226,7 @@ class Administration(commands.Cog):
 			except:
 					embed = EB(
 							title=f'{E.error}Erro!',
-							description=f'Ocorreu um erro ao tentar banir o usuário. Certifique-se de que meu cargo esteja acima do cargo de <@{member.id}> e tente novamente.',
+							description=f'Ocorreu um erro ao tentar banir o usuário. Certifique-se de que meu cargo esteja acima do cargo de {member.mention} e tente novamente.',
 							color=C.error)
 					await inter.send(embed=embed, ephemeral=True)
 	
@@ -264,7 +264,7 @@ class Administration(commands.Cog):
 					user = await self.bot.get_or_fetch_user(int(user_id))
 					embed = EB(
 						title=f'{E.success}Usuário banido!',
-						description=f'**({user_id})** foi banido por **<@{inter.author.id}>**!',
+						description=f'**({user_id})** foi banido por {inter.mention}!',
 						color=C.success)
 					embed.add_field(
 						name='Motivo:',
@@ -313,7 +313,7 @@ class Administration(commands.Cog):
 					user = await self.bot.get_or_fetch_user(int(user_id))
 					embed = EB(
 						title=f'{E.success}Usuário desbanido!',
-						description=f'**({user_id})** foi desbanido por **<@{inter.author.id}>**!',
+						description=f'**({user_id})** foi desbanido por {inter.mention}!',
 						color=C.success)
 					embed.add_field(
 						name='Motivo:',
