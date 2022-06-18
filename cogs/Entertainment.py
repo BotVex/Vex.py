@@ -86,43 +86,44 @@ class Entertainment(commands.Cog):
 		url = chosen_anime['url']
 		color = chosen_anime['color']
 		
-		message = ''
-		if roleplay == 'highfive':
-			message=f'🙏 | <@{inter.author.id}> deu um highfive em <@{user.id}>!'
-		elif roleplay == 'handhold':
-			message=f'🤝 | <@{inter.author.id}> segurou a mão de <@{user.id}>!'
-		elif roleplay == 'kiss':
-			message=f'💋 | <@{inter.author.id}> beijou <@{user.id}>!'
-		elif roleplay == 'wave':
-			message=f'👋 | <@{inter.author.id}> acenou para  <@{user.id}>!'
-		elif roleplay == 'thumbsup':
-			message=f'👍 | <@{inter.author.id}> fez um "👍" para <@{user.id}>!'
-		elif roleplay == 'stare':
-			message=f'👀 | <@{inter.author.id}> olhou fixamente para <@{user.id}>!'
-		elif roleplay == 'cuddle':
-			message=f'🥺 | <@{inter.author.id}> fez carinho em <@{user.id}>!'
-		elif roleplay == 'baka':
-			message=f'🤬 | <@{inter.author.id}> chamou <@{user.id}> de idiota!'
-		elif roleplay == 'wink':
-			message=f'😉 | <@{inter.author.id}> piscou para <@{user.id}>!'
-		elif roleplay == 'shoot':
-			message=f'🔫 | <@{inter.author.id}> deu um TIRO em <@{user.id}>!'
-		elif roleplay == 'shrug':
-			message=f'🤷 | <@{inter.author.id}> fez um ¯\_(ツ)_/¯ para <@{user.id}>!'
-		elif roleplay == 'kick':
-			message=f'🦶 | <@{inter.author.id}> chutou <@{user.id}>!'
-		elif roleplay == 'hug':
-			message=f'🤗 | <@{inter.author.id}> abraçou <@{user.id}>!'
-		elif roleplay == 'slap':
-			message=f'👋 | <@{inter.author.id}> deu um tapa em <@{user.id}>!'
-		elif roleplay == 'pat':
-			message=f'🥰 | <@{inter.author.id}> fez cafuné em <@{user.id}>!'
-		elif roleplay == 'punch':
-			message=f'👊 | <@{inter.author.id}> deu um soco em <@{user.id}>!'
-		elif roleplay == 'dance':
-			message=f'🕺 |  <@{inter.author.id}> dançou com <@{user.id}>!'
-		elif roleplay == 'bite':
-			message=f'😳 |  <@{inter.author.id} mordeu <@{user.id}>!'
+		match roleplay:
+			case 'highfive':
+				message = f'🙏 | <@{inter.author.id}> deu um highfive em <@{user.id}>!'
+			case 'handhold':
+				message = f'🤝 | <@{inter.author.id}> segurou a mão de <@{user.id}>!'
+			case 'kiss':
+				message = f'💋 | <@{inter.author.id}> beijou <@{user.id}>!'
+			case 'wave':
+				message = f'👋 | <@{inter.author.id}> acenou para  <@{user.id}>!'
+			case 'thumbsup':
+				message = f'👍 | <@{inter.author.id}> fez um "👍" para <@{user.id}>!'
+			case 'stare':
+				message = f'👀 | <@{inter.author.id}> olhou fixamente para <@{user.id}>!'
+			case 'stare':
+				message = f'🥺 | <@{inter.author.id}> fez carinho em <@{user.id}>!'
+			case 'baka':
+				message = f'🤬 | <@{inter.author.id}> chamou <@{user.id}> de idiota!'
+			case 'wink':
+				message = f'🔫 | <@{inter.author.id}> deu um TIRO em <@{user.id}>!'
+			case 'shrug':
+				message = f'🤷 | <@{inter.author.id}> fez um ¯\_(ツ)_/¯ para <@{user.id}>!'
+			case 'kick':
+				message = f'🦶 | <@{inter.author.id}> chutou <@{user.id}>!'
+			case 'hug':
+				message = f'🤗 | <@{inter.author.id}> abraçou <@{user.id}>!'
+			case 'slap':
+				message = f'👋 | <@{inter.author.id}> deu um tapa em <@{user.id}>!'
+			case 'pat':
+				message = f'🥰 | <@{inter.author.id}> fez cafuné em <@{user.id}>!'
+			case 'punch':
+				message = f'👊 | <@{inter.author.id}> deu um soco em <@{user.id}>!'
+			case 'dance':
+				message = f'🕺 |  <@{inter.author.id}> dançou com <@{user.id}>!'
+			case 'bite':
+				message = f'😳 |  <@{inter.author.id} mordeu <@{user.id}>!'
+			case _:
+				message = ''
+	
 		
 		embed = disnake.Embed(
 		color=color)

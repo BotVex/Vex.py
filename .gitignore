@@ -6,3 +6,4 @@ utils/confirm.py
 utils/buttonLink.py 
 data/curses.json
 data/games.json
+READEME.md
