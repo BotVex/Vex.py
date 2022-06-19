@@ -59,7 +59,7 @@ class Tools(commands.Cog):
 		image_icon = MediaUrl.noguildicon if no_icon is True else inter.guild.icon
 		
 		embed = EB(
-			title=f'Ícone de `{inter.guild.name}`.',
+			title=f'Ícone de `{inter.guild.name}`.[{inter.guild.shard_id}]',
 			description='' if no_icon is False else 'Como o servidor não possuí um ícone, eu decidi te mostrar essa bela imagem.',
 			color=0xFFFFFF if no_icon is True else color)
 		embed.set_image(url=image_icon)

@@ -27,10 +27,8 @@ bot = commands.AutoShardedInteractionBot(
 	owner_ids						= config.owner_ids,
 	reload							= True,
 	strict_localization = True,
-	chunk_guilds_at_startup=False)
-
-
-	#test_guilds=[957509903273046067])
+	chunk_guilds_at_startup=False,
+	test_guilds=config.guild_ids)
 
 #bot.i18n.load("./locale")
 #print('locales loaded')
@@ -41,7 +39,7 @@ async def on_ready():
 	CO.print(f'\n[orange_red1]{bot.user}[/] [green]online[/]')
 	#status_task.start()
 	CO.print('[green]status task started[/]')
-	channel = bot.get_channel(967464232021020683)
+	channel = bot.get_channel(987899340293038130)
 	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name='Made By: Lobo 🐺'))
 	await channel.send('online')
 
@@ -58,7 +56,7 @@ CO.print(f'\n[red]DISNAKE:[/]')
 
 @bot.event
 async def on_message(msg: disnake.Message):
-	if int(msg.channel.id) == 967464232021020683:
+	if int(msg.channel.id) == 987899340293038130:
 		await msg.delete(delay=60.0)
 
 

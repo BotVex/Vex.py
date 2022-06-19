@@ -9,7 +9,7 @@ owner_ids      = [
   728409113847136341
   ]
 guild_ids      = [
-	957509903273046067
+	939585882883772436
 	]
 
 intents = Intents.default()
@@ -26,5 +26,5 @@ extensions  = [
 	'cogs.Tools'
 ]
 
-
-TOKEN = os.environ["TOKEN"]
+	
+TOKEN = "ODI3NjEwMTk3MjQ1MTY1NTc4.GWD-a-.2X63PS7A1ZKB6XQfHn64XKBvXyvixXeZBVjB7s" #os.environ["TOKEN"]
