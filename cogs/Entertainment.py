@@ -99,8 +99,10 @@ class Entertainment(commands.Cog):
 				message = f'🕺 |  {inter.author.mention} dançou com {user.mention}!'
 			case 'bite':
 				message = f'🍽️ |  {inter.author.mention} mordeu {user.mention}!'
+			case 'shoot':
+				message = f'🔫 | {inter.author.mention} atirou em {user.mention}!'
 			case _:
-				message = ''
+				message = f'❓ |  {inter.author.mention}  fez algo que ainta não foi terminado com {user.mention}!'
 	
 		
 		embed = disnake.Embed(
