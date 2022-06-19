@@ -27,8 +27,7 @@ bot = commands.AutoShardedInteractionBot(
 	owner_ids						= config.owner_ids,
 	reload							= True,
 	strict_localization = True,
-	chunk_guilds_at_startup=False,
-	test_guilds=config.guild_ids)
+	chunk_guilds_at_startup=False)
 
 #bot.i18n.load("./locale")
 #print('locales loaded')
