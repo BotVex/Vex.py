@@ -39,13 +39,6 @@ class Tools(commands.Cog):
 	#servericon
 	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
-	@tools.sub_command()
-	async def uptime(
-		self, 
-		inter: ACI):
-		await inter.response.defer()
-		
-		await inter.send(BOTUPTIME)
 
 
 	@commands.guild_only()
