@@ -1,5 +1,6 @@
 import os
 from datetime import timedelta
+import time
 
 import disnake
 from disnake.ext import commands, tasks
@@ -18,7 +19,7 @@ os.system('clear')
 
 bot = commands.AutoShardedInteractionBot(
 #bot = commands.InteractionBot(
-	#shard_count=10,
+	shard_count=3,
 	intents							= config.intents,
 	help_command				= None,
 	sync_commands_debug	= True,
@@ -36,12 +37,20 @@ bot = commands.AutoShardedInteractionBot(
 @bot.event
 async def on_ready():
 	CO.print(f'\n[orange_red1]{bot.user}[/] [green]online[/]')
+	for guild in bot.guilds:
+		shard_id = guild.shard_id
+		async def on_shard_connect(shard_id):
+			print(f'shard {shard_id} conected')
 	#status_task.start()
 	CO.print('[green]status task started[/]')
 	channel = bot.get_channel(987899340293038130)
-	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name='¯\_(ツ)_/¯'))
 	await channel.send('online')
 
+
+@tasks.loop(minutes=1.0)
+async def status_task():
+	pass
+	
 
 c = 0
 if __name__ == '__main__':
@@ -52,6 +61,25 @@ if __name__ == '__main__':
 		c += 1
 
 CO.print(f'\n[red]DISNAKE:[/]')
+
+"""
+@bot.event
+async def on_shard_connect(bot, shard_id):
+    print(f"shard {shard_id} connected")
+
+@bot.event
+async def on_shard_disconnect(bot, shard_id):
+    print(f"shard {shard_id} disconnected")
+
+@bot.event
+async def on_shard_resumed(bot, shard_id):
+    print(f"shard {shard_id} resumed")
+
+@bot.event
+async def on_shard_ready(bot, shard_id):
+	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'Shard: {shard_id}'), shard_id=shard_id)
+	print(f"shard {shard_id} ready")
+"""
 
 @bot.event
 async def on_message(msg: disnake.Message):

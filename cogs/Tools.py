@@ -39,6 +39,17 @@ class Tools(commands.Cog):
 	#servericon
 	@commands.guild_only()
 	@commands.cooldown(1, 7, commands.BucketType.user)
+	@tools.sub_command()
+	async def uptime(
+		self, 
+		inter: ACI):
+		await inter.response.defer()
+		
+		await inter.send(BOTUPTIME)
+
+
+	@commands.guild_only()
+	@commands.cooldown(1, 7, commands.BucketType.user)
 	@discord.sub_command(
 		name='servericon',
 		description=f'{E.tools}Obtém o ícone do servidor.')
@@ -59,7 +70,7 @@ class Tools(commands.Cog):
 		image_icon = MediaUrl.noguildicon if no_icon is True else inter.guild.icon
 		
 		embed = EB(
-			title=f'Ícone de `{inter.guild.name}`.[{inter.guild.shard_id}]',
+			title=f'Ícone de `{inter.guild.name}`.',
 			description='' if no_icon is False else 'Como o servidor não possuí um ícone, eu decidi te mostrar essa bela imagem.',
 			color=0xFFFFFF if no_icon is True else color)
 		embed.set_image(url=image_icon)
