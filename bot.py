@@ -39,7 +39,7 @@ async def on_ready():
 	#status_task.start()
 	CO.print('[green]status task started[/]')
 	channel = bot.get_channel(987899340293038130)
-	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name='Made By: Lobo 🐺'))
+	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name='¯\_(ツ)_/¯'))
 	await channel.send('online')
 
 
