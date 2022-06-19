@@ -45,11 +45,10 @@ async def on_ready():
 
 @tasks.loop(minutes=1.0)
 async def status_task():
-	pass
 	#shard_ids = [for x in bot.shard_count - 1]
 	#print(shard_ids)
-		for guild in bot.guilds:
-			await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'Shard: {bot.get_shard(guild.shard_id).id} | Shard latency: {int(round(bot.get_shard(guild.shard_id).latency, 2)*1000)}ms'), shard_id=guild.shard_id)
+	for guild in bot.guilds:
+		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'Shard: {bot.get_shard(guild.shard_id).id} | Shard latency: {int(round(bot.get_shard(guild.shard_id).latency, 2)*1000)}ms'), shard_id=guild.shard_id)
 	
 
 c = 0
