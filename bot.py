@@ -19,7 +19,7 @@ os.system('clear')
 
 bot = commands.AutoShardedInteractionBot(
 #bot = commands.InteractionBot(
-	shard_count=3,
+	#shard_count=2,
 	intents							= config.intents,
 	help_command				= None,
 	sync_commands_debug	= True,
@@ -37,11 +37,7 @@ bot = commands.AutoShardedInteractionBot(
 @bot.event
 async def on_ready():
 	CO.print(f'\n[orange_red1]{bot.user}[/] [green]online[/]')
-	for guild in bot.guilds:
-		shard_id = guild.shard_id
-		async def on_shard_connect(shard_id):
-			print(f'shard {shard_id} conected')
-	#status_task.start()
+	status_task.start()
 	CO.print('[green]status task started[/]')
 	channel = bot.get_channel(987899340293038130)
 	await channel.send('online')
@@ -49,7 +45,9 @@ async def on_ready():
 
 @tasks.loop(minutes=1.0)
 async def status_task():
-	pass
+	shard_ids = [for x in bot.shard_count - 1]
+	print(shard_ids)
+		#await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'Shard: {bot.get_shard(guild.shard_id).id} | Shard latency: {int(round(bot.get_shard(guild.shard_id).latency, 2)*1000)}ms'), shard_id=guild.shard_id)
 	
 
 c = 0
@@ -77,7 +75,6 @@ async def on_shard_resumed(bot, shard_id):
 
 @bot.event
 async def on_shard_ready(bot, shard_id):
-	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'Shard: {shard_id}'), shard_id=shard_id)
 	print(f"shard {shard_id} ready")
 """
 
