@@ -27,4 +27,4 @@ extensions  = [
 ]
 
 	
-TOKEN = "ODI3NjEwMTk3MjQ1MTY1NTc4.GWD-a-.2X63PS7A1ZKB6XQfHn64XKBvXyvixXeZBVjB7s" #os.environ["TOKEN"]
+TOKEN = os.environ["TOKEN"]
