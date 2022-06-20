@@ -17,7 +17,7 @@ class Events(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@bot.event
+	@commands.Cog.listener()
 	async def on_ready(self):
 		CO.print(f'\n[orange_red1]{self.bot.user}[/] [green]online[/]')
 		status_task.start()
