@@ -19,6 +19,7 @@ intents.presences = True
 
 
 extensions  = [
+	'cogs.Events',
 	'cogs.Entertainment',
 	'cogs.Image',
 	'cogs.Owner',
@@ -27,4 +28,4 @@ extensions  = [
 ]
 
 	
-TOKEN = os.environ["TOKEN"]
+TOKEN = os.environ['TOKEN']
