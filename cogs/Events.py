@@ -22,7 +22,7 @@ class Events(commands.Cog):
 		CO.print(f'\n[orange_red1]{self.bot.user}[/] [green]online[/]')
 		status_task.start()
 		CO.print('[green]status task started[/]')
-		channel = self bot.get_channel(987899340293038130)
+		channel = self.bot.get_channel(987899340293038130)
 		await channel.send('online')
 	
 	

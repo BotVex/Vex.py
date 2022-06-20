@@ -34,22 +34,6 @@ bot = commands.AutoShardedInteractionBot(
 #print('locales loaded')
 
 
-@bot.event
-async def on_ready():
-	CO.print(f'\n[orange_red1]{bot.user}[/] [green]online[/]')
-	status_task.start()
-	CO.print('[green]status task started[/]')
-	channel = bot.get_channel(987899340293038130)
-	await channel.send('online')
-
-
-@tasks.loop(minutes=1.0)
-async def status_task():
-	#shard_ids = [for x in bot.shard_count - 1]
-	#print(shard_ids)
-	for guild in bot.guilds:
-		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'Shard: {bot.get_shard(guild.shard_id).id} | Shard latency: {int(round(bot.get_shard(guild.shard_id).latency, 2)*1000)}ms'), shard_id=guild.shard_id)
-	
 
 c = 0
 if __name__ == '__main__':
