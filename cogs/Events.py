@@ -17,21 +17,7 @@ class Events(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.Cog.listener()
-	async def on_ready(self):
-		CO.print(f'\n[orange_red1]{self.bot.user}[/] [green]online[/]')
-		status_task.start()
-		CO.print('[green]status task started[/]')
-		channel = self.bot.get_channel(987899340293038130)
-		await channel.send('online')
-	
-	
-	@tasks.loop(minutes=1.0)
-	async def status_task(self):
-		#shard_ids = [for x in bot.shard_count - 1]
-		#print(shard_ids)
-		for guild in self.bot.guilds:
-			await self.bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'Shard: {self.bot.get_shard(guild.shard_id).id} | Latency: {int(round(self.bot.get_shard(guild.shard_id).latency, 2)*1000)}ms'), shard_id=guild.shard_id)
+
 		
 	
 	@commands.Cog.listener()
