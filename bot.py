@@ -64,4 +64,4 @@ if __name__ == '__main__':
 CO.print(f'\n[red]DISNAKE:[/]')
 
 
-bot.run("ODI3NjEwMTk3MjQ1MTY1NTc4.GgYMct.7ApKgXz8_cBQQCfVjsCR2gqioPVbejtJ7OY968") #config.TOKEN)
+bot.run(config.TOKEN)
