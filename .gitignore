@@ -1,6 +1,7 @@
 .env
 push.sh
 push_dev.sh
+keep_alive.py
 **/__pycache__/
 curses.json
 animes.json

@@ -18,7 +18,7 @@ os.system('clear')
 
 
 bot = commands.AutoShardedInteractionBot(
-	shard_count=0,
+	shard_count=1,
 	intents							= config.intents,
 	help_command				= None,
 	sync_commands_debug	= True,
