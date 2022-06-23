@@ -11,6 +11,8 @@ intents = Intents.default()
 intents.members = True
 intents.presences = True
 
+keep_alive_message = 'Ok'
+
 extensions  = [
 	'cogs.Events',
 	'cogs.Entertainment',

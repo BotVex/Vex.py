@@ -10,6 +10,7 @@ from utils.assets import Emojis as E
 from utils.assets import Colors as C
 from utils.assets import MediaUrl
 import config
+from keep_alive import keep_alive
 
 from rich.console import Console
 CO = Console()
@@ -33,6 +34,7 @@ bot = commands.AutoShardedInteractionBot(
 
 @commands.Cog.listener()
 async def on_ready():
+	keep_alive()
 	CO.print(f'\n[orange_red1]{bot.user}[/] [green]online[/]')
 	status_task.start()
 	CO.print('[green]status task started[/]')
