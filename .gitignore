@@ -1,6 +1,6 @@
 .env
 push.sh
 **/__pycache__/
-/curses.json
-/animes.json
-/games.json
+curses.json
+animes.json
+games.json
