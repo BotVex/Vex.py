@@ -1,22 +1,15 @@
-from disnake import Intents
 import os
+from disnake import Intents
 from dotenv import load_dotenv
 
 load_dotenv()
 
-owner_ids      = [
-  783120232134082580,
-  728409113847136341
-  ]
-guild_ids      = [
-	939585882883772436
-	]
+owner_ids      = [783120232134082580]
+guild_ids      = [939585882883772436]
 
 intents = Intents.default()
 intents.members = True
 intents.presences = True
-
-
 
 extensions  = [
 	'cogs.Events',
@@ -27,5 +20,4 @@ extensions  = [
 	'cogs.Tools'
 ]
 
-	
 TOKEN = os.environ['TOKEN']
