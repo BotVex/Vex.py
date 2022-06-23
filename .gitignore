@@ -1,11 +1,5 @@
 .env
-cmt.sh
 push.sh
 **/__pycache__/
-
-utils/paginator.py
-utils/confirm.py 
-utils/buttonLink.py 
 data/curses.json
 data/games.json
-READEME.md
