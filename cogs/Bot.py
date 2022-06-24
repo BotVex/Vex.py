@@ -33,7 +33,7 @@ class Bot(commands.Cog):
 	
 	@vex.sub_command(
 		name='info',
-		description='exibe minhas informações.')
+		description='Exibe minhas informações.')
 	async def info(
 		self,
 		inter: ACI):
@@ -58,6 +58,16 @@ class Bot(commands.Cog):
 			
 			await inter.send(embed=embed)
 
+	
+	@vex.sub_command(
+		name='status',
+		description='Exibe meus status no statcord.')
+	async def status(
+		self, 
+		inter: ACI):
+			await inter.response.defer()
+			await inter.send('inacabado')
+	
 
 def setup(bot):
 	bot.add_cog(Bot(bot))

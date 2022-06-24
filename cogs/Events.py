@@ -11,11 +11,13 @@ from datetime import timedelta
 from rich.console import Console
 CO = Console()
 
+from statcord import StatcordClient
+
 
 class Events(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
-	
+		self.statcord_client = StatcordClient(bot, config.STATCORDKEY)
 	
 
 		
@@ -28,6 +30,7 @@ class Events(commands.Cog):
 	
 	@commands.Cog.listener()
 	async def on_slash_command(self, inter: disnake.ApplicationCommandInteraction):
+		
 		try:
 			CO.print(f"""
 	[yellow]COMMAND:[/] [bright_magenta]{inter.data.name}[/]
