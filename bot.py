@@ -48,7 +48,6 @@ async def status_task():
 		shard_ids.append(guild.shard_id)
 	shard_ids = sorted(set(shard_ids))
 	for shard_id in shard_ids:
-		print(f'shard: {shard_id}')
 		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'Shard: {bot.get_shard(guild.shard_id).id} | Latency: ~{int(round(bot.get_shard(guild.shard_id).latency, 2)*1000)}ms'), shard_id=shard_id)
 		
 		

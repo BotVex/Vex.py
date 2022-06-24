@@ -1,3 +1,5 @@
+#test 
+
 import disnake
 from disnake.ext import commands, tasks
 EB = disnake.Embed
@@ -18,8 +20,6 @@ class Events(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 		self.statcord_client = StatcordClient(bot, config.STATCORDKEY)
-	
-
 		
 	
 	@commands.Cog.listener()
