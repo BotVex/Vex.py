@@ -60,7 +60,7 @@ class Bot(commands.Cog):
 		self, 
 		inter: ACI):
 			await inter.response.defer()
-			await inter.send(embed=EB(title=f'Você pode vizualizar algumas informações [aqui](https://statcord.com/bot/783716882896912405).'))
+			await inter.send(embed=EB(description=f'Você pode vizualizar algumas informações [aqui](https://statcord.com/bot/783716882896912405).'))
 	
 
 def setup(bot):
