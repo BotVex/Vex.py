@@ -43,6 +43,7 @@ async def on_ready():
 
 @tasks.loop(minutes=1.0)
 async def status_task():
+	await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'In {len(bot.guilds)} | with {len(bot.users)} users | Ping: ~{int(round(bot.latency, 2)*1000)}ms'))
 	shard_ids = []
 	for guild in bot.guilds:
 		shard_ids.append(guild.shard_id)
