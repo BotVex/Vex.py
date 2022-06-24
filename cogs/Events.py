@@ -12,7 +12,7 @@ from rich.console import Console
 CO = Console()
 
 from statcord import StatcordClient
-
+import config
 
 class Events(commands.Cog):
 	def __init__(self, bot):
