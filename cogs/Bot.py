@@ -37,7 +37,7 @@ class Bot(commands.Cog):
 	async def info(
 		self,
 		inter: ACI):
-			await inter response.defer()
+			await inter.response.defer()
 			
 			avatar_color = self.bot.user.display_avatar.with_size(16)
 			async with aiohttp.ClientSession() as session:
