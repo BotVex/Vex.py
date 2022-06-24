@@ -13,6 +13,7 @@ from config import guild_ids
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
+from utils.buttonLink import ButtonLink
 from utils.dominant_color import dominant_color
 
 
@@ -50,17 +51,20 @@ class Bot(commands.Cog):
 			embed.add_field(name='Versão da Disnake:', value=disnake.__version__, inline=False)
 			embed.set_thumbnail(url=self.bot.user.display_avatar)
 			
-			await inter.send(embed=embed)
+			await inter.send(embed=embed, view=ButtonLink('Github', str('https://github.com/Lobooooooo14/Vex.py')))
 
 	
 	@vex.sub_command(
 		name='status',
-		description='Exibe meus status no statcord.')
+		description='Exibe minhas informações no statcord.')
 	async def status(
 		self, 
 		inter: ACI):
 			await inter.response.defer()
-			await inter.send(embed=EB(description=f'Você pode vizualizar algumas informações [aqui](https://statcord.com/bot/783716882896912405).'))
+			embed = EB(
+				title='Vex Statcord',
+				description='Statcord fornece estatísticas de bots do Discord.')
+			await inter.send(embed=embed, view=ButtonLink('Abrir página', str('https://statcord.com/bot/783716882896912405')))
 	
 
 def setup(bot):
