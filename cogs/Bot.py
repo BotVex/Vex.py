@@ -16,18 +16,13 @@ from utils.assets import Colors as C
 from utils.dominant_color import dominant_color
 
 
-def _restart():
-	python = sys.executable
-	os.execl(python, python, * sys.argv)
-
-
 class Bot(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot 
 	
 	
 	@commands.slash_command(name='vex')
-	async def vex(self):
+	async def vex(self, inter: ACI):
 		pass
 	
 	
@@ -53,7 +48,7 @@ class Bot(commands.Cog):
 			embed.add_field(name='Versão do python:', value=platform.python_version(), inline=False)
 			embed.add_field(name='Sistema:', value=platform.system(), inline=False)
 			embed.add_field(name='Versão da Disnake:', value=disnake.__version__, inline=False)
-			embed.add_field(name='Módulos usados:', value=', '.join(open('requirements.txt', 'r').readlines()), inline=False)
+			embed.add_field(name='Módulos usados:', value=', '.join([open('requirements.txt', 'r').readlines().splitlines()]), inline=False)
 			embed.set_thumbnail(url=self.bot.user.display_avatar)
 			
 			await inter.send(embed=embed)
