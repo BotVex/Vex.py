@@ -45,7 +45,7 @@ async def on_ready():
 async def status_task():
 	humans = []
 	for user in bot.users:
-		if user.bot not is True: 
+		if (user.bot not is True): 
 			humans.append(user)
 	
 	shard_ids = []
