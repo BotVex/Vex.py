@@ -48,7 +48,6 @@ class Bot(commands.Cog):
 			embed.add_field(name='Versão do python:', value=platform.python_version(), inline=False)
 			embed.add_field(name='Sistema:', value=platform.system(), inline=False)
 			embed.add_field(name='Versão da Disnake:', value=disnake.__version__, inline=False)
-			embed.add_field(name='Módulos usados:', value=', '.join([open('requirements.txt', 'r').readlines().splitlines()]), inline=False)
 			embed.set_thumbnail(url=self.bot.user.display_avatar)
 			
 			await inter.send(embed=embed)
@@ -61,7 +60,7 @@ class Bot(commands.Cog):
 		self, 
 		inter: ACI):
 			await inter.response.defer()
-			await inter.send('inacabado')
+			await inter.send(EB(title=f'Você pode vizualizar algumas informações [aqui](https://statcord.com/bot/783716882896912405).'))
 	
 
 def setup(bot):
