@@ -30,7 +30,7 @@ class Sfx(commands.Cog):
 		sfx: str):
 		await inter.response.defer()
 		
-		await inter.send(':thumbsup:')
+		await inter.send('Comando não finalizado.')
 	
 	
 
