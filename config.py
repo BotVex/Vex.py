@@ -18,7 +18,8 @@ extensions  = [
 	'cogs.Owner',
 	'cogs.Administration',
 	'cogs.Tools',
-	'cogs.Bot'
+	'cogs.Bot',
+	'cogs.Sfx'
 ]
 
 TOKEN = os.environ['TOKEN']
