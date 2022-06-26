@@ -15,7 +15,7 @@ class Sfx(commands.Cog):
 	
 	@commands.slash_command(
 		name='sfx',
-		description='Reproduz um efeito sonoro em um canal de voz.',
+		description='(BETA) Reproduz um efeito sonoro em um canal de voz.',
 		options=[
 					disnake.Option(
 						name='sfx',
@@ -30,24 +30,19 @@ class Sfx(commands.Cog):
 		sfx: str):
 		await inter.response.defer()
 		
-		 if not inter.author.voice:
-		   embed = EB(
-		     title=f'{E.error} Erro!',
-		     description=f'{inter.author.mention}, Vocẽ preciza se conectar em um canal de voz primeiro.',
-		     color=C.error)
-		  
-		  await inter.send(embed=embed, ephemeral=True)
-		  return
+		if not inter.author.voice:
+			embed = EB(
+				title=f'{E.error} Erro!',
+				description=f'{inter.author.mention}, Você preciza se conectar em um canal de voz primeiro.',
+				color=C.error)
+			await inter.send(embed=embed, ephemeral=True)
+			return
 		
-		  vc_channel = inter.author.voice.channel
-		 
-		  if not inter.guild.voice_client or not inter.guild.voice_client.is_connected():
-		    await vc_channel.connect(timeout=None, reconnect=False)
-		    
-		  
-		  
-		  
-	  
+		vc_channel = inter.author.voice.channel
+		
+		if not inter.guild.voice_client or not inter.guild.voice_client.is_connected():
+			await vc_channel.connect(timeout=30.0, reconnect=False)
+			await inter.guild.voice_client.play(disnake.PCMAudio(f'data/audio/sfx/{sfx}.opus').read()
 	
 	
 	@sfx.autocomplete('sfx')
@@ -55,7 +50,7 @@ class Sfx(commands.Cog):
 		self, 
 		inter: ACI, 
 		string: str):
-		  return ['cavalo']
+			return ['cavalo']
 	
 
 def setup(bot):
