@@ -30,8 +30,32 @@ class Sfx(commands.Cog):
 		sfx: str):
 		await inter.response.defer()
 		
-		await inter.send('Comando não finalizado.')
+		 if not inter.author.voice:
+		   embed = EB(
+		     title=f'{E.error} Erro!',
+		     description=f'{inter.author.mention}, Vocẽ preciza se conectar em um canal de voz primeiro.',
+		     color=C.error)
+		  
+		  await inter.send(embed=embed, ephemeral=True)
+		  return
+		
+		  vc_channel = inter.author.voice.channel
+		 
+		  if not inter.guild.voice_client or not inter.guild.voice_client.is_connected():
+		    await vc_channel.connect(timeout=None, reconnect=False)
+		    
+		  
+		  
+		  
+	  
 	
+	
+	@sfx.autocomplete('sfx')
+	async def categories_(
+		self, 
+		inter: ACI, 
+		string: str):
+		  return ['cavalo']
 	
 
 def setup(bot):
