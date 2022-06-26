@@ -8,6 +8,7 @@ from utils.assets import Colors as C
 from utils.buttonLink import ButtonLink
 
 
+
 class Sfx(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot 
@@ -42,7 +43,13 @@ class Sfx(commands.Cog):
 		
 		if not inter.guild.voice_client or not inter.guild.voice_client.is_connected():
 			await vc_channel.connect(timeout=30.0, reconnect=False)
-			await inter.guild.voice_client.send_audio_packet(data=f'data/audio/sfx/{sfx}.opus', encode=False)
+			
+			 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
+			                               'options': '-vn'}
+			
+			cavalo_file = 'data/audio/sfx/cavalo.opus'
+			
+			await inter.guild.voice_client.play(disnake.FFmpegPCMAudio(cavalo_file, FFMPEG_OPTIONS)
 	
 	
 	@sfx.autocomplete('sfx')
