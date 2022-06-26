@@ -48,8 +48,7 @@ class Sfx(commands.Cog):
 			                               'options': '-vn'}
 			cavalo_file = 'data/audio/sfx/cavalo.opus'
 			
-			await inter.guild.voice_client.play(disnake.FFmpegPCMAudio(cavalo_file, FFMPEG_OPTIONS)
-	
+			await inter.guild.voice_client.play(disnake.FFmpegPCMAudio(cavalo_file, FFMPEG_OPTIONS))
 	
 	@sfx.autocomplete('sfx')
 	async def categories_(
