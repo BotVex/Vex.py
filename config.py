@@ -19,7 +19,7 @@ extensions  = [
 	'cogs.Administration',
 	'cogs.Tools',
 	'cogs.Bot',
-	'cogs.Sfx'
+	#'cogs.Sfx'
 ]
 
 TOKEN = os.environ['TOKEN']
