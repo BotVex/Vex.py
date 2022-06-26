@@ -44,9 +44,8 @@ class Sfx(commands.Cog):
 		if not inter.guild.voice_client or not inter.guild.voice_client.is_connected():
 			await vc_channel.connect(timeout=30.0, reconnect=False)
 			
-			 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
+			FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
 			                               'options': '-vn'}
-			
 			cavalo_file = 'data/audio/sfx/cavalo.opus'
 			
 			await inter.guild.voice_client.play(disnake.FFmpegPCMAudio(cavalo_file, FFMPEG_OPTIONS)
