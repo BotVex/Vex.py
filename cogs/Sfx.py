@@ -42,7 +42,7 @@ class Sfx(commands.Cog):
 		
 		if not inter.guild.voice_client or not inter.guild.voice_client.is_connected():
 			await vc_channel.connect(timeout=30.0, reconnect=False)
-			await inter.guild.voice_client.play(disnake.PCMAudio(f'data/audio/sfx/{sfx}.opus').read())
+			await inter.guild.voice_client.play(disnake.PCMAudio(f'data/audio/sfx/{sfx}.opus'))
 	
 	
 	@sfx.autocomplete('sfx')
