@@ -51,7 +51,7 @@ class Bot(commands.Cog):
 			embed.add_field(name='Versão da Disnake:', value=disnake.__version__, inline=False)
 			embed.set_thumbnail(url=self.bot.user.display_avatar)
 			
-			await inter.send(embed=embed, view=ButtonLink('Github', str('https://github.com/Lobooooooo14/Vex.py')))
+			await inter.send(embed=embed, view=ButtonLink('Github', str('https://github.com/Lobooooooo14/Vex.py'), emoji=str(E.github)))
 
 	
 	@vex.sub_command(
