@@ -64,7 +64,7 @@ class Bot(commands.Cog):
 			embed = EB(
 				title='Vex Statcord',
 				description='Statcord fornece estatísticas de bots do Discord.')
-			await inter.send(embed=embed, view=ButtonLink('Abrir página', str('https://statcord.com/bot/783716882896912405', emoji=E.github)))
+			await inter.send(embed=embed, view=ButtonLink('Abrir página', str('https://statcord.com/bot/783716882896912405')))
 	
 
 def setup(bot):
