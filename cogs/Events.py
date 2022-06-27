@@ -19,13 +19,12 @@ import config
 class Events(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
-		self.statcord_client = StatcordClient(bot, config.STATCORDKEY)
+		self.statcord_.start()
 		
 	
-	@commands.Cog.listener()
-	async def on_message(self, msg: disnake.Message):
-		if int(msg.channel.id) == 987899340293038130:
-			await msg.delete(delay=60.0)
+	@tasks.loop(minutes=1.0)
+	async def statcord_(self):
+		self.statcord_client = StatcordClient(bot, config.STATCORDKEY)
 
 	
 	@commands.Cog.listener()
