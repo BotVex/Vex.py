@@ -42,6 +42,7 @@ class Emojis:
 	disnake_icon = '<:disnake:987925228397146182> | '
 	python_icon = '<:py:987925080191402064> | '
 	botTag = '<:bot_tag:987925288384102450>'
+	github = '<:github:990768354216267848>'
 	tools = '🛠️ | '
 	entertainment = '🪀 | '
 	image = '🖼️ | '
