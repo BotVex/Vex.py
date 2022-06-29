@@ -215,15 +215,19 @@ class Entertainment(commands.Cog):
 		
 		bot_choose = choice(['cara', 'coroa'])
 		
+		if choose not in ['cara', 'coroa']:
+			await inter.send(f'{choose}? não conheço essa moeda...')
+			return
+		
 		if bot_choose == choose:
 			embed = EB(
-				title=f'`eu jogei {bot_choose}` e você `{choose}`!'
+				title=f'eu jogei `{bot_choose}` e você `{choose}`!'
 				,
 				description='você ganhou!',
 				color=C.general)
 		else:
 			embed = EB(
-				title=f'`eu jogei {bot_choose}` e você `{choose}`!'
+				title=f'eu jogei `{bot_choose}` e você `{choose}`!'
 				,
 				description='você perdeu!',
 				color=C.general)
