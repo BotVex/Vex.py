@@ -1,6 +1,6 @@
 colorir==1.1.1
 colorthief==0.2.1
-git+https://github.com/DisnakeDev/disnake.git
+disnake==2.5.1
 kaomoji==0.1.0
 Pillow==9.1.0
 pyowo==1.0.1
