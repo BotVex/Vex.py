@@ -102,7 +102,8 @@ class Entertainment(commands.Cog):
 			case 'shoot':
 				message = f'🔫 | {inter.author.mention} atirou em {user.mention}!'
 			case _:
-				message = f'❓ |  {inter.author.mention}  fez algo que ainta não foi terminado com {user.mention}!'
+				await inter.send(f'Não conheço essa {roleplay}, é de comer?')
+				return
 	
 		
 		embed = disnake.Embed(
@@ -170,12 +171,12 @@ class Entertainment(commands.Cog):
 				kaomoji = kaofy.create('indifference')
 			case 'happy':
 				kaomoji = kaofy.create('joy')
-			case 'random':
-				kaomoji = kaofy.create()
 			case 'love':
 				kaomoji = kaofy.create('love')
 			case 'sad':
 				kaomoji = kaofy.create('sadness')
+			case _:
+				kaomoji = kaofy.create()
 		
 		await inter.send(kaomoji)
 	
@@ -186,7 +187,6 @@ class Entertainment(commands.Cog):
 	inter: ACI, 
 	string: str):
 		return sorted([
-			'random',
 			'neutral',
 			'happy',
 			'love',
