@@ -137,9 +137,12 @@ class Entertainment(commands.Cog):
 			]
 		)
 	@commands.cooldown(1, 5, commands.BucketType.user)
-	async def owo(self, inter: disnake.ApplicationCommandInteraction, *, text: str):
+	async def owo(
+		self, 
+		inter: ACI, 
+		text: str): 
 		await inter.response.defer()
-		await inter.send(f'**{owofy(text[0:4000])}**')
+		await inter.send(f'{owofy(text[0:1000])}')
 	
 	
 	@fun.sub_command(
@@ -214,13 +217,13 @@ class Entertainment(commands.Cog):
 		
 		if bot_choose == choose:
 			embed = EB(
-				title=f'`{bot_choose}` x `{choose}`'
+				title=f'`eu jogei {bot_choose}` e você `{choose}`!'
 				,
 				description='você ganhou!',
 				color=C.general)
 		else:
 			embed = EB(
-				title=f'`{bot_choose}` x `{choose}`'
+				title=f'`eu jogei {bot_choose}` e você `{choose}`!'
 				,
 				description='você perdeu!',
 				color=C.general)
