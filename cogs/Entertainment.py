@@ -64,6 +64,15 @@ class Entertainment(commands.Cog):
 		url = chosen_anime['url']
 		color = chosen_anime['color']
 		
+		if roleplay not in self.anime_roleplay:
+			await inter.send("Roleplay desconhecido!")
+			return
+		else:
+			chosen_anime = choice(self.anime_roleplay[roleplay])
+			name = chosen_anime['name']
+			url = chosen_anime['url']
+			color = chosen_anime['color']
+		
 		match roleplay:
 			case 'highfive':
 				message = f'🙏 | {inter.author.mention} deu um highfive em {user.mention}!'
@@ -101,16 +110,8 @@ class Entertainment(commands.Cog):
 				message = f'🍽️ |  {inter.author.mention} mordeu {user.mention}!'
 			case 'shoot':
 				message = f'🔫 | {inter.author.mention} atirou em {user.mention}!'
-			case _:
-				await inter.send(f'Não conheço essa {roleplay}, é de comer?')
-				return
 	
 		
-		embed = disnake.Embed(
-		color=color)
-		embed.set_footer(text='Fonte: ' + name)
-		embed.set_image(
-			url=url)
 		await inter.send(content=message, embed=embed)
 
 
