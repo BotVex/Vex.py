@@ -14,7 +14,7 @@ import config
 from rich.console import Console
 CO = Console()
 
-from statcord import StatcordClusterClient
+from statcord import StatcordClient
 
 os.system('clear')
 
@@ -57,7 +57,7 @@ async def status_task():
 	shard_ids = sorted(set(shard_ids))
 	
 	for shard_id in shard_ids:
-		bot.statcord_client = StatcordClusterClient(bot, config.STATCORDKEY, shard_id)
+		bot.statcord_client = StatcordClient(bot, config.STATCORDKEY)
 		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'{len(bot.guilds)} Servers | {len(humans)} Users', shard_id=shard_id))
 	
 
