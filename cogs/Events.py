@@ -1,5 +1,3 @@
-#test 
-
 import disnake
 from disnake.ext import commands, tasks
 EB = disnake.Embed
