@@ -11,9 +11,6 @@ from utils.assets import Colors as C
 from utils.assets import MediaUrl
 import config
 
-from rich.console import Console
-CO = Console()
-
 from statcord import StatcordClient
 
 os.system('clear')
@@ -30,20 +27,22 @@ bot = commands.AutoShardedInteractionBot(
 	strict_localization=True,
 	chunk_guilds_at_startup=False)
 
-#bot.i18n.load("./locale") #Discord is not supported yet
+#bot.i18n.load("./locale")
 #print('locales loaded')
 
 @bot.event
 async def on_ready():
-	CO.print(f'\n[orange_red1]{bot.user}[/] [green]online[/]')
-	status_task.start()
-	CO.print('[green]status task started[/]')
-	#channel = bot.get_channel(987899340293038130)
-	#await channel.send('online')
+	print(f'\n{bot.user} online')
+	try:
+		status_task.start()
+		print('status task started')
+	except Exception as e:
+		print(f'status task failed\n{e}')
 
 
-@tasks.loop(minutes=1.0)
+@tasks.loop(minutes=5.0)
 async def status_task():
+	bot.statcord_client = StatcordClient(bot, config.STATCORDKEY)
 	humans = []
 	for user in bot.users:
 		if user.bot:
@@ -57,19 +56,18 @@ async def status_task():
 	shard_ids = sorted(set(shard_ids))
 	
 	for shard_id in shard_ids:
-		bot.statcord_client = StatcordClient(bot, config.STATCORDKEY)
-		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'{len(bot.guilds)} Servers | {len(humans)} Users', shard_id=shard_id))
+		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=f'{len(bot.guilds)} Servers | {len(humans)} Humans', shard_id=shard_id))
 	
 
 c = 0
 if __name__ == '__main__':
-	CO.print(f'\n[red]COGS TO LOAD:[/]')
+	print(f'\nCOGS TO LOAD:')
 	for extension in config.extensions:
 		bot.load_extension(extension)
-		CO.print(f'  [cyan]{c}[/] [yellow]:[/]  [green]{extension}[/]')
+		print(f'  {c}:  {extension}')
 		c += 1
 
-CO.print(f'\n[red]DISNAKE:[/]')
+print(f'\nDISNAKE:')
 
 
 bot.run(config.TOKEN)

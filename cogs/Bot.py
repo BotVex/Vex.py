@@ -8,6 +8,7 @@ import disnake
 from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
+from disnake import Localized
 
 from config import guild_ids
 
