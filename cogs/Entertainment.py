@@ -20,10 +20,6 @@ from utils.dominant_color import dominant_color
 class Entertainment(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
-		with open('data/animes.json', 'r', encoding='utf8') as animes:
-			animes = json.loads(animes.read())
-		self.animes = animes
-	
 		with open('data/anime_roleplay.json', 'r', encoding='utf8') as animes:
 			anime_roleplay = json.loads(animes.read())
 		self.anime_roleplay = anime_roleplay
@@ -59,19 +55,24 @@ class Entertainment(commands.Cog):
 		
 		await inter.response.defer()
 		
-		chosen_anime = choice(self.anime_roleplay[roleplay])
-		name = chosen_anime['name']
-		url = chosen_anime['url']
-		color = chosen_anime['color']
+		if user.id == inter.author.id:
+			await inter.send(f'{inter.author.mention}, você *ainda* não pode usar o roleplay com você mesmo!')
+			embed = EB()
+			return
 		
 		if roleplay not in self.anime_roleplay:
-			await inter.send("Roleplay desconhecido!")
+			await inter.send('Roleplay desconhecido!')
+			embed = EB()
 			return
 		else:
 			chosen_anime = choice(self.anime_roleplay[roleplay])
 			name = chosen_anime['name']
 			url = chosen_anime['url']
 			color = chosen_anime['color']
+			
+			embed = EB(color=color)
+			embed.set_image(url=url)
+			embed.set_footer(text=f'Fonte: {name}')
 		
 		match roleplay:
 			case 'highfive':
@@ -222,13 +223,13 @@ class Entertainment(commands.Cog):
 		
 		if bot_choose == choose:
 			embed = EB(
-				title=f'eu jogei `{bot_choose}` e você `{choose}`!'
+				title=f'`{bot_choose}` X `{choose}`!'
 				,
 				description='você ganhou!',
 				color=C.general)
 		else:
 			embed = EB(
-				title=f'eu jogei `{bot_choose}` e você `{choose}`!'
+				title=f'`{bot_choose}` X `{choose}`!'
 				,
 				description='você perdeu!',
 				color=C.general)
