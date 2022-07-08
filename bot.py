@@ -27,8 +27,8 @@ bot = commands.AutoShardedInteractionBot(
 	strict_localization=True,
 	chunk_guilds_at_startup=False)
 
-bot.i18n.load("./locale")
-print('locales loaded')
+#bot.i18n.load("./locale")
+#print('locales loaded')
 
 @bot.event
 async def on_ready():
