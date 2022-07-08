@@ -274,7 +274,7 @@ class Administration(commands.Cog):
 			except Exception as e:
 					embed = EB(
 							title=f'{E.error}Erro!',
-							description=f'Ocorreu um erro ao tentar banir o usuário {user.name}**({user_id})**. Certifique-se de que o ID é um ID existente e que pertence a um usuário.',
+							description=f'Ocorreu um erro ao tentar banir o usuário **({user_id})**. Certifique-se de que o ID é um ID existente e que pertence a um usuário.',
 							color=C.error)
 					await inter.send(embed=embed)
 					print(e)
@@ -323,7 +323,7 @@ class Administration(commands.Cog):
 			except Exception as e:
 					embed = EB(
 							title=f'{E.error}Erro!',
-							description=f'Ocorreu um erro ao tentar desbanir o usuário {user.name}**({user_id})**. Certifique-se de que o ID é um ID existente e que pertence a um usuário.',
+							description=f'Ocorreu um erro ao tentar desbanir o usuário **({user_id})**. Certifique-se de que o ID é um ID existente e que pertence a um usuário.',
 							color=C.error)
 					await inter.send(embed=embed)
 					print(e)
