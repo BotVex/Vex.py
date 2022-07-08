@@ -1,3 +1,4 @@
+import aiohttp
 import platform
 
 import disnake
