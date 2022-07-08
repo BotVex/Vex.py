@@ -25,7 +25,7 @@ class Bot(commands.Cog):
 
   
 	@vex.sub_command(
-		name='info'),
+		name='info',
 		description='Exibe minhas informações.')
 	async def info(
 		self,
