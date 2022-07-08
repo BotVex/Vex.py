@@ -25,8 +25,8 @@ class Bot(commands.Cog):
 
   
 	@vex.sub_command(
-		name=Localized(key='BOT_CMD_NAME'),
-		description=Localized(key='BOT_CMD_DESC'))
+		name='info'),
+		description='Exibe minhas informações.')
 	async def info(
 		self,
 		inter: ACI):
