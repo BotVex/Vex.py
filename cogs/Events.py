@@ -16,21 +16,6 @@ class Events(commands.Cog):
 	
 	
 	@commands.Cog.listener()
-	async def on_slash_command(self, inter: disnake.ApplicationCommandInteraction):
-		
-		try:
-			CO.print(f"""
-	[yellow]COMMAND:[/] [bright_magenta]{inter.data.name}[/]
-	[yellow]GUILD:  [/] [bright_magenta]{inter.guild.name}[/] [orange_red1]([/][aquamarine1]{inter.guild.id}[/][orange_red1])[/]
-	[yellow]AUTHOR: [/] [bright_magenta]{inter.author}[/] [orange_red1]([/][aquamarine1]{inter.author.id}[/][orange_red1])[/]""")
-		except AttributeError:
-			CO.print(f"""
-	[yellow]COMMAND:[/] [bright_magenta]{inter.data.name}[/]
-	[yellow]DM COMMAND[/]
-	[yellow]AUTHOR: [/] [bright_magenta]{inter.author}[/] [orange_red1]([/][aquamarine1]{inter.author.id}[/][orange_red1])[/]""")
-	
-	
-	@commands.Cog.listener()
 	async def on_slash_command_error(self, inter: disnake.ApplicationCommandInteraction, error: Exception):
 		if isinstance(error, commands.CommandOnCooldown):
 				embed = disnake.Embed(
