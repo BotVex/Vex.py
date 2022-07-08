@@ -1,6 +1,3 @@
-import os
-import sys
-import json
 import aiohttp
 import platform
 
@@ -10,7 +7,6 @@ EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 from disnake import Localized
 
-from config import guild_ids
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
@@ -26,10 +22,10 @@ class Bot(commands.Cog):
 	@commands.slash_command(name='vex')
 	async def vex(self, inter: ACI):
 		pass
-	
-	
+
+  
 	@vex.sub_command(
-		name='info',
+		name='info'),
 		description='Exibe minhas informações.')
 	async def info(
 		self,

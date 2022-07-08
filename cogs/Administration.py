@@ -264,7 +264,7 @@ class Administration(commands.Cog):
 					user = await self.bot.get_or_fetch_user(int(user_id))
 					embed = EB(
 						title=f'{E.success}Usuário banido!',
-						description=f'**({user_id})** foi banido por {inter.mention}!',
+						description=f'{user.name}**({user_id})** foi banido por {inter.author.mention}!',
 						color=C.success)
 					embed.add_field(
 						name='Motivo:',
@@ -274,7 +274,7 @@ class Administration(commands.Cog):
 			except Exception as e:
 					embed = EB(
 							title=f'{E.error}Erro!',
-							description=f'Ocorreu um erro ao tentar banir o usuário ({user_id}). Certifique-se de que o ID é um ID existente e que pertence a um usuário.',
+							description=f'Ocorreu um erro ao tentar banir o usuário **({user_id})**. Certifique-se de que o ID é um ID existente e que pertence a um usuário.',
 							color=C.error)
 					await inter.send(embed=embed)
 					print(e)
@@ -313,7 +313,7 @@ class Administration(commands.Cog):
 					user = await self.bot.get_or_fetch_user(int(user_id))
 					embed = EB(
 						title=f'{E.success}Usuário desbanido!',
-						description=f'**({user_id})** foi desbanido por {inter.mention}!',
+						description=f'{user.name}**({user_id})** foi desbanido por {inter.author.mention}!',
 						color=C.success)
 					embed.add_field(
 						name='Motivo:',
@@ -323,7 +323,7 @@ class Administration(commands.Cog):
 			except Exception as e:
 					embed = EB(
 							title=f'{E.error}Erro!',
-							description=f'Ocorreu um erro ao tentar desbanir o usuário ({user_id}). Certifique-se de que o ID é um ID existente e que pertence a um usuário.',
+							description=f'Ocorreu um erro ao tentar desbanir o usuário **({user_id})**. Certifique-se de que o ID é um ID existente e que pertence a um usuário.',
 							color=C.error)
 					await inter.send(embed=embed)
 					print(e)
