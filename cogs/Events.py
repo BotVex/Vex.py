@@ -8,9 +8,6 @@ from utils.assets import MediaUrl
 
 from datetime import timedelta
 
-from rich.console import Console
-CO = Console()
-
 import config
 
 class Events(commands.Cog):
