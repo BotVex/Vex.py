@@ -52,6 +52,41 @@ class Administration(commands.Cog):
 				await inter.channel.send(embed=embed, delete_after=15.0, ephemeral=True)
 	
 	
+	#botme
+	@commands.has_permissions(administrator=True)
+	@commands.cooldown(1, 10, commands.BucketType.user)
+	@commands.guild_only()
+	@adm.sub_command(
+			name='botme',
+			description=f'{E.administration}Envie uma mensagem como se você fosse um bot.',
+			options=[
+					disnake.Option(
+							name='message',
+							description='Sua mensagem.',
+							type=disnake.OptionType.string,
+							required=True
+					)
+			]
+	)
+	async def botme(self, inter: ACI, message: str):
+		await inter.response.defer()
+		
+		await inter.message.delete()
+		
+		channel = inter.channel
+		if not isinstance(channel, disnake.TextChannel):
+			return
+		channel_webhooks = await channel.webhooks()
+		
+		for webhook in channel_webhooks:
+			if webhook.user == client.user and webhook.name == "Bot Webhook":
+				break
+			else:
+				webhook = await channel.create_webhook(name="Bot Webhook")
+		
+		await webhook.send(csername=member.display_namontent=content, ue, avatar_url=member.display_avatar.url)
+	
+	
 	#kick
 	@commands.has_permissions(kick_members=True)
 	@commands.cooldown(1, 5, commands.BucketType.user)
