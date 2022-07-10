@@ -76,8 +76,6 @@ class Administration(commands.Cog):
 	)
 	async def botme(self, inter: ACI, message: str, channel: disnake.TextChannel=None):
 		await inter.response.defer()
-		
-		await inter.delete_original_message()
 
 		if channel is None:
 			channel = inter.channel
@@ -93,6 +91,8 @@ class Administration(commands.Cog):
 				break
 		else:
 			webhook = await channel.create_webhook(name="Bot Webhook")
+		
+		await inter.delete_original_message()
 		
 		await webhook.send(username=inter.author.display_name, content=message, avatar_url=inter.author.display_avatar.url)
 	
