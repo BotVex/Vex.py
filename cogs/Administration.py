@@ -74,12 +74,14 @@ class Administration(commands.Cog):
 					)
 			]
 	)
-	async def botme(self, inter: ACI, message: str, channel: disnake.TextChannel):
+	async def botme(self, inter: ACI, message: str, channel: disnake.TextChannel=None):
 		await inter.response.defer()
 		
 		await inter.delete_original_message()
 
-		channel = inter.channel
+		if channel is None:
+			channel = inter.channel
+		
 		if not isinstance(channel, disnake.TextChannel):
 			await inter.send('canal inválido!', ephemeral=True)
 			return
