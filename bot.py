@@ -32,6 +32,7 @@ bot = commands.AutoShardedInteractionBot(
 
 @bot.event
 async def on_ready():
+	bot.statcord_client = StatcordClient(bot, config.STATCORDKEY)
 	print(f'\n{bot.user} online')
 	try:
 		status_task.start()
@@ -42,7 +43,6 @@ async def on_ready():
 
 @tasks.loop(minutes=5.0)
 async def status_task():
-	bot.statcord_client = StatcordClient(bot, config.STATCORDKEY)
 	humans = []
 	for user in bot.users:
 		if user.bot:

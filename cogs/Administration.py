@@ -71,7 +71,7 @@ class Administration(commands.Cog):
 	async def botme(self, inter: ACI, message: str):
 		await inter.response.defer()
 		
-		await inter.message.delete()
+		await inter.delete_original_message()
 		
 		channel = inter.channel
 		if not isinstance(channel, disnake.TextChannel):
