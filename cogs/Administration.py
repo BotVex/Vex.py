@@ -71,6 +71,8 @@ class Administration(commands.Cog):
 	async def botme(self, inter: ACI, message: str):
 		await inter.response.defer()
 		
+		await inter.delete_original_message()
+		
 		channel = inter.channel
 		if not isinstance(channel, disnake.TextChannel):
 			return
@@ -79,12 +81,10 @@ class Administration(commands.Cog):
 		for webhook in channel_webhooks:
 			if webhook.user == client.user and webhook.name == "Bot Webhook":
 				break
-			else:
-				webhook = await channel.create_webhook(name="Bot Webhook")
+		else:
+			webhook = await channel.create_webhook(name="Bot Webhook")
 		
 		await webhook.send(username=inter.author.display_name, content=message, avatar_url=inter.author.display_avatar.url)
-
-		await inter.delete_original_message()
 	
 	
 	#kick
