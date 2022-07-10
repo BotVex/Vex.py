@@ -65,24 +65,34 @@ class Administration(commands.Cog):
 							description='Sua mensagem.',
 							type=disnake.OptionType.string,
 							required=True
+					),
+					disnake.Option(
+							name='channel',
+							description='O canal onde a mensagem será enviada.',
+							type=disnake.OptionType.channel,
+							required=False
 					)
 			]
 	)
-	async def botme(self, inter: ACI, message: str):
+	async def botme(self, inter: ACI, message: str, channel: disnake.TextChannel=None):
 		await inter.response.defer()
+
+		if channel is None:
+			channel = inter.channel
 		
-		await inter.delete_original_message()
-		
-		channel = inter.channel
 		if not isinstance(channel, disnake.TextChannel):
+			await inter.send('canal inválido!', ephemeral=True)
 			return
+		
 		channel_webhooks = await channel.webhooks()
 		
 		for webhook in channel_webhooks:
-			if webhook.user == client.user and webhook.name == "Bot Webhook":
+			if webhook.user == self.bot.user and webhook.name == "Bot Webhook":
 				break
-			else:
-				webhook = await channel.create_webhook(name="Bot Webhook")
+		else:
+			webhook = await channel.create_webhook(name="Bot Webhook")
+		
+		await inter.delete_original_message()
 		
 		await webhook.send(username=inter.author.display_name, content=message, avatar_url=inter.author.display_avatar.url)
 	
