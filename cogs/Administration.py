@@ -72,14 +72,14 @@ class Administration(commands.Cog):
 		await inter.response.defer()
 		
 		await inter.delete_original_message()
-		
+
 		channel = inter.channel
 		if not isinstance(channel, disnake.TextChannel):
 			return
 		channel_webhooks = await channel.webhooks()
 		
 		for webhook in channel_webhooks:
-			if webhook.user == client.user and webhook.name == "Bot Webhook":
+			if webhook.user == self.bot.user and webhook.name == "Bot Webhook":
 				break
 		else:
 			webhook = await channel.create_webhook(name="Bot Webhook")
