@@ -84,7 +84,7 @@ class Administration(commands.Cog):
 			else:
 				webhook = await channel.create_webhook(name="Bot Webhook")
 		
-		await webhook.send(csername=member.display_namontent=content, ue, avatar_url=member.display_avatar.url)
+		await webhook.send(username=inter.author.display_name, content=message, avatar_url=inter.author.display_avatar.url)
 	
 	
 	#kick
