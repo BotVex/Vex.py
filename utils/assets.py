@@ -57,3 +57,4 @@ class MediaUrl:
 	missingpermissionsbanner = 'https://i.postimg.cc/TYGLFxNN/102-Sem-Titulo-20220604114118.png'
 	botmissingpermissionsbanner = 'https://i.postimg.cc/TYGLFxNN/102-Sem-Titulo-20220604114118.png'
 	noprivatemessagebanner = 'https://i.postimg.cc/Twx8JtQS/102-Sem-Titulo-20220604141342.png'
+	ben10icon = 'https://i.postimg.cc/g0ctx0jd/Et9-Fc-VDXEAIg88c.jpg'

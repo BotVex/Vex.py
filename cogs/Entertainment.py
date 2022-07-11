@@ -14,6 +14,7 @@ ACI = disnake.ApplicationCommandInteraction
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
+from utils.assets import MediaUrl
 from utils.dominant_color import dominant_color
 
 
@@ -118,6 +119,18 @@ class Entertainment(commands.Cog):
 		await inter.send(content=message, embed=embed)
 
 
+	@roleplay.autocomplete('roleplay')
+	async def categories_(
+		self, 
+	inter: ACI, 
+	string: str):
+		categories = []
+		for category in self.anime_roleplay:
+			if category not in ['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'blush', 'think', 'pout', 'facepalm', 'bored', 'cry', 'cuddle']:
+				categories.append(category)
+		return sorted(categories)
+
+
 	@fun.sub_command(
 		name='vidente',
 		description=f'{E.entertainment}Faça uma pergunta para o oráculo Ben 10.',
@@ -130,25 +143,21 @@ class Entertainment(commands.Cog):
 				)
 			])
 	@commands.cooldown(1, 7, commands.BucketType.user)
-	async def oracle(self, inter: ACI, question: str):
+	async def vidente(self, inter: ACI, question: str):
 		
 		await inter.response.defer()
 		
-		response = choice(self.oracle_phrases)
-
-		await inter.send(content=response)
-
-
-	@roleplay.autocomplete('roleplay')
-	async def categories_(
-		self, 
-	inter: ACI, 
-	string: str):
-		categories = []
-		for category in self.anime_roleplay:
-			if category not in ['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'blush', 'think', 'pout', 'facepalm', 'bored', 'cry', 'cuddle']:
-				categories.append(category)
-		return sorted(categories)
+		channel = inter.channel
+		
+		channel_webhooks = await channel.webhooks()
+		
+		for webhook in channel_webhooks:
+			if webhook.user == self.bot.user and webhook.name == "Bot Webhook":
+				break
+		else:
+			webhook = await channel.create_webhook(name="Bot Webhook")
+		
+		await webhook.send(username='Ben 10', content=choice(self.oracle_phrases), avatar_url=MediaUrl.ben10icon)
 
 	
 	@fun.sub_command(
