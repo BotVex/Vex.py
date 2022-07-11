@@ -14,6 +14,17 @@ class Events(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 	
+
+	@commands.Cog.listener()
+	async def on_slash_command(self, inter: disnake.ApplicationCommandInteraction, error: Exception):
+		if isinstance(error, commands.errors.BotMissingPermissions):
+			embed = EB(
+				title=f'{E.error}Não autorizado!',
+					description='Eu não tenho as permissões nescessárias para executar este comando!\n\nEu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
+					color=C.error)
+			embed.set_image(url=MediaUrl.botmissingpermissionsbanner)
+			await inter.send(embed=embed, ephemeral=True)
+
 	
 	@commands.Cog.listener()
 	async def on_slash_command_error(self, inter: disnake.ApplicationCommandInteraction, error: Exception):
@@ -42,15 +53,6 @@ class Events(commands.Cog):
 						description='Você não tem as permissões nescessárias para executar este comando!\n\nVocê preciza das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
 						color=C.error)
 				embed.set_image(url=MediaUrl.missingpermissionsbanner)
-				await inter.send(embed=embed, ephemeral=True)
-		
-		
-		elif isinstance(error, commands.errors.BotMissingPermissions):
-				embed = EB(
-					title=f'{E.error}Não autorizado!',
-						description='Eu não tenho as permissões nescessárias para executar este comando!\n\nEu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
-						color=C.error)
-				embed.set_image(url=MediaUrl.botmissingpermissionsbanner)
 				await inter.send(embed=embed, ephemeral=True)
 		
 		
