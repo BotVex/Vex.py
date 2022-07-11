@@ -21,8 +21,10 @@ class Entertainment(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 		with open('data/anime_roleplay.json', 'r', encoding='utf8') as animes:
-			anime_roleplay = json.loads(animes.read())
-		self.anime_roleplay = anime_roleplay
+			self.anime_roleplay = json.loads(animes.read())
+
+		with open('data/oracle.json', 'r', encoding='utf8') as oracle_phrases:
+			self.oracle_phrases = json.loads(oracle_phrases.read())
 	
 	
 	@commands.slash_command()
@@ -114,6 +116,27 @@ class Entertainment(commands.Cog):
 	
 		
 		await inter.send(content=message, embed=embed)
+
+
+	@fun.sub_command(
+		name='vidente',
+		description=f'{E.entertainment}Faça uma pergunta para o oráculo Ben 10.',
+		options=[
+			disnake.Option(
+				name='question',
+				description='Digite sua questão.',
+				type=disnake.OptionType.string,
+				required=True
+				)
+			])
+	@commands.cooldown(1, 7, commands.BucketType.user)
+	async def oracle(self, inter: ACI, question: str):
+		
+		await inter.response.defer()
+		
+		response = choice(self.oracle_phrases)
+
+		await inter.send(content=response)
 
 
 	@roleplay.autocomplete('roleplay')
