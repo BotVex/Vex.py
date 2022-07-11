@@ -157,9 +157,9 @@ class Entertainment(commands.Cog):
 		else:
 			webhook = await channel.create_webhook(name="Bot Webhook")
 		
-		await inter.delete_original_message()
+		await inter.edit_original_message(content='Contactando Ben 10...')
 
-		content = f'{question}\n\n{choice(self.oracle_phrases)}'
+		content = f'{inter.author.mention}, *"{question}"* \n\n{choice(self.oracle_phrases).capitalize()}'
 
 		await webhook.send(username='Ben 10', content=content, avatar_url=MediaUrl.ben10icon)
 
