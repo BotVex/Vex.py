@@ -16,7 +16,7 @@ class Events(commands.Cog):
 	
 	
 	@commands.Cog.listener()
-	async def on_slash_command_error(self, inter: disnake.ApplicationCommandInteraction, error: Exception):
+	async def on_slash_command_error(self, inter: disnake.ApplicationCommandInteraction, error: commands.CommandError):
 		if isinstance(error, commands.CommandOnCooldown):
 			day = round(error.retry_after/86400)
 			hour = round(error.retry_after/3600)
