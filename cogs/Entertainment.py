@@ -157,7 +157,11 @@ class Entertainment(commands.Cog):
 		else:
 			webhook = await channel.create_webhook(name="Bot Webhook")
 		
-		await webhook.send(username='Ben 10', content=choice(self.oracle_phrases), avatar_url=MediaUrl.ben10icon)
+		await inter.delete_original_message()
+
+		content = f'{question}\n\n{choice(self.oracle_phrases)}'
+
+		await webhook.send(username='Ben 10', content=content, avatar_url=MediaUrl.ben10icon)
 
 	
 	@fun.sub_command(
