@@ -1,5 +1,5 @@
 import disnake
-from disnake.ext import commands, tasks
+from disnake.ext import commands
 EB = disnake.Embed
 
 from utils.assets import Emojis as E
@@ -14,28 +14,30 @@ class Events(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 	
-
-	@commands.Cog.listener()
-	async def on_slash_command(self, inter: disnake.ApplicationCommandInteraction, error: Exception):
-		if isinstance(error, commands.errors.BotMissingPermissions):
-			embed = EB(
-				title=f'{E.error}Não autorizado!',
-					description='Eu não tenho as permissões nescessárias para executar este comando!\n\nEu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
-					color=C.error)
-			embed.set_image(url=MediaUrl.botmissingpermissionsbanner)
-			await inter.send(embed=embed, ephemeral=True)
-
 	
 	@commands.Cog.listener()
 	async def on_slash_command_error(self, inter: disnake.ApplicationCommandInteraction, error: Exception):
 		if isinstance(error, commands.CommandOnCooldown):
-				embed = disnake.Embed(
+			day = round(error.retry_after/86400)
+			hour = round(error.retry_after/3600)
+			minute = round(error.retry_after/60)
+
+			if day > 0:
+				waiting_time = str(day)+ "dia(s)"
+			elif hour > 0:
+				waiting_time = str(hour)+ " hora(s)"
+			elif minute > 0:
+				waiting_time = str(minute)+" minuto(s)"
+			else:
+				waiting_time = f'{error.retry_after:.2f} segundo(s)'
+
+			embed = disnake.Embed(
 					title=f'{E.error}Comando em cooldown!',
-					description=f'<@{inter.author.id}>, este comando está em cooldown, você só poderá executá-lo novamente em `{str(timedelta(seconds=error.retry_after)).split(".")[0]}`.',
+					description=f'{inter.author.mention}, este comando está em cooldown, você só poderá executá-lo novamente em `{waiting_time}`.',
 					color=C.error)
-				embed.set_image(url=MediaUrl.commandoncooldownbanner)
-				embed.set_footer(text='Você está executando comandos rapidamente!')
-				await inter.send(embed=embed, ephemeral=True)
+			embed.set_image(url=MediaUrl.commandoncooldownbanner)
+			embed.set_footer(text='Você está executando comandos rapidamente!')
+			await inter.send(embed=embed, ephemeral=True)
 		
 		
 		elif isinstance(error, commands.NotOwner):
@@ -47,7 +49,7 @@ class Events(commands.Cog):
 				await inter.send(embed=embed, ephemeral=True)
 		
 		
-		elif isinstance(error, commands.errors.MissingPermissions):
+		elif isinstance(error, commands.MissingPermissions):
 				embed = EB(
 						title=f'{E.error}Sem permissão!',
 						description='Você não tem as permissões nescessárias para executar este comando!\n\nVocê preciza das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
@@ -56,7 +58,16 @@ class Events(commands.Cog):
 				await inter.send(embed=embed, ephemeral=True)
 		
 		
-		elif isinstance(error, commands.errors.NoPrivateMessage):
+		elif isinstance(error, commands.BotMissingPermissions):
+				embed = EB(
+					title=f'{E.error}Não autorizado!',
+						description='Eu não tenho as permissões nescessárias para executar este comando!\n\nEu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
+						color=C.error)
+				embed.set_image(url=MediaUrl.botmissingpermissionsbanner)
+				await inter.send(embed=embed, ephemeral=True)
+		
+		
+		elif isinstance(error, commands.NoPrivateMessage):
 				embed = EB(
 					title=f'{E.error}Apenas para servidores!',
 						description='Este comando só pode ser utilizado em servidores!', 
@@ -69,7 +80,3 @@ class Events(commands.Cog):
 	
 def setup(bot):
 	bot.add_cog(Events(bot))
-
-
-
-
