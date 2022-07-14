@@ -11,7 +11,7 @@ from utils.assets import Colors as C
 from utils.assets import MediaUrl
 import config
 
-from statcord import StatcordClient
+#from statcord import StatcordClient
 
 os.system('clear')
 
@@ -32,7 +32,7 @@ bot = commands.AutoShardedInteractionBot(
 
 @bot.event
 async def on_ready():
-	bot.statcord_client = StatcordClient(bot, config.STATCORDKEY)
+	#bot.statcord_client = StatcordClient(bot, config.STATCORDKEY)
 	print(f'\n{bot.user} online')
 	try:
 		status_task.start()

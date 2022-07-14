@@ -49,19 +49,6 @@ class Bot(commands.Cog):
 			embed.set_thumbnail(url=self.bot.user.display_avatar)
 			
 			await inter.send(embed=embed, view=ButtonLink('Github', str('https://github.com/Lobooooooo14/Vex.py'), emoji=str(E.github)))
-
-	
-	@vex.sub_command(
-		name='status',
-		description='Exibe minhas informações no statcord.')
-	async def status(
-		self, 
-		inter: ACI):
-			await inter.response.defer()
-			embed = EB(
-				title='Vex Statcord',
-				description='Statcord fornece estatísticas de bots do Discord.')
-			await inter.send(embed=embed, view=ButtonLink('Abrir página', str('https://statcord.com/bot/783716882896912405')))
 	
 
 def setup(bot):
