@@ -53,13 +53,11 @@ class Image_(commands.Cog):
 		avatar_obj = Image.open(BytesIO(await avatar.read())).resize((140, 140))
 		stonks_obj.paste(avatar_obj, (83, 45))
 		
-		#result = BytesIO()
-		stonks_obj.save('data/temp/stonks.png', format='png')
+		result = BytesIO()
+		stonks_obj.save(result, format='png')
 
-		file = disnake.File('data/temp/stonks.png')
+		file = disnake.File(result.getbuffer().tobytes())
 
-
-		os.remove('data/temp/stonks.png')
 
 		embed = EB()
 		embed.set_image(file=file)
