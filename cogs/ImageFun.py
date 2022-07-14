@@ -51,21 +51,25 @@ class Image_(commands.Cog):
 		if user == None:
 			user = inter.author
 		
-		stonks_obj = Image.open("data/images/stonks.jpg").copy()
 		print("copy stonks")
+		stonks_obj = Image.open("data/images/stonks.jpg").copy()
 		
-		avatar = user.avatar.with_size(128)
 		print("get avatar")
-		avatar_obj = Image.open(BytesIO(await avatar.read())).resize((140, 140))
+		avatar = user.avatar.with_size(128)
+		
 		print("avatar obj")
-		stonks_obj.paste(avatar_obj, (83, 45))
+		avatar_obj = Image.open(BytesIO(await avatar.read())).resize((140, 140))
+		
 		print("paste")
-		stonks_result = BytesIO()
+		stonks_obj.paste(avatar_obj, (83, 45))
+		
 		print("create stonks_result")
-		stonks_obj.save(stonks_result, format='jpg')
+		stonks_result = BytesIO()
 		print("save")
-		file = disnake.File(stonks_result, filename=f'{user.name}_Stonks.jpg')
+		stonks_obj.save(stonks_result, format='jpg')
 		print("atribue file")
+		file = disnake.File(stonks_result, filename=f'{user.name}_Stonks.jpg')
+		
 		embed = EB()
 		embed.set_image(file=file)
 		await inter.send(embed=embed)
