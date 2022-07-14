@@ -41,10 +41,7 @@ class Image_(commands.Cog):
 			]
 		)
 	@commands.cooldown(1, 10, commands.BucketType.user)	
-	async def stonks(
-		self, 
-		inter: ACI, 
-		user: disnake.User=None):
+	async def stonks(self, inter: ACI, user: disnake.Member=None):
 		
 		await inter.response.defer()
 		
@@ -58,7 +55,7 @@ class Image_(commands.Cog):
 		avatar_obj = avatar_obj.resize((140, 140))
 		stonks_obj.paste(avatar_obj, (83, 45))
 		
-		stonks_obj.save("data/stonked.jpg")
+		stonks_obj.save("data/stonked.jpg" "JPG")
 		file = disnake.File("data/stonked.jpg", filename='stonked.jpg')
 		os.remove("data/stonked.jpg")
 		embed = EB()
