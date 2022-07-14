@@ -48,16 +48,16 @@ class Image_(commands.Cog):
 		if user == None:
 			user = inter.author
 		
-		stonks_img = Image.open("data/images/stonks.jpg")
-		stonks_obj = stonks_img.copy()
+		stonks_obj = Image.open("data/images/stonks.jpg").copy()
 		avatar = user.avatar.with_size(128)
-		avatar_obj = Image.open(BytesIO(await avatar.read()))
-		avatar_obj = avatar_obj.resize((140, 140))
+		avatar_obj = Image.open(BytesIO(await avatar.read())).resize((140, 140))
 		stonks_obj.paste(avatar_obj, (83, 45))
 		
-		stonks_obj.save("data/stonked.jpg" "JPG")
-		file = disnake.File("data/stonked.jpg", filename='stonked.jpg')
-		os.remove("data/stonked.jpg")
+		result = BytesIO()
+		stonks_obj.save(result, 'JPG')
+
+		file = disnake.File(result, filename=f'{user.name}_stonks')
+
 		embed = EB()
 		embed.set_image(file=file)
 		await inter.send(embed=embed)
