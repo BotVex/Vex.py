@@ -54,7 +54,7 @@ class Image_(commands.Cog):
 		stonks_obj.paste(avatar_obj, (83, 45))
 		
 		result = BytesIO()
-		stonks_obj.save(result, 'JPG')
+		stonks_obj.save(result, 'jpg')
 
 		file = disnake.File(result, filename=f'{user.name}_stonks')
 
