@@ -60,9 +60,9 @@ class Image_(commands.Cog):
 		
 		stonks_result = BytesIO()
 		
-		stonks_obj.save(stonks_result, format=stonks_obj.format)
+		stonks_obj.save(stonks_result, format='jpg')
 		
-		file = disnake.File(stonks_result, filename=f'{user.name}_Stonks.{stonks_obj.format}')
+		file = disnake.File(stonks_result, filename=f'{user.name}_Stonks.jpg')
 		
 		embed = EB()
 		embed.set_image(file=file)
