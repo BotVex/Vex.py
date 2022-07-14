@@ -1,3 +1,5 @@
+from textwrap import shorten as short
+
 import disnake
 from disnake.ext import commands
 EB = disnake.Embed
@@ -61,7 +63,7 @@ class Administration(commands.Cog):
 			description=f'{E.administration}Envie uma mensagem como se você fosse um bot.',
 			options=[
 					disnake.Option(
-							name='message',
+							name='reason',
 							description='Sua mensagem.',
 							type=disnake.OptionType.string,
 							required=True
@@ -74,9 +76,13 @@ class Administration(commands.Cog):
 					)
 			]
 	)
-	async def botme(self, inter: ACI, message: str, channel: disnake.TextChannel=None):
+	async def botme(self, inter: ACI, reason: str, channel: disnake.TextChannel=None):
 		await inter.response.defer()
 
+		if len(reason) > 2000:
+			await inter.send('A mensagem é muito grande!')
+			return
+		
 		if channel is None:
 			channel = inter.channel
 		
@@ -94,7 +100,7 @@ class Administration(commands.Cog):
 		
 		await inter.delete_original_message()
 		
-		await webhook.send(username=inter.author.display_name, content=message, avatar_url=inter.author.display_avatar.url)
+		await webhook.send(username=inter.author.display_name, content=reason, avatar_url=inter.author.display_avatar.url)
 	
 	
 	#kick
@@ -123,7 +129,10 @@ class Administration(commands.Cog):
 		self, 
 		inter: ACI,
 		user: disnake.User, 
-		reason: str='Motivo não informado.'):
+		reason: str='Motivo não informado.'): 
+
+			if len(reason) > 512:
+				reason = short(reason, width=512, placeholder='...')
 
 			member = await inter.guild.get_or_fetch_member(user.id)
 			if member.guild_permissions.administrator:
@@ -184,7 +193,11 @@ class Administration(commands.Cog):
 		inter: ACI, 
 		user: disnake.User, 
 		nickname: str = None):
-		
+
+			if len(nickname) > 32:
+				await inter.send('O nickname é muito grande! o maximo é de 32 caracteres.')
+				return
+			
 			member = await inter.guild.get_or_fetch_member(user.id)
 			try:
 					await member.edit(nick=nickname)
@@ -239,6 +252,9 @@ class Administration(commands.Cog):
 		user: disnake.User,
 		delete_message_days: int=0,
 		reason: str='Motivo não informado.'):
+
+			if len(reason) > 512:
+				reason = short(reason, width=512, placeholder='...')
 			
 			member = await inter.guild.get_or_fetch_member(user.id)
 			try:
@@ -303,6 +319,9 @@ class Administration(commands.Cog):
 		inter: ACI, 
 		user_id: str,
 		reason: str='Motivo não informado.'):
+
+			if len(reason) > 512:
+				reason = short(reason, width=512, placeholder='...')
 			
 			try:
 					await self.bot.http.ban(str(user_id), inter.guild.id, reason=reason)
@@ -352,6 +371,9 @@ class Administration(commands.Cog):
 		inter: ACI, 
 		user_id: str,
 		reason: str='Motivo não informado.'):
+
+			if len(reason) > 512:
+				reason = short(reason, width=512, placeholder='...')
 			
 			try:
 					await self.bot.http.unban(str(user_id), inter.guild.id, reason=reason)
