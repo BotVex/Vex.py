@@ -52,18 +52,20 @@ class Image_(commands.Cog):
 			user = inter.author
 		
 		stonks_obj = Image.open("data/images/stonks.jpg").copy()
+		print("copy stonks")
 		
 		avatar = user.avatar.with_size(128)
+		print("get avatar")
 		avatar_obj = Image.open(BytesIO(await avatar.read())).resize((140, 140))
-		
+		print("avatar obj")
 		stonks_obj.paste(avatar_obj, (83, 45))
-		
+		print("paste")
 		stonks_result = BytesIO()
-		
+		print("create stonks_result")
 		stonks_obj.save(stonks_result, format='jpg')
-		
+		print("save")
 		file = disnake.File(stonks_result, filename=f'{user.name}_Stonks.jpg')
-		
+		print("atribue file")
 		embed = EB()
 		embed.set_image(file=file)
 		await inter.send(embed=embed)
