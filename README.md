@@ -8,7 +8,7 @@
   <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Lobooooooo14/Vex.py?style=for-the-badge">
   <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/Lobooooooo14/Vex.py?style=for-the-badge">
   <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Lobooooooo14/Vex.py?style=for-the-badge">
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/lobooooooo14/Vex.py?style=for-the-badge">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/Lobooooooo14/Vex.py?style=for-the-badge">
    <img alt="GitHub" src="https://img.shields.io/github/license/Lobooooooo14/Vex.py?style=for-the-badge">
 </div>
 
