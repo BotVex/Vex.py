@@ -17,7 +17,7 @@
 
 <div align="center">
   <p>Vex é um bot para Discord, escrito em Python, com diversos comandos!</p>
-  <p>A Vex.py tem como objetivo ser uma versão pública da Vex escrita em javascript por @cookieukw, privada para a Cookieland.</p>
+  <p>A Vex.py tem como objetivo ser uma versão pública da Vex escrita em javascript por cookieukw, privada para a Cookieland.</p>
   
   <p>Diferente da Vex, a Vex.py utiliza slash commands! (<i>comandos de barra</i>)</p>
   
