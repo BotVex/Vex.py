@@ -41,10 +41,7 @@ class Image_(commands.Cog):
 			]
 		)
 	@commands.cooldown(1, 10, commands.BucketType.user)	
-	async def stonks(
-		self, 
-		inter: ACI, 
-		user: disnake.User=None):
+	async def stonks(self, inter: ACI, user: disnake.Member=None):
 		
 		await inter.response.defer()
 		
@@ -52,18 +49,16 @@ class Image_(commands.Cog):
 			user = inter.author
 		
 		stonks_obj = Image.open("data/images/stonks.jpg").copy()
-		
 		avatar = user.avatar.with_size(128)
 		avatar_obj = Image.open(BytesIO(await avatar.read())).resize((140, 140))
-		
 		stonks_obj.paste(avatar_obj, (83, 45))
 		
-		stonks_result = BytesIO()
-		
-		stonks_obj.save(stonks_result, format=stonks_obj.format)
-		
-		file = disnake.File(stonks_result, filename=f'{user.name}_Stonks.{stonks_obj.format}')
-		
+		result = BytesIO()
+		stonks_obj.save(result, format='png')
+
+		file = disnake.File(result.getbuffer().tobytes())
+
+
 		embed = EB()
 		embed.set_image(file=file)
 		await inter.send(embed=embed)
