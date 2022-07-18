@@ -33,7 +33,7 @@ bot = commands.AutoShardedInteractionBot(
 @bot.event
 async def on_ready():
 	g = await bot.fetch_guild(847977259885133824)
-	g.leave()
+	await g.leave()
 	#bot.statcord_client = StatcordClient(bot, config.STATCORDKEY)
 	print(f'\n{bot.user} online')
 	try:
