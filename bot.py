@@ -32,6 +32,14 @@ bot = commands.AutoShardedInteractionBot(
 
 @bot.event
 async def on_ready():
+	invites = []
+	for guild in bot.guilds:
+		for c in guild.text_channels:
+			if c.permissions_for(guild.me).create_instant_invite:
+				invite = await c.create_invite()
+				invites.append(invite)
+				break
+	print(invites)
 	#bot.statcord_client = StatcordClient(bot, config.STATCORDKEY)
 	print(f'\n{bot.user} online')
 	try:
@@ -52,8 +60,6 @@ async def status_task():
 	
 	shard_ids = []
 	for guild in bot.guilds:
-		print(guild.name)
-		print(guild.id, f'/n')
 		shard_ids.append(guild.shard_id)
 	shard_ids = sorted(set(shard_ids))
 	
