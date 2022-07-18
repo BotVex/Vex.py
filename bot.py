@@ -52,8 +52,8 @@ async def status_task():
 	
 	shard_ids = []
 	for guild in bot.guilds:
-		print(giuld.name)
-		print(giuld.id, f'/n')
+		print(guild.name)
+		print(guild.id, f'/n')
 		shard_ids.append(guild.shard_id)
 	shard_ids = sorted(set(shard_ids))
 	
