@@ -60,7 +60,7 @@ class Administration(commands.Cog):
 		  description=final_string,
 		  color=C.success)
 		
-		await inter.channel.send(delete_after=15.0, ephemeral=True)
+		await inter.channel.send(delete_after=15.0)
 
 	
 	#botme
