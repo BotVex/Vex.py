@@ -184,12 +184,13 @@ class Administration(commands.Cog):
 									await member.send(embed=embed)
 								except disnake.Forbidden:
 										pass
-					except:
+					except Exeption as e:
 							embed = EB(
 									title=f'{E.error}Erro!',
 									description=f'Ocorreu um erro ao tentar quicar o usuário. Certifique-se de que meu cargo estejam acima dos cargos de {member.mention} e tente novamente.',
 									color=C.error)
 							await inter.send(embed=embed, ephemeral=True)
+							print(e)
 	
 	
 	#nick
