@@ -21,6 +21,7 @@ class Administration(commands.Cog):
 	
 	#purge
 	@commands.has_permissions(manage_messages=True)
+	@commands.bot_has_permissions(manage_messages=True)
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
@@ -73,6 +74,7 @@ class Administration(commands.Cog):
 	
 	#botme
 	@commands.has_permissions(administrator=True)
+	@commands.bot_has_permissions(manage_webhooks=True, manage_messages=True)
 	@commands.cooldown(1, 10, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
@@ -122,6 +124,7 @@ class Administration(commands.Cog):
 	
 	#kick
 	@commands.has_permissions(kick_members=True)
+	@commands.bot_has_permissions(kick_members=True, manage_messages=True)
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
@@ -184,13 +187,12 @@ class Administration(commands.Cog):
 									await user.send(embed=embed)
 								except disnake.Forbidden:
 									pass
-					except Exception as e:
+					except:
 							embed = EB(
 									title=f'{E.error}Erro!',
 									description=f'Ocorreu um erro ao tentar quicar o usuário. Certifique-se de que meu cargo estejam acima dos cargos de {user.mention} e tente novamente.',
 									color=C.error)
 							await inter.send(embed=embed, ephemeral=True)
-							print(e)
 	
 	
 	#nick
