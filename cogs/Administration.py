@@ -54,7 +54,13 @@ class Administration(commands.Cog):
 				new_string.append(f'**{author}**: {message_deleted}')
 				deleted_messages += message_deleted
 			final_string = f'\n'.join(new_string)
-		await inter.channel.send(f'{deleted_messages} apagadas!\n\n{final_string}')
+		
+		embed = EB(
+		  title=f'{E.success}{deleted_messages} mensagens apagadas!',
+		  description=final_string,
+		  color=C.success)
+		
+		await inter.channel.send(delete_after=15.0, ephemeral=True)
 
 	
 	#botme
