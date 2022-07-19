@@ -1,5 +1,4 @@
 from textwrap import shorten as short
-import typing
 
 import disnake
 from disnake.ext import commands
@@ -149,16 +148,7 @@ class Administration(commands.Cog):
 				)
 		]
 	)
-	async def kick(self, inter: ACI, user: typing.Union[disnake.User, str], reason: str=None, notify: bool=False):
-
-			if isinstance(user, str):
-				try:
-					member = await inter.guild.get_or_fetch_member(int(user))
-				except:
-					await inter.send('Usuário ou ID de usuário inválidos!', ephermeral=True)
-					return
-			else:
-				member = await inter.guild.get_or_fetch_member(user.id)
+	async def kick(self, inter: ACI, user: disnake.User, reason: str=None, notify: bool=False): 
 
 			if len(reason) > 512:
 				reason = short(reason, width=512, placeholder='...')
