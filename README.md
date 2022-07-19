@@ -28,7 +28,7 @@
 
 - /adm
 - - botme
-- - clear
+- - purge
 - - nick
 - - unban
 - - kick 
