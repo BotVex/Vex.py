@@ -40,27 +40,35 @@ class Administration(commands.Cog):
 	async def purge(self, inter: ACI, amount: int):
 		await inter.response.defer()
 		
-		count_members = {}
-		messages = await inter.channel.history(limit=amount).flatten()
-		await inter.channel.purge(limit=amount+1)
-		for message in messages[1:]:
-			if str(message.author) in count_members:
-				count_members[str(message.author)] += 1
-			else:
-				count_members[str(message.author)] = 1
-			new_string = []
-			deleted_messages = 0
-			for author, message_deleted in list(count_members.items()):
-				new_string.append(f'**{author}**: {message_deleted}')
-				deleted_messages += message_deleted
-			final_string = f'\n'.join(new_string)
-		
-		embed = EB(
-		  title=f'{E.success}{deleted_messages} mensagens apagadas!',
-		  description=final_string,
-		  color=C.success)
-		
-		await inter.channel.send(embed=embed, delete_after=15.0)
+		try:
+  		count_members = {}
+  		messages = await inter.channel.history(limit=amount).flatten()
+  		await inter.channel.purge(limit=amount+1)
+  		for message in messages[1:]:
+  			if str(message.author) in count_members:
+  				count_members[str(message.author)] += 1
+  			else:
+  				count_members[str(message.author)] = 1
+  			new_string = []
+  			deleted_messages = 0
+  			for author, message_deleted in list(count_members.items()):
+  				new_string.append(f'**{author}**: {message_deleted}')
+  				deleted_messages += message_deleted
+  			final_string = f'\n'.join(new_string)
+  		
+  		embed = EB(
+  		  title=f'{E.success}{deleted_messages} Mensagens apagadas!',
+  		  description=final_string,
+  		  color=C.success)
+  		
+  		await inter.channel.send(embed=embed, delete_after=15.0)
+  	except:
+  	  embed = EB(
+  	    title=f'{E.error}Não foi possivel apagar as mensagens.',
+  	    description=final_string,
+  	    color=C.success)
+  	  
+  	  await inter.channel.send(embed=embed, delete_after=15.0)
 
 	
 	#botme
@@ -72,7 +80,7 @@ class Administration(commands.Cog):
 			description=f'{E.administration}Envie uma mensagem como se você fosse um bot.',
 			options=[
 					disnake.Option(
-							name='reason',
+							name='message',
 							description='Sua mensagem.',
 							type=disnake.OptionType.string,
 							required=True
@@ -85,10 +93,10 @@ class Administration(commands.Cog):
 					)
 			]
 	)
-	async def botme(self, inter: ACI, reason: str, channel: disnake.TextChannel=None):
+	async def botme(self, inter: ACI, message: str, channel: disnake.TextChannel=None):
 		await inter.response.defer()
 
-		if len(reason) > 2000:
+		if len(message) > 2000:
 			await inter.send('A mensagem é muito grande!')
 			return
 		
@@ -109,7 +117,7 @@ class Administration(commands.Cog):
 		
 		await inter.delete_original_message()
 		
-		await webhook.send(username=inter.author.display_name, content=reason, avatar_url=inter.author.display_avatar.url)
+		await webhook.send(username=inter.author.display_name, content=message, avatar_url=inter.author.display_avatar.url)
 	
 	
 	#kick
