@@ -19,7 +19,7 @@ class Administration(commands.Cog):
 		pass
 	
 	
-	#clear
+	#clear old
 	@commands.has_permissions(manage_messages=True)
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@commands.guild_only()
@@ -53,6 +53,44 @@ class Administration(commands.Cog):
 					color=C.error)
 				await inter.channel.send(embed=embed, delete_after=15.0, ephemeral=True)
 	
+	
+	#purge
+	@commands.has_permissions(manage_messages=True)
+	@commands.cooldown(1, 7, commands.BucketType.user)
+	@commands.guild_only()
+	@adm.sub_command(
+			name='purge',
+			description=f'{E.administration}Deleto a quantidade de mensagens especificadas.',
+			options=[
+					disnake.Option(
+							name='amount',
+							description='A quantidade de mensagens que serão apagadas. Deve estar entre 2 e 1000.',
+							type=disnake.OptionType.integer,
+							required=True,
+							min_value=2,
+							max_value=1000
+					)
+			]
+	)
+	async def purge(self, inter: ACI, amount: int):
+		await inter.response.defer()
+		
+		count_members = {}
+		messages = await inter.channel.history(limit=amount).flatten()
+		for message in messages[1:]:
+			if str(message.author) in count_members:
+				count_members[str(message.author)] += 1
+			else:
+				count_members[str(message.author)] = 1
+			new_string = []
+			deleted_messages = 0
+			for author, message_deleted in list(count_members.items()):
+				new_string.append(f'**{author}** {message_deleted}')
+				deleted_messages += message_deleted
+			final_string = '/n'.join(new_string)
+		await inter.channel.purge(limit=amount+1)
+		await inter.send(f'{deleted_messages} apagadas! /n/n{final_string}')
+
 	
 	#botme
 	@commands.has_permissions(administrator=True)
