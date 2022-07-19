@@ -150,8 +150,8 @@ class Administration(commands.Cog):
 	)
 	async def kick(self, inter: ACI, user: disnake.User, reason: str=None, notify: bool=False):
 
-			member = await inter.guild.get_or_fetch_member(user.id)
-			if member.guild_permissions.administrator:
+			user = await inter.guild.get_or_fetch_member(user.id)
+			if user.guild_permissions.administrator:
 					embed = EB(
 							title=f'{E.error}Erro!',
 							description='Eu não posso quicar administradores.',
@@ -161,7 +161,7 @@ class Administration(commands.Cog):
 					try:
 							embed = EB(
 									title=f'{E.success} Usuário quicado!',
-									description=f'{member.mention} foi quicado por {inter.author.mention}!',
+									description=f'{user.mention} foi quicado por {inter.author.mention}!',
 									color=C.success)
 							
 							if reason is not None:
@@ -172,7 +172,7 @@ class Administration(commands.Cog):
 										value=reason,
 										inline=False)
 							
-							await member.kick(reason=reason)
+							await user.kick(reason=reason)
 							await inter.send(embed=embed, ephemeral=True)
 
 							if notify is True:
@@ -181,13 +181,13 @@ class Administration(commands.Cog):
 										title=f'Você foi quicado de {inter.guild.name}!',
 										color=C.warning)
 									embed.add_field(name='Motivo:', value=reason, inline=False)
-									await member.send(embed=embed)
+									await user.send(embed=embed)
 								except disnake.Forbidden:
-									await inter.send('não foi possivel notificar o usuário.')
-					except Exeption as e:
+									pass
+					except Exception as e:
 							embed = EB(
 									title=f'{E.error}Erro!',
-									description=f'Ocorreu um erro ao tentar quicar o usuário. Certifique-se de que meu cargo estejam acima dos cargos de {member.mention} e tente novamente.',
+									description=f'Ocorreu um erro ao tentar quicar o usuário. Certifique-se de que meu cargo estejam acima dos cargos de {user.mention} e tente novamente.',
 									color=C.error)
 							await inter.send(embed=embed, ephemeral=True)
 							print(e)
