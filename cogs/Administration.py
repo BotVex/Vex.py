@@ -148,10 +148,7 @@ class Administration(commands.Cog):
 				)
 		]
 	)
-	async def kick(self, inter: ACI, user: disnake.User, reason: str=None, notify: bool=False): 
-
-			if len(reason) > 512:
-				reason = short(reason, width=512, placeholder='...')
+	async def kick(self, inter: ACI, user: disnake.User, reason: str=None, notify: bool=False):
 
 			member = await inter.guild.get_or_fetch_member(user.id)
 			if member.guild_permissions.administrator:
@@ -168,6 +165,8 @@ class Administration(commands.Cog):
 									color=C.success)
 							
 							if reason is not None:
+								if len(reason) > 512:
+									reason = short(reason, width=512, placeholder='...')
 								embed.add_field(
 										name='Motivo:',
 										value=reason,
