@@ -50,11 +50,11 @@ class Administration(commands.Cog):
 			new_string = []
 			deleted_messages = 0
 			for author, message_deleted in list(count_members.items()):
-				new_string.append(f'**{author}** {message_deleted}')
+				new_string.append(f'**{author}**: {message_deleted}')
 				deleted_messages += message_deleted
-			final_string = '/n'.join(new_string)
+			final_string = f'/n'.join(new_string)
 		await inter.channel.purge(limit=amount+1)
-		await inter.channel.send(f'{deleted_messages} apagadas! /n/n{final_string}')
+		await inter.channel.send(f'{deleted_messages} apagadas!\n\n{final_string}')
 
 	
 	#botme
