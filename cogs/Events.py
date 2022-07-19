@@ -17,19 +17,21 @@ class Events(commands.Cog):
 	
 	@commands.Cog.listener()
 	async def on_slash_command_error(self, inter: disnake.ApplicationCommandInteraction, error: commands.CommandError):
+
 		if isinstance(error, commands.CommandOnCooldown):
 			day = round(error.retry_after/86400)
 			hour = round(error.retry_after/3600)
 			minute = round(error.retry_after/60)
+			second = str(error.retry_after:.2f)
 
 			if day > 0:
-				waiting_time = str(day)+ 'dia' if len(day) == 1 else 'dias'
+				waiting_time = str(day) + 'dia' if len(day) == 1 else 'dias'
 			elif hour > 0:
-				waiting_time = str(hour)+ 'hora' if len(day) == 1 else 'horas'
+				waiting_time = str(hour) + 'hora' if len(hour) == 1 else 'horas'
 			elif minute > 0:
-				waiting_time = str(minute)+ 'minuto' if len(day) == 1 else 'minutos'
+				waiting_time = str(minute) + 'minuto' if len(minute) == 1 else 'minutos'
 			else:
-				waiting_time = f'{error.retry_after:.2f} segundo(s)'
+				waiting_time = second + 'segundo' if len(second) <= 1 else 'segundos'
 
 			embed = disnake.Embed(
 					title=f'{E.error}Comando em cooldown!',
