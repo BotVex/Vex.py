@@ -1,4 +1,5 @@
 from textwrap import shorten as short
+import typing
 
 import disnake
 from disnake.ext import commands
@@ -139,14 +140,25 @@ class Administration(commands.Cog):
 						description='O motivo pelo qual o usuário está sendo quicado.',
 						type=disnake.OptionType.string,
 						required=False
+				),
+				disnake.Option(
+						name='notify',
+						description='Avisar o usuário(caso ele possua a DM aberta).',
+						type=disnake.OptionType.boolean,
+						required=False
 				)
 		]
 	)
-	async def kick(
-		self, 
-		inter: ACI,
-		user: disnake.User, 
-		reason: str='Motivo não informado.'): 
+	async def kick(self, inter: ACI, user: typing.Union[disnake.User, str], reason: str=None, notify: bool=False):
+
+			if isinstance(user, str):
+				try:
+					member = await inter.guild.get_or_fetch_member(int(user))
+				except:
+					await inter.send('Usuário ou ID de usuário inválidos!', ephermeral=True)
+					return
+			else:
+				member = await inter.guild.get_or_fetch_member(user.id)
 
 			if len(reason) > 512:
 				reason = short(reason, width=512, placeholder='...')
@@ -164,17 +176,21 @@ class Administration(commands.Cog):
 									title=f'{E.success} Usuário quicado!',
 									description=f'{member.mention} foi quicado por {inter.author.mention}!',
 									color=C.success)
-							embed.add_field(
-									name='Motivo:',
-									value=reason,
-									inline=False)
-							await inter.send(embed=embed)
+							
+							if reason is not None:
+								embed.add_field(
+										name='Motivo:',
+										value=reason,
+										inline=False)
+							
+							await inter.send(embed=embed, ephemeral=True)
 							await member.kick(reason=reason)
-							try:
-									await member.send(
-											f'Você foi quicado de **{inter.guild.name}** por **{inter.author}**!\n\nMotivo: {reason}')
-							except disnake.Forbidden:
-									pass
+
+							if notify is True:
+								try:
+										await member.send(f'Você foi quicado de **{inter.guild.name}!\n\nMotivo: {reason}')
+								except disnake.Forbidden:
+										pass
 					except:
 							embed = EB(
 									title=f'{E.error}Erro!',
