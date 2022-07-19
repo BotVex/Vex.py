@@ -7,6 +7,7 @@ class Colors:
 	success = 0x38c48c
 	error   = 0xff045c
 	general = 0xfad4fb
+	warning = 0xecfc03
 	
 	
 	def RGB2HEX(RGB):

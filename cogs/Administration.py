@@ -172,12 +172,16 @@ class Administration(commands.Cog):
 										value=reason,
 										inline=False)
 							
-							await inter.send(embed=embed, ephemeral=True)
 							await member.kick(reason=reason)
+							await inter.send(embed=embed, ephemeral=True)
 
 							if notify is True:
 								try:
-										await member.send(f'Você foi quicado de **{inter.guild.name}!\n\nMotivo: {reason}')
+									embed = EB(
+										title=f'Você foi quicado de {inter.guild.name}!',
+										color=C.warning)
+									embed.add_field(name='Motivo:', value=reason, inline=False)
+									await member.send(embed=embed)
 								except disnake.Forbidden:
 										pass
 					except:
