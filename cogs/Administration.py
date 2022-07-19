@@ -19,41 +19,6 @@ class Administration(commands.Cog):
 		pass
 	
 	
-	#clear old
-	@commands.has_permissions(manage_messages=True)
-	@commands.cooldown(1, 7, commands.BucketType.user)
-	@commands.guild_only()
-	@adm.sub_command(
-			name='clear',
-			description=f'{E.administration}Deleto a quantidade de mensagens especificadas.',
-			options=[
-					disnake.Option(
-							name='amount',
-							description='A quantidade de mensagens que serão apagadas. Deve estar entre 2 e 1000.',
-							type=disnake.OptionType.integer,
-							required=True,
-							min_value=2,
-							max_value=1000
-					)
-			]
-	)
-	async def clear(self, inter: disnake.ApplicationCommandInteraction, amount: int):
-		await inter.response.defer()
-		
-		try:
-				purged_messages = await inter.channel.purge(limit=amount)
-				embed = EB(
-					title=f'{E.success}Mensagens apagadas!',
-					description=f'{inter.mention} apagou **{len(purged_messages)}** mensagens!',
-					color=C.success)
-				await inter.channel.send(embed=embed, delete_after=15.0)
-		except:
-				embed = EB(
-					title=f'{E.error}Não foi possivel apagar as mensagens.',
-					color=C.error)
-				await inter.channel.send(embed=embed, delete_after=15.0, ephemeral=True)
-	
-	
 	#purge
 	@commands.has_permissions(manage_messages=True)
 	@commands.cooldown(1, 7, commands.BucketType.user)
@@ -89,7 +54,7 @@ class Administration(commands.Cog):
 				deleted_messages += message_deleted
 			final_string = '/n'.join(new_string)
 		await inter.channel.purge(limit=amount+1)
-		await inter.send(f'{deleted_messages} apagadas! /n/n{final_string}')
+		await inter.channel.send(f'{deleted_messages} apagadas! /n/n{final_string}')
 
 	
 	#botme
