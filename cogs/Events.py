@@ -23,11 +23,11 @@ class Events(commands.Cog):
 			minute = round(error.retry_after/60)
 
 			if day > 0:
-				waiting_time = str(day)+ "dia(s)"
+				waiting_time = str(day)+ 'dia' if len(day) == 1 else 'dias'
 			elif hour > 0:
-				waiting_time = str(hour)+ " hora(s)"
+				waiting_time = str(hour)+ 'hora' if len(day) == 1 else 'horas'
 			elif minute > 0:
-				waiting_time = str(minute)+" minuto(s)"
+				waiting_time = str(minute)+ 'minuto' if len(day) == 1 else 'minutos'
 			else:
 				waiting_time = f'{error.retry_after:.2f} segundo(s)'
 
@@ -52,7 +52,7 @@ class Events(commands.Cog):
 		elif isinstance(error, commands.MissingPermissions):
 				embed = EB(
 						title=f'{E.error}Sem permissão!',
-						description='Você não tem as permissões nescessárias para executar este comando!\n\nVocê preciza das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
+						description=f'Eu não tenho as permissões nescessárias para executar este comando!\n\n{"Você preciza das seguintes permissões: `" + ", ".join(error.missing_permissions)+"`" if len(error.missing_permissions) != 1 else "Você preciza da seguinte permissão: `" + ", ".join(error.missing_permissions)+"`"}',
 						color=C.error)
 				embed.set_image(url=MediaUrl.missingpermissionsbanner)
 				await inter.send(embed=embed, ephemeral=True)
@@ -61,7 +61,7 @@ class Events(commands.Cog):
 		elif isinstance(error, commands.BotMissingPermissions):
 				embed = EB(
 					title=f'{E.error}Não autorizado!',
-						description='Eu não tenho as permissões nescessárias para executar este comando!\n\nEu precizo das seguintes permissões: `' + ', '.join(error.missing_permissions)+'`',
+						description=f'Eu não tenho as permissões nescessárias para executar este comando!\n\n{"Eu precizo das seguintes permissões: `" + ", ".join(error.missing_permissions)+"`" if len(error.missing_permissions) != 1 else "Eu precizo da seguinte permissão: `" + ", ".join(error.missing_permissions)+"`"}',
 						color=C.error)
 				embed.set_image(url=MediaUrl.botmissingpermissionsbanner)
 				await inter.send(embed=embed, ephemeral=True)
