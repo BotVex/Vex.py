@@ -183,7 +183,7 @@ class Administration(commands.Cog):
 									embed.add_field(name='Motivo:', value=reason, inline=False)
 									await member.send(embed=embed)
 								except disnake.Forbidden:
-										pass
+									await inter.send('não foi possivel notificar o usuário.')
 					except Exeption as e:
 							embed = EB(
 									title=f'{E.error}Erro!',
