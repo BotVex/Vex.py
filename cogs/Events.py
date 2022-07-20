@@ -22,7 +22,7 @@ class Events(commands.Cog):
 			day = round(error.retry_after/86400)
 			hour = round(error.retry_after/3600)
 			minute = round(error.retry_after/60)
-			second = str(round(error.retry_after), 2)
+			second = str(round(error.retry_after, 2))
 
 			if day > 0:
 				waiting_time = str(day) + 'dia' if len(day) == 1 else 'dias'
