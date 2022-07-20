@@ -1,6 +1,5 @@
 import os
 import json
-import requests
 from io import BytesIO
 from PIL import Image, ImageOps, ImageFilter
 
