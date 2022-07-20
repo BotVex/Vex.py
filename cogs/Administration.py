@@ -384,11 +384,11 @@ class Administration(commands.Cog):
 							title=f'{E.error}Erro!',
 							description='Usuário já banido.',
 							color=C.error)
-					if user_banned.reason not is None:
-							embed.add_field(
-								name='Motivo:',
-								value=user_banned.reason,
-								inline=False)
+					#if user_banned.reason not is None:
+							#embed.add_field(
+								#name='Motivo:',
+								#value=user_banned.reason,
+								#inline=False)
 					
 					await inter.send(embed=embed, ephemeral=True)
 					return
