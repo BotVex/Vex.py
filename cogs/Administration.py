@@ -205,13 +205,21 @@ class Administration(commands.Cog):
 				await inter.send('Você não pode quicar você mesmo!', ephemeral=True)
 				return
 
+			elif user.id == inter.guild.owner_id:
+						embed = EB(
+							title=f'{E.error}Erro!',
+							description='Eu não posso quicar o dono do servidor.',
+							color=C.error)
+						await inter.send(embed=embed, ephemeral=True)
+						return
+			
 			elif user.guild_permissions.administrator:
-					embed = EB(
+						embed = EB(
 							title=f'{E.error}Erro!',
 							description='Eu não posso quicar administradores.',
 							color=C.error)
-					await inter.send(embed=embed, ephemeral=True)
-					return
+						await inter.send(embed=embed, ephemeral=True)
+						return
 			
 			else:
 					try:
@@ -286,13 +294,21 @@ class Administration(commands.Cog):
 				await inter.send('Você não pode banir você mesmo!', ephemeral=True)
 				return
 
+			elif user.id == inter.guild.owner_id:
+						embed = EB(
+							title=f'{E.error}Erro!',
+							description='Eu não posso banir o dono do servidor.',
+							color=C.error)
+						await inter.send(embed=embed, ephemeral=True)
+						return
+			
 			elif user.guild_permissions.administrator:
-				embed = EB(
-					title=f'{E.error}Erro!',
-					description='Eu não posso banir administradores.',
-					color=C.error)
-				await inter.send(embed=embed, ephemeral=True)
-				return
+						embed = EB(
+							title=f'{E.error}Erro!',
+							description='Eu não posso bainr administradores.',
+							color=C.error)
+						await inter.send(embed=embed, ephemeral=True)
+						return
 
 			else:
 					try:
@@ -361,43 +377,70 @@ class Administration(commands.Cog):
 					await inter.send('ID de usuário inválido!', ephemeral=True)
 					return
 			
+			try:
+					user_banned = await inter.guild.fetch_ban(user)
+
+					embed = EB(
+							title=f'{E.error}Erro!',
+							description='Usuário já banido.',
+							color=C.error)
+					if user_banned.reason not is None:
+							embed.add_field(
+								name='Motivo:',
+								value=user_banned.reason,
+								inline=False)
+					
+					await inter.send(embed=embed, ephemeral=True)
+					return
+			except disnake.NotFound:
+					pass
+
+			for user_guild in inter.guild.members:
+				if user_guild.id == user.id:
+					if user.id == inter.guild.owner_id:
+						embed = EB(
+							title=f'{E.error}Erro!',
+							description='Eu não posso banir o dono do servidor.',
+							color=C.error)
+						await inter.send(embed=embed, ephemeral=True)
+						break
+
+					elif user.guild_permissions.administrator:
+						embed = EB(
+							title=f'{E.error}Erro!',
+							description='Eu não posso banir administradores.',
+							color=C.error)
+						await inter.send(embed=embed, ephemeral=True)
+						break
+			
 			if user.id == inter.author.id:
 				await inter.send('Você não pode banir você mesmo!', ephemeral=True)
 				return
 
-			elif user.guild_permissions.administrator:
-				embed = EB(
-					title=f'{E.error}Erro!',
-					description='Eu não posso banir administradores.',
-					color=C.error)
-				await inter.send(embed=embed)
-				return
-
-			else:
-					try:
-							embed = EB(
-								title=f'{E.success} Usuário banido!',
-								description=f'{user.name}(*{user.id}*) foi banido por {inter.author.mention}!',
-								color=C.success)
+			try:
+					embed = EB(
+						title=f'{E.success} Usuário banido!',
+						description=f'{user}(*{user.id}*) foi banido por {inter.author.mention}!',
+						color=C.success)
+				
+					if reason is not None:
+						if len(reason) > 512:
+							reason = short(reason, width=512, placeholder='...')
 						
-							if reason is not None:
-								if len(reason) > 512:
-									reason = short(reason, width=512, placeholder='...')
-								
-								embed.add_field(
-										name='Motivo:',
-										value=reason,
-										inline=False)
-							
-							await self.bot.http.ban(str(user.id), inter.guild.id, reason=reason)
-							await inter.send(embed=embed, ephemeral=True)
+						embed.add_field(
+								name='Motivo:',
+								value=reason,
+								inline=False)
+					
+					await self.bot.http.ban(str(user.id), inter.guild.id, reason=reason)
+					await inter.send(embed=embed, ephemeral=True)
 
-					except:
-							embed = EB(
-									title=f'{E.error}Erro!',
-									description=f'Ocorreu um erro ao tentar banir o usuário {user.name}(*{user.id}*) do servidor.',
-									color=C.error)
-							await inter.send(embed=embed, ephemeral=True)
+			except:
+					embed = EB(
+							title=f'{E.error}Erro!',
+							description=f'Ocorreu um erro ao tentar banir o usuário {user.name}(*{user.id}*) do servidor.',
+							color=C.error)
+					await inter.send(embed=embed, ephemeral=True)
 			
 	
 	#unban
@@ -434,6 +477,24 @@ class Administration(commands.Cog):
 			if user.id == inter.author.id:
 				await inter.send('Você não pode desbanir você mesmo!', ephemeral=True)
 				return
+			
+			for user_guild in inter.guild.members:
+				if user_guild.id == user.id:
+					if user.id == inter.guild.owner_id:
+						embed = EB(
+							title=f'{E.error}Erro!',
+							description='Eu não posso desbanir o dono do servidor, porque ele não pode ser banido.',
+							color=C.error)
+						await inter.send(embed=embed, ephemeral=True)
+						break
+
+					if user_guild.id == user.id:
+						embed = EB(
+							title=f'{E.error}Erro!',
+							description='Eu não posso desbanir um usuário que já está no servidor.',
+							color=C.error)
+						await inter.send(embed=embed, ephemeral=True)
+						break
 
 			else:
 					try:
