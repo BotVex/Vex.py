@@ -1,4 +1,5 @@
 from textwrap import shorten as short
+import typing
 
 import disnake
 from disnake.ext import commands
@@ -124,7 +125,7 @@ class Administration(commands.Cog):
 	
 	#kick
 	@commands.has_permissions(kick_members=True)
-	@commands.bot_has_permissions(kick_members=True, manage_messages=True)
+	@commands.bot_has_permissions(kick_members=True)
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
@@ -160,6 +161,7 @@ class Administration(commands.Cog):
 							description='Eu não posso quicar administradores.',
 							color=C.error)
 					await inter.send(embed=embed, ephemeral=True)
+					return
 			else:
 					try:
 							embed = EB(
@@ -197,6 +199,7 @@ class Administration(commands.Cog):
 	
 	#nick
 	@commands.has_permissions(manage_nicknames=True)
+	@commands.bot_has_permissions(manage_nicknames=True)
 	@commands.cooldown(1, 10, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
@@ -217,11 +220,7 @@ class Administration(commands.Cog):
 					)
 			]
 	)
-	async def nick(
-		self, 
-		inter: ACI, 
-		user: disnake.User, 
-		nickname: str = None):
+	async def nick(self, inter: ACI, user: disnake.User, nickname: str = None):
 
 			if len(nickname) > 32:
 				await inter.send('O nickname é muito grande! o maximo é de 32 caracteres.')
@@ -247,6 +246,7 @@ class Administration(commands.Cog):
 	
 	#ban
 	@commands.has_permissions(ban_members=True)
+	@commands.bot_has_permissions(ban_members=True)
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
@@ -275,54 +275,59 @@ class Administration(commands.Cog):
 					)
 			]
 	)
-	async def ban(
-		self, 
-		inter: ACI, 
-		user: disnake.User,
-		delete_message_days: int=0,
-		reason: str='Motivo não informado.'):
-
-			if len(reason) > 512:
-				reason = short(reason, width=512, placeholder='...')
+	async def ban(self, inter: ACI, user: typing.Union[disnake.User, int]=None, delete_message_days: int=0, reason: str=None, notify: bool=False): 
 			
-			member = await inter.guild.get_or_fetch_member(user.id)
+			if user == inter.author:
+				await inter.send('Você não pode banir você mesmo!', ephemeral=True)
+				return
+
+			elif member.guild_permissions.administrator:
+				embed = EB(
+					title=f'{E.error}Erro!',
+					description='Eu não posso banir administradores.',
+					color=C.error)
+				await inter.send(embed=embed)
+				return
+
 			try:
-					if member.guild_permissions.administrator:
+					member = await inter.guild.get_or_fetch_member(user.id if isinstance(user, disnake.User) else disnake.Object(user).id)
+
+					embed = EB(
+						title=f'{E.success} Usuário banido!',
+						description=f'{user.mention} foi banido por {inter.author.mention}!',
+						color=C.success)
+				
+					if reason is not None:
+						if len(reason) > 512:
+							reason = short(reason, width=512, placeholder='...')
+						embed.add_field(
+								name='Motivo:',
+								value=reason,
+								inline=False)
+					
+					await user.ban(reason=reason, delete_message_days=delete_message_days)
+					await inter.send(embed=embed, ephemeral=True)
+
+					if notify is True:
+						try:
 							embed = EB(
-									title=f'{E.error}Erro!',
-									description='Eu não posso banir administradores.',
-									color=C.error)
-							await inter.send(embed=embed)
-					else:
-							embed = EB(
-									title=f'{E.success}Usuário banido!',
-									description=f'{member.mention} foi banido por {inter.author.mention}!',
-									color=C.success)
-							embed.add_field(
-									name='Motivo:',
-									value=reason,
-									inline=False)
-							if delete_message_days != 0:
-								embed.add_field(
-										name='dias de mensagens deletadas:',
-										value=delete_message_days,
-										inline=False)
-							await member.ban(reason=reason, delete_message_days=delete_message_days)
-							await inter.send(embed=embed)
-							try:
-									await member.send(f'Você foi banido de {inter.guild.name} por **{inter.author}**!\n\nMotivo: {reason}')
-							except disnake.Forbidden:
-									pass
+								title=f'Você foi banido de {inter.guild.name}!',
+								color=C.warning)
+							embed.add_field(name='Motivo:', value=reason, inline=False)
+							await user.send(embed=embed)
+						except disnake.Forbidden:
+							pass
 			except:
 					embed = EB(
 							title=f'{E.error}Erro!',
-							description=f'Ocorreu um erro ao tentar banir o usuário. Certifique-se de que meu cargo esteja acima do cargo de {member.mention} e tente novamente.',
+							description=f'Ocorreu um erro ao tentar banir o usuário. Certifique-se de que meu cargo esteja acima do cargo de {member.mention} ou que seja um usuário válido e tente novamente.',
 							color=C.error)
 					await inter.send(embed=embed, ephemeral=True)
 	
 	
 	#hackban
 	@commands.has_permissions(ban_members=True)
+	@commands.bot_has_permissions(ban_members=True)
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
@@ -375,6 +380,7 @@ class Administration(commands.Cog):
 
 	#unban
 	@commands.has_permissions(ban_members=True)
+	@commands.bot_has_permissions(ban_members=True)
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(

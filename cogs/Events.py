@@ -7,10 +7,6 @@ from utils.assets import Emojis as E
 from utils.assets import Colors as C
 from utils.assets import MediaUrl
 
-from datetime import timedelta
-
-import config
-
 class Events(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
