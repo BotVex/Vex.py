@@ -55,7 +55,7 @@ class Image_(commands.Cog):
 		result = BytesIO()
 		stonks_obj.save("data/temp/stonks.png", format='png')
 
-		file = disnake.File("data/temp/stonks.jpg")
+		file = disnake.File("data/temp/stonks.png")
 		os.remove("data/temp/stonks.jpg")
 
 
