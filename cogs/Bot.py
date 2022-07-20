@@ -52,35 +52,35 @@ class Bot(commands.Cog):
 			description = f'''
 **Informações básicas:**
 ```
-Nome:............{self.bot.user}
-ID:..............{self.bot.user.id}
-Hash:............{hash(self.bot)}
-Sistema:.........{platform.system()}
+Nome.............{self.bot.user}
+ID...............{self.bot.user.id}
+Hash.............{hash(self.bot)}
+Sistema..........{platform.system()}
 ```
 
 **Informações do Python:**
 ```
-Versão:..........{platform.python_version()}
-Disnake:.........{disnake.__version__}
+Versão...........{platform.python_version()}
+Disnake..........{disnake.__version__}
 ```
 
 **Informações da CPU:**
 ```
-Uso:.............{round(psutil.cpu_percent(interval=1))}%
-Núcleos:.........{psutil.cpu_count(logical=False)}
+Uso..............{round(psutil.cpu_percent(interval=1))}%
+Núcleos..........{psutil.cpu_count(logical=False)}
 ```
 
 **Informações da memória:**
 ```
-Uso:.............{memory_used}/{memory_total} - ({memory_percent})
-Disponível:......{memory_available}
-Total:...........{memory_total}
+Uso..............{memory_used}/{memory_total} - ({memory_percent})
+Disponível.......{memory_available}
+Total............{memory_total}
 ```
 
 **Informações da internet:**
 ```
-Dados enviados:..{bytes_sent}
-Dados recebidos:.{bytes_recv}
+Dados enviados...{bytes_sent}
+Dados recebidos..{bytes_recv}
 ```
 '''
 
