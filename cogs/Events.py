@@ -25,13 +25,13 @@ class Events(commands.Cog):
 			second = round(error.retry_after, 2)
 
 			if day > 0:
-				waiting_time = str(day) + 'dia' if len(day) == 1 else 'dias'
+				waiting_time = str(day) + 'dia' if day == 1 else 'dias'
 			elif hour > 0:
-				waiting_time = str(hour) + 'hora' if len(hour) == 1 else 'horas'
+				waiting_time = str(hour) + 'hora' if hour == 1 else 'horas'
 			elif minute > 0:
-				waiting_time = str(minute) + 'minuto' if len(minute) == 1 else 'minutos'
+				waiting_time = str(minute) + 'minuto' if minute == 1 else 'minutos'
 			else:
-				waiting_time = str(second) + 'segundo' if len(int(second)) <= 1 else 'segundos'
+				waiting_time = str(second) + 'segundo' if second <= 1 else 'segundos'
 
 			embed = disnake.Embed(
 					title=f'{E.error}Comando em cooldown!',
