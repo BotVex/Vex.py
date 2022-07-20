@@ -55,7 +55,8 @@ class Image_(commands.Cog):
 		result = BytesIO()
 		stonks_obj.save(result, format='png')
 
-		file = disnake.File(result.getbuffer().tobytes())
+		file = disnake.File("data/temp/images/stonks.jpg")
+		os.remove("data/temp/images/stonks.jpg")
 
 
 		embed = EB()
