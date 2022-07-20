@@ -47,6 +47,14 @@ class Events(commands.Cog):
 				embed.set_image(url=MediaUrl.notownerbanner)
 				await inter.send(embed=embed, ephemeral=True)
 		
+
+		elif isinstance(error, commands.disnake.HTTPException):
+				embed = disnake.Embed(
+					title=f'{E.error}Erro!',
+					description='Algo **extremamente** errado aconteceu :(',
+					color=C.error)
+				await inter.send(embed=embed, ephemeral=True)
+
 		
 		elif isinstance(error, commands.MissingPermissions):
 				embed = EB(
