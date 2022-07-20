@@ -39,38 +39,45 @@ class Bot(commands.Cog):
 				async with session.get(str(avatar_color)) as resp:
 					color = dominant_color(await resp.content.read())
 			
-			embed = EB(
-				title=f'Informações de {self.bot.user.display_name}:',
-				color=color)
-			embed.add_field(name='Nome:', value=self.bot.user.name, inline=True)
-			embed.add_field(name='ID:', value=self.bot.user.id, inline=True)
-			embed.add_field(name='Hash:', value=hash(self.bot), inline=True)
-			embed.add_field(name='Versão do Python:', value=platform.python_version(), inline=True)
-			embed.add_field(name='Sistema:', value=platform.system(), inline=True)
-			embed.add_field(name='Versão do Disnake:', value=disnake.__version__, inline=True)
-			embed.add_field(name='Uso de CPU:', value=f'{round(psutil.cpu_percent(interval=1))}%', inline=True)
-			embed.add_field(name='Núcleos da CPU:', value=f'{psutil.cpu_count(logical=False)} núcleos', inline=True)
-
-
 			memory = psutil.virtual_memory()
 			memory_percent = str(memory.percent)+'%'
 			memory_used = str(bytes2human(memory.used))+'B'
 			memory_available = str(bytes2human(memory.available))+'B'
 			memory_total = str(bytes2human(memory.total))+'B'
 
-			embed.add_field(name='Uso da memória:', value=f'{memory_used}/{memory_total} - ({memory_percent})', inline=True)
-			embed.add_field(name='Memória disponível:', value=memory_available, inline=True)
-			embed.add_field(name='Memória total:', value=memory_total, inline=True)
-
-
 			net = psutil.net_io_counters()
 			bytes_sent = str(bytes2human(net.bytes_sent))+'B'
 			bytes_recv = str(bytes2human(net.bytes_recv))+'B'
 
-			embed.add_field(name='Dados enviados:', value=bytes_sent, inline=True)
-			embed.add_field(name='Dados recebidos:', value=bytes_recv, inline=True)
+			description = f'''
+**Informações básicas:**
+`Nome:            {self.bot.user}`
+`ID:              {self.bot.user.id}`
+`Hash:            {hash(self.bot)}`
+`Sistema:         {platform.system()}`
 
+**Informações do Python:**
+`Versão:          {platform.python_version()}`
+`Disnake:         {disnake.__version__}`
 
+**Informações da CPU:**
+`Uso:             {round(psutil.cpu_percent(interval=1))}%`
+`Núcleos:         {psutil.cpu_count(logical=False)}`
+
+**Informações da memória:**
+`Uso:             {memory_used}/{memory_total} - ({memory_percent})`
+`Disponível:      {memory_available}`
+`Total:           {memory_total}`
+
+**Informações da internet:**
+`Dados enviados:  {bytes_sent}`
+`Dados recebidos: {bytes_recv}`
+'''
+
+			embed = EB(
+				title=f'Informações de {self.bot.user.display_name}:',
+				description=description,
+				color=color)
 			embed.set_thumbnail(url=self.bot.user.display_avatar)
 			
 			await inter.send(embed=embed, view=ButtonLink('Github', str('https://github.com/Lobooooooo14/Vex.py'), emoji=str(E.github)))
