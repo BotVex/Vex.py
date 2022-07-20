@@ -48,7 +48,7 @@ class Events(commands.Cog):
 				await inter.send(embed=embed, ephemeral=True)
 		
 
-		elif isinstance(error, commands.disnake.HTTPException):
+		elif isinstance(error, commands.HTTPException):
 				embed = disnake.Embed(
 					title=f'{E.error}Erro!',
 					description='Algo **extremamente** errado aconteceu :(',
