@@ -53,10 +53,10 @@ class Image_(commands.Cog):
 		stonks_obj.paste(avatar_obj, (83, 45))
 		
 		result = BytesIO()
-		stonks_obj.save("data/temp/images/stonks.png", format='png')
+		stonks_obj.save("data/temp/stonks.png", format='png')
 
-		file = disnake.File("data/temp/images/stonks.jpg")
-		os.remove("data/temp/images/stonks.jpg")
+		file = disnake.File("data/temp/stonks.jpg")
+		os.remove("data/temp/stonks.jpg")
 
 
 		embed = EB()
