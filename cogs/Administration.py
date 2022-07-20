@@ -342,7 +342,7 @@ class Administration(commands.Cog):
 					disnake.Option(
 							name='user_id',
 							description='O ID do usuário a ser banido.',
-							type=disnake.OptionType.integer,
+							type=disnake.OptionType.string,
 							required=True
 					),
 					disnake.Option(
@@ -412,7 +412,7 @@ class Administration(commands.Cog):
 					disnake.Option(
 							name='user_id',
 							description='O ID do usuário a ser desbanido.',
-							type=disnake.OptionType.integer,
+							type=disnake.OptionType.string,
 							required=True
 					),
 					disnake.Option(
