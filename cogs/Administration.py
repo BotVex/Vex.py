@@ -353,10 +353,10 @@ class Administration(commands.Cog):
 					)
 			]
 	)
-	async def hackban(self, inter: ACI, user_id: int, reason: str=None): 
+	async def hackban(self, inter: ACI, user_id: str, reason: str=None): 
 			
 			try:
-					user = await self.bot.get_or_fetch_user(user_id)
+					user = await self.bot.get_or_fetch_user(int(user_id))
 			except:
 					await inter.send('ID de usuário inválido!', ephemeral=True)
 					return
@@ -423,10 +423,10 @@ class Administration(commands.Cog):
 					)
 			]
 	)
-	async def unban(self, inter: ACI, user_id: int, reason: str=None): 
+	async def unban(self, inter: ACI, user_id: str, reason: str=None): 
 			
 			try:
-					user = await self.bot.get_or_fetch_user(user_id)
+					user = await self.bot.get_or_fetch_user(int(user_id))
 			except:
 					await inter.send('ID de usuário inválido!', ephemeral=True)
 					return
