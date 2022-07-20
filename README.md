@@ -20,39 +20,4 @@
   <p>A Vex.py tem como objetivo ser uma versão pública da Vex escrita em javascript por cookieukw, privada para a Cookieland.</p>
   
   <p>Diferente da Vex, a Vex.py utiliza slash commands! (<i>comandos de barra</i>)</p>
-  
-  <hr>
-  
-  <p>Logo abaixo você pode ver a lista de comandos.</p>
- </div>
-
-- /adm
-- - botme
-- - purge
-- - nick
-- - unban
-- - kick 
-- - ban
-- - hack-ban
-- /fun
-- - vidente
-- - roleplay
-- - coinflip
-- - kaomoji
-- - owo
-- /img
-- - fun
-- - - stonks
-- /tools
-- - colors 
-- - - generate
-- - - renderrgb
-- - - renderhex
-- - discord
-- - - servericon
-- - - serverbanner
-- - - avatar
-- - - userinfo
-- - qrcode
-- /vex
-- - info
+ 
