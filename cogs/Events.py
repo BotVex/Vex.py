@@ -1,6 +1,7 @@
 import disnake
 from disnake.ext import commands
 EB = disnake.Embed
+ACI = disnake.ApplicationCommandInteraction
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
