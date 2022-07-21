@@ -30,7 +30,7 @@ class Bot(commands.Cog):
 	@commands.guild_only()
 	@vex.sub_command(
 		name='info',
-		description='Exibe minhas informações.')
+		description=Localized('Displays miscellaneous information.', key='BOT_CMD_VEX_INFO_DESC'))
 	async def info(
 		self,
 		inter: ACI):
@@ -45,48 +45,48 @@ class Bot(commands.Cog):
 			net = psutil.net_io_counters()
 			bytes_sent = str(bytes2human(net.bytes_sent))+'B'
 			bytes_recv = str(bytes2human(net.bytes_recv))+'B'
-
-			description = f'''
-**Informações básicas:**
+#{Localized('', key='BOT_CMD_VEX_INFO_')}
+			description = f"""
+{Localized('**Basic information:**', key='BOT_CMD_VEX_INFO_BASICINFO')}
 ```
-Nome > {self.bot.user}
-ID > {self.bot.user.id}
-Hash > {hash(self.bot)}
-Sistema > {platform.system()}
-```
-
-**Informações do Python:**
-```
-Versão > {platform.python_version()}
-Disnake > {disnake.__version__}
+{Localized('Name', key='BOT_CMD_VEX_INFO_NAME')} > {self.bot.user}
+{Localized('ID', key='BOT_CMD_VEX_INFO_ID')} > {self.bot.user.id}
+{Localized('Hash', key='BOT_CMD_VEX_INFO_HASH')} > {hash(self.bot)}
+{Localized('System', key='BOT_CMD_VEX_INFO_SYS')} > {platform.system()}
 ```
 
-**Informações da CPU:**
+{Localized('**Python info:**', key='BOT_CMD_VEX_INFO_PYINFO')}
 ```
-Uso > {round(psutil.cpu_percent(interval=1))}%
-Núcleos > {psutil.cpu_count(logical=False)}
-```
-
-**Informações da memória:**
-```
-Uso > {memory_used}/{memory_total} - ({memory_percent})
-Disponível > {memory_available}
-Total > {memory_total}
+{Localized('Version', key='BOT_CMD_VEX_INFO_VERSION')} > {platform.python_version()}
+{Localized('Disnake', key='BOT_CMD_VEX_INFO_DISNAKE')} > {disnake.__version__}
 ```
 
-**Informações da internet:**
+{Localized('**CPU Information:**', key='BOT_CMD_VEX_INFO_CPUINFO')}
 ```
-Dados enviados > {bytes_sent}
-Dados recebidos > {bytes_recv}
+{Localized('Use', key='BOT_CMD_VEX_INFO_USE')} > {round(psutil.cpu_percent(interval=1))}%
+{Localized('Cores', key='BOT_CMD_VEX_INFO_CORES')} > {psutil.cpu_count(logical=False)}
 ```
-'''
+
+{Localized('**Memory Information:**', key='BOT_CMD_VEX_INFO_MEMORYINFO')}
+```
+{Localized('Use', key='BOT_CMD_VEX_INFO_USE')} > {memory_used}/{memory_total} - ({memory_percent})
+{Localized('Available', key='BOT_CMD_VEX_INFO_AVAILABLE')} > {memory_available}
+{Localized('Total', key='BOT_CMD_VEX_INFO_TOTAL')} > {memory_total}
+```
+
+{Localized('**Information from the internet:**', key='BOT_CMD_VEX_INFO_INRERNETINFO')}
+```
+{Localized('Data sent', key='BOT_CMD_VEX_INFO_DATASENT')} > {bytes_sent}
+{Localized('Data received', key='BOT_CMD_VEX_INFO_DATARECEIVED')} > {bytes_recv}
+```
+"""
 			avatar_color = self.bot.user.display_avatar.with_size(16)
 			async with aiohttp.ClientSession() as session:
 				async with session.get(str(avatar_color)) as resp:
 					color = dominant_color(await resp.content.read())
 			
 			bot_info = EB(
-				title=f'Informações de {self.bot.user.display_name}:',
+				title=f'{Localized('Information of', key='BOT_CMD_VEX_INFO_BOTNAMEINFORMATION')} {self.bot.user.display_name}:',
 				description=description,
 				color=color)
 			bot_info.set_thumbnail(url=self.bot.user.display_avatar)
@@ -103,22 +103,22 @@ Dados recebidos > {bytes_recv}
 						color = dominant_color(await resp.content.read())
 
 			description2 = f'''
-**Informações da guild:**
+{Localized('**Guild information:**', key='BOT_CMD_VEX_INFO_GUILDINFO')}
 ```
-Latência > {round(self.bot.get_shard(inter.guild.shard_id).latency * 1000)}ms
-Shard > {inter.guild.shard_id}
+{Localized('Latency', key='BOT_CMD_VEX_INFO_LATENCY')} > {round(self.bot.get_shard(inter.guild.shard_id).latency * 1000)}ms
+{Localized('Shard', key='BOT_CMD_VEX_INFO_SHARD')} > {inter.guild.shard_id}
 ```
 '''
 
 			guild_info = EB(
-				title=f'Informações de {inter.guild.name}:',
+				title=f'{Localized('Information of', key='BOT_CMD_VEX_INFO_GUILDNAMEINFORMATION')} {inter.guild.name}:',
 				description=description2,
 				color=C.general if no_icon is True else color)
 			
 			if no_icon is not True:
 				guild_info.set_thumbnail(url=inter.guild.icon)
 			
-			await inter.send(embeds=[bot_info, guild_info], view=ButtonLink('Github', str('https://github.com/Lobooooooo14/Vex.py'), emoji=str(E.github)))
+			await inter.send(embeds=[bot_info, guild_info], view=ButtonLink(Localized('Github', key='BOT_CMD_VEX_INFO_GITHUB'), str('https://github.com/Lobooooooo14/Vex.py'), emoji=str(E.github)))
 	
 
 def setup(bot):
