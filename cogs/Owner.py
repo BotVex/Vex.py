@@ -8,7 +8,7 @@ EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 from disnake import Localized
 
-from config import guild_ids
+from config import guild_id
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
@@ -25,27 +25,27 @@ class Owner(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.slash_command(name='owner', guild_ids=guild_ids)
+	@commands.slash_command(name='owner', guild_id=guild_id)
 	async def owner(self, inter: ACI):
 		pass
 	
 	
-	@owner.sub_command_group(name='set', guild_ids=guild_ids)
+	@owner.sub_command_group(name='set', guild_id=guild_id)
 	async def set(self, inter: ACI):
 		pass
 	
 
-	@owner.sub_command_group(name='test', guild_ids=guild_ids)
+	@owner.sub_command_group(name='test', guild_id=guild_id)
 	async def test(self, inter: ACI):
 		pass
 	
 
-	@owner.sub_command_group(name='cog', guild_ids=guild_ids)
+	@owner.sub_command_group(name='cog', guild_id=guild_id)
 	async def cog(self, inter: ACI):
 		pass
 	
 
-	@owner.sub_command(name=Localized('test', key='TEST') , description=Localized('test description', key='TEST_DESC'), guild_ids=guild_ids)
+	@owner.sub_command(name=Localized('test', key='TEST') , description=Localized('test description', key='TEST_DESC'), guild_id=guild_id)
 	@commands.is_owner()
 	async def test(self, inter: ACI):
 		await inter.response.defer()
@@ -59,7 +59,7 @@ class Owner(commands.Cog):
 	@set.sub_command(
 		name='avatar', 
 		description=f'{E.owner}Changes bot avatar.', 
-		guild_ids=guild_ids,
+		guild_id=guild_id,
 		options=[
 			disnake.Option(
 				name='file',
@@ -96,7 +96,7 @@ class Owner(commands.Cog):
 	@set.sub_command(
 		name='status', 
 		description=f'{E.owner}Changes bot status.', 
-		guild_ids=guild_ids,
+		guild_id=guild_id,
 		options=[
 			disnake.Option(
 				name='status',
@@ -132,7 +132,7 @@ class Owner(commands.Cog):
 	#restart
 	@owner.sub_command(
 		description=f'{E.owner}Restart the bot', 
-		guild_ids=guild_ids)
+		guild_id=guild_id)
 	@commands.is_owner()
 	async def restart(
 		self, 
@@ -147,7 +147,7 @@ class Owner(commands.Cog):
 	#load
 	@cog.sub_command(
 		description=f'{E.owner}Loads a specific bot cog.', 
-		guild_ids=guild_ids,
+		guild_id=guild_id,
 		options=[
 			disnake.Option(
 				name='cog',
@@ -193,7 +193,7 @@ class Owner(commands.Cog):
 	#unload
 	@cog.sub_command(
 		description=f'{E.owner}Unloads a specific bot cog.', 
-		guild_ids=guild_ids,
+		guild_id=guild_id,
 		options=[
 			disnake.Option(
 				name='cog',
@@ -239,7 +239,7 @@ class Owner(commands.Cog):
 	#reload
 	@cog.sub_command(
 		description=f'{E.owner}Reloads a specific bot cog.', 
-		guild_ids=guild_ids,
+		guild_id=guild_id,
 		options=[
 			disnake.Option(
 				name='cog',

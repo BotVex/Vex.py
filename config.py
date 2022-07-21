@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-owner_ids = [783120232134082580]
-guild_ids = [939585882883772436]
+owner_id = 783120232134082580
+guild_id = 939585882883772436
 
 intents = Intents.default()
 intents.members = True
