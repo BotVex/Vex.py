@@ -25,7 +25,9 @@ class Bot(commands.Cog):
 	async def vex(self, inter: ACI):
 		pass
 
-  
+
+	@commands.cooldown(1, 10, commands.BucketType.user)
+	@commands.guild_only()
 	@vex.sub_command(
 		name='info',
 		description='Exibe minhas informações.')
@@ -33,11 +35,6 @@ class Bot(commands.Cog):
 		self,
 		inter: ACI):
 			await inter.response.defer()
-			
-			avatar_color = self.bot.user.display_avatar.with_size(16)
-			async with aiohttp.ClientSession() as session:
-				async with session.get(str(avatar_color)) as resp:
-					color = dominant_color(await resp.content.read())
 			
 			memory = psutil.virtual_memory()
 			memory_percent = str(memory.percent)+'%'
@@ -83,14 +80,45 @@ Dados enviados...{bytes_sent}
 Dados recebidos..{bytes_recv}
 ```
 '''
-
-			embed = EB(
+			avatar_color = self.bot.user.display_avatar.with_size(16)
+			async with aiohttp.ClientSession() as session:
+				async with session.get(str(avatar_color)) as resp:
+					color = dominant_color(await resp.content.read())
+			
+			bot_info = EB(
 				title=f'Informações de {self.bot.user.display_name}:',
 				description=description,
 				color=color)
-			embed.set_thumbnail(url=self.bot.user.display_avatar)
+			bot_info.set_thumbnail(url=self.bot.user.display_avatar)
+
+
+
+			if inter.guild.icon == None:
+				no_icon = True
+			else:
+				no_icon = False
+				icon_color = inter.guild.icon.with_size(16)
+				async with aiohttp.ClientSession() as session:
+					async with session.get(str(icon_color)) as resp:
+						color = dominant_color(await resp.content.read())
+
+			description2 = f'''
+**Informações da guild:**
+```
+Latência.........{round(self.bot.get_shard(inter.guild.shard_id).latency * 1000)}ms
+Shard............{inter.guild.shard_id}
+```
+'''
+
+			guild_info = EB(
+				title=f'Informações de {inter.guild.name}:',
+				description=description2,
+				color=C.general if no_icon is True else color)
 			
-			await inter.send(embed=embed, view=ButtonLink('Github', str('https://github.com/Lobooooooo14/Vex.py'), emoji=str(E.github)))
+			if no_icon not is True:
+				guild_info.set_thumbnail(url=inter.guild.icon)
+			
+			await inter.send(embeds=[bot_info, guild_info], view=ButtonLink('Github', str('https://github.com/Lobooooooo14/Vex.py'), emoji=str(E.github)))
 	
 
 def setup(bot):
