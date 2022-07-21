@@ -27,8 +27,6 @@ bot = commands.AutoShardedInteractionBot(
 	strict_localization=True,
 	chunk_guilds_at_startup=False)
 
-#bot.i18n.load("./locale")
-#print('locales loaded')
 
 @bot.event
 async def on_ready():
@@ -61,6 +59,9 @@ async def status_task():
 
 c = 0
 if __name__ == '__main__':
+	bot.i18n.load("locale/")
+	print('locales loaded')
+
 	print(f'\nCOGS TO LOAD:')
 	for extension in config.extensions:
 		bot.load_extension(extension)

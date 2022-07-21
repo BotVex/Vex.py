@@ -7,5 +7,8 @@
 	"BOT_CMD_EB_FD_HASH":"Hash:",
 	"BOT_CMD_EB_FD_PY_V":"Versão do python:",
 	"BOT_CMD_EB_FD_SYS":"Sistema:",
-	"BOT_CMD_EB_FD_DISNAKE_V":"Versão da Disnake:"
+	"BOT_CMD_EB_FD_DISNAKE_V":"Versão da Disnake:",
+	"TEST":"teste:",
+	"TEST_DESC":"teste descrição",
+	"TEST_MSG":"mensagem teste"
 }

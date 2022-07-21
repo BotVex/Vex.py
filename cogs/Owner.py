@@ -6,6 +6,7 @@ import disnake
 from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
+from disnake import Localized
 
 from config import guild_ids
 
@@ -33,12 +34,27 @@ class Owner(commands.Cog):
 	async def set(self, inter: ACI):
 		pass
 	
+
+	@owner.sub_command_group(name='test', guild_ids=guild_ids)
+	async def test(self, inter: ACI):
+		pass
 	
+
 	@owner.sub_command_group(name='cog', guild_ids=guild_ids)
 	async def cog(self, inter: ACI):
 		pass
 	
+
+	@owner.sub_command(name=Localized('test', key='TEST') , description=Localized('test description', key='TEST_DESC'), guild_ids=guild_ids)
+	@commands.is_owner()
+	async def test(self, inter: ACI):
+		await inter.response.defer()
+
+		await inter.send(Localized('test message', key='TEST_MSG'))
+		
+		
 	
+
 	#setavatar
 	@set.sub_command(
 		name='avatar', 
