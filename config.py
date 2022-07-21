@@ -11,7 +11,7 @@ intents = Intents.default()
 intents.members = True
 intents.presences = True
 
-extensions  = ['cogs.Events', 'cogs.Entertainment', 'cogs.ImageFun', 'cogs.Owner', 'cogs.Administration', 'cogs.Tools', 'cogs.Bot']
+extensions  = ['cogs.Events', 'cogs.Entertainment', 'cogs.Owner', 'cogs.Administration', 'cogs.Tools', 'cogs.Bot']
 
 TOKEN = os.environ['TOKEN']
-#STATCORDKEY = os.environ['STATCORDKEY']
+
