@@ -115,7 +115,7 @@ Shard............{inter.guild.shard_id}
 				description=description2,
 				color=C.general if no_icon is True else color)
 			
-			if no_icon not is True:
+			if no_icon is not True:
 				guild_info.set_thumbnail(url=inter.guild.icon)
 			
 			await inter.send(embeds=[bot_info, guild_info], view=ButtonLink('Github', str('https://github.com/Lobooooooo14/Vex.py'), emoji=str(E.github)))
