@@ -86,7 +86,7 @@ class Bot(commands.Cog):
 					color = dominant_color(await resp.content.read())
 			
 			bot_info = EB(
-				title=f'{Localized('Information of', key='BOT_CMD_VEX_INFO_BOTNAMEINFORMATION')} {self.bot.user.display_name}:',
+				title=f"{Localized('Information of', key='BOT_CMD_VEX_INFO_BOTNAMEINFORMATION')} {self.bot.user.display_name}:",
 				description=description,
 				color=color)
 			bot_info.set_thumbnail(url=self.bot.user.display_avatar)
@@ -102,13 +102,13 @@ class Bot(commands.Cog):
 					async with session.get(str(icon_color)) as resp:
 						color = dominant_color(await resp.content.read())
 
-			description2 = f'''
+			description2 = f"""
 {Localized('**Guild information:**', key='BOT_CMD_VEX_INFO_GUILDINFO')}
 ```
 {Localized('Latency', key='BOT_CMD_VEX_INFO_LATENCY')} > {round(self.bot.get_shard(inter.guild.shard_id).latency * 1000)}ms
 {Localized('Shard', key='BOT_CMD_VEX_INFO_SHARD')} > {inter.guild.shard_id}
 ```
-'''
+"""
 
 			guild_info = EB(
 				title=f'{Localized('Information of', key='BOT_CMD_VEX_INFO_GUILDNAMEINFORMATION')} {inter.guild.name}:',
