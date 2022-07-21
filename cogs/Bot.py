@@ -111,7 +111,7 @@ class Bot(commands.Cog):
 """
 
 			guild_info = EB(
-				title=f'{Localized('Information of', key='BOT_CMD_VEX_INFO_GUILDNAMEINFORMATION')} {inter.guild.name}:',
+				title=f"{Localized('Information of', key='BOT_CMD_VEX_INFO_GUILDNAMEINFORMATION')} {inter.guild.name}:",
 				description=description2,
 				color=C.general if no_icon is True else color)
 			
