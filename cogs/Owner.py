@@ -45,7 +45,7 @@ class Owner(commands.Cog):
 		pass
 	
 
-	@owner.sub_command(name=Localized('test', key='TEST') , description=Localized('test description', key='TEST_DESC'), guild_id=guild_id)
+	@owner.sub_command(name='test' , description=Localized('test description', key='TEST_DESC'), guild_id=guild_id)
 	@commands.is_owner()
 	async def test(self, inter: ACI):
 		await inter.response.defer()
