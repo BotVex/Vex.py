@@ -47,7 +47,7 @@ class Bot(commands.Cog):
 			bytes_recv = str(bytes2human(net.bytes_recv))+'B'
 
 			description = f'''
-**Informações básicas:**
+**{Localized('Basic information', key='BOT_CMD_VEX_INFO_BASICINFO')}:**
 ```
 Nome > {self.bot.user}
 ID > {self.bot.user.id}

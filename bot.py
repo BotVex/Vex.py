@@ -53,7 +53,7 @@ async def status_task():
 	shard_ids = sorted(set(shard_ids))
 	
 	for shard_id in shard_ids:
-		await bot.change_presence(activity=disnake.Activity(state=f'{len(shard_ids)} shards', type=disnake.ActivityType.playing, name=f'{len(bot.guilds)} Servers | {len(humans)} Humans', shard_id=shard_id))
+		await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.playing, name=f'{len(bot.guilds)} Servers | {len(humans)} Humans', shard_id=shard_id))
 	
 
 c = 0
