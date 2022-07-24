@@ -126,6 +126,14 @@ Shard > {inter.guild.shard_id}
 							emoji=E.github
 						)
 					)
+					self.add_item(
+						disnake.ui.Button(
+							style=disnake.ButtonStyle.link,
+							label='Disnake',
+							url='https://github.com/DisnakeDev/disnake',
+							emoji=E.disnake_icon
+						)
+					)
 
 			
 			await inter.send(embeds=[bot_info, guild_info], view=Links())
