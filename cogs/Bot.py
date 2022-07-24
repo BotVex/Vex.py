@@ -47,7 +47,7 @@ class Bot(commands.Cog):
 			bytes_recv = str(bytes2human(net.bytes_recv))+'B'
 
 			description = f'''
-**{Localized('Basic information', key='BOT_CMD_VEX_INFO_BASICINFO')}:**
+**Informações básicas:**
 ```
 Nome > {self.bot.user}
 ID > {self.bot.user.id}
@@ -114,7 +114,21 @@ Shard > {inter.guild.shard_id}
 			if no_icon is not True:
 				guild_info.set_thumbnail(url=inter.guild.icon)
 			
-			await inter.send(embeds=[bot_info, guild_info], view=ButtonLink('Github', str('https://github.com/Lobooooooo14/Vex.py'), emoji=str(E.github)))
+
+			class Links(disnake.ui.View):
+				def __init__(self):
+					super().__init__()
+					self.add_item(
+						disnake.ui.Button(
+							style=disnake.ButtonStyle.link,
+							label='Github',
+							url='https://github.com/Lobooooooo14/Vex.py',
+							emoji=E.github
+						)
+					)
+
+			
+			await inter.send(embeds=[bot_info, guild_info], view=Links())
 	
 
 def setup(bot):
