@@ -11,7 +11,6 @@ ACI = disnake.ApplicationCommandInteraction
 
 from utils.assets import Colors as C
 from utils.assets import Emojis as E
-from utils.buttonLink import ButtonLink
 from utils.assets import MediaUrl
 from utils.dominant_color import dominant_color
 
@@ -67,9 +66,21 @@ class Tools(commands.Cog):
 			description='' if no_icon is False else 'Como o servidor não possuí um ícone, eu decidi te mostrar essa bela imagem.',
 			color=0xFFFFFF if no_icon is True else color)
 		embed.set_image(url=image_icon)
-	
+
+
+		class Link(disnake.ui.View):
+				def __init__(self):
+					super().__init__()
+					self.add_item(
+						disnake.ui.Button(
+							style=disnake.ButtonStyle.link,
+							label='Abrir no navegador',
+							url=image_icon
+						)
+					)
 		
-		await inter.send(embed=embed, view=ButtonLink('ver no navegador', str(image_icon)))
+		
+		await inter.send(embed=embed, view=Link())
 	
 	
 	#serverbanner
@@ -98,8 +109,20 @@ class Tools(commands.Cog):
 			color=0xFFFFFF if no_icon is True else color)
 		embed.set_image(url=image_icon)
 
+
+		class Link(disnake.ui.View):
+				def __init__(self):
+					super().__init__()
+					self.add_item(
+						disnake.ui.Button(
+							style=disnake.ButtonStyle.link,
+							label='Abrir no navegador',
+							url=image_icon
+						)
+					)
 		
-		await inter.send(embed=embed, view=ButtonLink('ver no navegador', str(image_icon)))
+		
+		await inter.send(embed=embed, view=Link())
 	
 	
 	#avatar
@@ -134,7 +157,20 @@ class Tools(commands.Cog):
 			embed = EB(color=color)
 			embed.set_image(url=avatar)
 			
-			await inter.send(f'Avatar de {user.mention}', embed=embed, view=ButtonLink('ver no navegador', str(user.display_avatar)))
+
+			class Link(disnake.ui.View):
+				def __init__(self):
+					super().__init__()
+					self.add_item(
+						disnake.ui.Button(
+							style=disnake.ButtonStyle.link,
+							label='Abrir no navegador',
+							url=user.display_avatar
+						)
+					)
+
+
+			await inter.send(f'Avatar de {user.mention}', embed=embed, view=Link())
 
 	"""
 	#channelinfo
