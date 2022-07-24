@@ -75,7 +75,7 @@ class Tools(commands.Cog):
 						disnake.ui.Button(
 							style=disnake.ButtonStyle.link,
 							label='Abrir no navegador',
-							url=image_icon
+							url=str(image_icon)
 						)
 					)
 		
@@ -117,7 +117,7 @@ class Tools(commands.Cog):
 						disnake.ui.Button(
 							style=disnake.ButtonStyle.link,
 							label='Abrir no navegador',
-							url=image_icon
+							url=str(image_icon)
 						)
 					)
 		
@@ -165,7 +165,7 @@ class Tools(commands.Cog):
 						disnake.ui.Button(
 							style=disnake.ButtonStyle.link,
 							label='Abrir no navegador',
-							url=user.display_avatar
+							url=str(user.display_avatar)
 						)
 					)
 
