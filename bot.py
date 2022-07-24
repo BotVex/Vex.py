@@ -1,28 +1,21 @@
 import os
-from datetime import timedelta
-import time
 
 import disnake
 from disnake.ext import commands, tasks
-EB = disnake.Embed
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
 from utils.assets import MediaUrl
-import config
-
-#from statcord import StatcordClient
-
-os.system('clear')
+from config import TOKEN, OWNER_ID, INTENTS, EXTENSIONS
 
 
 bot = commands.AutoShardedInteractionBot(
 	shard_count=1,
-	intents=config.intents,
+	intents=INTENTS,
 	help_command=None,
 	sync_commands_debug=True,
 	case_insensitive=True,
-	owner_id=config.owner_id,
+	owner_id=OWNER_ID,
 	reload=False,
 	strict_localization=True,
 	chunk_guilds_at_startup=False)
@@ -62,7 +55,7 @@ if __name__ == '__main__':
 	print('locales loaded')
 
 	print(f'\nCOGS TO LOAD:')
-	for extension in config.extensions:
+	for extension in EXTENSIONS:
 		bot.load_extension(extension)
 		print(f'  {c}:  {extension}')
 		c += 1
@@ -70,4 +63,4 @@ if __name__ == '__main__':
 print(f'\nDISNAKE:')
 
 
-bot.run(config.TOKEN)
+bot.run(TOKEN)

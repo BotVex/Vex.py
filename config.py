@@ -4,14 +4,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-owner_id = 783120232134082580
-guild_id = 939585882883772436
+OWNER_ID = 783120232134082580
+GUILD_ID = 939585882883772436
 
-intents = Intents.default()
-intents.members = True
-intents.presences = True
+INTENTS = Intents.default()
+INTENTS.members = True
+INTENTS.presences = True
 
-extensions  = ['cogs.Events', 'cogs.Entertainment', 'cogs.Administration', 'cogs.Tools', 'cogs.Bot', 'cogs.Sfx']
+EXTENSIONS = ['cogs.Events', 'cogs.Entertainment', 'cogs.Administration', 'cogs.Tools', 'cogs.Bot']
 
 TOKEN = os.environ['TOKEN']
-

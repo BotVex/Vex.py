@@ -1,5 +1,6 @@
-from colorthief import ColorThief
 from io import BytesIO
+from colorthief import ColorThief
+
 
 def dominant_color(img):
 	color_thief = ColorThief(BytesIO(img))
