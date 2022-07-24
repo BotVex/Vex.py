@@ -44,12 +44,12 @@ class Sfx(commands.Cog):
 		if not inter.guild.voice_client or not inter.guild.voice_client.is_connected():
 			await vc_channel.connect(timeout=30.0, reconnect=False)
 			
-			FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
-			                               'options': '-vn'}
-			cavalo_file = 'data/audio/sfx/cavalo.opus'
-			
-			await inter.guild.voice_client.play(disnake.FFmpegPCMAudio(source=cavalo_file, pipe=true, FFMPEG_OPTIONS, executable='ffmpeg/ffmpeg.exe'))
-	
+		FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
+																		'options': '-vn'}
+		cavalo_file = 'data/audio/sfx/cavalo.opus'
+		
+		await inter.guild.voice_client.play(disnake.FFmpegPCMAudio(source=cavalo_file, pipe=True, FFMPEG_OPTIONS, executable='ffmpeg/ffmpeg.exe'))
+
 	@sfx.autocomplete('sfx')
 	async def categories_(
 		self, 
