@@ -35,26 +35,11 @@ class Owner(commands.Cog):
 		pass
 	
 
-	@owner.sub_command_group(name='test', guild_id=guild_id)
-	async def test(self, inter: ACI):
-		pass
-	
-
 	@owner.sub_command_group(name='cog', guild_id=guild_id)
 	async def cog(self, inter: ACI):
 		pass
 	
-
-	@owner.sub_command(name='test' , description=Localized('test description', key='TEST_DESC'), guild_id=guild_id)
-	@commands.is_owner()
-	async def test(self, inter: ACI):
-		await inter.response.defer()
-
-		await inter.send(Localized('test message', key='TEST_MSG'))
 		
-		
-	
-
 	#setavatar
 	@set.sub_command(
 		name='avatar', 
@@ -75,7 +60,6 @@ class Owner(commands.Cog):
 		file: disnake.Attachment):
 		await inter.response.defer()
 		
-		
 		try:
 			await self.bot.user.edit(avatar=await file.read())
 			
@@ -88,43 +72,6 @@ class Owner(commands.Cog):
 			embed = EB(
 				title=f'{E.error}Falha ao alterar o avatar.',
 				description='Verifique se a mídia é uma imagem e de está nas proporções corretas.',
-				color=C.error)
-			await inter.send(embed=embed)
-	
-	
-	#setstatus
-	@set.sub_command(
-		name='status', 
-		description=f'{E.owner}Changes bot status.', 
-		guild_id=guild_id,
-		options=[
-			disnake.Option(
-				name='status',
-				description='Escreva uma mensagem.',
-				type=disnake.OptionType.string,
-				required=False
-				)
-			])
-	@commands.is_owner()
-	async def status(
-		self, 
-		inter: ACI, 
-		status: str=None):
-		await inter.response.defer()
-		if status == None:
-			status = 'Made by: 🐺'
-		try:
-			await self.bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.streaming, name=status))
-			
-			embed = EB(
-				title=f'{E.success}Status alterado!',
-				color=C.success)
-			
-			await inter.send(embed=embed)
-		except:
-			embed = EB(
-				title=f'{E.error}Falha ao alterar o Status.',
-				description='',
 				color=C.error)
 			await inter.send(embed=embed)
 	
