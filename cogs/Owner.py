@@ -8,7 +8,7 @@ EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 from disnake import Localized
 
-from config import guild_id
+from config import GUILD_ID as guild_id
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
