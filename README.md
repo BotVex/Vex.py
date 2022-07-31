@@ -2,6 +2,8 @@
   <img src="https://user-images.githubusercontent.com/88998991/182010037-7e8b195b-f07f-4e6d-9c82-9900cd036d7d.png"  width="65%">
 </div>
 
+<br>
+
 <div align="center">
   <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/BotVex/Vex.py?style=for-the-badge">
   <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/BotVex/Vex.py?style=for-the-badge">
