@@ -11,6 +11,6 @@ INTENTS = Intents.default()
 INTENTS.members = True
 INTENTS.presences = True
 
-EXTENSIONS = ['cogs.Events', 'cogs.Entertainment', 'cogs.Administration', 'cogs.Tools', 'cogs.Bot']
+EXTENSIONS = ['cogs.Events', 'cogs.Entertainment', 'cogs.Administration', 'cogs.Tools', 'cogs.Bot', 'cogs.Owner']
 
 TOKEN = os.environ['TOKEN']
