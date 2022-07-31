@@ -121,7 +121,7 @@ Shard > {inter.guild.shard_id}
 						disnake.ui.Button(
 							style=disnake.ButtonStyle.link,
 							label='Github',
-							url='https://github.com/Lobooooooo14/Vex.py',
+							url='https://github.com/BotVex/Vex.py',
 							emoji=E.github
 						)
 					)
