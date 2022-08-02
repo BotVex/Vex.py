@@ -43,7 +43,7 @@ class CL(commands.Cog):
 	    await inter.send(file=file)
 	  except Exception as e:
 	    embed = EB(title='erro:', description=f'```py\n{e}\n```')
-	    await inter.send(embed)
+	    await inter.send(embed=embed)
 	
 	
 def setup(bot):
