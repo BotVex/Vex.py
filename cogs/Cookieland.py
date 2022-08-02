@@ -1,4 +1,6 @@
-import imgkit
+from html2image import Html2Image
+hti = Html2Image(custom_flags=['--no-sandbox'])
+hti.browser_executable = "/usr/bin/google-chrome"
 import os
 
 import disnake
@@ -37,7 +39,7 @@ class CL(commands.Cog):
 	  await inter.response.defer()
 	  
 	  try:
-	    imgkit.from_string(code, 'data/temp/render.png')
+	    hti.screenshot(html_str=code, save_as='data/temp/render.png')
 	    file = disnake.File('data/temp/render.png')
 	    os.remove('data/temp/render.png')
 	    await inter.send(file=file)
