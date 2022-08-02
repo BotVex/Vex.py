@@ -1,5 +1,5 @@
 from html2image import Html2Image
-hti = Html2Image(custom_flags=['--no-sandbox'])
+hti = Html2Image(custom_flags=['--no-sandbox', '--headless', '--disable-gpu', '--disable-software-rasterizer', '--disable-dev-shm-usage'])
 hti.browser_executable = "/usr/bin/google-chrome"
 import os
 
@@ -19,12 +19,12 @@ class CL(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot 
 	
-	
+  
 	@commands.has_permissions(administrator=True)
 	@commands.cooldown(1, 15, commands.BucketType.user)
 	@commands.slash_command(
 			name='render-html',
-			description=f'{E.administration}Deleto a quantidade de mensagens especificadas.',
+			description=f'test command',
 			guild_id=845859703580917770,
 			options=[
 					disnake.Option(
@@ -39,7 +39,7 @@ class CL(commands.Cog):
 	  await inter.response.defer()
 	  
 	  try:
-	    hti.screenshot(html_str=code, save_as='render.png')
+	    hti.screenshot(html_str=code, size=(960, 540), save_as='render.png')
 	    file = disnake.File('render.png')
 	    os.remove('render.png')
 	    await inter.send(file=file)
