@@ -25,7 +25,7 @@ class CL(commands.Cog):
 	@commands.slash_command(
 			name='render-html',
 			description=f'test command',
-			guild_id=845859703580917770,
+			test_guilds=[845859703580917770],
 			options=[
 					disnake.Option(
 							name='code',
