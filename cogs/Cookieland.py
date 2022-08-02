@@ -39,9 +39,9 @@ class CL(commands.Cog):
 	  await inter.response.defer()
 	  
 	  try:
-	    hti.screenshot(html_str=code, save_as='data/temp/render.png')
-	    file = disnake.File('data/temp/render.png')
-	    os.remove('data/temp/render.png')
+	    hti.screenshot(html_str=code, save_as='render.png')
+	    file = disnake.File('render.png')
+	    os.remove('render.png')
 	    await inter.send(file=file)
 	  except Exception as e:
 	    embed = EB(title='erro:', description=f'```py\n{e}\n```')
