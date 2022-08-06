@@ -125,7 +125,6 @@ class Administration(commands.Cog):
 
 	#unmute
 	@commands.has_permissions(mute_members=True)
-	@commands.bot_has_permissions(mute_members=True)
 	@commands.cooldown(1, 3, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
@@ -140,7 +139,6 @@ class Administration(commands.Cog):
 
 	#mute
 	@commands.has_permissions(mute_members=True)
-	@commands.bot_has_permissions(mute_members=True)
 	@commands.cooldown(1, 3, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
