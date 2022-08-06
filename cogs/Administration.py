@@ -122,7 +122,38 @@ class Administration(commands.Cog):
 		
 		await webhook.send(username=inter.author.display_name, content=message, avatar_url=inter.author.display_avatar.url)
 	
-	
+
+	#unmute
+	@commands.has_permissions(mute_members=True)
+	@commands.bot_has_permissions(mute_members=True)
+	@commands.cooldown(1, 3, commands.BucketType.user)
+	@commands.guild_only()
+	@adm.sub_command(
+			name='unmuteall',
+			description=f'{E.administration}Desmuta todos os usuarios em uma call.'
+	)
+	async def unmuteall(self, inter: ACI):
+		vc = inter.author.voice.channel
+		for member in vc.members:
+			await member.edit(mute=False)
+
+
+	#mute
+	@commands.has_permissions(mute_members=True)
+	@commands.bot_has_permissions(mute_members=True)
+	@commands.cooldown(1, 3, commands.BucketType.user)
+	@commands.guild_only()
+	@adm.sub_command(
+			name='muteall',
+			description=f'{E.administration}Muta todos os usuarios em uma call.'
+	)
+	async def muteall(self, inter: ACI):
+		vc = inter.author.voice.channel
+		for member in vc.members:
+			await member.edit(mute=True)
+
+
+
 	#nick
 	@commands.has_permissions(manage_nicknames=True)
 	@commands.bot_has_permissions(manage_nicknames=True)
