@@ -261,18 +261,18 @@ class Administration(commands.Cog):
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
-			name='ban',
-			description=f'{E.administration}Bane um usuário do servidor.',
+			name=Localized('ban', key='ADM_ADM_CMD_BAN_NAME'),
+			description=Localized('The user the nick will be changed to.', key='ADM_ADM_CMD_BAN_DESC'),
 			options=[
 					disnake.Option(
 							name='user',
-							description='Usuário a ser banido.',
+							description=Localized('The user to be kicked out.', key='ADM_ADM_CMD_BAN_USER'),
 							type=disnake.OptionType.user,
 							required=True
 					),
 					disnake.Option(
 							name='reason',
-							description='Motivo do banimento.',
+							description=Localized('The reason the user is being kicked out.', key='ADM_ADM_CMD_BAN_REASON'),
 							type=disnake.OptionType.string,
 							min_length=3,
 							max_length=512,
@@ -280,7 +280,7 @@ class Administration(commands.Cog):
 					),
 					disnake.Option(
 							name='delete_message_days',
-							description='O número de dias de mensagens a serem excluídas do usuário No server. O mínimo é 0 e o máximo é 7.',
+							description=Localized('The number of days of messages to delete from the user No server. The minimum is 0 and the maximum is 7.', key='ADM_ADM_CMD_BAN_DELMSGDAYS'),
 							type=disnake.OptionType.integer,
 							min_value=0,
 							max_value=7,

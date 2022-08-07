@@ -17,5 +17,10 @@
   "ADM_ADM_CMD_KICK_USER":"O usuário a ser expulsado.",
   "ADM_ADM_CMD_KICK_REASON":"O motivo pelo qual o usuário está sendo expulso.",
 	"ADM_ADM_CMD_KICK_NOTIFY":"Avisar o usuário(caso ele possua a DM aberta).",
+  "ADM_ADM_CMD_BAN_NAME":"ban",
+  "ADM_ADM_CMD_BAN_DESC":"Expulsa o usuário do servidor.",
+  "ADM_ADM_CMD_BAN_USER":"O usuário a ser expulsado.",
+  "ADM_ADM_CMD_BAN_REASON":"O motivo pelo qual o usuário está sendo expulso.",
+	"ADM_ADM_CMD_BAN_DELMSGDAYS":"O número de dias de mensagens a serem excluídas do usuário No server. O mínimo é 0 e o máximo é 7.",
 	"BOT_CMD_VEX_INFO_DESC":"Exibe informações variadas."
 }
