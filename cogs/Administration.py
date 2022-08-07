@@ -280,7 +280,7 @@ class Administration(commands.Cog):
 					),
 					disnake.Option(
 							name='delete_message_days',
-							description=Localized('The number of days of messages to delete from the user No server. The minimum is 0 and the maximum is 7.', key='ADM_ADM_CMD_BAN_DELMSGDAYS'),
+							description=Localized('The number of messages to be deleted in days. The minimum is 0 and the maximum is 7.', key='ADM_ADM_CMD_BAN_DELMSGDAYS'),
 							type=disnake.OptionType.integer,
 							min_value=0,
 							max_value=7,

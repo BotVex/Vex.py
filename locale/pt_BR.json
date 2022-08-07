@@ -21,7 +21,7 @@
   "ADM_ADM_CMD_BAN_DESC":"Bane o usuário do servidor.",
   "ADM_ADM_CMD_BAN_USER":"O usuário a ser Banido.",
   "ADM_ADM_CMD_BAN_REASON":"O motivo pelo qual o usuário está sendo Banido.",
-	"ADM_ADM_CMD_BAN_DELMSGDAYS":"O número de dias de mensagens a serem excluídas do usuário No server. O mínimo é 0 e o máximo é 7.",
+	"ADM_ADM_CMD_BAN_DELMSGDAYS":"A quantidade de mensagens a serem excluídas em dias. O mínimo é 0 e o máximo é 7.",
   "ADM_ADM_CMD_HACKBAN_NAME":"hackban",
   "ADM_ADM_CMD_HACKBAN_DESC":"Bane um usuário sem que ele esteja no servidor através de seu ID.",
   "ADM_ADM_CMD_HACKBAN_USERID":"O ID do usuário a ser banido.",
