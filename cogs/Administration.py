@@ -130,18 +130,18 @@ class Administration(commands.Cog):
 	@commands.cooldown(1, 10, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
-			name=Localized('nick', key='ADM_ADM_CMD_BOTME_NICK_NAME'),
-			description=Localized('Change the nick of a server user.', key='ADM_ADM_CMD_BOTME_NICK_DESC'),
+			name=Localized('nick', key='ADM_ADM_CMD_NICK_NAME'),
+			description=Localized('Change the nick of a server user.', key='ADM_ADM_CMD_NICK_DESC'),
 			options=[
 					disnake.Option(
 							name='user',
-							description=Localized('The user the nick will be changed to.', key='ADM_ADM_CMD_BOTME_NICK_USER'),
+							description=Localized('The user the nick will be changed to.', key='ADM_ADM_CMD_NICK_USER'),
 							type=disnake.OptionType.user,
 							required=True
 					),
 					disnake.Option(
 							name='nickname',
-							description=Localized("The user's new nick. Keep empty to return to the original name.", key='ADM_ADM_CMD_BOTME_NICKNAME'),
+							description=Localized("The user's new nick. Keep empty to return to the original name.", key='ADM_ADM_CMD_NICK_NICKNAME'),
 							type=disnake.OptionType.string,
 							min_length=1,
 							max_length=32,
@@ -175,18 +175,18 @@ class Administration(commands.Cog):
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
-		name='kick',
-		description=f'{E.administration}Quica o usuário do servidor.',
+		name=Localized('kick', key='ADM_ADM_CMD_KICK_NAME'),
+		description=Localized('Kick the server user.', key='ADM_ADM_CMD_KICK_DESC'),
 		options=[
 				disnake.Option(
 						name='user',
-						description='O usuário a ser quicado.',
+						description=Localized('The user to be kicked out.', key='ADM_ADM_CMD_KICK_USER'),
 						type=disnake.OptionType.user,
 						required=True
 				),
 				disnake.Option(
 						name='reason',
-						description='O motivo pelo qual o usuário está sendo quicado.',
+						description=Localized('The reason the user is being kicked out.', key='ADM_ADM_CMD_KICK_REASON'),
 						type=disnake.OptionType.string,
 							min_length=3,
 							max_length=512,
@@ -194,7 +194,7 @@ class Administration(commands.Cog):
 				),
 				disnake.Option(
 						name='notify',
-						description='Avisar o usuário(caso ele possua a DM aberta).',
+						description=Localized('Notify the user (if he has the DM open).', key='ADM_ADM_CMD_KICK_NOTIFY'),
 						type=disnake.OptionType.boolean,
 						required=False
 				)

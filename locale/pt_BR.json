@@ -8,9 +8,14 @@
   "ADM_ADM_CMD_BOTME_DESC":"Envia uma mensagem um bot.",
   "ADM_ADM_CMD_BOTME_MESSAGE":"Mensagem",
   "ADM_ADM_CMD_BOTME_CHANNEL":"O canal onde a mensagem será enviada.",
-  "ADM_ADM_CMD_BOTME_NICK_NAME":"nick",
-  "ADM_ADM_CMD_BOTME_NICK_DESC":"O usuário que o nick será alterado.",
-  "ADM_ADM_CMD_BOTME_USER":"O usuário que o nick será alterado.",
-  "ADM_ADM_CMD_BOTME_NICKNAME":"O novo nick do usuário. Mantenha vazio para voltar ao nome original.",
+  "ADM_ADM_CMD_NICK_NAME":"nick",
+  "ADM_ADM_CMD_NICK_DESC":"Altera o nick de um usuário do servidor.",
+  "ADM_ADM_CMD_NICK_USER":"O usuário que o nick será alterado.",
+  "ADM_ADM_CMD_NICK_NICKNAME":"O novo nick do usuário. Mantenha vazio para voltar ao nome original.",
+  "ADM_ADM_CMD_KICK_NAME":"kick",
+  "ADM_ADM_CMD_KICK_DESC":"Expulsa o usuário do servidor.",
+  "ADM_ADM_CMD_KICK_USER":"O usuário a ser expulsado.",
+  "ADM_ADM_CMD_KICK_REASON":"O motivo pelo qual o usuário está sendo expulso.",
+	"ADM_ADM_CMD_KICK_NOTIFY":"Avisar o usuário(caso ele possua a DM aberta).",
 	"BOT_CMD_VEX_INFO_DESC":"Exibe informações variadas."
 }
