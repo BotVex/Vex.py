@@ -262,17 +262,17 @@ class Administration(commands.Cog):
 	@commands.guild_only()
 	@adm.sub_command(
 			name=Localized('ban', key='ADM_ADM_CMD_BAN_NAME'),
-			description=Localized('The user the nick will be changed to.', key='ADM_ADM_CMD_BAN_DESC'),
+			description=Localized('Ban the user from the server.', key='ADM_ADM_CMD_BAN_DESC'),
 			options=[
 					disnake.Option(
 							name='user',
-							description=Localized('The user to be kicked out.', key='ADM_ADM_CMD_BAN_USER'),
+							description=Localized('The user to be Banned.', key='ADM_ADM_CMD_BAN_USER'),
 							type=disnake.OptionType.user,
 							required=True
 					),
 					disnake.Option(
 							name='reason',
-							description=Localized('The reason the user is being kicked out.', key='ADM_ADM_CMD_BAN_REASON'),
+							description=Localized('The reason the user is being banned.', key='ADM_ADM_CMD_BAN_REASON'),
 							type=disnake.OptionType.string,
 							min_length=3,
 							max_length=512,
@@ -349,18 +349,18 @@ class Administration(commands.Cog):
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
-			name='hackban',
-			description=f'{E.administration}Bane um usuário sem que ele esteja no servidor através de seu ID.',
+			name=Localized('hackban', key='ADM_ADM_CMD_HACKBAN_NAME'),
+			description=Localized('Ban a user without him being on the server through his ID.', 'ADM_ADM_CMD_HACKBAN_DESC'),
 			options=[
 					disnake.Option(
 							name='user_id',
-							description='O ID do usuário a ser banido.',
+							description=localized('The ID of the user to be banned.', key='ADM_ADM_CMD_HACKBAN_USERID'),
 							type=disnake.OptionType.string,
 							required=True
 					),
 					disnake.Option(
 							name='reason',
-							description='Motivo do banimento.',
+							description=Localozed('The reason for the ban.', key='ADM_ADM_CMD_HACKBAN_REASON'),
 							type=disnake.OptionType.string,
 							min_length=3,
 							max_length=512,
@@ -445,18 +445,18 @@ class Administration(commands.Cog):
 	@commands.cooldown(1, 5, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
-			name='unban',
-			description=f'{E.administration}Desbane um usuário através de seu ID.',
+			name=Localized('unban', key='ADM_ADM_CMD_UNBAN_NAME'),
+			description=Localized('Unban a user through his ID.', 'ADM_ADM_CMD_HACKBAN_DESC'),
 			options=[
 					disnake.Option(
 							name='user_id',
-							description='O ID do usuário a ser desbanido.',
+							description=localized('The ID of the user to be unbanned.', key='ADM_ADM_CMD_UNBAN_USERID'),
 							type=disnake.OptionType.string,
 							required=True
 					),
 					disnake.Option(
 							name='reason',
-							description='Motivo do desbanimento.',
+							description=Localozed('The reason for the unban.', key='ADM_ADM_CMD_UNBAN_REASON'),
 							type=disnake.OptionType.string,
 							min_length=3,
 							max_length=512,
