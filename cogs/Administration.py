@@ -350,7 +350,7 @@ class Administration(commands.Cog):
 	@commands.guild_only()
 	@adm.sub_command(
 			name=Localized('hackban', key='ADM_ADM_CMD_HACKBAN_NAME'),
-			description=Localized('Ban a user without him being on the server through his ID.', 'ADM_ADM_CMD_HACKBAN_DESC'),
+			description=Localized('Ban a user without him being on the server through his ID.', key='ADM_ADM_CMD_HACKBAN_DESC'),
 			options=[
 					disnake.Option(
 							name='user_id',
@@ -446,7 +446,7 @@ class Administration(commands.Cog):
 	@commands.guild_only()
 	@adm.sub_command(
 			name=Localized('unban', key='ADM_ADM_CMD_UNBAN_NAME'),
-			description=Localized('Unban a user through his ID.', 'ADM_ADM_CMD_HACKBAN_DESC'),
+			description=Localized('Unban a user through his ID.', key='ADM_ADM_CMD_HACKBAN_DESC'),
 			options=[
 					disnake.Option(
 							name='user_id',
