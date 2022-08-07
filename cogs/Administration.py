@@ -13,12 +13,12 @@ class Administration(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.slash_command(name='adm')
+	@commands.slash_command(name=Localized('mod', key='ADM_ADM_NAME'))
 	async def adm(self, inter: ACI):
 		pass
 	
 
-	@commands.slash_command(name='mod')
+	@commands.slash_command(name=Localized('mod', key='ADM_MOD_NAME'))
 	async def mod(self, inter: ACI):
 		pass
 	
@@ -34,7 +34,7 @@ class Administration(commands.Cog):
 			options=[
 					disnake.Option(
 							name='amount',
-							description='A quantidade de mensagens que serão apagadas. Deve estar entre 2 e 1000.',
+							description=Localized('The number of messages that will be deleted. It must be between 2 and 1000.', key='ADM_MOD_CMD_PURGE_AMOUNT_DESC'),
 							type=disnake.OptionType.integer,
 							required=True,
 							min_value=2,
