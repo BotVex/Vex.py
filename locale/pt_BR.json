@@ -4,5 +4,13 @@
 	"ADM_MOD_CMD_PURGE_NAME":"limpar",
 	"ADM_MOD_CMD_PURGE_DESC":"Deleta a quantidade de mensagens especificadas.",
   "ADM_MOD_CMD_PURGE_AMOUNT_DESC":"A quantidade de mensagens que serão apagadas. Deve estar entre 2 e 1000.",
+  "ADM_ADM_CMD_BOTME_NAME":"botme",
+  "ADM_ADM_CMD_BOTME_DESC":"Envia uma mensagem um bot.",
+  "ADM_ADM_CMD_BOTME_MESSAGE":"Mensagem",
+  "ADM_ADM_CMD_BOTME_CHANNEL":"O canal onde a mensagem será enviada.",
+  "ADM_ADM_CMD_BOTME_NICK_NAME":"nick",
+  "ADM_ADM_CMD_BOTME_NICK_DESC":"O usuário que o nick será alterado.",
+  "ADM_ADM_CMD_BOTME_USER":"O usuário que o nick será alterado.",
+  "ADM_ADM_CMD_BOTME_NICKNAME":"O novo nick do usuário. Mantenha vazio para voltar ao nome original.",
 	"BOT_CMD_VEX_INFO_DESC":"Exibe informações variadas."
 }

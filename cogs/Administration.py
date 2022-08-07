@@ -82,12 +82,12 @@ class Administration(commands.Cog):
 	@commands.cooldown(1, 10, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
-			name='botme',
-			description=f'{E.administration}Envie uma mensagem como se você fosse um bot.',
+			name=Localized('botme', key='ADM_MOD_CMD_BOTME_NAME'),
+			description=Localized('Send a message a bot.', key='ADM_MOD_CMD_BOTME_DESC'),
 			options=[
 					disnake.Option(
 							name='message',
-							description='Sua mensagem.',
+							description=Localized('message', key='ADM_MOD_CMD_BOTME_MESSAGE'),
 							type=disnake.OptionType.string,
 							min_length=1,
 							max_length=2000,
@@ -95,7 +95,7 @@ class Administration(commands.Cog):
 					),
 					disnake.Option(
 							name='channel',
-							description='O canal onde a mensagem será enviada.',
+							description=Localized('The channel where the message will be sent.', key='ADM_MOD_CMD_BOTME_CHANNEL'),
 							type=disnake.OptionType.channel,
 							required=False
 					)
@@ -130,18 +130,18 @@ class Administration(commands.Cog):
 	@commands.cooldown(1, 10, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
-			name='nick',
-			description=f'{E.administration}Altera o nick de um usuário do server.',
+			name=Localized('nick', key='ADM_ADM_CMD_BOTME_NICK_NAME'),
+			description=Localized('Change the nick of a server user.', key='ADM_ADM_CMD_BOTME_NICK_DESC'),
 			options=[
 					disnake.Option(
 							name='user',
-							description='O usuário que o nick será alterado.',
+							description=Localized('The user the nick will be changed to.', key='ADM_ADM_CMD_BOTME_NICK_USER'),
 							type=disnake.OptionType.user,
 							required=True
 					),
 					disnake.Option(
 							name='nickname',
-							description='O novo nick do usuário. Mantenha vazio para voltar ao nome original.',
+							description=Localized("The user's new nick. Keep empty to return to the original name.", key='ADM_ADM_CMD_BOTME_NICKNAME'),
 							type=disnake.OptionType.string,
 							min_length=1,
 							max_length=32,
