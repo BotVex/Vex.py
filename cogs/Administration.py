@@ -354,7 +354,7 @@ class Administration(commands.Cog):
 			options=[
 					disnake.Option(
 							name='user_id',
-							description=localized('The ID of the user to be banned.', key='ADM_ADM_CMD_HACKBAN_USERID'),
+							description=Localized('The ID of the user to be banned.', key='ADM_ADM_CMD_HACKBAN_USERID'),
 							type=disnake.OptionType.string,
 							required=True
 					),
@@ -450,7 +450,7 @@ class Administration(commands.Cog):
 			options=[
 					disnake.Option(
 							name='user_id',
-							description=localized('The ID of the user to be unbanned.', key='ADM_ADM_CMD_UNBAN_USERID'),
+							description=Localized('The ID of the user to be unbanned.', key='ADM_ADM_CMD_UNBAN_USERID'),
 							type=disnake.OptionType.string,
 							required=True
 					),
