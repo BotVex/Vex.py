@@ -86,6 +86,8 @@ class Administration(commands.Cog):
 							name='message',
 							description='Sua mensagem.',
 							type=disnake.OptionType.string,
+							min_length=1,
+							max_length=2000,
 							required=True
 					),
 					disnake.Option(
@@ -99,10 +101,6 @@ class Administration(commands.Cog):
 	async def botme(self, inter: ACI, message: str, channel: disnake.TextChannel=None):
 		await inter.response.defer()
 
-		if len(message) > 2000:
-			await inter.send('A mensagem é muito grande!')
-			return
-		
 		if channel is None:
 			channel = inter.channel
 		
@@ -142,16 +140,14 @@ class Administration(commands.Cog):
 							name='nickname',
 							description='O novo nick do usuário. Mantenha vazio para voltar ao nome original.',
 							type=disnake.OptionType.string,
+							min_length=1,
+							max_length=32,
 							required=False
 					)
 			]
 	)
 	async def nick(self, inter: ACI, user: disnake.User, nickname: str = None):
 
-			if len(nickname) > 32:
-				await inter.send('O nickname é muito grande! o maximo é de 32 caracteres.')
-				return
-			
 			member = await inter.guild.get_or_fetch_member(user.id)
 			try:
 					await member.edit(nick=nickname)
@@ -189,6 +185,8 @@ class Administration(commands.Cog):
 						name='reason',
 						description='O motivo pelo qual o usuário está sendo quicado.',
 						type=disnake.OptionType.string,
+							min_length=3,
+							max_length=512,
 						required=False
 				),
 				disnake.Option(
@@ -229,9 +227,6 @@ class Administration(commands.Cog):
 								color=C.success)
 							
 							if reason is not None:
-								if len(reason) > 512:
-									reason = short(reason, width=512, placeholder='...')
-								
 								embed.add_field(
 										name='Motivo:',
 										value=reason,
@@ -276,6 +271,8 @@ class Administration(commands.Cog):
 							name='reason',
 							description='Motivo do banimento.',
 							type=disnake.OptionType.string,
+							min_length=3,
+							max_length=512,
 							required=False
 					),
 					disnake.Option(
@@ -318,9 +315,6 @@ class Administration(commands.Cog):
 								color=C.success)
 						
 							if reason is not None:
-								if len(reason) > 512:
-									reason = short(reason, width=512, placeholder='...')
-								
 								embed.add_field(
 										name='Motivo:',
 										value=reason,
@@ -365,6 +359,8 @@ class Administration(commands.Cog):
 							name='reason',
 							description='Motivo do banimento.',
 							type=disnake.OptionType.string,
+							min_length=3,
+							max_length=512,
 							required=False
 					)
 			]
@@ -424,9 +420,6 @@ class Administration(commands.Cog):
 						color=C.success)
 				
 					if reason is not None:
-						if len(reason) > 512:
-							reason = short(reason, width=512, placeholder='...')
-						
 						embed.add_field(
 								name='Motivo:',
 								value=reason,
@@ -462,6 +455,8 @@ class Administration(commands.Cog):
 							name='reason',
 							description='Motivo do desbanimento.',
 							type=disnake.OptionType.string,
+							min_length=3,
+							max_length=512,
 							required=False
 					)
 			]
@@ -504,9 +499,6 @@ class Administration(commands.Cog):
 								color=C.success)
 						
 							if reason is not None:
-								if len(reason) > 512:
-									reason = short(reason, width=512, placeholder='...')
-								
 								embed.add_field(
 										name='Motivo:',
 										value=reason,
