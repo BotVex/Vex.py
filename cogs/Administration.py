@@ -1,6 +1,3 @@
-from textwrap import shorten as short
-import typing
-
 import disnake
 from disnake.ext import commands
 EB = disnake.Embed
