@@ -30,7 +30,7 @@ class Administration(commands.Cog):
 	@commands.guild_only()
 	@mod.sub_command(
 			name=Localized('purge', key='ADM_MOD_CMD_PURGE_NAME'),
-			description=localized('Deletes the specified number of messages.', key='ADM_MOD_CMD_PURGE_DESC'),
+			description=Localized('Deletes the specified number of messages.', key='ADM_MOD_CMD_PURGE_DESC'),
 			options=[
 					disnake.Option(
 							name='amount',
