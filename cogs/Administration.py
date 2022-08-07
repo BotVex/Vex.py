@@ -360,7 +360,7 @@ class Administration(commands.Cog):
 					),
 					disnake.Option(
 							name='reason',
-							description=Localozed('The reason for the ban.', key='ADM_ADM_CMD_HACKBAN_REASON'),
+							description=Localized('The reason for the ban.', key='ADM_ADM_CMD_HACKBAN_REASON'),
 							type=disnake.OptionType.string,
 							min_length=3,
 							max_length=512,
@@ -456,7 +456,7 @@ class Administration(commands.Cog):
 					),
 					disnake.Option(
 							name='reason',
-							description=Localozed('The reason for the unban.', key='ADM_ADM_CMD_UNBAN_REASON'),
+							description=Localized('The reason for the unban.', key='ADM_ADM_CMD_UNBAN_REASON'),
 							type=disnake.OptionType.string,
 							min_length=3,
 							max_length=512,
