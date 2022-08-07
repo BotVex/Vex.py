@@ -82,12 +82,12 @@ class Administration(commands.Cog):
 	@commands.cooldown(1, 10, commands.BucketType.user)
 	@commands.guild_only()
 	@adm.sub_command(
-			name=Localized('botme', key='ADM_MOD_CMD_BOTME_NAME'),
-			description=Localized('Send a message a bot.', key='ADM_MOD_CMD_BOTME_DESC'),
+			name=Localized('botme', key='ADM_ADM_CMD_BOTME_NAME'),
+			description=Localized('Send a message a bot.', key='ADM_ADM_CMD_BOTME_DESC'),
 			options=[
 					disnake.Option(
 							name='message',
-							description=Localized('message', key='ADM_MOD_CMD_BOTME_MESSAGE'),
+							description=Localized('message', key='ADM_ADM_CMD_BOTME_MESSAGE'),
 							type=disnake.OptionType.string,
 							min_length=1,
 							max_length=2000,
@@ -95,7 +95,7 @@ class Administration(commands.Cog):
 					),
 					disnake.Option(
 							name='channel',
-							description=Localized('The channel where the message will be sent.', key='ADM_MOD_CMD_BOTME_CHANNEL'),
+							description=Localized('The channel where the message will be sent.', key='ADM_ADM_CMD_BOTME_CHANNEL'),
 							type=disnake.OptionType.channel,
 							required=False
 					)
