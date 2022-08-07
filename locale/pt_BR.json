@@ -22,5 +22,7 @@
 	"BOT_CMD_VEX_INFO_LATENCY":"Latência",
 	"BOT_CMD_VEX_INFO_SHARD":"Shard",
 	"BOT_CMD_VEX_INFO_GUILDNAMEINFORMATION":"Informações de",
-	"BOT_CMD_VEX_INFO_GITHUB":"Github"
+	"BOT_CMD_VEX_INFO_GITHUB":"Github",
+	"ADM_MOD_CMD_PURGE_NAME":"limpar",
+	"ADM_MOD_CMD_PURGE_DESC":"Deleta a quantidade de mensagens especificadas."
 }

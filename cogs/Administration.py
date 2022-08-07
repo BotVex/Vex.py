@@ -2,6 +2,7 @@ import disnake
 from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
+from disnake import Localized
 
 from utils.assets import Emojis as E
 from utils.assets import Colors as C
@@ -16,15 +17,20 @@ class Administration(commands.Cog):
 	async def adm(self, inter: ACI):
 		pass
 	
+
+	@commands.slash_command(name='mod')
+	async def mod(self, inter: ACI):
+		pass
+	
 	
 	#purge
 	@commands.has_permissions(manage_messages=True)
 	@commands.bot_has_permissions(manage_messages=True)
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@commands.guild_only()
-	@adm.sub_command(
-			name='purge',
-			description=f'{E.administration}Deleto a quantidade de mensagens especificadas.',
+	@mod.sub_command(
+			name=Localized('purge', key='ADM_MOD_CMD_PURGE_NAME'),
+			description=localized('Deletes the specified number of messages.', key='ADM_MOD_CMD_PURGE_DESC'),
 			options=[
 					disnake.Option(
 							name='amount',
