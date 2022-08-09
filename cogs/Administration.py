@@ -361,17 +361,17 @@ class Administration(commands.Cog):
 					disnake.Option(
 							name='reason',
 							description=Localized('The reason for the ban.', key='ADM_ADM_CMD_HACKBAN_REASON'),
-							type=disnake.OptionType.string,
+							type=disnake.OptionType.user,
 							min_length=3,
 							max_length=512,
 							required=False
 					)
 			]
 	)
-	async def hackban(self, inter: ACI, user_id: str, reason: str=None): 
+	async def hackban(self, inter: ACI, user: disnake.User, reason: str=None): 
 			
 			try:
-					user = await self.bot.get_or_fetch_user(int(user_id))
+					user = await self.bot.get_or_fetch_user(user.id)
 			except:
 					await inter.send('ID de usuário inválido!', ephemeral=True)
 					return
@@ -385,7 +385,7 @@ class Administration(commands.Cog):
 							color=C.error)
 					#if user_banned.reason not is None:
 							#embed.add_field(
-								#name='Motivo:',
+								#name='Motivo:', 
 								#value=user_banned.reason,
 								#inline=False)
 					
