@@ -17,18 +17,13 @@ class Administration(commands.Cog):
 	async def adm(self, inter: ACI):
 		pass
 	
-
-	@commands.slash_command(name=Localized('mod', key='ADM_MOD_NAME'))
-	async def mod(self, inter: ACI):
-		pass
-	
 	
 	#purge
 	@commands.has_permissions(manage_messages=True)
 	@commands.bot_has_permissions(manage_messages=True)
 	@commands.cooldown(1, 7, commands.BucketType.user)
 	@commands.guild_only()
-	@mod.sub_command(
+	@adm.sub_command(
 			name=Localized('purge', key='ADM_MOD_CMD_PURGE_NAME'),
 			description=Localized('Deletes the specified number of messages.', key='ADM_MOD_CMD_PURGE_DESC'),
 			options=[
