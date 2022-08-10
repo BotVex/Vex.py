@@ -24,7 +24,7 @@ class UserCMD(commands.Cog):
 		embed = EB(color=color)
 		embed.set_image(url=avatar)
 
-		await inter.send(embed=embed)
+		await inter.response.send_message(embed=embed)
 
 
 def setup(bot):
