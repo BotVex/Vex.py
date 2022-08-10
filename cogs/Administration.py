@@ -302,7 +302,7 @@ class Administration(commands.Cog):
 						await inter.send(embed=embed, ephemeral=True)
 						return
 			
-			elif user.guild_permissions.administrator:
+			elif (inter.guild.get_member(user.id) is not None) and user.guild_permissions.administrator:
 						embed = EB(
 							title=f'{E.error}Erro!',
 							description='Eu não posso bainr administradores.',
