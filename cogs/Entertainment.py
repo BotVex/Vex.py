@@ -58,11 +58,6 @@ class Entertainment(commands.Cog):
 		
 		await inter.response.defer()
 		
-		if user.id == inter.author.id:
-			await inter.send(f'{inter.author.mention}, você *ainda* não pode usar o roleplay com você mesmo!')
-			embed = EB()
-			return
-		
 		if roleplay not in self.anime_roleplay:
 			await inter.send('Roleplay desconhecido!')
 			embed = EB()
@@ -76,6 +71,7 @@ class Entertainment(commands.Cog):
 			embed = EB(color=color)
 			embed.set_image(url=url)
 			embed.set_footer(text=f'Fonte: {name}')
+		
 		
 		match roleplay:
 			case 'highfive':
@@ -95,7 +91,7 @@ class Entertainment(commands.Cog):
 			case 'baka':
 				message = f'🤬 | {inter.author.mention} chamou {user.mention} de idiota!'
 			case 'wink':
-				message = f'🔫 | {inter.author.mention} deu um TIRO em {user.mention}!'
+				message = f'😉 | {inter.author.mention} piscou para {user.mention}!'
 			case 'shrug':
 				message = f'🤷 | {inter.author.mention} fez um ¯\_(ツ)_/¯ para {user.mention}!'
 			case 'kick':
@@ -109,12 +105,52 @@ class Entertainment(commands.Cog):
 			case 'punch':
 				message = f'👊 | {inter.author.mention} deu um soco em {user.mention}!'
 			case 'dance':
-				message = f'🕺 |  {inter.author.mention} dançou com {user.mention}!'
+				message = f'🕺 | {inter.author.mention} dançou com {user.mention}!'
 			case 'bite':
-				message = f'🍽️ |  {inter.author.mention} mordeu {user.mention}!'
+				message = f'🍽️ | {inter.author.mention} mordeu {user.mention}!'
 			case 'shoot':
 				message = f'🔫 | {inter.author.mention} atirou em {user.mention}!'
-	
+		
+
+		if inter.author.id == user.id:
+			match roleplay:
+				case 'highfive':
+					message = f'🙏 | {inter.author.mention} deu um highfive em... si mesmo?'
+				case 'handhold':
+					message = f'🤝 | {inter.author.mention} segurou sua própia mão?'
+				case 'kiss':
+					message = f'💋 | {inter.author.mention} beijou a si mesmo? Como isso funciona??'
+				case 'wave':
+					message = f'👋 | {inter.author.mention} acenou para ninguém?\n{self.bot.user.mention} acenou de volta para {inter.author.mention}!'
+				case 'thumbsup':
+					message = f'👍 | {inter.author.mention} fez um "👍" para ninguém. :smiling_face_with_tear:'
+				case 'stare':
+					message = f'👀 | {inter.author.mention} olhou fixamente para... si mesmo? :mirror:'
+				case 'stare':
+					message = f'🥺 | {inter.author.mention} fez carinho em... ninguém? Que estranho.'
+				case 'baka':
+					message = f'🤬 | {inter.author.mention} chamou a si mesmo de idiota!\nNão fassa isso contigo :('
+				case 'wink':
+					message = f'😉 | {inter.author.mention} piscou... para ninguém?\n{self.bot.user.mention} piscou para {inter.author.mention}!'
+				case 'shrug':
+					message = f'🤷 | {inter.author.mention} fez um ¯\_(ツ)_/¯ para si mesmo. ¯\_(ツ)_/¯'
+				case 'kick':
+					message = f'🦶 | {inter.author.mention} chutou a si mesmo?'
+				case 'hug':
+					message = f'🤗 | {inter.author.mention} abraçou... ninguém?\n{self.bot.user.mention} abraçou {inter.author.mention}!'
+				case 'slap':
+					message = f'👋 | {inter.author.mention} deu um tapa em ~si mesmo~ uma mosca!'
+				case 'pat':
+					message = f'🥰 | {inter.author.mention} fez cafuné em... ninguém?'
+				case 'punch':
+					message = f'👊 | {inter.author.mention} deu um soco em si mesmo?\nEi ei, sem essa.'
+				case 'dance':
+					message = f'🕺 | {inter.author.mention} dançou com ninguém?\n{self.bot.user.mention} dançou {inter.author.mention}!'
+				case 'bite':
+					message = f'🍽️ | {inter.author.mention} mordeu a si mesmo?\nVirou cachorro agora, é?'
+				case 'shoot':
+					message = f'🔫 | {inter.author.mention} deu um TIRO em si mesmo!\nAinda bem que ele(a) estava usando um colete aprova de balas.'
+		
 		
 		await inter.send(content=message, embed=embed)
 
