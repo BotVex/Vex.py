@@ -151,10 +151,13 @@ class Administration(commands.Cog):
 					await member.edit(nick=nickname)
 					if nickname is None:
 						nickname = member.name
+					
 					embed = EB(
 							title=f'{E.success}nick alterado!',
 							description=f'Nick alterado para **`{nickname}`**!',
 							color=C.success)
+					embed.set_thumbnail(url=user.display_avatar)
+
 					await inter.send(embed=embed)
 			except:
 					embed = EB(
@@ -229,6 +232,7 @@ class Administration(commands.Cog):
 										name='Motivo:',
 										value=reason,
 										inline=False)
+								embed.set_thumbnail(url=user.display_avatar)
 							
 							await user.kick(reason=reason)
 							await inter.send(embed=embed, ephemeral=True)
@@ -311,7 +315,8 @@ class Administration(commands.Cog):
 								title=f'{E.success} Usuário banido!',
 								description=f'{user.mention} foi banido por {inter.author.mention}!',
 								color=C.success)
-						
+							embed.set_thumbnail(url=user.display_avatar)
+
 							if reason is not None:
 								embed.add_field(
 										name='Motivo:',
@@ -405,7 +410,8 @@ class Administration(commands.Cog):
 										name='Motivo:',
 										value=reason,
 										inline=False)
-							
+								embed.set_thumbnail(url=user.display_avatar)
+								
 							await self.bot.http.unban(str(user.id), inter.guild.id, reason=reason)
 							await inter.send(embed=embed, ephemeral=True)
 
