@@ -11,6 +11,6 @@ INTENTS = Intents.default()
 INTENTS.members = True
 INTENTS.presences = True
 
-EXTENSIONS = ['cogs.Events', 'cogs.Entertainment', 'cogs.Administration', 'cogs.Tools', 'cogs.Bot'] #https://github.com/aurelmegn/heroku-buildpack-google-chrome
+EXTENSIONS = ['cogs.Events', 'cogs.Entertainment', 'cogs.Administration', 'cogs.Tools', 'cogs.Bot', 'cogs.UserCommands'] #https://github.com/aurelmegn/heroku-buildpack-google-chrome
 
 TOKEN = os.environ['TOKEN']
