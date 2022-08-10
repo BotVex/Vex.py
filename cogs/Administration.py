@@ -323,7 +323,7 @@ class Administration(commands.Cog):
 										value=reason,
 										inline=False)
 							
-							await user.ban(reason=reason, delete_message_days=delete_message_days)
+							await self.bot.http.ban(str(user.id), inter.guild.id, reason=reason, delete_message_days=delete_message_days)
 							await inter.send(embed=embed, ephemeral=True)
 
 							if notify is True:
@@ -341,103 +341,7 @@ class Administration(commands.Cog):
 									description=f'Ocorreu um erro ao tentar banir o usuário. Certifique-se de que meu cargo esteja acima do cargo de {user.mention} e tente novamente.',
 									color=C.error)
 							await inter.send(embed=embed, ephemeral=True)
-			
-	
-	#hackban
-	@commands.has_permissions(ban_members=True)
-	@commands.bot_has_permissions(ban_members=True)
-	@commands.cooldown(1, 5, commands.BucketType.user)
-	@commands.guild_only()
-	@adm.sub_command(
-			name=Localized('hackban', key='ADM_ADM_CMD_HACKBAN_NAME'),
-			description=Localized('Ban a user without him being on the server through his ID.', key='ADM_ADM_CMD_HACKBAN_DESC'),
-			options=[
-					disnake.Option(
-							name='user_id',
-							description=Localized('The ID of the user to be banned.', key='ADM_ADM_CMD_HACKBAN_USERID'),
-							type=disnake.OptionType.string,
-							required=True
-					),
-					disnake.Option(
-							name='reason',
-							description=Localized('The reason for the ban.', key='ADM_ADM_CMD_HACKBAN_REASON'),
-							type=disnake.OptionType.user,
-							min_length=3,
-							max_length=512,
-							required=False
-					)
-			]
-	)
-	async def hackban(self, inter: ACI, user: disnake.User, reason: str=None): 
-			
-			try:
-					user = await self.bot.get_or_fetch_user(user.id)
-			except:
-					await inter.send('ID de usuário inválido!', ephemeral=True)
-					return
-			
-			try:
-					user_banned = await inter.guild.fetch_ban(user)
 
-					embed = EB(
-							title=f'{E.error}Erro!',
-							description='Usuário já banido.',
-							color=C.error)
-					#if user_banned.reason not is None:
-							#embed.add_field(
-								#name='Motivo:', 
-								#value=user_banned.reason,
-								#inline=False)
-					
-					await inter.send(embed=embed, ephemeral=True)
-					return
-			except disnake.NotFound:
-					pass
-
-			for user_guild in inter.guild.members:
-				if user_guild.id == user.id:
-					if user.id == inter.guild.owner_id:
-						embed = EB(
-							title=f'{E.error}Erro!',
-							description='Eu não posso banir o dono do servidor.',
-							color=C.error)
-						await inter.send(embed=embed, ephemeral=True)
-						break
-
-					elif user.guild_permissions.administrator:
-						embed = EB(
-							title=f'{E.error}Erro!',
-							description='Eu não posso banir administradores.',
-							color=C.error)
-						await inter.send(embed=embed, ephemeral=True)
-						break
-			
-			if user.id == inter.author.id:
-				await inter.send('Você não pode banir você mesmo!', ephemeral=True)
-				return
-
-			try:
-					embed = EB(
-						title=f'{E.success} Usuário banido!',
-						description=f'{user}(*{user.id}*) foi banido por {inter.author.mention}!',
-						color=C.success)
-				
-					if reason is not None:
-						embed.add_field(
-								name='Motivo:',
-								value=reason,
-								inline=False)
-					
-					await self.bot.http.ban(str(user.id), inter.guild.id, reason=reason)
-					await inter.send(embed=embed, ephemeral=True)
-
-			except:
-					embed = EB(
-							title=f'{E.error}Erro!',
-							description=f'Ocorreu um erro ao tentar banir o usuário {user.name}(*{user.id}*) do servidor.',
-							color=C.error)
-					await inter.send(embed=embed, ephemeral=True)
-			
 	
 	#unban
 	@commands.has_permissions(ban_members=True)
