@@ -14,13 +14,6 @@ class UserCMD(commands.Cog):
 
 	@commands.user_command(name="Avatar")
 	async def avatar(inter: ACI, user: disnake.User):
-		avatar = user.display_avatar
-		avatar_color = avatar.with_size(16)
-
-		async with aiohttp.ClientSession() as session:
-				async with session.get(str(avatar_color)) as resp:
-					color = dominant_color(await resp.content.read())
-			
 		embed = EB(color=color)
 		embed.set_image(url=avatar)
 
