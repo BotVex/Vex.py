@@ -14,10 +14,10 @@ class UserCMD(commands.Cog):
 
 	@commands.user_command(name="Avatar")
 	async def avatar(inter: ACI, user: disnake.User):
-		embed = EB(color=color)
+		embed = EB(title=f'Avatar de {user.mention}')
 		embed.set_image(url=avatar)
 
-		await inter.response.send_message(embed=embed)
+		await inter.response.send_message(embed=embed, ephemeral=True)
 
 
 def setup(bot):
