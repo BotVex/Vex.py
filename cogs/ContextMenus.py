@@ -19,5 +19,9 @@ class CTXCMD(commands.Cog):
 		await inter.response.send_message(embed=embed, ephemeral=True)
 
 
+	@commands.message_command(name="ID")
+	async def _id(self, inter: disnake.ApplicationCommandInteraction, user: disnake.User):
+		await inter.response.send_message(embed=inter.message.id, ephemeral=True)
+
 def setup(bot):
 	bot.add_cog(CTXCMD(bot))
