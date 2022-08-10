@@ -12,7 +12,7 @@ class UserCMD(commands.Cog):
 		self.bot: commands.Bot = bot 
 
 
-	@command.user_command(name="Avatar")
+	@commands.user_command(name="Avatar")
 	async def avatar(inter: disnake.ApplicationCommandInteraction, user: disnake.User):
 		avatar = user.display_avatar
 		avatar_color = avatar.with_size(16)
