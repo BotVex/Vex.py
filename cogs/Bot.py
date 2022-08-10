@@ -1,4 +1,6 @@
 import aiohttp
+from datetime import timedelta
+from time import time
 import platform
 import psutil
 from psutil._common import bytes2human
@@ -17,7 +19,8 @@ from utils.dominant_color import dominant_color
 
 class Bot(commands.Cog):
 	def __init__(self, bot):
-		self.bot: commands.Bot = bot 
+		self.bot: commands.Bot = bot
+		self.start_time = time() 
 	
 	
 	@commands.slash_command(name='vex')
@@ -45,6 +48,8 @@ class Bot(commands.Cog):
 			bytes_sent = str(bytes2human(net.bytes_sent))+'B'
 			bytes_recv = str(bytes2human(net.bytes_recv))+'B'
 
+			uptime = str(timedelta(seconds=int(round(time()-self.start_time))))
+
 			description = f'''
 **Informações básicas:**
 ```
@@ -52,6 +57,7 @@ Nome > {self.bot.user}
 ID > {self.bot.user.id}
 Hash > {hash(self.bot)}
 Sistema > {platform.system()}
+Uptime > {uptime}
 ```
 **Informações do Python:**
 ```
