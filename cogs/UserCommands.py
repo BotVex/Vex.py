@@ -1,7 +1,6 @@
 import disnake
 from disnake.ext import commands
 EB = disnake.Embed
-from disnake import ApplicationCommandInteraction
 
 
 from utils.assets import Emojis as E
@@ -13,10 +12,18 @@ class UserCMD(commands.Cog):
 		self.bot: commands.Bot = bot 
 
 
-	@commands.user_command(name='avatar')
-	async def avatar(self, inter: disnake.ApplicationCommandInteraction, user: disnake.User):
-		embed = disnake.Embed(title=f'avatar de {user}')
-		embed.set_image(url=user.display_avatar.url)
+	@command.user_command(name="Avatar")
+	async def avatar(inter: disnake.ApplicationCommandInteraction, user: disnake.User):
+		avatar = user.display_avatar
+		avatar_color = avatar.with_size(16)
+
+		async with aiohttp.ClientSession() as session:
+				async with session.get(str(avatar_color)) as resp:
+					color = dominant_color(await resp.content.read())
+			
+		embed = EB(color=color)
+		embed.set_image(url=avatar)
+
 		await inter.response.send_message(embed=embed, ephemeral=True)
 
 
