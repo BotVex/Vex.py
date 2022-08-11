@@ -48,7 +48,7 @@ class CTXCMD(commands.Cog):
 							style=disnake.ButtonStyle.link,
 							label='Link da música',
 							url=spotify.track_url,
-							emoji=E.github
+							emoji=E.spotify
 						)
 					)
 
