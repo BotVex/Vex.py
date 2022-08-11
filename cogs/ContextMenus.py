@@ -53,7 +53,7 @@ class CTXCMD(commands.Cog):
 					)
 
 
-			await inter.send(embed=embed,view=TrackLink())
+			await inter.send(embed=embed, view=TrackLink(), ephemeral=True)
 	
 
 def setup(bot):
