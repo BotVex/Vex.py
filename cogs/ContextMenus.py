@@ -34,7 +34,7 @@ class CTXCMD(commands.Cog):
 
 			embed = EB(
 				title=spotify.title,
-				description='  '.join(spotify.artists)+'.',
+				description='` '.join(spotify.artists)+' `',
 				color=spotify.color.value
 			)
 			embed.set_image(url=spotify.album_cover_url)
