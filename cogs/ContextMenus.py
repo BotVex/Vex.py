@@ -24,7 +24,7 @@ class CTXCMD(commands.Cog):
 		await inter.response.send_message(msg.id, ephemeral=True)
 	
 
-	@commands.user_command(name="Spotify")
+	@commands.user_command(name="Spotify", dm_permission=False)
 	async def spotifysong(self, inter: disnake.CmdInter, user: disnake.Member):
 			if not any(isinstance(x, disnake.Spotify) for x in list(user.activities)):
 					await inter.send("Este usuário não está ouvindo músicas no Spotify.", ephemeral=True)
