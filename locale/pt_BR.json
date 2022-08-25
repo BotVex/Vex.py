@@ -30,5 +30,8 @@
   "ADM_ADM_CMD_UNBAN_DESC":"Desbane um usuário através de seu ID.",
   "ADM_ADM_CMD_UNBAN_USERID":"O ID do usuário a ser desbanido.",
   "ADM_ADM_CMD_UNBAN_REASON":"O motivo do desbanimento.",
-	"BOT_CMD_VEX_INFO_DESC":"Exibe informações variadas."
+	"BOT_CMD_VEX_INFO_DESC":"Exibe informações variadas.",
+  "CTXMENUS_USERCMD_AVATAR_NAME":"Avatar",
+  "CTXMENUS_USERCMD_SPOTIFY_NAME":"Spotify",
+  "CTXMENUS_MSGCMD_ID_NAME":"ID"
 }
