@@ -28,38 +28,34 @@ class Entertainment(commands.Cog):
 			self.oracle_phrases = json.loads(oracle_phrases.read())
 	
 	
-	@commands.slash_command()
+	@commands.slash_command(name=Localized('fun' , key='ENT_FUN_NAME'))
 	async def fun(self, inter: ACI):
 		pass
 
 	@fun.sub_command(
-		name='roleplay',
-		description=f'{E.entertainment}Faça um roleplay.',
+		name=Localized('roleplay' , key='ENT_FUN_CMD_ROLEPLAY_NAME'),
+		description=Localized('Do an roleplay with someone.' , key='ENT_FUN_CMD_ROLEPLAY_DESC'),
 		options=[
 			disnake.Option(
 				name='user',
-				description='Escolha um usuário.',
+				description=Localized('Choice a user.' , key='ENT_FUN_CMD_ROLEPLAY_USERDESC'),
 				type=disnake.OptionType.user,
 				required=True
 				),
 			disnake.Option(
 				name='roleplay',
-				description='Escolha uma categoria.',
+				description=Localized('Choice a roleplay.' , key='ENT_FUN_CMD_ROLEPLAY_ROLEPLAYDESC'),
 				type=disnake.OptionType.string,
 				required=True
 				)
 			])
 	@commands.cooldown(1, 7, commands.BucketType.user)
-	async def roleplay(
-		self, 
-		inter: ACI,
-		user: disnake.Member,
-		roleplay: str):
+	async def roleplay(self, inter: ACI, user: disnake.Member, roleplay: str):
 		
 		await inter.response.defer()
 		
 		if roleplay not in self.anime_roleplay:
-			await inter.send('Roleplay desconhecido!')
+			await inter.send('Encenação desconhecida!', ephemeral=True)
 			embed = EB()
 			return
 		else:

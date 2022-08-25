@@ -33,5 +33,10 @@
 	"BOT_CMD_VEX_INFO_DESC":"Exibe informações variadas.",
   "CTXMENUS_USERCMD_AVATAR_NAME":"Avatar",
   "CTXMENUS_USERCMD_SPOTIFY_NAME":"Spotify",
-  "CTXMENUS_MSGCMD_ID_NAME":"ID"
+  "CTXMENUS_MSGCMD_ID_NAME":"ID",
+  "ENT_FUN_NAME":"fun",
+  "ENT_FUN_CMD_ROLEPLAY_NAME":"roleplay",
+  "ENT_FUN_CMD_ROLEPLAY_DESC":"Faça uma encenação com alguém.",
+  "ENT_FUN_CMD_ROLEPLAY_USERDESC":"Escolha um usuário.",
+  "ENT_FUN_CMD_ROLEPLAY_ROLEPLAYDESC":"Escolha uma encenação"
 }
