@@ -197,12 +197,12 @@ class Entertainment(commands.Cog):
 
 	
 	@fun.sub_command(
-		name='owo',
-		description=f'{E.entertainment}eu vou deixar seu texto fofo.',
+		name=Localized('owo', key='ENT_FUN_CMD_OWO_NAME'),
+		description=Localized('Leave your text Kwai', key='ENT_FUN_CMD_OWO_DESC'),
 		options=[
 			disnake.Option(
 				name='text',
-				description='insira um texto para deixá-lo fofo uwu',
+				description=Localized('Enter a text.', key='ENT_FUN_CMD_OWO_TEXTDESC'),
 				type=disnake.OptionType.string,
 				required=True)
 			]
