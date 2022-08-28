@@ -13,7 +13,7 @@ class Events(commands.Cog):
 	
 	
 	@commands.Cog.listener()
-	async def on_message(message):
+	async def on_message(self, message):
 		if message.author.id == self.bot.user.id:
 			return
 		else:
@@ -21,7 +21,7 @@ class Events(commands.Cog):
 			if len(mentions) != 0:
 				for mentioned in mentions:
 					if mentioned.id == self.bot.user.id:
-						await message.reply(f':wave: | Olá {message.author.mention}, meu nome é **{bot.user.name}**, e para utilizar meus comandos, utilize os `comandos de barra (/)`.')
+						await message.reply(f':wave: | Olá {message.author.mention}, meu nome é **{bot.user.name}**, e para utilizar meus comandos, utilize `comandos de barra (/)`.')
 						break
 
 
