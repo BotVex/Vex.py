@@ -13,6 +13,19 @@ class Events(commands.Cog):
 	
 	
 	@commands.Cog.listener()
+	async def on_message(message):
+		if message.author.id == self.bot.user.id:
+			return
+		else:
+			mentions = message.mentions
+			if len(mentions) != 0:
+				for mentioned in mentions:
+					if mentioned.id == self.bot.user.id:
+						await message.reply(f':wave: | Olá {message.author.mention}, meu nome é **{bot.user.name}**, e para utilizar meus comandos, utilize os `comandos de barra (/)`.')
+						break
+
+
+	@commands.Cog.listener()
 	async def on_slash_command_error(self, inter: ACI, error: commands.CommandError):
 
 		if isinstance(error, commands.CommandOnCooldown):
