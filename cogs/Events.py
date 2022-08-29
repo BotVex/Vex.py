@@ -1,5 +1,8 @@
+import json 
+from random import choice
+
 import disnake
-from disnake.ext import commands
+from disnake.ext import commands, tasks
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
@@ -10,8 +13,11 @@ from utils.assets import MediaUrl
 class Events(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
-	
-	
+		
+		with open('data/games.json') as games:
+			self.game_list = json.loads(games.read())
+
+
 	@commands.Cog.listener()
 	async def on_message(self, message):
 		if message.author.id == self.bot.user.id:
@@ -23,6 +29,33 @@ class Events(commands.Cog):
 					if mentioned.id == self.bot.user.id:
 						await message.reply(f':wave: | Olá {message.author.mention}, meu nome é **{self.bot.user.name}**, e para utilizar meus comandos, utilize `comandos de barra (/)`.')
 						break
+
+
+	@tasks.loop(minutes=10.0)
+	async def status_task(self):
+		shard_ids = sorted(set([guild.shard_id for guild in self.bot.guilds]))
+		
+		for shard_id in shard_ids:
+			activity_type = disnake.ActivityType.playing
+			activity_name = choice(self.game_list)
+
+			await self.bot.change_presence(
+				activity=disnake.Activity(
+					type=activity_type, 
+					name=activity_name, 
+					shard_id=shard_id
+					)
+				)
+	
+
+	@commands.Cog.listener()
+	async def on_ready(self):
+		print(f'\n{self.bot.user} online')
+		try:
+			self.status_task.start()
+			print('status task started')
+		except Exception as e:
+			print(f'status task failed\n{e}')
 
 
 	@commands.Cog.listener()
