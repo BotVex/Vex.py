@@ -20,6 +20,7 @@ INTENTS = Intents(
 	typing=True,
 	guild_scheduled_events=False
 )
+#https://docs.disnake.dev/en/stable/api.html?highlight=intents#disnake.Intents
 
 bot = commands.AutoShardedInteractionBot(
 	shard_count=1,

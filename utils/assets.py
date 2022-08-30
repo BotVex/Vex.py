@@ -59,4 +59,11 @@ class MediaUrl:
 	missingpermissionsbanner = 'https://i.postimg.cc/TYGLFxNN/102-Sem-Titulo-20220604114118.png'
 	botmissingpermissionsbanner = 'https://i.postimg.cc/TYGLFxNN/102-Sem-Titulo-20220604114118.png'
 	noprivatemessagebanner = 'https://i.postimg.cc/Twx8JtQS/102-Sem-Titulo-20220604141342.png'
-	ben10icon = 'https://i.postimg.cc/g0ctx0jd/Et9-Fc-VDXEAIg88c.jpg'
+	
+	def get_oracle(oracle):
+		if oracle == 'Ben 10':
+			return 'https://i.postimg.cc/g0ctx0jd/Et9-Fc-VDXEAIg88c.jpg'
+		elif oracle == 'Finn':
+			return 'https://i.postimg.cc/x1qgrwtk/image.jpg'
+		elif oracle == 'Vovó Juju':
+			return 'https://i.postimg.cc/FsckfmD5/image.jpg'

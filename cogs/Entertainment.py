@@ -1,7 +1,7 @@
 import os
 import json
  
-from random import choice
+from random import choice, randint
 from pyowo import owo as owofy
 from kaomoji.kaomoji import Kaomoji
 kaofy = Kaomoji()
@@ -45,30 +45,43 @@ class Entertainment(commands.Cog):
 			disnake.Option(
 				name='roleplay',
 				description=Localized('Choice a roleplay.' , key='ENT_FUN_CMD_ROLEPLAY_ROLEPLAYDESC'),
+				choices=[
+					disnake.OptionChoice(Localized('highfive', key='ENT_FUN_CMD_ROLEPLAY_HIGHFIVE'), 'highfive'),
+					disnake.OptionChoice(Localized('handhold', key='ENT_FUN_CMD_ROLEPLAY_HANDHOLD'),  'handhold'),
+					disnake.OptionChoice(Localized('kiss', key='ENT_FUN_CMD_ROLEPLAY_KISS'),  'kiss'),
+					disnake.OptionChoice(Localized('wave', key='ENT_FUN_CMD_ROLEPLAY_WAVE'),  'wave'),
+					disnake.OptionChoice(Localized('thumbsup', key='ENT_FUN_CMD_ROLEPLAY_THUMBSUP'),  'thumbsup'),
+					disnake.OptionChoice(Localized('stare', key='ENT_FUN_CMD_ROLEPLAY_STARE'),  'stare'),
+					disnake.OptionChoice(Localized('baka', key='ENT_FUN_CMD_ROLEPLAY_BAKA'),  'baka'),
+					disnake.OptionChoice(Localized('wink', key='ENT_FUN_CMD_ROLEPLAY_WINK'),  'wink'),
+					disnake.OptionChoice(Localized('shoot', key='ENT_FUN_CMD_ROLEPLAY_SHOOT'),  'shoot'),
+					disnake.OptionChoice(Localized('shrug', key='ENT_FUN_CMD_ROLEPLAY_SHRUG'),  'shrug'),
+					disnake.OptionChoice(Localized('kick', key='ENT_FUN_CMD_ROLEPLAY_KICK'),  'kick'),
+					disnake.OptionChoice(Localized('hug', key='ENT_FUN_CMD_ROLEPLAY_HUG'), 'hug'),
+					disnake.OptionChoice(Localized('slap', key='ENT_FUN_CMD_ROLEPLAY_SLAP'), 'slap'),
+					disnake.OptionChoice(Localized('pat', key='ENT_FUN_CMD_ROLEPLAY_PAT'), 'pat'),
+					disnake.OptionChoice(Localized('punch', key='ENT_FUN_CMD_ROLEPLAY_PUNCH'), 'punch'),
+					disnake.OptionChoice(Localized('dance', key='ENT_FUN_CMD_ROLEPLAY_DANCE'), 'dance'),
+					disnake.OptionChoice(Localized('bite', key='ENT_FUN_CMD_ROLEPLAY_BITE'), 'bite')
+					],
 				type=disnake.OptionType.string,
 				required=True
 				)
 			])
-	@commands.cooldown(1, 7, commands.BucketType.user)
+	@commands.cooldown(1, 15, commands.BucketType.user)
 	async def roleplay(self, inter: ACI, user: disnake.Member, roleplay: str):
 		
 		await inter.response.defer()
 		
-		if roleplay not in self.anime_roleplay:
-			await inter.send('Encenação desconhecida!', ephemeral=True)
-			embed = EB()
-			return
-		else:
-			chosen_anime = choice(self.anime_roleplay[roleplay])
-			name = chosen_anime['name']
-			url = chosen_anime['url']
-			color = chosen_anime['color']
-			
-			embed = EB(color=color)
-			embed.set_image(url=url)
-			embed.set_footer(text=f'Fonte: {name}')
+		chosen_anime = choice(self.anime_roleplay[roleplay])
+		name = chosen_anime['name']
+		url = chosen_anime['url']
+		color = chosen_anime['color']
 		
-		
+		embed = EB(color=color)
+		embed.set_image(url=url)
+		embed.set_footer(text=f'Fonte: {name}')
+	
 		match roleplay:
 			case 'highfive':
 				message = f'🙏 | {inter.author.mention} deu um highfive em {user.mention}!'
@@ -82,8 +95,6 @@ class Entertainment(commands.Cog):
 				message = f'👍 | {inter.author.mention} fez um "👍" para {user.mention}!'
 			case 'stare':
 				message = f'👀 | {inter.author.mention} olhou fixamente para {user.mention}!'
-			case 'stare':
-				message = f'🥺 | {inter.author.mention} fez carinho em {user.mention}!'
 			case 'baka':
 				message = f'🤬 | {inter.author.mention} chamou {user.mention} de idiota!'
 			case 'wink':
@@ -150,32 +161,33 @@ class Entertainment(commands.Cog):
 		
 		await inter.send(content=message, embed=embed)
 
-
-	@roleplay.autocomplete('roleplay')
-	async def categories_(
-		self, 
-	inter: ACI, 
-	string: str):
-		categories = []
-		for category in self.anime_roleplay:
-			if category not in ['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'blush', 'think', 'pout', 'facepalm', 'bored', 'cry', 'cuddle']:
-				categories.append(category)
-		return sorted(categories)
+#['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'blush', 'think', 'pout', 'facepalm', 'bored', 'cry', 'cuddle']
 
 
 	@fun.sub_command(
-		name='vidente',
-		description=f'{E.entertainment}Faça uma pergunta para o oráculo Ben 10.',
+		name=Localized('oracle', key='ENT_FUN_CMD_ORACLE_NAME'),
+		description=Localized('Choose an oracle and ask you a question!', key='ENT_FUN_CMD_ORACLE_DESC'),
 		options=[
 			disnake.Option(
+				name='oracle',
+				description=Localized('select an oracle.', key='ENT_FUN_CMD_ORACLE_ORACLE'),
+				choices=[
+					disnake.OptionChoice('Ben 10', 'Ben 10'),
+					disnake.OptionChoice('Finn', 'Finn'),
+					disnake.OptionChoice('Vovó Juju', 'Vovó Juju')
+					],
+				type=disnake.OptionType.string,
+				required=True
+				),
+			disnake.Option(
 				name='question',
-				description='Digite sua questão.',
+				description=Localized('Enter a question.', key='ENT_FUN_CMD_ORACLE_QUESTION'),
 				type=disnake.OptionType.string,
 				required=True
 				)
 			])
 	@commands.cooldown(1, 7, commands.BucketType.user)
-	async def vidente(self, inter: ACI, question: str):
+	async def oracle(self, inter: ACI, oracle: str, question: str):
 		
 		await inter.response.defer()
 		
@@ -189,16 +201,16 @@ class Entertainment(commands.Cog):
 		else:
 			webhook = await channel.create_webhook(name="Bot Webhook")
 		
-		await inter.edit_original_message(content='Contactando Ben 10...')
+		await inter.edit_original_message(content=f'Contactando {oracle}...')
 
-		content = f'{inter.author.mention}, *"{question}"* \n\n{choice(self.oracle_phrases).capitalize()}'
+		content = f'{inter.author.mention}, *"{question}"* \n\n{choice(self.oracle_phrases)}'
 
-		await webhook.send(username='Ben 10', content=content, avatar_url=MediaUrl.ben10icon)
+		await webhook.send(username=oracle, content=content, avatar_url=MediaUrl.get_oracle(oracle))
 
 	
 	@fun.sub_command(
 		name=Localized('owo', key='ENT_FUN_CMD_OWO_NAME'),
-		description=Localized('Leave your text Kwai', key='ENT_FUN_CMD_OWO_DESC'),
+		description=Localized('Leave your text Kwai.', key='ENT_FUN_CMD_OWO_DESC'),
 		options=[
 			disnake.Option(
 				name='text',
@@ -208,31 +220,32 @@ class Entertainment(commands.Cog):
 			]
 		)
 	@commands.cooldown(1, 5, commands.BucketType.user)
-	async def owo(
-		self, 
-		inter: ACI, 
-		text: str): 
+	async def owo(self, inter: ACI, text: str): 
 		await inter.response.defer()
 		await inter.send(f'{owofy(text[0:1000])}')
 	
 	
 	@fun.sub_command(
-		name='kaomoji',
-		description=f'{E.entertainment}eu gero um belo kaomoji para você.',
+		name=Localized('kaomoji', key='ENT_FUN_CMD_KAOMOJI_NAME'),
+		description=Localized('Generate a custom kaomoji.', key='ENT_FUN_CMD_KAOMOJI_DESC'),
 		options=[
 			disnake.Option(
 				name='category',
-				description='selecione uma categoria.',
+				description=Localized('Choose a category.', key='ENT_FUN_CMD_KAOMOJI_DESC'),
+				choices=[
+					disnake.OptionChoice(Localized('neutral', key='ENT_FUN_CMD_KAOMOJI_CATEGORY_CHOICE_NEUTRAL'), 'neutral'),
+					disnake.OptionChoice(Localized('happy', key='ENT_FUN_CMD_KAOMOJI_CATEGORY_CHOICE_HAPPY'), 'happy'),
+					disnake.OptionChoice(Localized('love', key='ENT_FUN_CMD_KAOMOJI_CATEGORY_CHOICE_LOVE'), 'love'),
+					disnake.OptionChoice(Localized('sad', key='ENT_FUN_CMD_KAOMOJI_CATEGORY_CHOICE_SAD'), 'sad'),
+					disnake.OptionChoice(Localized('random', key='ENT_FUN_CMD_KAOMOJI_CATEGORY_CHOICE_RANDOM'), 'random')
+					],
 				type=disnake.OptionType.string,
 				required=True
 				)
 			]
 		)
 	@commands.cooldown(1, 5, commands.BucketType.user)
-	async def kaomoji(
-		self, 
-		inter: ACI, 
-		category: str):
+	async def kaomoji(self, inter: ACI, category: str):
 		
 		await inter.response.defer()
 		
@@ -245,76 +258,11 @@ class Entertainment(commands.Cog):
 				kaomoji = kaofy.create('love')
 			case 'sad':
 				kaomoji = kaofy.create('sadness')
-			case _:
+			case 'random':
 				kaomoji = kaofy.create()
 		
 		await inter.send(kaomoji)
-	
-	
-	@kaomoji.autocomplete('category')
-	async def categories(
-		self, 
-	inter: ACI, 
-	string: str):
-		return sorted([
-			'neutral',
-			'happy',
-			'love',
-			'sad'
-			])
-	
-	
-	@fun.sub_command(
-		name='coinflip',
-		description=f'{E.entertainment}jogue o clássico cara ou coroa.',
-		options=[
-			disnake.Option(
-				name='choose',
-				description='escolha entre cara ou coroa.',
-				type=disnake.OptionType.string,
-				required=True
-				)
-			]
-		)
-	@commands.cooldown(1, 5, commands.BucketType.user)
-	async def coinflip(self, 
-	inter: ACI, 
-	choose: str):
-		
-		await inter.response.defer()
-		
-		bot_choose = choice(['cara', 'coroa'])
-		
-		if choose not in ['cara', 'coroa']:
-			await inter.send(f'{choose}? não conheço essa moeda...')
-			return
-		
-		if bot_choose == choose:
-			embed = EB(
-				title=f'`{bot_choose}` X `{choose}`!'
-				,
-				description='você ganhou!',
-				color=C.general)
-		else:
-			embed = EB(
-				title=f'`{bot_choose}` X `{choose}`!'
-				,
-				description='você perdeu!',
-				color=C.general)
-		
-		await inter.send(embed=embed)
-	
-	
-	@coinflip.autocomplete('choose')
-	async def categories(
-		self, 
-		inter: ACI, 
-		string: str):
-		return [
-			'cara',
-			'coroa'
-			]
-	
+
 	
 def setup(bot):
 	bot.add_cog(Entertainment(bot))
