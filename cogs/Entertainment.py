@@ -81,9 +81,13 @@ class Entertainment(commands.Cog):
 		url = chosen_anime['url']
 		color = chosen_anime['color']
 		
-		embed = EB(color=color)
+		embed = EB(
+			color=color,
+			timestamp=datetime.datetime.now()
+		)
+
+		embed.set_footer(text=f'Fonte: {name} (by nekos.best) | {inter.author.display_name}', icon_url=inter.author.display_avatar)
 		embed.set_image(url=url)
-		embed.set_footer(text=f'Fonte: {name}')
 	
 		match roleplay:
 			case 'highfive':
@@ -163,7 +167,6 @@ class Entertainment(commands.Cog):
 		
 		
 		await inter.send(content=message, embed=embed)
-
 #['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'blush', 'think', 'pout', 'facepalm', 'bored', 'cry', 'cuddle']
 
 
@@ -233,7 +236,13 @@ class Entertainment(commands.Cog):
 			async with session.get(str(avatar_color)) as resp:
 				color = dominant_color(await resp.content.read())
 
-		embed = EB(color=color)
+		embed = EB(
+			color=color,
+			timestamp=datetime.datetime.now()
+		)
+
+		embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
+
 		embed.description = f'```text\n{owofy(text[0:1000])}\n```'
 		await inter.send(embed=embed)
 	
