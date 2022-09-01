@@ -1,6 +1,7 @@
 import os
 import json
 import aiohttp
+import datetime
  
 from random import choice, randint
 from pyowo import owo as owofy
@@ -280,7 +281,13 @@ class Entertainment(commands.Cog):
 			async with session.get(str(avatar_color)) as resp:
 				color = dominant_color(await resp.content.read())
 
-		embed = EB(color=color)
+		embed = EB(
+			color=color,
+			timestamp=datetime.datetime.now()
+		)
+		
+		embed.set_footer(text=inter.author, icon_url=inter.author.display_avatar)
+
 		embed.description = f'```text\n{kaomoji}\n```'
 		await inter.send(embed=embed)
 
