@@ -273,8 +273,6 @@ class Entertainment(commands.Cog):
 				kaomoji = kaofy.create('sadness')
 			case 'random':
 				kaomoji = kaofy.create()
-		
-				await inter.response.defer()
 
 		avatar_color = self.bot.user.display_avatar.with_size(16)
 		async with aiohttp.ClientSession() as session:
@@ -285,8 +283,8 @@ class Entertainment(commands.Cog):
 			color=color,
 			timestamp=datetime.datetime.now()
 		)
-		
-		embed.set_footer(text=inter.author, icon_url=inter.author.display_avatar)
+
+		embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
 
 		embed.description = f'```text\n{kaomoji}\n```'
 		await inter.send(embed=embed)
