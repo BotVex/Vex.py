@@ -1,5 +1,6 @@
 import os
 import json
+import aiohttp
  
 from random import choice, randint
 from pyowo import owo as owofy
@@ -165,6 +166,7 @@ class Entertainment(commands.Cog):
 #['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'blush', 'think', 'pout', 'facepalm', 'bored', 'cry', 'cuddle']
 
 
+	@commands.bot_has_permissions(manage_webhooks=True)
 	@fun.sub_command(
 		name=Localized('oracle', key='ENT_FUN_CMD_ORACLE_NAME'),
 		description=Localized('Choose an oracle and ask you a question!', key='ENT_FUN_CMD_ORACLE_DESC'),
@@ -187,7 +189,7 @@ class Entertainment(commands.Cog):
 				required=True
 				)
 			])
-	@commands.cooldown(1, 7, commands.BucketType.user)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def oracle(self, inter: ACI, oracle: str, question: str):
 		
 		await inter.response.defer()
@@ -220,10 +222,19 @@ class Entertainment(commands.Cog):
 				required=True)
 			]
 		)
-	@commands.cooldown(1, 5, commands.BucketType.user)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def owo(self, inter: ACI, text: str): 
+
 		await inter.response.defer()
-		await inter.send(f'{owofy(text[0:1000])}')
+
+		avatar_color = self.bot.user.display_avatar.with_size(16)
+		async with aiohttp.ClientSession() as session:
+			async with session.get(str(avatar_color)) as resp:
+				color = dominant_color(await resp.content.read())
+
+		embed = EB(color=color)
+		embed.description = f'```text\n{owofy(text[0:1000])}\n```'
+		await inter.send(embed=embed)
 	
 	
 	@fun.sub_command(
@@ -245,7 +256,7 @@ class Entertainment(commands.Cog):
 				)
 			]
 		)
-	@commands.cooldown(1, 5, commands.BucketType.user)
+	@commands.cooldown(1, 10, commands.BucketType.user)
 	async def kaomoji(self, inter: ACI, category: str):
 		
 		await inter.response.defer()
@@ -262,7 +273,16 @@ class Entertainment(commands.Cog):
 			case 'random':
 				kaomoji = kaofy.create()
 		
-		await inter.send(kaomoji)
+				await inter.response.defer()
+
+		avatar_color = self.bot.user.display_avatar.with_size(16)
+		async with aiohttp.ClientSession() as session:
+			async with session.get(str(avatar_color)) as resp:
+				color = dominant_color(await resp.content.read())
+
+		embed = EB(color=color)
+		embed.description = f'```text\n{kaomoji}\n```'
+		await inter.send(embed=embed)
 
 	
 def setup(bot):
