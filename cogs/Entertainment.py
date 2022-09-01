@@ -27,10 +27,11 @@ class Entertainment(commands.Cog):
 		with open('data/oracle.json', 'r', encoding='utf8') as oracle_phrases:
 			self.oracle_phrases = json.loads(oracle_phrases.read())
 	
-	
+
 	@commands.slash_command(name=Localized('fun' , key='ENT_FUN_NAME'))
 	async def fun(self, inter: ACI):
 		pass
+
 
 	@fun.sub_command(
 		name=Localized('roleplay' , key='ENT_FUN_CMD_ROLEPLAY_NAME'),
@@ -69,7 +70,7 @@ class Entertainment(commands.Cog):
 				)
 			])
 	@commands.cooldown(1, 15, commands.BucketType.user)
-	async def roleplay(self, inter: ACI, user: disnake.Member, roleplay: str):
+	async def roleplay(self, inter: ACI, user: disnake.User, roleplay: str):
 		
 		await inter.response.defer()
 		
