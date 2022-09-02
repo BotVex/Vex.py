@@ -192,12 +192,12 @@ class Entertainment(commands.Cog):
 			color = chosen_anime['color']
 
 			embed_retribued = EB(
-				color=color,
+				color=color, 
 				timestamp=datetime.datetime.now()
 			)
 
-			embed.set_footer(text=f'Fonte: {name} (by nekos.best) | {inter.author.display_name}', icon_url=inter.author.display_avatar)
-			embed.set_image(url=url)
+			embed_retribued.set_footer(text=f'Fonte: {name} (by nekos.best) | {inter.author.display_name}', icon_url=inter.author.display_avatar)
+			embed_retribued.set_image(url=url)
 
 			await inter.send(content=f'{inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued, view=view)
 
