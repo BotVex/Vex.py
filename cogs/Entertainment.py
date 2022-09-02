@@ -167,36 +167,46 @@ class Entertainment(commands.Cog):
 		
 
 		class Retribue(disnake.ui.View):
-			message: disnake.Message
-
 			def __init__(self):
 				super().__init__()
-				self.retribued = False
+				self.retribued = None
 				self.timeout = 60.0
-			
+
 
 			async def on_timeout(self):
-				...
+				self.retribued = False
 
 
-			@disnake.ui.button(label="Retribuir", style=disnake.ButtonStyle.primary)
+			@disnake.ui.button(label='Retribuir', style=disnake.ButtonStyle.primary)
 			async def retribue(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 				if interaction.author.id != user.id:
 					await interaction.send(f'Ei!, apenas {user.mention} pode usar isso!', ephemeral=True)
 				else:
 					self.retribued = True
+					button.label = 'Retribuído'
+					button.style = disnake.ButtonStyle.green
 					button.disabled = True
 					await interaction.response.edit_message(view=self)
-					self.stop()
+				self.stop()
+
+
+		class TimeoutButton(disnake.ui.View):
+			def __init__(self):
+				super().__init__()
+			
+
+			@disnake.ui.button(label='Expirado', style=disnake.ButtonStyle.gray, disabled=True)
+			async def disabled_button(self, button: disnake.ui.Button):
+				self.stop()
 
 
 		view = Retribue()
 
-		view.message = await inter.send(content=message, embed=embed, view=view)
+		await inter.send(content=message, embed=embed, view=view)
 		
 		await view.wait()
 
-		if view.retribued is True: 
+		if view.retribued is True:
 			chosen_anime = choice(self.anime_roleplay[roleplay])
 			name = chosen_anime['name']
 			url = chosen_anime['url']
@@ -207,10 +217,13 @@ class Entertainment(commands.Cog):
 				timestamp=datetime.datetime.now()
 			)
 
-			embed_retribued.set_footer(text=f'Fonte: {name} (by nekos.best) | {inter.author.display_name}', icon_url=inter.author.display_avatar)
+			embed_retribued.set_footer(text=f'Fonte: {name} (by nekos.best) | {user.display_name}', icon_url=user.display_avatar)
 			embed_retribued.set_image(url=url)
 
 			await inter.send(content=f'{inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued)
+		else:
+			await inter.edit_original_message(view=TimeoutButton())
+			
 
 
 	@commands.bot_has_permissions(manage_webhooks=True)
