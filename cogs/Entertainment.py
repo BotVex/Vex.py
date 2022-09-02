@@ -186,7 +186,7 @@ class Entertainment(commands.Cog):
 					button.style = disnake.ButtonStyle.green
 					button.disabled = True
 					await interaction.response.edit_message(view=self)
-				self.stop()
+					self.stop()
 
 
 		class TimeoutButton(disnake.ui.View):
@@ -223,7 +223,7 @@ class Entertainment(commands.Cog):
 			embed_retribued.set_image(url=url)
 
 			await inter.send(content=f'{inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued)
-		else:
+		elif view.retribued is False:
 			await inter.edit_original_message(view=TimeoutButton())
 			
 
