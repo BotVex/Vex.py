@@ -201,7 +201,7 @@ class Entertainment(commands.Cog):
 
 		view = Retribue()
 
-		if inter.author.id == user.id: 
+		if inter.author.id != user.id: 
 			await inter.send(content=message, embed=embed, view=view)
 		else:
 			await inter.send(content=message, embed=embed)
