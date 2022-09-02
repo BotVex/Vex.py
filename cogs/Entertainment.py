@@ -127,6 +127,7 @@ class Entertainment(commands.Cog):
 		
 
 		if inter.author.id == user.id:
+			author_is_user = True
 			match roleplay:
 				case 'highfive':
 					message = f'🙏 | {inter.author.mention} deu um highfive em... si mesmo?'
@@ -164,7 +165,8 @@ class Entertainment(commands.Cog):
 					message = f'🍽️ | {inter.author.mention} mordeu a si mesmo?\nVirou cachorro agora, é?'
 				case 'shoot':
 					message = f'🔫 | {inter.author.mention} deu um TIRO em si mesmo!\nAinda bem que ele(a) estava usando um colete aprova de balas.'
-		
+		else:
+			author_is_user = False
 
 		class Retribue(disnake.ui.View):
 			def __init__(self):
@@ -202,7 +204,7 @@ class Entertainment(commands.Cog):
 
 		view = Retribue()
 
-		await inter.send(content=message, embed=embed, view=view)
+		await inter.send(content=message, embed=embed, view=view if author_is_user is False else None)
 		
 		await view.wait()
 
