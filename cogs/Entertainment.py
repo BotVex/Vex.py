@@ -165,8 +165,43 @@ class Entertainment(commands.Cog):
 				case 'shoot':
 					message = f'🔫 | {inter.author.mention} deu um TIRO em si mesmo!\nAinda bem que ele(a) estava usando um colete aprova de balas.'
 		
-		
-		await inter.send(content=message, embed=embed)
+
+		class Retribue(disnake.ui.View):
+			def __init__(self):
+				super().__init__()
+				self.retribued = False
+				self.timeout = 60.0
+			
+
+			@disnake.ui.button(label="Retrubuir", style=disnake.ButtonStyle.primary)
+			async def retribue(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
+				if interaction.author.id != user.id:
+					await interaction.send(f'Ei!, apenas {user.mention} pode usar isso!', ephemeral=True)
+				else:
+					self.retribued = True
+					self.stop()
+
+		view = Retribue()
+		await inter.send(content=message, embed=embed, view=view)
+		await view.wait()
+		if view.retribued is True: 
+
+			chosen_anime = choice(self.anime_roleplay[roleplay])
+			name = chosen_anime['name']
+			url = chosen_anime['url']
+			color = chosen_anime['color']
+
+			embed_retribued = EB(
+				color=color,
+				timestamp=datetime.datetime.now()
+			)
+
+			embed.set_footer(text=f'Fonte: {name} (by nekos.best) | {inter.author.display_name}', icon_url=inter.author.display_avatar)
+			embed.set_image(url=url)
+
+			await inter.send(content=f'{inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued, view=view)
+
+
 #['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'blush', 'think', 'pout', 'facepalm', 'bored', 'cry', 'cuddle']
 
 
