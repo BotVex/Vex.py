@@ -176,8 +176,7 @@ class Entertainment(commands.Cog):
 			
 
 			async def on_timeout(self):
-				self.clear_items()
-				await self.message.edit(view=self)
+				...
 
 
 			@disnake.ui.button(label="Retribuir", style=disnake.ButtonStyle.primary)
@@ -211,7 +210,7 @@ class Entertainment(commands.Cog):
 			embed_retribued.set_footer(text=f'Fonte: {name} (by nekos.best) | {inter.author.display_name}', icon_url=inter.author.display_avatar)
 			embed_retribued.set_image(url=url)
 
-			view.message = await inter.send(content=f'{inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued)
+			await inter.send(content=f'{inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued)
 
 
 	@commands.bot_has_permissions(manage_webhooks=True)
