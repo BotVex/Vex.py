@@ -173,12 +173,17 @@ class Entertainment(commands.Cog):
 				self.timeout = 60.0
 			
 
-			@disnake.ui.button(label="Retrubuir", style=disnake.ButtonStyle.primary)
+			async def on_timeout(self):
+				self.clear_items()
+
+
+			@disnake.ui.button(label="Retrubuir", style=disnake.ButtonStyle.primary, emoji=E.red_reverse)
 			async def retribue(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 				if interaction.author.id != user.id:
-					await interaction.send(f'Ei!, apenas {user.mention} pode usar isso!', ephemeral=True)
+					await interaction.send(f':octagonal_sign: | Ei!, apenas {user.mention} pode usar isso!', ephemeral=True)
 				else:
 					self.retribued = True
+					button.disabled = True
 					self.stop()
 
 		view = Retribue()
@@ -199,7 +204,7 @@ class Entertainment(commands.Cog):
 			embed_retribued.set_footer(text=f'Fonte: {name} (by nekos.best) | {inter.author.display_name}', icon_url=inter.author.display_avatar)
 			embed_retribued.set_image(url=url)
 
-			await inter.send(content=f'{inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued, view=view)
+			await inter.send(content=f'{inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued)
 
 
 #['happy', 'sleep', 'feed', 'smile', 'laugh', 'poke', 'tickle', 'blush', 'think', 'pout', 'facepalm', 'bored', 'cry', 'cuddle']

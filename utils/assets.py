@@ -45,6 +45,7 @@ class Emojis:
 	botTag = '<:bot_tag:987925288384102450>'
 	github = '<:github:990768354216267848>'
 	spotify = '<:spotify:1007438027414569143>'
+	red_reverse = '<:red_reverse:1015057905847898165>'
 	tools = '🛠️ | '
 	entertainment = '🪀 | '
 	image = '🖼️ | '
