@@ -180,20 +180,24 @@ class Entertainment(commands.Cog):
 				await self.message.edit(view=self)
 
 
-			@disnake.ui.button(label="Retribuir", style=disnake.ButtonStyle.primary, emoji=E.red_reverse)
+			@disnake.ui.button(label="Retribuir", style=disnake.ButtonStyle.primary)
 			async def retribue(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 				if interaction.author.id != user.id:
 					await interaction.send(f'Ei!, apenas {user.mention} pode usar isso!', ephemeral=True)
 				else:
 					self.retribued = True
 					button.disabled = True
+					await interaction.response.edit_message(view=self)
 					self.stop()
 
-		view = Retribue()
-		await inter.send(content=message, embed=embed, view=view)
-		await view.wait()
-		if view.retribued is True: 
 
+		view = Retribue()
+
+		view.message = await inter.send(content=message, embed=embed, view=view)
+		
+		await view.wait()
+
+		if view.retribued is True: 
 			chosen_anime = choice(self.anime_roleplay[roleplay])
 			name = chosen_anime['name']
 			url = chosen_anime['url']
@@ -207,7 +211,7 @@ class Entertainment(commands.Cog):
 			embed_retribued.set_footer(text=f'Fonte: {name} (by nekos.best) | {inter.author.display_name}', icon_url=inter.author.display_avatar)
 			embed_retribued.set_image(url=url)
 
-			await inter.send(content=f'{inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued)
+			view.message = await inter.send(content=f'{inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued)
 
 
 	@commands.bot_has_permissions(manage_webhooks=True)
