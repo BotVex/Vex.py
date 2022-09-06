@@ -1,4 +1,5 @@
-from disnake import Intents 
+import disnake
+from disnake import Intents
 from disnake.ext import commands
 
 from config import TOKEN, OWNER_ID, EXTENSIONS
