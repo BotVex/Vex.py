@@ -28,6 +28,15 @@ class Entertainment(commands.Cog):
 
 		with open('data/oracle.json', 'r', encoding='utf8') as oracle_phrases:
 			self.oracle_phrases = json.loads(oracle_phrases.read())
+		
+
+	def get_roleplay_gif(self, roleplay):
+		chosen_anime = choice(self.anime_roleplay[roleplay])
+		name = chosen_anime['name']
+		url = chosen_anime['url']
+		color = chosen_anime['color']
+
+		return name, url, color
 	
 
 	@commands.slash_command(name=Localized('fun' , key='ENT_FUN_NAME'))
@@ -76,11 +85,8 @@ class Entertainment(commands.Cog):
 		
 		await inter.response.defer()
 		
-		chosen_anime = choice(self.anime_roleplay[roleplay])
-		name = chosen_anime['name']
-		url = chosen_anime['url']
-		color = chosen_anime['color']
-		
+		name, url, color = self.get_roleplay_gif(roleplay)
+
 		embed = EB(
 			color=color,
 			timestamp=datetime.datetime.now()
@@ -166,14 +172,20 @@ class Entertainment(commands.Cog):
 					message = f'🔫 | {inter.author.mention} deu um TIRO em si mesmo!\nAinda bem que ele(a) estava usando um colete aprova de balas.'
 
 		class Retribue(disnake.ui.View):
+			inter: ACI
+
 			def __init__(self):
 				super().__init__()
-				self.retribued = None
-				self.timeout = 60.0
+				self.timeout = 120.0
+				self.value = None
 
 
 			async def on_timeout(self):
-				self.retribued = False
+				self.children[0].label = 'Retribuir (Expirado)'
+				self.children[0].style = disnake.ButtonStyle.grey
+				self.children[0].disabled = True
+
+				await self.inter.edit_original_message(view=self)
 
 
 			@disnake.ui.button(label='Retribuir', style=disnake.ButtonStyle.primary)
@@ -181,7 +193,7 @@ class Entertainment(commands.Cog):
 				if interaction.author.id != user.id:
 					await interaction.send(f'Ei!, apenas {user.mention} pode usar isso!', ephemeral=True)
 				else:
-					self.retribued = True
+					self.value = True
 					button.label = 'Retribuído'
 					button.style = disnake.ButtonStyle.green
 					button.disabled = True
@@ -189,17 +201,8 @@ class Entertainment(commands.Cog):
 					self.stop()
 
 
-		class TimeoutButton(disnake.ui.View):
-			def __init__(self):
-				super().__init__()
-			
-
-			@disnake.ui.button(label='Expirado', style=disnake.ButtonStyle.gray, disabled=True)
-			async def disabled_button(self, button: disnake.ui.Button):
-				self.stop()
-
-
 		view = Retribue()
+		view.inter = inter
 
 		if inter.author.id != user.id: 
 			await inter.send(content=message, embed=embed, view=view)
@@ -208,11 +211,8 @@ class Entertainment(commands.Cog):
 		
 		await view.wait()
 
-		if view.retribued is True:
-			chosen_anime = choice(self.anime_roleplay[roleplay])
-			name = chosen_anime['name']
-			url = chosen_anime['url']
-			color = chosen_anime['color']
+		if view.value is True:
+			name, url, color = self.get_roleplay_gif(roleplay)
 
 			embed_retribued = EB(
 				color=color, 
@@ -223,10 +223,7 @@ class Entertainment(commands.Cog):
 			embed_retribued.set_image(url=url)
 
 			await inter.send(content=f'{inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued)
-		elif view.retribued is False:
-			await inter.edit_original_message(view=TimeoutButton())
 			
-
 
 	@commands.bot_has_permissions(manage_webhooks=True)
 	@fun.sub_command(
