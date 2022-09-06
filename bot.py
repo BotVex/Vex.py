@@ -4,6 +4,8 @@ from disnake.ext import commands
 from config import TOKEN, OWNER_ID, EXTENSIONS
 
 
+print('Disnake version: ', disnake.__version__)
+
 INTENTS = Intents(
 	guilds=True,
 	members=True,
@@ -25,9 +27,7 @@ INTENTS = Intents(
 bot = commands.AutoShardedInteractionBot(
 	shard_count=1,
 	intents=INTENTS,
-	help_command=None,
 	sync_commands_debug=True,
-	case_insensitive=True,
 	owner_id=OWNER_ID,
 	reload=False,
 	strict_localization=True,
