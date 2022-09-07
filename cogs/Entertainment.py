@@ -1,9 +1,8 @@
-import os
 import json
 import aiohttp
 import datetime
  
-from random import choice, randint
+from random import choice
 from pyowo import owo as owofy
 from kaomoji.kaomoji import Kaomoji
 kaofy = Kaomoji()
@@ -14,8 +13,6 @@ from disnake import Localized
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from utils.assets import Emojis as E
-from utils.assets import Colors as C
 from utils.assets import MediaUrl
 from utils.dominant_color import dominant_color
 

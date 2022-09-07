@@ -20,7 +20,7 @@ class Events(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_message(self, message):
-		if message.author.id == self.bot.user.id:
+		if message.author.id == self.bot.user.id or message.author.bot is True:
 			return
 		else:
 			mentions = message.mentions
@@ -40,6 +40,7 @@ class Events(commands.Cog):
 			activity_name = choice(self.game_list)
 
 			await self.bot.change_presence(
+				status=disnake.Status.idle,
 				activity=disnake.Activity(
 					type=activity_type, 
 					name=activity_name, 
@@ -62,6 +63,7 @@ class Events(commands.Cog):
 	async def on_slash_command_error(self, inter: ACI, error: commands.CommandError):
 
 		if isinstance(error, commands.CommandOnCooldown):
+			
 			day = round(error.retry_after/86400)
 			hour = round(error.retry_after/3600)
 			minute = round(error.retry_after/60)
