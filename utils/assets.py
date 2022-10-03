@@ -5,7 +5,7 @@ from colorir import sRGB, HSV
 
 class Colors:
 	success = 0x38c48c
-	error   = 0xff045c
+	error = 0xff045c
 	general = 0xfad4fb
 	warning = 0xecfc03
 	
@@ -38,19 +38,26 @@ class Emojis:
 	success = '<:Y_:987924991557374002> | '
 	neutral = '<:nan:987925016823889920> | '
 	error = '<:X_:987925044623704085> | '
-	unknown_file = '<:unknown_f:987924931629182986> | '
-	unavailable_filter = '<:u_filter:987924962390196234> | '
 	disnake_icon = '<:disnake:987925228397146182> | '
 	python_icon = '<:py:987925080191402064> | '
 	botTag = '<:bot_tag:987925288384102450>'
-	github = '<:github:990768354216267848>'
-	spotify = '<:spotify:1007438027414569143>'
-	red_reverse = '<:red_reverse:1015057905847898165>'
 	tools = '🛠️ | '
-	entertainment = '🪀 | '
-	image = '🖼️ | '
-	owner = '🐺 | '
-	administration = '⚙️ | '
+
+	icon_ban = '<:Icon_ban:1017293963406884867>'
+	beta1 = '<:beta1:1017294298275926027>' 
+	beta2 = '<:beta2:1017294345612824618>' 
+	dev = '<:dev:1017292588656635964>' 
+	disnake = '<:disnake:1017292954278309888>' 
+	github = '<:github:1017292626946441276>' 
+	icon_arrow_green_right = '<:icon_arrow_green_right:1017293880678416394>' 
+	icon_arrow_red_left = '<:icon_arrow_red_left:1017293845882470430>'
+	icon_check_green = '<:icon_check_green:1017293768648577067>' 
+	icon_id = '<:icon_id:1017294935654940742>'
+	icon_profile = '<:icon_profile:1017295044501327933>'
+	icon_warn_red = '<:icon_warn_red:1017293473231163402>'
+	icon_warn_yellow = '<:icon_warn_yellow:1017293540767846421>'
+	icon_x_red = '<:icon_x_red:1017293727556964423>'
+	spotify = '<:spotify:1017293041666629735>'
 
 
 class MediaUrl:

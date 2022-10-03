@@ -1,21 +1,47 @@
-import json 
+import json
+import datetime
+from time import time
 from random import choice
+
+from rich.console import Console
+log = Console().log
 
 import disnake
 from disnake.ext import commands, tasks
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from utils.assets import Emojis as E
-from utils.assets import Colors as C
-from utils.assets import MediaUrl
+from utils.newassets import DefaultColors, GetColor, Icons
+
 
 class Events(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
+		self.bot.start_time = time() 
 		
 		with open('data/games.json') as games:
 			self.game_list = json.loads(games.read())
+	
+	
+	@commands.Cog.listener()
+	async def on_connect(self):
+		log('connected in Discord')
+
+		#TODO: essa parada ta definndo a cor a cada shard, depois tem que resolver
+		bot_avatar = self.bot.user.display_avatar.with_size(16)
+		
+		self.bot.default_color = await GetColor.general_color_url(bot_avatar)
+		log(f'default color is defined to {self.bot.default_color}')
+
+
+	@commands.Cog.listener()
+	async def on_disconnect(self):
+		log('disconnected of Discord')
+
+
+	@commands.Cog.listener()
+	async def on_resumed(self):
+		log('resumed section')
 
 
 	@commands.Cog.listener()
@@ -27,18 +53,23 @@ class Events(commands.Cog):
 			if len(mentions) != 0:
 				for mentioned in mentions:
 					if mentioned.id == self.bot.user.id:
-						await message.reply(f':wave: | Olá {message.author.mention}, meu nome é **{self.bot.user.name}**, e para utilizar meus comandos, utilize `comandos de barra (/)`.')
+						embed = EB(color=self.bot.default_color)
+						embed.title = f':wave: Olá {message.author.name}'
+						embed.description = f'Meu nome é **{self.bot.user.name}**!\n\nSou um bot de **entretenimento** ~~e **manipulação de imagem**~~ que está em desenvolvimento.\n\nPara utilizar meus comandos, utilize [comandos de barra ( / )](https://discord.com/blog/welcome-to-the-new-era-of-discord-apps).'
+						embed.timestamp = datetime.datetime.now()
+						embed.set_footer(text=message.author.display_name, icon_url=message.author.display_avatar)
+						
+						await message.reply(embed=embed)
 						break
 
 
 	@tasks.loop(minutes=10.0)
 	async def status_task(self):
-		shard_ids = sorted(set([guild.shard_id for guild in self.bot.guilds]))
 		
-		for shard_id in shard_ids:
+		for shard_id in [x for x in self.bot.shards]:
 			activity_type = disnake.ActivityType.playing
-			activity_name = choice(self.game_list)
-
+			activity_name = f'{choice(self.game_list)} [{shard_id+1}]'
+		
 			await self.bot.change_presence(
 				status=disnake.Status.idle,
 				activity=disnake.Activity(
@@ -51,12 +82,13 @@ class Events(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_ready(self):
-		print(f'\n{self.bot.user} online')
-		try:
+		log(f'{self.bot.user} online')
+		
+		if self.status_task.is_running():
+			log('status task was already running')
+		else:
 			self.status_task.start()
-			print('status task started')
-		except Exception as e:
-			print(f'status task failed\n{e}')
+			log('status task started')
 
 
 	@commands.Cog.listener()
@@ -79,50 +111,50 @@ class Events(commands.Cog):
 				waiting_time = str(second) + ' segundo' if second <= 1 else str(second) + ' segundos'
 
 			embed = disnake.Embed(
-					title=f'{E.error}Comando em cooldown!',
+					title='Comando em cooldown!',
 					description=f'{inter.author.mention}, este comando está em cooldown, você só poderá executá-lo novamente em `{waiting_time}`.',
-					color=C.error)
-			embed.set_image(url=MediaUrl.commandoncooldownbanner)
+					color=DefaultColors.ERROR)
+			embed.set_image(url=Icons.CMD_ON_COOLDOWN)
 			embed.set_footer(text='Você está executando comandos rapidamente!')
 			await inter.send(embed=embed, ephemeral=True)
 		
 		
 		elif isinstance(error, commands.NotOwner):
 				embed = disnake.Embed(
-					title=f'{E.error}Não desenvolvedor!',
+					title='Não desenvolvedor!',
 					description='Apenas pessoas especiais podem utilizar este comando.',
-					color=C.error)
-				embed.set_image(url=MediaUrl.notownerbanner)
+					color=DefaultColors.ERROR)
+				embed.set_image(url=Icons.NOT_OWNER)
 				await inter.send(embed=embed, ephemeral=True)
 
 		
 		elif isinstance(error, commands.MissingPermissions):
 				embed = EB(
-						title=f'{E.error}Sem permissão!',
+						title='Sem permissão!',
 						description=f'Eu não tenho as permissões nescessárias para executar este comando!\n\n{"Você preciza das seguintes permissões: `" + ", ".join(error.missing_permissions)+"`" if len(error.missing_permissions) != 1 else "Você preciza da seguinte permissão: `" + ", ".join(error.missing_permissions)+"`"}',
-						color=C.error)
-				embed.set_image(url=MediaUrl.missingpermissionsbanner)
+						color=DefaultColors.ERROR)
+				embed.set_image(url=Icons.MISSING_PERMS)
 				await inter.send(embed=embed, ephemeral=True)
 		
 		
 		elif isinstance(error, commands.BotMissingPermissions):
 				embed = EB(
-					title=f'{E.error}Não autorizado!',
+					title='Não autorizado!',
 						description=f'Eu não tenho as permissões nescessárias para executar este comando!\n\n{"Eu precizo das seguintes permissões: `" + ", ".join(error.missing_permissions)+"`" if len(error.missing_permissions) != 1 else "Eu precizo da seguinte permissão: `" + ", ".join(error.missing_permissions)+"`"}',
-						color=C.error)
-				embed.set_image(url=MediaUrl.botmissingpermissionsbanner)
+						color=DefaultColors.ERROR)
+				embed.set_image(url=Icons.BOT_MISSING_PERMS)
 				await inter.send(embed=embed, ephemeral=True)
 		
 		
 		elif isinstance(error, commands.NoPrivateMessage):
 				embed = EB(
-					title=f'{E.error}Apenas para servidores!',
+					title='Apenas para servidores!',
 						description='Este comando só pode ser utilizado em servidores!', 
-						color=C.error) 
-				embed.set_image(url=MediaUrl.noprivatemessagebanner)
+						color=DefaultColors.ERROR) 
+				embed.set_image(url=Icons.NO_PRIVATE_MSG)
 				await inter.send(embed=embed, ephemeral=True)
 		else:
-			print(error)
+			log(error)
 	
 	
 def setup(bot):

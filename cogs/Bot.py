@@ -1,36 +1,32 @@
-import aiohttp
-from datetime import timedelta
-from time import time
-import platform
 import psutil
+import platform
+from time import time
+from datetime import timedelta
 from psutil._common import bytes2human
 
 import disnake
+from disnake import Localized
 from disnake.ext import commands
+
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
-from disnake import Localized
 
-
-from utils.assets import Emojis as E
-from utils.assets import Colors as C
-from utils.dominant_color import dominant_color
+from utils.newassets import Emojis, GetColor
 
 
 class Bot(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
-		self.start_time = time() 
 	
 	
-	@commands.slash_command(name='vex')
-	async def vex(self, inter: ACI):
+	@commands.slash_command(name='bot')
+	async def bot(self, inter: ACI):
 		pass
 
 
-	@commands.cooldown(1, 10, commands.BucketType.user)
+	@commands.cooldown(1, 20, commands.BucketType.user)
 	@commands.guild_only()
-	@vex.sub_command(
+	@bot.sub_command(
 		name='info',
 		description=Localized('Displays miscellaneous information.', key='BOT_CMD_VEX_INFO_DESC'))
 	async def info(
@@ -48,7 +44,7 @@ class Bot(commands.Cog):
 			bytes_sent = str(bytes2human(net.bytes_sent))+'B'
 			bytes_recv = str(bytes2human(net.bytes_recv))+'B'
 
-			uptime = str(timedelta(seconds=int(round(time()-self.start_time))))
+			uptime = str(timedelta(seconds=int(round(time()-self.bot.start_time))))
 
 			description = f'''
 **Informações básicas:**
@@ -82,9 +78,7 @@ Dados recebidos > {bytes_recv}
 ```
 '''
 			avatar_color = self.bot.user.display_avatar.with_size(16)
-			async with aiohttp.ClientSession() as session:
-				async with session.get(str(avatar_color)) as resp:
-					color = dominant_color(await resp.content.read())
+			color = await GetColor.general_color_url(avatar_color)
 			
 			bot_info = EB(
 				title=f'Informações de {self.bot.user.display_name}:',
@@ -92,33 +86,28 @@ Dados recebidos > {bytes_recv}
 				color=color)
 			bot_info.set_thumbnail(url=self.bot.user.display_avatar)
 
-
-
-			if inter.guild.icon == None:
-				no_icon = True
-			else:
-				no_icon = False
-				icon_color = inter.guild.icon.with_size(16)
-				async with aiohttp.ClientSession() as session:
-					async with session.get(str(icon_color)) as resp:
-						color = dominant_color(await resp.content.read())
-
 			description2 = f'''
 **Informações da guild:**
 ```
 Latência > {round(self.bot.get_shard(inter.guild.shard_id).latency * 1000)}ms
-Shard > {inter.guild.shard_id}
+Shard > {inter.guild.shard_id + 1}
 ```
 '''
 
 			guild_info = EB(
 				title=f'Informações de {inter.guild.name}:',
 				description=description2,
-				color=C.general if no_icon is True else color)
-			
-			if no_icon is not True:
+				color=color)
+
+
+			if inter.guild.icon is not None:
 				guild_info.set_thumbnail(url=inter.guild.icon)
-			
+
+				guild_icon_color = inter.guild.icon.with_size(16)
+				color = await GetColor.general_color_url(guild_icon_color)
+			else:
+				color = 0x00
+
 
 			class Links(disnake.ui.View):
 				def __init__(self):
@@ -128,7 +117,7 @@ Shard > {inter.guild.shard_id}
 							style=disnake.ButtonStyle.link,
 							label='Github',
 							url='https://github.com/BotVex/Vex.py',
-							emoji=E.github
+							emoji=Emojis.GITHUB
 						)
 					)
 					self.add_item(
@@ -136,7 +125,7 @@ Shard > {inter.guild.shard_id}
 							style=disnake.ButtonStyle.link,
 							label='Disnake',
 							url='https://github.com/DisnakeDev/disnake',
-							emoji=E.disnake_icon
+							emoji=Emojis.DISNAKE
 						)
 					)
 

@@ -5,3 +5,4 @@ push_dev.sh
 curses.json
 animes.json
 games.json
+.vscode

@@ -4,7 +4,7 @@ EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
 from utils.assets import Emojis as E
-from utils.assets import Colors as C
+from utils.newassets import Colors as C
 
 import datetime
 from datetime import timezone
@@ -19,8 +19,9 @@ class Test(commands.Cog, name='test'):
 	
 	@commands.slash_command(name='testar')
 	async def test(self, inter: ACI):
-		b = self.bot
-		await inter.send(f'<t:{int(utc_timestamp) - int(b.uptime)}:T>')
+		icon_color = inter.guild.icon.with_size(16)
+		color = await C.img_color_url(icon_color)
+		await inter.send(color)
 
 
 

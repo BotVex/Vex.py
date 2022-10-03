@@ -8,13 +8,12 @@ from kaomoji.kaomoji import Kaomoji
 kaofy = Kaomoji()
 
 import disnake
-from disnake.ext import commands
 from disnake import Localized
+from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from utils.assets import MediaUrl
-from utils.dominant_color import dominant_color
+from utils.newassets import GetColor, Icons
 
 
 class Entertainment(commands.Cog):
@@ -264,7 +263,7 @@ class Entertainment(commands.Cog):
 
 		content = f'{inter.author.mention}, *"{question}"* \n\n{choice(self.oracle_phrases)}'
 
-		await webhook.send(username=oracle, content=content, avatar_url=MediaUrl.get_oracle(oracle))
+		await webhook.send(username=oracle, content=content, avatar_url=Icons.get_oracle(oracle))
 
 	
 	@fun.sub_command(
@@ -284,9 +283,7 @@ class Entertainment(commands.Cog):
 		await inter.response.defer()
 
 		avatar_color = self.bot.user.display_avatar.with_size(16)
-		async with aiohttp.ClientSession() as session:
-			async with session.get(str(avatar_color)) as resp:
-				color = dominant_color(await resp.content.read())
+		color = await GetColor.general_color_url(avatar_color)
 
 		embed = EB(
 			color=color,
@@ -336,9 +333,7 @@ class Entertainment(commands.Cog):
 				kaomoji = kaofy.create()
 
 		avatar_color = self.bot.user.display_avatar.with_size(16)
-		async with aiohttp.ClientSession() as session:
-			async with session.get(str(avatar_color)) as resp:
-				color = dominant_color(await resp.content.read())
+		color = await GetColor.general_color_url(avatar_color)
 
 		embed = EB(
 			color=color,

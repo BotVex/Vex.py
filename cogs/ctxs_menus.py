@@ -1,10 +1,9 @@
 import disnake
+from disnake import Localized
 from disnake.ext import commands
 EB = disnake.Embed
-from disnake import Localized
 
-from utils.assets import Emojis as E
-from utils.assets import Colors as C
+from utils.newassets import GetColor
 
 
 class CTXCMD(commands.Cog):
@@ -13,7 +12,12 @@ class CTXCMD(commands.Cog):
 
 	@commands.user_command(name=Localized('Avatar', key='CTXMENUS_USERCMD_AVATAR_NAME'))
 	async def avatar(self, inter: disnake.ApplicationCommandInteraction, user: disnake.User):
-		embed = EB(title=f'avatar de {user}')
+		
+		avatar_color = user.display_avatar.with_size(16)
+		color = await GetColor.general_color_url(avatar_color)
+		
+		embed = EB(color=color)
+		embed.title = f'Avatar de {user}'
 		embed.set_image(url=user.display_avatar.url)
 		await inter.response.send_message(embed=embed, ephemeral=True)
 
