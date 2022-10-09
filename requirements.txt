@@ -1,12 +1,11 @@
 colorir==1.1.1
 colorthief==0.2.1
-git+https://github.com/DisnakeDev/disnake.git
+disnake==2.6.0
 kaomoji==0.1.0
 Pillow==9.1.1
 pyowo==1.0.1
 python-dotenv==0.20.0
 qrcode==7.3.1
 psutil==5.9.1
-requests
 rich==12.5.1
 qrtools==0.0.2

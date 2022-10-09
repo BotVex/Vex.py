@@ -19,11 +19,6 @@ class Tools(commands.Cog):
 		self.bot: commands.Bot = bot
 	
 	
-	@commands.slash_command(name=Localized('tools', key='TOOLS_TOOLS_NAME'), dm_permission=False)
-	async def tools(self, inter: ACI):
-		pass
-	
-	
 	@commands.slash_command(name=Localized('user', key='TOOLS_USER_NAME'), dm_permission=True)
 	async def user(self, inter: ACI):
 		pass
@@ -346,11 +341,11 @@ class Tools(commands.Cog):
 	@commands.cooldown(2, 10, commands.BucketType.user)
 	@qrcode.sub_command(
 		name=Localized('create', key='TOOLS_QRCODE_CMD_CREATE_NAME'),
-		description=Localized('Gets information about the user.', key='TOOLS_QRCODE_CMD_CREATE_DESC'),
+		description=Localized('Create a qrcode.', key='TOOLS_QRCODE_CMD_CREATE_DESC'),
 		options=[
 			disnake.Option(
 				name='text',
-				description=Localized('The user to see the information.', key='TOOLS_QRCODE_CMD_CREATE_TEXT'),
+				description=Localized('Text of qrcode.', key='TOOLS_QRCODE_CMD_CREATE_TEXT'),
 				type=disnake.OptionType.string,
 				required=True)
 			])
