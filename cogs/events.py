@@ -11,7 +11,7 @@ from disnake.ext import commands, tasks
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from utils.newassets import DefaultColors, GetColor, Icons
+from utils.newassets import GetColor
 
 
 class Events(commands.Cog):
@@ -66,9 +66,11 @@ class Events(commands.Cog):
 	@tasks.loop(minutes=10.0)
 	async def status_task(self):
 		
+		game = choice(self.game_list)
+
 		for shard_id in [x for x in self.bot.shards]:
 			activity_type = disnake.ActivityType.playing
-			activity_name = f'{choice(self.game_list)} [{shard_id+1}]'
+			activity_name = f'{game} [{shard_id+1}]'
 		
 			await self.bot.change_presence(
 				status=disnake.Status.idle,
@@ -82,7 +84,7 @@ class Events(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_ready(self):
-		log(f'{self.bot.user} online')
+		log(f'{self.bot.user} online | {len(self.bot.guilds)} servers')
 		
 		if self.status_task.is_running():
 			log('status task was already running')

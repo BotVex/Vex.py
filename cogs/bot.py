@@ -50,6 +50,7 @@ class Bot(commands.Cog):
 **Informações básicas:**
 ```
 Nome > {self.bot.user}
+Guilds > {len(self.bot.guilds)}
 ID > {self.bot.user.id}
 Hash > {hash(self.bot)}
 Sistema > {platform.system()}
