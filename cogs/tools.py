@@ -323,6 +323,7 @@ class Tools(commands.Cog):
 			
 			if response['icon'] is not None: 
 				application_icon = f'https://cdn.discordapp.com/app-icons/{response["id"]}/{response["icon"]}.png'
+				bot_embed.color = await GetColor.general_color_url(application_icon+'?size=16')
 				bot_embed.set_thumbnail(url=application_icon)
 			
 			bot_embed.description = response['description']
