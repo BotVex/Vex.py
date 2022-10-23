@@ -1,6 +1,7 @@
 import io
 import qrcode
 import aiohttp
+import datetime
 from typing import Union
 
 import disnake
@@ -362,7 +363,16 @@ class Tools(commands.Cog):
 
 			img_file = disnake.File(img_bytes, filename=f'{hash(img_bytes)}.png')
 
-			await inter.send(file=img_file)
+		embed = EB(color=disnake.Color.from_rgb(255, 255, 255))
+
+		embed.title = 'QR Code'
+		embed.set_image(file=img_file)
+
+		embed.timestamp=datetime.datetime.now()
+		embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
+
+
+		await inter.send(embed=embed)
 
 
 	#TODO: adicionar os comandos de cores novamente
