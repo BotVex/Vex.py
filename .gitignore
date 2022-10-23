@@ -3,3 +3,5 @@
 ./data/curses.json
 ./data/animes.json
 .vscode
+./audio/sfx/cavalo.opus
+./temp
