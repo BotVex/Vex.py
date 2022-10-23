@@ -1,6 +1,6 @@
 colorir==1.1.1
 colorthief==0.2.1
-disnake==2.6.0
+disnake>=2.6.1
 kaomoji==0.1.0
 Pillow==9.1.1
 pyowo==1.0.1
