@@ -1,8 +1,5 @@
 .env
-push.sh
-push_dev.sh
 **/__pycache__/
-curses.json
-animes.json
-games.json
+./data/curses.json
+./data/animes.json
 .vscode
