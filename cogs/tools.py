@@ -423,7 +423,7 @@ class Tools(commands.Cog):
 			# C > F
 			if scale == 'Celcius' and to_scale == 'Fahrenheit': 
 				conversion = T.celsius2fahrenheit(value)
-				print(conversion)
+
 			# C > K
 			if scale == 'Celcius' and to_scale == 'Kelvin':
 				conversion = T.celsius2kelvin(value)
