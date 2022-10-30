@@ -5,6 +5,7 @@ from random import choice
 
 from rich.console import Console
 log = Console().log
+rprint = Console().print
 
 import disnake
 from disnake.ext import commands, tasks
@@ -18,30 +19,30 @@ class Events(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 		self.bot.start_time = time() 
-		
+
 		with open('data/games.json') as games:
 			self.game_list = json.loads(games.read())
 	
 	
 	@commands.Cog.listener()
 	async def on_connect(self):
-		log('connected in Discord')
+		log('[grey85]connected in Discord[/]')
 
 		#TODO: essa parada ta definndo a cor a cada shard, depois tem que resolver
 		bot_avatar = self.bot.user.display_avatar.with_size(16)
 		
 		self.bot.default_color = await GetColor.general_color_url(bot_avatar)
-		log(f'default color is defined to {self.bot.default_color}')
+		log(f'[bright_black]default color is defined to {self.bot.default_color}[/]')
 
 
 	@commands.Cog.listener()
 	async def on_disconnect(self):
-		log('disconnected of Discord')
+		log('[grey85]disconnected of Discord[/]')
 
 
 	@commands.Cog.listener()
 	async def on_resumed(self):
-		log('resumed section')
+		log('[grey85]resumed section[/]')
 
 
 	@commands.Cog.listener()
@@ -59,7 +60,11 @@ class Events(commands.Cog):
 						embed.timestamp = datetime.datetime.now()
 						embed.set_footer(text=message.author.display_name, icon_url=message.author.display_avatar)
 						
-						await message.reply(embed=embed)
+						try:
+							await message.reply(embed=embed)
+
+						except:
+							pass
 						break
 
 
@@ -84,13 +89,14 @@ class Events(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_ready(self):
-		log(f'{self.bot.user} online | {len(self.bot.guilds)} servers')
+		log('[bright_black]client online[/]')
+		rprint(f'[cyan1]{self.bot.user}[/] [bold green]online[/] | [yellow1]{len(self.bot.guilds)} servers[/]')
 		
 		if self.status_task.is_running():
-			log('status task was already running')
+			log('[bright_black]status task was already running[/]')
 		else:
 			self.status_task.start()
-			log('status task started')
+			log('[grey85]status task started[/]')
 
 
 def setup(bot):

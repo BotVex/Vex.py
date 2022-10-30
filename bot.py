@@ -8,7 +8,7 @@ from disnake.ext import commands
 from config import TOKEN, OWNER_ID, EXTENSIONS
 
 
-log('Disnake version: ', disnake.__version__)
+log(f'[bright_black]Disnake version: {disnake.__version__}[/]')
 
 INTENTS = Intents(
 	guilds=True,
@@ -41,10 +41,11 @@ bot = commands.AutoShardedInteractionBot(
 if __name__ == '__main__':
 	bot.i18n.load("locale/")
 
+	#ver se da pra migrar isso pos events
 	for extension in EXTENSIONS:
 		extension = f'cogs.{extension.lower()}'
 		bot.load_extension(extension)
-		log('EXTENSION: ', extension, 'loaded')
+		log(f'[bright_black]EXTENSION: [grey85]{extension}[/] loaded[/]')
 
 
 bot.run(TOKEN)
