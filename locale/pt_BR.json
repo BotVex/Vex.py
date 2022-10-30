@@ -107,5 +107,14 @@
   "TOOLS_CHANNEL_NAME":"canal",
   "TOOLS_SERVER_CHANNEL_CMD_INFO_NAME":"info",
   "TOOLS_SERVER_CHANNEL_CMD_INFO_DESC":"Obtém informações de um canal do servidor.",
-  "TOOLS_SERVER_CHANNEL_CMD_INFO_CHANNEL":"Selecione um canal."
+  "TOOLS_SERVER_CHANNEL_CMD_INFO_CHANNEL":"Selecione um canal.",
+  "TOOLS_CONVERT_NAME":"converter",
+  "TOOLS_CONVERT_CMD_TEMPERATURE_NAME":"temperatura",
+  "TOOLS_CONVERT_CMD_TEMPERATURE_DESC":"Converter temperatura.",
+  "TOOLS_CONVERT_CMD_TEMPERATURE_FROM_VALUE_DESC":"O valor da temperatura.",
+  "TOOLS_CONVERT_CMD_TEMPERATURE_FROM_SCALE_DESC":"A escala da temperatura.",
+  "TOOLS_CONVERT_CMD_TEMPERATURE_TO_SCALE_DESC":"A escala de destino.",
+  "CELCIUS_NAME":"Celcius",
+  "FAHRENHEIT_NAME":"Fahrenheit",
+  "KELVIN_NAME":"Kelvin"
 }

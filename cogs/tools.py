@@ -2,6 +2,7 @@ import io
 import qrcode
 import aiohttp
 import datetime
+import tempyrature
 from typing import Union
 
 import disnake
@@ -13,6 +14,7 @@ from utils.newassets import GetColor, Emojis
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
+T = tempyrature.Converter
 
 
 class Tools(commands.Cog):
@@ -32,6 +34,11 @@ class Tools(commands.Cog):
 	
 	@commands.slash_command(name=Localized('qrcode', key='TOOLS_QRCODE_NAME'), dm_permission=True)
 	async def qrcode(self, inter: ACI):
+		pass
+
+
+	@commands.slash_command(name=Localized('convert', key='TOOLS_CONVERT_NAME'), dm_permission=True)
+	async def convert(self, inter: ACI):
 		pass
 	
 
@@ -373,6 +380,77 @@ class Tools(commands.Cog):
 
 
 		await inter.send(embed=embed)
+
+
+	#convert temperature
+	@commands.cooldown(2, 10, commands.BucketType.user)
+	@convert.sub_command(
+		name=Localized('temperature', key='TOOLS_CONVERT_CMD_TEMPERATURE_NAME'),
+		description=Localized('Convert temperature.', key='TOOLS_CONVERT_CMD_TEMPERATURE_DESC'),
+		options=[
+			disnake.Option(
+				name='value',
+				description=Localized('The temperature value.', key='TOOLS_CONVERT_CMD_TEMPERATURE_FROM_VALUE_DESC'),
+				type=disnake.OptionType.integer,
+				required=True),
+			disnake.Option(
+				name='scale',
+				description=Localized('The temperature scale.', key='TOOLS_CONVERT_CMD_TEMPERATURE_FROM_SCALE_DESC'),
+				type=disnake.OptionType.string,
+				required=True,
+				choices=[
+					disnake.OptionChoice(name=Localized('Celcius', key='CELCIUS_NAME'), value='Celcius'),
+					disnake.OptionChoice(name=Localized('Fahrenheit', key='FAHRENHEIT_NAME'), value='Fahrenheit'),
+					disnake.OptionChoice(name=Localized('Kelvin', key='KELVIN_NAME'), value='Kelvin')
+				]),
+			disnake.Option(
+				name='to_scale',
+				description=Localized('The target scale.', key='TOOLS_CONVERT_CMD_TEMPERATURE_TO_SCALE_DESC'),
+				type=disnake.OptionType.string,
+				required=True,
+				choices=[
+					disnake.OptionChoice(name=Localized('Celcius', key='CELCIUS_NAME'), value='Celcius'),
+					disnake.OptionChoice(name=Localized('Fahrenheit', key='FAHRENHEIT_NAME'), value='Fahrenheit'),
+					disnake.OptionChoice(name=Localized('Kelvin', key='KELVIN_NAME'), value='Kelvin')
+				])
+			])
+	async def temperature(self, inter: ACI, value: int, scale: str, to_scale: str):
+		if to_scale == scale:
+			await inter.send('Você não pode converter uma temperatura para ela mesma.', ephemeral=True)
+			return
+		
+		else:
+			# C > F
+			if scale == 'Celcius' and to_scale == 'Fahrenheit': 
+				conversion = T.celsius2fahrenheit(value)
+				print(conversion)
+			# C > K
+			if scale == 'Celcius' and to_scale == 'Kelvin':
+				conversion = T.celsius2kelvin(value)
+			# F > C
+			if scale == 'Fahrenheit' and to_scale == 'Celcius':
+				conversion = T.fahrenheit2celsius(value)
+			# F > K
+			if scale == 'Fahrenheit' and to_scale == 'Kelvin':
+				conversion = T.fahrenheit2kelvin(value)
+			# K > C
+			if scale == 'Kelvin' and to_scale == 'Celcius':
+				conversion = T.kelvin2celsius(value)
+			# K > F
+			if scale == 'Kelvin' and to_scale == 'Fahrenheit':
+				conversion = T.kelvin2fahrenheit(value)
+
+
+			color = await GetColor.general_color_url(inter.author.display_avatar.with_size(16))
+
+			embed = EB(color=color, timestamp=datetime.datetime.now())
+
+			embed.title = f'{scale} > {to_scale}'
+			embed.description = f'{str(value)}{"°" if scale in ["Celcius", "Fahrenheit"] else ""}'+scale[0:1] + ' = ' + f'{str(round(conversion, 2))}{"°" if to_scale in ["Celcius", "Fahrenheit"] else ""}'+to_scale[0:1]
+			embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
+			
+			
+			await inter.send(embed=embed)
 
 
 	#TODO: adicionar os comandos de cores novamente
