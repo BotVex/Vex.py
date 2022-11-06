@@ -11,15 +11,27 @@ from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from utils.newassets import Emojis, GetColor
+from utils.newassets import Emojis, DefaultColors
 
 
 class Bot(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
+
+		memory = psutil.virtual_memory()
+		self.memory_percent = memory.percent
+		self.memory_used = str(bytes2human(memory.used))+'B'
+		self.memory_available = str(bytes2human(memory.available))+'B'
+		self.memory_total = str(bytes2human(memory.total))+'B'
+
+		net = psutil.net_io_counters()
+		self.bytes_sent = str(bytes2human(net.bytes_sent))+'B'
+		self.bytes_recv = str(bytes2human(net.bytes_recv))+'B'
+
+		self.uptime = (str(timedelta(seconds=int(round(time()-self.bot.start_time)))), round(self.bot.start_time))
 	
 	
-	@commands.slash_command(name='bot')
+	@commands.slash_command(name=Localized('bot', key='BOT_BOT_NAME'))
 	async def bot(self, inter: ACI):
 		pass
 
@@ -27,111 +39,96 @@ class Bot(commands.Cog):
 	@commands.cooldown(1, 20, commands.BucketType.user)
 	@commands.guild_only()
 	@bot.sub_command(
-		name='info',
-		description=Localized('Displays miscellaneous information.', key='BOT_CMD_VEX_INFO_DESC'))
-	async def info(
-		self,
-		inter: ACI):
-			await inter.response.defer()
-			
-			memory = psutil.virtual_memory()
-			memory_percent = str(memory.percent)+'%'
-			memory_used = str(bytes2human(memory.used))+'B'
-			memory_available = str(bytes2human(memory.available))+'B'
-			memory_total = str(bytes2human(memory.total))+'B'
+		name=Localized('info', key='BOT_BOT_INFO_NAME'),
+		description=Localized('Displays miscellaneous information.', key='BOT_BOT_INFO_DESC'))
+	async def info(self, inter: ACI):
+		await inter.response.defer()
 
-			net = psutil.net_io_counters()
-			bytes_sent = str(bytes2human(net.bytes_sent))+'B'
-			bytes_recv = str(bytes2human(net.bytes_recv))+'B'
+		with open('requirements.txt', 'r', encoding='utf8') as file:
+			requirements_list = sorted(file.readlines())
+			requirements = '||`' + '` `'.join(x.replace('\n', '') for x in requirements_list) + '`||'
+		
+		bot_info = f'**Name:** *{self.bot.user.name}*\n**Discriminator:** *{self.bot.user.discriminator}*\n**Guilds:** *{len(self.bot.guilds)}*\n**ID:** *{self.bot.user.id}*\n**Hash:** *{hash(self.bot)}*\n**OS:** *{platform.system()}*\n**Uptime:** *{self.uptime[0]}* (<t:{self.uptime[1]}:R>)'
+		pyt_info = f'**Version:** *{platform.python_version()}*\n**Disnake:** *{disnake.__version__}*\n\n**Requirements:** {requirements}'
+		cpu_info = f'**Use:** *{round(psutil.cpu_percent(interval=1), 2)}%*\n**Cores:** *{"undetermined" if type(psutil.cpu_count()) is None else f"physical: {psutil.cpu_count(logical=False)} - Total: {psutil.cpu_count(logical=True)}"}*'
+		mem_info = f'**Use:** *{self.memory_used}/{self.memory_total} - ({self.memory_percent}%)*\n**Avalible:** *{self.memory_available}*\n**Total:** *{self.memory_total}*'
+		net_info = f'**Uploaded:** *{self.bytes_sent}*\n**Downloaded:** *{self.bytes_recv}*'
+		gld_info = f'**All latency:** *{round(self.bot.latency * 1000)}ms*\n**Shard latency:** *{round(self.bot.get_shard(inter.guild.shard_id).latency * 1000)}ms*\n**Shard:** *{inter.guild.shard_id + 1}*'
 
-			uptime = str(timedelta(seconds=int(round(time()-self.bot.start_time))))
+		github = self.bot.github
 
-			description = f'''
-**Informações básicas:**
-```
-Nome > {self.bot.user}
-Guilds > {len(self.bot.guilds)}
-ID > {self.bot.user.id}
-Hash > {hash(self.bot)}
-Sistema > {platform.system()}
-Uptime > {uptime}
-```
-**Informações do Python:**
-```
-Versão > {platform.python_version()}
-Disnake > {disnake.__version__}
-```
-**Informações da CPU:**
-```
-Uso > {round(psutil.cpu_percent(interval=1))}%
-Núcleos > {psutil.cpu_count(logical=False)}
-```
-**Informações da memória:**
-```
-Uso > {memory_used}/{memory_total} - ({memory_percent})
-Disponível > {memory_available}
-Total > {memory_total}
-```
-**Informações da internet:**
-```
-Dados enviados > {bytes_sent}
-Dados recebidos > {bytes_recv}
-```
-'''
-			avatar_color = self.bot.user.display_avatar.with_size(16)
-			color = await GetColor.general_color_url(avatar_color)
-			
-			bot_info = EB(
-				title=f'Informações de {self.bot.user.display_name}:',
-				description=description,
-				color=color)
-			bot_info.set_thumbnail(url=self.bot.user.display_avatar)
+		gth_info = f'**Forks:** *{github["repo_forks"]}*\n**Stars:** *{github["repo_stars"]}*\n**Issues:** *{github["repo_issues"]}*'
+		#/bot info github? \n\n**Topics:** *{"||`" + "` `".join(github["repo_topics"]) + "`||"}*
+		gth_info_commit = f'**Last commit:** *[{github["repo_last_commit"]["message"]}]({github["repo_last_commit"]["url"]})*'
 
-			description2 = f'''
-**Informações da guild:**
-```
-Latência > {round(self.bot.get_shard(inter.guild.shard_id).latency * 1000)}ms
-Shard > {inter.guild.shard_id + 1}
-```
-'''
-
-			guild_info = EB(
-				title=f'Informações de {inter.guild.name}:',
-				description=description2,
-				color=color)
+		def get_embed_color(observate: int, limiar: list[int]):
+			return DefaultColors.GREEN if observate < limiar[0] else DefaultColors.YELLOW if observate >= limiar[1] and observate < limiar[2] else DefaultColors.RED
 
 
-			if inter.guild.icon is not None:
-				guild_info.set_thumbnail(url=inter.guild.icon)
+		bot_embed = EB(color=self.bot.default_color)
+		bot_embed.add_field(name='Bot info', value=bot_info, inline=False)
+		bot_embed.set_thumbnail(url=self.bot.user.display_avatar)
 
-				guild_icon_color = inter.guild.icon.with_size(16)
-				color = await GetColor.general_color_url(guild_icon_color)
-			else:
-				color = 0x00
+		pyt_embed = EB(color=DefaultColors.PYTHON_BLUE)
+		pyt_embed.add_field(name='Python', value=pyt_info, inline=False)
 
+		color = get_embed_color(round(psutil.cpu_percent(interval=1)), [50, 50, 90])
+		cpu_embed = EB(color=color)
+		cpu_embed.add_field(name='CPU', value=cpu_info, inline=False)
 
-			class Links(disnake.ui.View):
-				def __init__(self):
-					super().__init__()
-					self.add_item(
-						disnake.ui.Button(
-							style=disnake.ButtonStyle.link,
-							label='Github',
-							url='https://github.com/BotVex/Vex.py',
-							emoji=Emojis.GITHUB
-						)
+		color = get_embed_color(int(self.memory_percent), [50, 50, 90])
+		ram_embed = EB(color=color)
+		ram_embed.add_field(name='RAM', value=mem_info, inline=False)
+
+		net_embed = EB(color=DefaultColors.BLUE)
+		net_embed.add_field(name='Network', value=net_info, inline=False)
+
+		color = get_embed_color(round(self.bot.get_shard(inter.guild.shard_id).latency * 1000), [50, 50, 300])
+
+		guild_embed = EB(color=color)
+		guild_embed.title=inter.guild.name
+		guild_embed.add_field(name='Guild', value=gld_info)
+
+		if inter.guild.icon is not None:
+			guild_embed.set_thumbnail(url=inter.guild.icon)
+		
+		gth_embed = EB(color=DefaultColors.BLACK)
+		gth_embed.title = github['repo_name']
+		gth_embed.url = github['repo_url']
+		gth_embed.description = github["repo_desc"]
+		gth_embed.add_field(name='Github repository information', value=gth_info, inline=False)
+		gth_embed.add_field(name='Last commit', value=gth_info_commit, inline=False)
+
+		class Links(disnake.ui.View):
+			def __init__(self):
+				super().__init__()
+				self.add_item(
+					disnake.ui.Button(
+						style=disnake.ButtonStyle.link,
+						label='Github',
+						url='https://github.com/BotVex/Vex.py',
+						emoji=Emojis.GITHUB
 					)
-					self.add_item(
-						disnake.ui.Button(
-							style=disnake.ButtonStyle.link,
-							label='Disnake',
-							url='https://github.com/DisnakeDev/disnake',
-							emoji=Emojis.DISNAKE
-						)
+				)
+				self.add_item(
+					disnake.ui.Button(
+						style=disnake.ButtonStyle.link,
+						label='Python',
+						url='https://www.python.org/',
+						emoji=Emojis.PYTHON
 					)
+				)
+				self.add_item(
+					disnake.ui.Button(
+						style=disnake.ButtonStyle.link,
+						label='Disnake',
+						url='https://github.com/DisnakeDev/disnake',
+						emoji=Emojis.DISNAKE
+					)
+				)
 
-			
-			await inter.send(embeds=[bot_info, guild_info], view=Links())
+		
+		await inter.send(embeds=[bot_embed, pyt_embed, cpu_embed, ram_embed, net_embed, gth_embed, guild_embed], view=Links())
 	
 
 def setup(bot):
