@@ -36,7 +36,7 @@ class Errors(commands.Cog):
 			embed = disnake.Embed(
 					title='Comando em cooldown!',
 					description=f'{inter.author.mention}, este comando está em cooldown, você só poderá executá-lo novamente em `{waiting_time}`.',
-					color=DefaultColors.ERROR)
+					color=DefaultColors.RED)
 			embed.set_image(url=Icons.CMD_ON_COOLDOWN)
 			embed.set_footer(text='Você está executando comandos rapidamente!')
 			await inter.send(embed=embed, ephemeral=True)
@@ -46,7 +46,7 @@ class Errors(commands.Cog):
 				embed = disnake.Embed(
 					title='Não desenvolvedor!',
 					description='Apenas pessoas especiais podem utilizar este comando.',
-					color=DefaultColors.ERROR)
+					color=DefaultColors.RED)
 				embed.set_image(url=Icons.NOT_OWNER)
 				await inter.send(embed=embed, ephemeral=True)
 
@@ -55,7 +55,7 @@ class Errors(commands.Cog):
 				embed = EB(
 						title='Sem permissão!',
 						description=f'Eu não tenho as permissões nescessárias para executar este comando!\n\n{"Você preciza das seguintes permissões: `" + ", ".join(error.missing_permissions)+"`" if len(error.missing_permissions) != 1 else "Você preciza da seguinte permissão: `" + ", ".join(error.missing_permissions)+"`"}',
-						color=DefaultColors.ERROR)
+						color=DefaultColors.RED)
 				embed.set_image(url=Icons.MISSING_PERMS)
 				await inter.send(embed=embed, ephemeral=True)
 		
@@ -64,7 +64,7 @@ class Errors(commands.Cog):
 				embed = EB(
 					title='Não autorizado!',
 						description=f'Eu não tenho as permissões nescessárias para executar este comando!\n\n{"Eu precizo das seguintes permissões: `" + ", ".join(error.missing_permissions)+"`" if len(error.missing_permissions) != 1 else "Eu precizo da seguinte permissão: `" + ", ".join(error.missing_permissions)+"`"}',
-						color=DefaultColors.ERROR)
+						color=DefaultColors.RED)
 				embed.set_image(url=Icons.BOT_MISSING_PERMS)
 				await inter.send(embed=embed, ephemeral=True)
 		
@@ -73,7 +73,7 @@ class Errors(commands.Cog):
 				embed = EB(
 					title='Apenas para servidores!',
 						description='Este comando só pode ser utilizado em servidores!', 
-						color=DefaultColors.ERROR) 
+						color=DefaultColors.RED) 
 				embed.set_image(url=Icons.NO_PRIVATE_MSG)
 				await inter.send(embed=embed, ephemeral=True)
 		else:
