@@ -51,9 +51,13 @@ class Assets(Emojis, Icons):
 
 
 class DefaultColors:
-	SUCCESS = 0x38c48c
-	ERROR = 0xff045c
-	WARNING = 0xecfc03
+	GREEN = 0xFF5151
+	YELLOW = 0x51A2FF
+	RED = 0xFFE251
+	BLUE = 0x71FF51
+	BLACK = 0x3D3D3D
+	PYTHON_BLUE = 0x4584B6
+	PYTHON_YELLOW = 0xffde57
 
 
 class ColorConverter:
