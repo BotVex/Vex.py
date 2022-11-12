@@ -44,6 +44,7 @@ class Emojis:
 	BAN = '<:Icon_ban:1017293963406884867>'
 	BOT_TAG = '<:bot_tag:1023267356417458266>'
 	CLOCK = '<:icon_clock:1017970780979601478>'
+	GOOGLE = '<:google:1041029529994547310>'
 
 
 class Assets(Emojis, Icons):
@@ -51,10 +52,10 @@ class Assets(Emojis, Icons):
 
 
 class DefaultColors:
-	GREEN = 0xFF5151
-	YELLOW = 0x51A2FF
-	RED = 0xFFE251
-	BLUE = 0x71FF51
+	GREEN = 0x71FF51
+	YELLOW = 0xFFE251
+	RED = 0xFF5151
+	BLUE = 0x51A2FF
 	BLACK = 0x3D3D3D
 	PYTHON_BLUE = 0x4584B6
 	PYTHON_YELLOW = 0xffde57
