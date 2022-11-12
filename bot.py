@@ -28,10 +28,20 @@ INTENTS = Intents(
 )
 #https://docs.disnake.dev/en/stable/api.html?highlight=intents#disnake.Intents
 
+COMMAND_SYNC_FLAGS = commands.CommandSyncFlags(
+	allow_command_deletion=True, 
+	sync_global_commands=True,
+	sync_guild_commands=True,
+	sync_commands_debug=True,
+	sync_on_cog_actions=True,
+)
+#https://docs.disnake.dev/en/v2.7.0/ext/commands/api.html#disnake.ext.commands.CommandSyncFlags.allow_command_deletion
+
+
 bot = commands.AutoShardedInteractionBot(
 	shard_count=2,
 	intents=INTENTS,
-	sync_commands_debug=True,
+	command_sync_flags=COMMAND_SYNC_FLAGS,
 	owner_id=OWNER_ID,
 	reload=True,
 	strict_localization=True,
