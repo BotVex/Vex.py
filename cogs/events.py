@@ -22,13 +22,13 @@ class Events(commands.Cog):
 		self.bot.start_time = time()
 
 
-	@tasks.loop(hours=1.0)
+	@tasks.loop(minutes=30.0)
 	async def default_color_task(self):
 		self.bot.default_color = await GetColor.general_color_url(self.bot.user.display_avatar.with_size(16))
 		log(f'[bright_black]default color is defined to {self.bot.default_color}[/]')
 
 
-	@tasks.loop(hours=1.0)
+	@tasks.loop(minutes=30.0)
 	async def get_github_information_task(self):
 		async with ClientSession() as session:
 			async with session.get('https://api.github.com/repos/BotVex/vex.py') as response_repo:
@@ -53,7 +53,6 @@ class Events(commands.Cog):
 
 				log(f'[bright_black]information from Github was obtained[/]')
 
-	
 
 	@commands.Cog.listener()
 	async def on_connect(self):
