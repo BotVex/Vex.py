@@ -1,7 +1,5 @@
 import psutil
 import platform
-from time import time
-from datetime import timedelta
 from psutil._common import bytes2human
 
 import disnake
@@ -18,17 +16,22 @@ class Bot(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
 
+
+		def add_bytes(text):
+			return text if text[-1] == 'B' else text+'B'
+		
+
 		memory = psutil.virtual_memory()
 		self.memory_percent = memory.percent
-		self.memory_used = str(bytes2human(memory.used))+'B'
-		self.memory_available = str(bytes2human(memory.available))+'B'
-		self.memory_total = str(bytes2human(memory.total))+'B'
+		self.memory_used = add_bytes(str(bytes2human(memory.used)))
+		self.memory_available = add_bytes(str(bytes2human(memory.available)))
+		self.memory_total = add_bytes(str(bytes2human(memory.total)))
 
 		net = psutil.net_io_counters()
-		self.bytes_sent = str(bytes2human(net.bytes_sent))+'B'
-		self.bytes_recv = str(bytes2human(net.bytes_recv))+'B'
+		self.bytes_sent = add_bytes(str(bytes2human(net.bytes_sent)))
+		self.bytes_recv = add_bytes(str(bytes2human(net.bytes_recv)))
 
-		self.uptime = (str(timedelta(seconds=int(round(time()-self.bot.start_time)))), round(self.bot.start_time))
+		self.uptime = round(self.bot.start_time)
 	
 	
 	@commands.slash_command(name=Localized('bot', key='BOT_BOT_NAME'))
@@ -48,7 +51,7 @@ class Bot(commands.Cog):
 			requirements_list = sorted(file.readlines())
 			requirements = '||`' + '` `'.join(x.replace('\n', '') for x in requirements_list) + '`||'
 		
-		bot_info = f'**Name:** *{self.bot.user.name}*\n**Discriminator:** *{self.bot.user.discriminator}*\n**Guilds:** *{len(self.bot.guilds)}*\n**ID:** *{self.bot.user.id}*\n**Hash:** *{hash(self.bot)}*\n**OS:** *{platform.system()}*\n**Uptime:** *{self.uptime[0]}* (<t:{self.uptime[1]}:R>)'
+		bot_info = f'**Name:** *{self.bot.user.name}*\n**Discriminator:** *{self.bot.user.discriminator}*\n**Guilds:** *{len(self.bot.guilds)}*\n**ID:** *{self.bot.user.id}*\n**Hash:** *{hash(self.bot)}*\n**OS:** *{platform.system()}*\n**Uptime:** *<t:{self.uptime}:F> (<t:{self.uptime}:R>)*'
 		pyt_info = f'**Version:** *{platform.python_version()}*\n**Disnake:** *{disnake.__version__}*\n\n**Requirements:** {requirements}'
 		cpu_info = f'**Use:** *{round(psutil.cpu_percent(interval=1), 2)}%*\n**Cores:** *{"undetermined" if type(psutil.cpu_count()) is None else f"physical: {psutil.cpu_count(logical=False)} - Total: {psutil.cpu_count(logical=True)}"}*'
 		mem_info = f'**Use:** *{self.memory_used}/{self.memory_total} - ({self.memory_percent}%)*\n**Avalible:** *{self.memory_available}*\n**Total:** *{self.memory_total}*'
@@ -60,6 +63,7 @@ class Bot(commands.Cog):
 		gth_info = f'**Forks:** *{github["repo_forks"]}*\n**Stars:** *{github["repo_stars"]}*\n**Issues:** *{github["repo_issues"]}*'
 		#/bot info github? \n\n**Topics:** *{"||`" + "` `".join(github["repo_topics"]) + "`||"}*
 		gth_info_commit = f'**Last commit:** *[{github["repo_last_commit"]["message"]}]({github["repo_last_commit"]["url"]})*'
+
 
 		def get_embed_color(observate: int, limiar: list[int]):
 			return DefaultColors.GREEN if observate < limiar[0] else DefaultColors.YELLOW if observate >= limiar[1] and observate < limiar[2] else DefaultColors.RED
