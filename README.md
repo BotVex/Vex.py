@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/88998991/182010037-7e8b195b-f07f-4e6d-9c82-9900cd036d7d.png"  width="65%">
+  <img src="https://user-images.githubusercontent.com/88998991/201827239-37187529-d010-4dd5-a7ea-cecf26f478d1.png" width=65%>
 </div>
 
 <br>
@@ -9,15 +9,17 @@
   <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/BotVex/Vex.py?style=for-the-badge">
   <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/BotVex/Vex.py?style=for-the-badge">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/BotVex/Vex.py?style=for-the-badge">
-   <img alt="GitHub" src="https://img.shields.io/github/license/BotVex/Vex.py?style=for-the-badge">
+  <img alt="GitHub" src="https://img.shields.io/github/license/BotVex/Vex.py?style=for-the-badge">
 </div>
-
 
 <hr>
 
-<div align="center">
-  <p>Vex é um bot para Discord, escrito em Python, com diversos comandos!</p>
-  <p>A Vex.py tem como objetivo ser uma versão pública da Vex escrita em javascript por cookieukw, privada para a Cookieland.</p>
-  
-  <p>Diferente da Vex, a Vex.py utiliza slash commands! (<i>comandos de barra</i>)</p>
- 
+Vex é um bot brasileiro para o Discord, a Vex é focada em diversão e entretenimento!
+
+Ela possuí diversos comandos, todos organizados em `cogs, comandos, grupo de subcomandos e subcomandos`.
+
+Também existem **tasks** que fazem coisas incríveis de tempos em tempos, por exemplo, descobrir a cor do avatar do bot e aplica isso como uma cor padrão do bot;
+
+**Existem dezenas de outras coisas iradas embutidas na Vex, dê uma explorada!**
+
+###### **Vex.py não segue as mesmas ideias de suas versões IA.**
