@@ -3,7 +3,7 @@ from disnake.ext import commands
 
 from .logger import Log
 log = Log()
-from .config import OWNER_ID, EXTENSIONS, EXTENSIONS_FIRST_LOAD, TOKEN
+from .config import OWNER_ID, EXTENSIONS, TOKEN
 
 
 INTENTS = Intents(
@@ -65,8 +65,6 @@ class Bot(commands.AutoShardedInteractionBot):
 			log.success('extensions loaded')
 
 
-		log.info('loading first extensions')
-		load_extensions(EXTENSIONS_FIRST_LOAD)
 		log.info('loading extensions')
 		load_extensions(EXTENSIONS)
 

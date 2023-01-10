@@ -11,7 +11,6 @@ with open("config.toml", "rb") as f:
 OWNER_ID = config.get('owner', {}).get('id')
 GUILD_ID = config.get('server', {}).get('guild_id')
 
-EXTENSIONS_FIRST_LOAD = config.get('extensions', {}).get('extensions_first_load')
 EXTENSIONS = config.get('extensions', {}).get('extensions')
 
 TOKEN = os.environ['TOKEN']

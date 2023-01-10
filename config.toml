@@ -1,9 +1,6 @@
 [extensions]
 extensions = [
-    "bot", "ctxs_menus", "misc", "admin", "tools"
-    ]
-extensions_first_load = [
-    "events", "errors"
+    "events", "errors", "bot", "ctxs_menus", "misc", "admin", "tools"
     ]
 
 [owner]
