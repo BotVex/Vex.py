@@ -1,7 +1,5 @@
+curses.json
+__pycache__/
+*.py[cod]
+*.log
 .env
-**/__pycache__/
-./data/curses.json
-./data/animes.json
-.vscode
-./audio/sfx/cavalo.opus
-./temp

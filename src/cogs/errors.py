@@ -6,7 +6,7 @@ from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from utils.newassets import DefaultColors, Icons
+from src.utils.newassets import DefaultColors, Icons
 
 
 class Errors(commands.Cog):

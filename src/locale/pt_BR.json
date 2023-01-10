@@ -166,5 +166,9 @@
   "TOOLS_IMG_EDIT_CMD_PIXELIZE_RESIZE_DESC":"Manter a imagem no tamanho original.",
   "TOOLS_IMG_NAME":"img",
   "TOOLS_IMG_EDIT_NAME":"editar",
-  "TOOLS_IMG_FILTER_NAME":"filtro"
+  "TOOLS_IMG_FILTER_NAME":"filtro",
+  "TOOLS_INVITE_NAME":"convite",
+  "TOOLS_INFO_CMD_INFO_NAME":"info",
+  "TOOLS_INVITE_CMD_INFO_DESC":"Veja informações de um convite de um servidor.",
+  "TOOLS_INVITE_CMD_INFO_INVITE":"O convite de um servidor do Discord."
 }

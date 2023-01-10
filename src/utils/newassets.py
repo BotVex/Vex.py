@@ -90,6 +90,10 @@ class ColorConverter:
 		return R, G, B
 
 
+	def DECIMAL2HEX(decimal: int) -> str:
+		return hex(decimal)
+
+
 class ColorGen:
 	def __init__(self):
 		pass

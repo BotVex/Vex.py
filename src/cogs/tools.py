@@ -9,7 +9,7 @@ import disnake
 from disnake.ext import commands
 from disnake import Localized
 
-from utils.newassets import GetColor, Emojis
+from src.utils.newassets import GetColor, Emojis, DefaultColors
 
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
@@ -39,6 +39,10 @@ class Tools(commands.Cog):
 
 	@commands.slash_command(name=Localized('convert', key='TOOLS_CONVERT_NAME'), dm_permission=True)
 	async def convert(self, inter: ACI):
+		pass
+
+	@commands.slash_command(name=Localized('invite', key='TOOLS_INVITE_NAME'), dm_permission=True)
+	async def invite(self, inter: ACI):
 		pass
 	
 
@@ -123,7 +127,7 @@ class Tools(commands.Cog):
 	async def avatar(self, inter: ACI, user: Union[disnake.User, disnake.Member]=None):
 			await inter.response.defer()
 			
-			if user == None:
+			if user is None:
 				user = inter.author
 			
 			if user.avatar is not None:
@@ -194,7 +198,7 @@ class Tools(commands.Cog):
 				)
 			])
 	async def banner(self, inter: ACI, user: disnake.User=None):
-			if user == None:
+			if user is None:
 				user = inter.author
 			
 			user_fetch = await self.bot.fetch_user(user.id)
@@ -244,6 +248,7 @@ class Tools(commands.Cog):
 		
 		if user.bot is True:
 			usertag = f'`{user}` {Emojis.BOT_TAG}'
+
 		else:
 			usertag = f'`{user}`'
 		
@@ -313,6 +318,7 @@ class Tools(commands.Cog):
 			embeds.append(member_embed)
 		
 		if user.bot is True:
+			
 			bot_embed = EB(color=_color)
 			bot_embed.title = 'Informações do bot:'
 			
@@ -359,6 +365,7 @@ class Tools(commands.Cog):
 				required=True)
 			])
 	async def create(self, inter: ACI, text: str):
+
 		await inter.response.defer()
 
 		image_qr_code = qrcode.make(text)
@@ -415,6 +422,8 @@ class Tools(commands.Cog):
 				])
 			])
 	async def temperature(self, inter: ACI, value: int, scale: str, to_scale: str):
+		await inter.response.defer()
+
 		if to_scale == scale:
 			await inter.send('Você não pode converter uma temperatura para ela mesma.', ephemeral=True)
 			return
@@ -447,13 +456,63 @@ class Tools(commands.Cog):
 
 			embed.title = f'{scale} > {to_scale}'
 			embed.description = f'{str(value)}{"°" if scale in ["Celcius", "Fahrenheit"] else ""}'+scale[0:1] + ' = ' + f'{str(round(conversion, 2))}{"°" if to_scale in ["Celcius", "Fahrenheit"] else ""}'+to_scale[0:1]
+			embed.timestamp=datetime.datetime.now()
 			embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
 			
 			
 			await inter.send(embed=embed)
 
 
-	#TODO: adicionar os comandos de cores novamente
+	#invite info
+	# @commands.cooldown(2, 10, commands.BucketType.user)
+	# @invite.sub_command(
+	# 	name=Localized('info', key='TOOLS_INFO_CMD_INFO_NAME'),
+	# 	description=Localized('View link information from a server.', key='TOOLS_INVITE_CMD_INFO_DESC'),
+	# 	options=[
+	# 		disnake.Option(
+	# 			name='invite',
+	# 			description=Localized('Discord server invite.', key='TOOLS_INVITE_CMD_INFO_INVITE'),
+	# 			type=disnake.OptionType.string,
+	# 			required=True)
+	# 		])
+	# async def info(self, inter: ACI, invite: str):
+	# 	await inter.response.defer()
+
+	# 	try:
+	# 		invite_obj = await self.bot.fetch_invite(invite)
+	# 	except:
+	# 		embed = EB(color=DefaultColors.RED)
+	# 		embed.title('Convite inválido!')
+	# 		embed.description(f'O convite `{invite}` expirou ou não existe!')
+	# 		embed.timestamp=datetime.datetime.now()
+	# 		embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
+			
+	# 		await inter.send(embed=embed, ephemeral=True)
+	# 		return
+		
+	# 	color = await GetColor.general_color_url(inter.author.display_avatar.with_size(16)) if invite_obj.guild.icon is None else await GetColor.general_color_url(str(invite_obj.guild.icon).replace('?size=1024', '?size=16'))
+
+	# 	embed = EB(color=color)
+	# 	embed.title = invite_obj.guild.name
+	# 	embed.add_field('ID:', f'`{invite_obj.guild.id}`', inline=True)
+	# 	embed.add_field('Membros:', f':bust_in_silhouette: Total: `{invite_obj.approximate_member_count}`\n:green_circle: Online: `{invite_obj.approximate_presence_count}`', inline=True)
+	# 	embed.add_field('Canal:', f'`#{invite_obj.channel} ({invite_obj.channel.id})`', inline=False)
+	# 	embed.timestamp = datetime.datetime.now()
+	# 	embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
+		
+	# 	if invite_obj.inviter is not None:
+	# 		embed.add_field('Convite por: ', f'`{invite_obj.inviter} ({invite_obj.inviter.id})`', inline=False)
+		
+	# 	if invite_obj.guild.icon is not None:
+	# 		embed.set_thumbnail(url=invite_obj.guild.icon)
+		
+	# 	if invite_obj.guild.splash is not None:
+	# 		embed.set_image(url=invite_obj.guild.splash.url)
+
+	# 	await inter.send(embed=embed)
+
+
+	#todo: adicionar os comandos de cores novamente
 
 
 def setup(bot):
