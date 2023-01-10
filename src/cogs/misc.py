@@ -13,16 +13,16 @@ from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from utils.newassets import GetColor, Icons
+from src.utils.newassets import GetColor, Icons
 
 
 class Entertainment(commands.Cog):
 	def __init__(self, bot):
 		self.bot: commands.Bot = bot
-		with open('data/anime_roleplay.json', 'r', encoding='utf8') as animes:
+		with open('src/data/anime_roleplay.json', 'r', encoding='utf8') as animes:
 			self.anime_roleplay = json.loads(animes.read())
 
-		with open('data/oracle.json', 'r', encoding='utf8') as oracle_phrases:
+		with open('src/data/oracle.json', 'r', encoding='utf8') as oracle_phrases:
 			self.oracle_phrases = json.loads(oracle_phrases.read())
 		
 

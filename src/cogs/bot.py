@@ -9,7 +9,7 @@ from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from utils.newassets import Emojis, DefaultColors
+from src.utils.newassets import Emojis, DefaultColors
 
 
 class Bot(commands.Cog):
@@ -51,27 +51,65 @@ class Bot(commands.Cog):
 			requirements_list = sorted(file.readlines())
 			requirements = '||`' + '` `'.join(x.replace('\n', '') for x in requirements_list) + '`||'
 		
-		bot_info = f'**Name:** *{self.bot.user.name}*\n**Discriminator:** *{self.bot.user.discriminator}*\n**Guilds:** *{len(self.bot.guilds)}*\n**ID:** *{self.bot.user.id}*\n**Hash:** *{hash(self.bot)}*\n**OS:** *{platform.system()}*\n**Uptime:** *<t:{self.uptime}:F> (<t:{self.uptime}:R>)*'
-		pyt_info = f'**Version:** *{platform.python_version()}*\n**Disnake:** *{disnake.__version__}*\n\n**Requirements:** {requirements}'
-		cpu_info = f'**Use:** *{round(psutil.cpu_percent(interval=1), 2)}%*\n**Cores:** *{"undetermined" if type(psutil.cpu_count()) is None else f"physical: {psutil.cpu_count(logical=False)} - Total: {psutil.cpu_count(logical=True)}"}*'
-		mem_info = f'**Use:** *{self.memory_used}/{self.memory_total} - ({self.memory_percent}%)*\n**Avalible:** *{self.memory_available}*\n**Total:** *{self.memory_total}*'
-		net_info = f'**Uploaded:** *{self.bytes_sent}*\n**Downloaded:** *{self.bytes_recv}*'
-		gld_info = f'**All latency:** *{round(self.bot.latency * 1000)}ms*\n**Shard latency:** *{round(self.bot.get_shard(inter.guild.shard_id).latency * 1000)}ms*\n**Shard:** *{inter.guild.shard_id + 1}*'
+		bot_info = f'''
+		**Name:** *{self.bot.user.name}*
+		**Discriminator:** *{self.bot.user.discriminator}*
+		**Guilds:** *{len(self.bot.guilds)}*
+		**ID:** *{self.bot.user.id}*
+		**Hash:** *{hash(self.bot)}*
+		**OS:** *{platform.system()}*
+		**Uptime:** *<t:{self.uptime}:F> (<t:{self.uptime}:R>)*'''
 
-		github = self.bot.github
+		pyt_info = f'''
+		**Version:** *{platform.python_version()}*
+		**Disnake:** *{disnake.__version__}*
+		
+		**Requirements:** {requirements}'''
 
-		gth_info = f'**Forks:** *{github["repo_forks"]}*\n**Stars:** *{github["repo_stars"]}*\n**Issues:** *{github["repo_issues"]}*'
+		cpu_info = f'''
+		**Use:** *{round(psutil.cpu_percent(interval=1), 2)}%*
+		**Cores:** *{"undetermined" if type(psutil.cpu_count()) is None else f"physical: {psutil.cpu_count(logical=False)} - Total: {psutil.cpu_count(logical=True)}"}*'''
+
+		mem_info = f'''
+		**Use:** *{self.memory_used}/{self.memory_total} - ({self.memory_percent}%)*
+		**Avalible:** *{self.memory_available}*
+		**Total:** *{self.memory_total}*'''
+
+		net_info = f'''
+		**Uploaded:** *{self.bytes_sent}*
+		**Downloaded:** *{self.bytes_recv}*'''
+
+		gld_info = f'''
+		**All latency:** *{round(self.bot.latency * 1000)}ms*
+		**Shard latency:** *{round(self.bot.get_shard(inter.guild.shard_id).latency * 1000)}ms*
+		**Shard:** *{inter.guild.shard_id + 1}*'''
+
+		github: dict = self.bot.github
+
+		gth_info = f'''
+		**Forks:** *{github.get("repo_forks")}*
+		**Stars:** *{github.get("repo_stars")}*
+		**Issues:** *{github.get("repo_issues")}*'''
+
+		ght_repo_last_commit = github.get('repo_last_commit')
+
+		if ght_repo_last_commit is not None:
+			gth_info_commit = f'''
+		**Last commit:** *[{ght_repo_last_commit.get("message")}]({ght_repo_last_commit.get("url")})*'''
+		else:
+			gth_info_commit = None
+
 		#/bot info github? \n\n**Topics:** *{"||`" + "` `".join(github["repo_topics"]) + "`||"}*
-		gth_info_commit = f'**Last commit:** *[{github["repo_last_commit"]["message"]}]({github["repo_last_commit"]["url"]})*'
 
 
-		def get_embed_color(observate: int, limiar: list[int]):
+		def get_embed_color(observate: int, limiar: list[int, int, int]):
 			return DefaultColors.GREEN if observate < limiar[0] else DefaultColors.YELLOW if observate >= limiar[1] and observate < limiar[2] else DefaultColors.RED
 
 
 		bot_embed = EB(color=self.bot.default_color)
 		bot_embed.add_field(name='Bot info', value=bot_info, inline=False)
 		bot_embed.set_thumbnail(url=self.bot.user.display_avatar)
+		bot_embed.set_footer(text=f'made with ❤️ by {self.bot.get_user(self.bot.owner_id)}', icon_url=self.bot.get_user(self.bot.owner_id).display_avatar)
 
 		pyt_embed = EB(color=DefaultColors.PYTHON_BLUE)
 		pyt_embed.add_field(name='Python', value=pyt_info, inline=False)
@@ -131,7 +169,7 @@ class Bot(commands.Cog):
 					)
 				)
 
-		
+
 		await inter.send(embeds=[bot_embed, pyt_embed, cpu_embed, ram_embed, net_embed, gth_embed, guild_embed], view=Links())
 	
 

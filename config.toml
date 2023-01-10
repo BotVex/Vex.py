@@ -1,0 +1,10 @@
+[extensions]
+extensions = [
+    "events", "errors", "bot", "ctxs_menus", "misc", "admin", "tools"
+    ]
+
+[owner]
+id = 783120232134082580
+
+[server]
+guild_id = 939585882883772436

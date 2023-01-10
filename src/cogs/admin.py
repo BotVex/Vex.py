@@ -6,7 +6,7 @@ from disnake import Localized
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from utils.newassets import DefaultColors
+from src.utils.newassets import DefaultColors
 
 
 class Administration(commands.Cog):
