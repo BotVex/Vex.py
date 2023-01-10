@@ -1,3 +1,5 @@
+#experimental, pretendo substituir no futuro.
+
 import datetime
 from os import stat
 from pathlib import Path
