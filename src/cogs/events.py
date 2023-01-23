@@ -109,8 +109,7 @@ class Events(commands.Cog):
 			mentions = message.mentions
 			if len(mentions) != 0:
 				for mentioned in mentions:
-					if mentioned.id == self.bot.user.id:
-						
+					if mentioned.id == self.bot.user.id and message.reference is None:
 						if message.guild is not None:
 							mentioned_local = f'{message.guild.name} ({message.guild.id})'
 						else:

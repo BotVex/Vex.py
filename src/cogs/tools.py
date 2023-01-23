@@ -9,7 +9,8 @@ import disnake
 from disnake.ext import commands
 from disnake import Localized
 
-from src.utils.newassets import GetColor, Emojis, DefaultColors
+from src.utils.assets import Emojis
+from src.utils.newassets import GetColor
 
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
@@ -41,11 +42,6 @@ class Tools(commands.Cog):
 	async def convert(self, inter: ACI):
 		pass
 
-	@commands.slash_command(name=Localized('invite', key='TOOLS_INVITE_NAME'), dm_permission=True)
-	async def invite(self, inter: ACI):
-		pass
-	
-
 	#server icon
 	@commands.cooldown(2, 10, commands.BucketType.user)
 	@server.sub_command(
@@ -75,7 +71,7 @@ class Tools(commands.Cog):
 			await inter.send(embed=embed, view=OpenInBrowser())
 			return
 		else:
-			await inter.send('O servidor não possuí um ícone.', ephemeral=True)
+			await inter.send(f'{Emojis.error} O servidor não possuí um ícone.', ephemeral=True)
 			return
 	
 	
@@ -107,7 +103,7 @@ class Tools(commands.Cog):
 			await inter.send(embed=embed, view=OpenInBrowser())
 			return
 		else:
-			await inter.response.send_message('O servidor não possuí um banner.', ephemeral=True)
+			await inter.response.send_message(f'{Emojis.error} O servidor não possuí um banner.', ephemeral=True)
 			return
 
 	
@@ -147,7 +143,7 @@ class Tools(commands.Cog):
 			color = await GetColor.general_color_url(avatar.with_size(16))
 			
 			embed = EB(color=color)
-			embed.title = f'Avatar de {username}'
+			embed.title = f':smirk_cat: Avatar de {username}'
 			embed.set_image(url=avatar)
 
 			class Views(disnake.ui.View):
@@ -163,7 +159,7 @@ class Tools(commands.Cog):
 				
 				
 				#TODO: isso não é a melhor forma de fazer, melhorar depois
-				@disnake.ui.button(label='Ver avatar global', style=disnake.ButtonStyle.blurple)
+				@disnake.ui.button(label=':globe_with_meridians: Ver avatar global', style=disnake.ButtonStyle.blurple)
 				async def view_global_avatar(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 					if user.avatar is not None:
 						avatar = user.avatar
@@ -173,7 +169,7 @@ class Tools(commands.Cog):
 					color = await GetColor.general_color_url(avatar.with_size(16))
 					
 					embed.color = color
-					embed.title = f'Avatar global de {user.name}'
+					embed.title = f':smirk_cat: Avatar global de {user.name}'
 					embed.set_image(url=avatar)
 					
 					await interaction.send(embed=embed, ephemeral=True, view=disnake.ui.View().add_item(disnake.ui.Button(style=disnake.ButtonStyle.link, label='Abrir no navegador', url=str(avatar))))
@@ -208,7 +204,7 @@ class Tools(commands.Cog):
 				color = await GetColor.general_color_url(banner.with_size(16))
 				
 				embed = EB(color=color)
-				embed.title = f'Banner de {user.name}'
+				embed.title = f':sparkles: Banner de {user.name}'
 				embed.set_image(url=banner)
 	
 				class Link(disnake.ui.View):
@@ -223,7 +219,7 @@ class Tools(commands.Cog):
 	
 				await inter.send(embed=embed, view=Link())
 			else:
-				await inter.send(f'{user.display_name} não possui um banner', ephemeral=True)		
+				await inter.send(f'{Emojis.error} {user.display_name} não possui um banner', ephemeral=True)		
 	
 
 	#user info
@@ -247,7 +243,7 @@ class Tools(commands.Cog):
 			user = inter.author
 		
 		if user.bot is True:
-			usertag = f'`{user}` {Emojis.BOT_TAG}'
+			usertag = f'`{user}` {Emojis.bot_tag}'
 
 		else:
 			usertag = f'`{user}`'
@@ -268,13 +264,13 @@ class Tools(commands.Cog):
 		_color = await GetColor.general_color_url(avatar.with_size(16))
 		
 		user_embed = EB(color=_color)
-		user_embed.title = f'Informações do usuário:' 
+		user_embed.title = f'{Emojis.monoculo} Informações do usuário:' 
 		user_embed.set_thumbnail(url=avatar)
-		user_embed.add_field(name='Tag:', value=usertag, inline=False)
-		user_embed.add_field(name='Nome:', value=username, inline=True)
-		user_embed.add_field(name='Discriminador:', value=user_discrim, inline=True)
-		user_embed.add_field(name='ID:', value=user_id, inline=True)
-		user_embed.add_field(name='Conta criada em:', value=account_created, inline=True)
+		user_embed.add_field(name=':label: Tag:', value=usertag, inline=False)
+		user_embed.add_field(name=':identification_card: Nome:', value=username, inline=True)
+		user_embed.add_field(name=':jigsaw: Discriminador:', value=user_discrim, inline=True)
+		user_embed.add_field(name=':id: ID:', value=user_id, inline=True)
+		user_embed.add_field(name=':timer: Conta criada em:', value=account_created, inline=True)
 		
 		user_fetch = await self.bot.fetch_user(user.id)
 		
@@ -289,28 +285,28 @@ class Tools(commands.Cog):
 			joined_date = f'<t:{int(round(member.joined_at.timestamp()))}:f> (<t:{int(round(member.joined_at.timestamp()))}:R>)'
 			
 			member_embed = EB(color=member.color)
-			member_embed.title = 'Informações do membro:'
+			member_embed.title = ':busts_in_silhouette: Informações do membro:'
 			
 			if member.nick is not None:
-				member_embed.add_field(name='Apelido no servidor:', value=member.nick, inline=True)
+				member_embed.add_field(name=':bookmark: Apelido no servidor:', value=member.nick, inline=True)
 			
-			member_embed.add_field(name='Entrou no servidor em:', value=joined_date, inline=True)
+			member_embed.add_field(name=':clock: Entrou no servidor em:', value=joined_date, inline=True)
 			
 			if member.current_timeout is not None:
 				timestamp = f'<t:{int(round(member.current_timeout.timestamp()))}:f> (<t:{int(round(member.current_timeout.timestamp()))}:R>)'
 				
-				member_embed.add_field(name='De castigo até:', value=timestamp, inline=True)
+				member_embed.add_field(name=':probing_cane: De castigo até:', value=timestamp, inline=True)
 			
 			if member.top_role.name != '@everyone':
-				member_embed.add_field(name='Maior cargo:', value=member.top_role.mention, inline=True)
+				member_embed.add_field(name=':arrow_up: Maior cargo:', value=member.top_role.mention, inline=True)
 			
 			if member.voice is not None:
-				member_embed.add_field(name='Em call em:', value=member.voice.channel.mention, inline=True)
+				member_embed.add_field(name=':telephone_receiver: Em call em:', value=member.voice.channel.mention, inline=True)
 			
 			if member.premium_since is not None:
 				premium_since_time = f'<t:{int(round(member.premium_since.timestamp()))}:f> (<t:{int(round(member.premium_since.timestamp()))}:R>)'
 				
-				member_embed.add_field(name='Impulsionando o servidor desde:', value=premium_since_time, inline=True)
+				member_embed.add_field(name=f'{Emojis.boost} Impulsionando o servidor desde:', value=premium_since_time, inline=True)
 			
 			if member.guild_avatar is not None:
 				member_embed.set_thumbnail(url=member.guild_avatar)
@@ -320,7 +316,7 @@ class Tools(commands.Cog):
 		if user.bot is True:
 			
 			bot_embed = EB(color=_color)
-			bot_embed.title = 'Informações do bot:'
+			bot_embed.title = ':robot: Informações do bot:'
 			
 			API = f'https://discord.com/api/v10/applications/{user.id}/rpc'
 			
@@ -341,10 +337,8 @@ class Tools(commands.Cog):
 				bot_embed.set_thumbnail(url=application_icon)
 			
 			bot_embed.description = response['description']
-			bot_embed.add_field(name='Nome:', value=response['name'], inline=True)
-			bot_embed.add_field(name='ID:', value=response['id'], inline=True)
-			bot_embed.add_field(name='Outros:', value=bot_other_info, inline=False)
-			bot_embed.add_field(name='Chave Pública de Verificação de Requisições HTTP:', value=verify_key, inline=False)
+			bot_embed.add_field(name=':zany_face: Outros:', value=bot_other_info, inline=False)
+			bot_embed.add_field(name=':key: Chave Pública de Verificação de Requisições HTTP:', value=verify_key, inline=False)
 
 			
 			embeds.append(bot_embed)
@@ -379,7 +373,7 @@ class Tools(commands.Cog):
 
 		embed = EB(color=disnake.Color.from_rgb(255, 255, 255))
 
-		embed.title = 'QR Code'
+		embed.title = ':white_square_button: QR Code'
 		embed.set_image(file=img_file)
 
 		embed.timestamp=datetime.datetime.now()
@@ -425,7 +419,7 @@ class Tools(commands.Cog):
 		await inter.response.defer()
 
 		if to_scale == scale:
-			await inter.send('Você não pode converter uma temperatura para ela mesma.', ephemeral=True)
+			await inter.send(f'{Emojis.error} Você não pode converter uma temperatura para ela mesma.', ephemeral=True)
 			return
 		
 		else:
@@ -454,7 +448,7 @@ class Tools(commands.Cog):
 
 			embed = EB(color=color, timestamp=datetime.datetime.now())
 
-			embed.title = f'{scale} > {to_scale}'
+			embed.title = f':thermometer: {scale} > {to_scale}'
 			embed.description = f'{str(value)}{"°" if scale in ["Celcius", "Fahrenheit"] else ""}'+scale[0:1] + ' = ' + f'{str(round(conversion, 2))}{"°" if to_scale in ["Celcius", "Fahrenheit"] else ""}'+to_scale[0:1]
 			embed.timestamp=datetime.datetime.now()
 			embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
