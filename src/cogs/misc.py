@@ -13,6 +13,7 @@ from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
+from src.utils.assets import Emojis
 from src.utils.newassets import GetColor, Icons
 
 
@@ -88,84 +89,82 @@ class Entertainment(commands.Cog):
 			timestamp=datetime.datetime.now()
 		)
 
-		embed.set_footer(text=f'Fonte: {name} (by nekos.best) | {inter.author.display_name}', icon_url=inter.author.display_avatar)
+		embed.set_footer(text=f'⛲ Fonte: {name} (by nekos.best) | {inter.author.display_name}', icon_url=inter.author.display_avatar)
 		embed.set_image(url=url)
 	
 		match roleplay:
 			case 'highfive':
-				message = f'🙏 | {inter.author.mention} deu um highfive em {user.mention}!'
+				message = f':pray: | {inter.author.mention} deu um highfive em {user.mention}!'
 			case 'handhold':
-				message = f'🤝 | {inter.author.mention} segurou a mão de {user.mention}!'
+				message = f':handshake: | {inter.author.mention} segurou a mão de {user.mention}!'
 			case 'kiss':
-				message = f'💋 | {inter.author.mention} beijou {user.mention}!'
+				message = f':kiss: | {inter.author.mention} beijou {user.mention}!'
 			case 'wave':
-				message = f'👋 | {inter.author.mention} acenou para  {user.mention}!'
+				message = f':wave: | {inter.author.mention} acenou para  {user.mention}!'
 			case 'thumbsup':
-				message = f'👍 | {inter.author.mention} fez um "👍" para {user.mention}!'
+				message = f':thumbsup: | {inter.author.mention} fez um "👍" para {user.mention}!'
 			case 'stare':
-				message = f'👀 | {inter.author.mention} olhou fixamente para {user.mention}!'
+				message = f':eyes: | {inter.author.mention} olhou fixamente para {user.mention}!'
 			case 'baka':
-				message = f'🤬 | {inter.author.mention} chamou {user.mention} de idiota!'
+				message = f':face_with_symbols_over_mouth: | {inter.author.mention} chamou {user.mention} de idiota!'
 			case 'wink':
-				message = f'😉 | {inter.author.mention} piscou para {user.mention}!'
+				message = f':wink: | {inter.author.mention} piscou para {user.mention}!'
 			case 'shrug':
-				message = f'🤷 | {inter.author.mention} fez um ¯\_(ツ)_/¯ para {user.mention}!'
+				message = f':shrug: | {inter.author.mention} fez um ¯\_(ツ)_/¯ para {user.mention}!'
 			case 'kick':
-				message = f'🦶 | {inter.author.mention} chutou {user.mention}!'
+				message = f':foot: | {inter.author.mention} chutou {user.mention}!'
 			case 'hug':
-				message = f'🤗 | {inter.author.mention} abraçou {user.mention}!'
+				message = f':hugging_face: | {inter.author.mention} abraçou {user.mention}!'
 			case 'slap':
-				message = f'👋 | {inter.author.mention} deu um tapa em {user.mention}!'
+				message = f':hand_splayed: | {inter.author.mention} deu um tapa em {user.mention}!'
 			case 'pat':
-				message = f'🥰 | {inter.author.mention} fez cafuné em {user.mention}!'
+				message = f':smiling_face_with_3_hearts: | {inter.author.mention} fez cafuné em {user.mention}!'
 			case 'punch':
-				message = f'👊 | {inter.author.mention} deu um soco em {user.mention}!'
+				message = f':punch: | {inter.author.mention} deu um soco em {user.mention}!'
 			case 'dance':
-				message = f'🕺 | {inter.author.mention} dançou com {user.mention}!'
+				message = f'{Emojis.dance} | {inter.author.mention} dançou com {user.mention}!'
 			case 'bite':
-				message = f'🍽️ | {inter.author.mention} mordeu {user.mention}!'
+				message = f':fork_and_knife: | {inter.author.mention} mordeu {user.mention}!'
 			case 'shoot':
-				message = f'🔫 | {inter.author.mention} atirou em {user.mention}!'
+				message = f':gun: | {inter.author.mention} atirou em {user.mention}!'
 		
 
 		if inter.author.id == user.id:
 			match roleplay:
 				case 'highfive':
-					message = f'🙏 | {inter.author.mention} deu um highfive em... si mesmo?'
+					message = f':pray: | {inter.author.mention} deu um highfive em... si mesmo?'
 				case 'handhold':
-					message = f'🤝 | {inter.author.mention} segurou sua própia mão?'
+					message = f':handshake: | {inter.author.mention} segurou sua própia mão?'
 				case 'kiss':
-					message = f'💋 | {inter.author.mention} beijou a si mesmo? Como isso funciona??'
+					message = f':kiss: | {inter.author.mention} beijou a si mesmo? Como isso funciona??'
 				case 'wave':
-					message = f'👋 | {inter.author.mention} acenou para ninguém?\n{self.bot.user.mention} acenou de volta para {inter.author.mention}!'
+					message = f':wave: | {inter.author.mention} acenou para ninguém?\n{self.bot.user.mention} acenou de volta para {inter.author.mention}!'
 				case 'thumbsup':
-					message = f'👍 | {inter.author.mention} fez um "👍" para ninguém. :smiling_face_with_tear:'
+					message = f':thumbsup: | {inter.author.mention} fez um "👍" para ninguém. :smiling_face_with_tear:'
 				case 'stare':
-					message = f'👀 | {inter.author.mention} olhou fixamente para... si mesmo? :mirror:'
-				case 'stare':
-					message = f'🥺 | {inter.author.mention} fez carinho em... ninguém? Que estranho.'
+					message = f':eyes: | {inter.author.mention} olhou fixamente para... si mesmo? :mirror:'
 				case 'baka':
-					message = f'🤬 | {inter.author.mention} chamou a si mesmo de idiota!\nNão fassa isso contigo :('
+					message = f':face_with_symbols_over_mouth: | {inter.author.mention} chamou a si mesmo de idiota!\nNão fassa isso contigo :('
 				case 'wink':
-					message = f'😉 | {inter.author.mention} piscou... para ninguém?\n{self.bot.user.mention} piscou para {inter.author.mention}!'
+					message = f':wink: | {inter.author.mention} piscou... para ninguém?\n{self.bot.user.mention} piscou para {inter.author.mention}!'
 				case 'shrug':
-					message = f'🤷 | {inter.author.mention} fez um ¯\_(ツ)_/¯ para si mesmo. ¯\_(ツ)_/¯'
+					message = f':shrug: | {inter.author.mention} fez um ¯\_(ツ)_/¯ para si mesmo. ¯\_(ツ)_/¯'
 				case 'kick':
-					message = f'🦶 | {inter.author.mention} chutou a si mesmo?'
+					message = f':foot: | {inter.author.mention} chutou a si mesmo?'
 				case 'hug':
-					message = f'🤗 | {inter.author.mention} abraçou... ninguém?\n{self.bot.user.mention} abraçou {inter.author.mention}!'
+					message = f':hugging_face: | {inter.author.mention} abraçou... ninguém?\n{self.bot.user.mention} abraçou {inter.author.mention}!'
 				case 'slap':
-					message = f'👋 | {inter.author.mention} deu um tapa em ~si mesmo~ uma mosca!'
+					message = f':hand_splayed: | {inter.author.mention} deu um tapa em ~si mesmo~ uma mosca!'
 				case 'pat':
-					message = f'🥰 | {inter.author.mention} fez cafuné em... ninguém?'
+					message = f':smiling_face_with_3_hearts: | {inter.author.mention} fez cafuné em... ninguém?'
 				case 'punch':
-					message = f'👊 | {inter.author.mention} deu um soco em si mesmo?\nEi ei, sem essa.'
+					message = f':punch: | {inter.author.mention} deu um soco em si mesmo?\nEi ei, sem essa.'
 				case 'dance':
-					message = f'🕺 | {inter.author.mention} dançou com ninguém?\n{self.bot.user.mention} dançou {inter.author.mention}!'
+					message = f'{Emojis.dance} | {inter.author.mention} dançou com ninguém?\n{self.bot.user.mention} dançou {inter.author.mention}!'
 				case 'bite':
-					message = f'🍽️ | {inter.author.mention} mordeu a si mesmo?\nVirou cachorro agora, é?'
+					message = f':fork_and_knife: | {inter.author.mention} mordeu a si mesmo?\nVirou cachorro agora, é?'
 				case 'shoot':
-					message = f'🔫 | {inter.author.mention} deu um TIRO em si mesmo!\nAinda bem que ele(a) estava usando um colete aprova de balas.'
+					message = f':gun: | {inter.author.mention} deu um TIRO em si mesmo!\nAinda bem que ele(a) estava usando um colete aprova de balas.'
 
 		class Retribue(disnake.ui.View):
 			inter: ACI
@@ -177,17 +176,18 @@ class Entertainment(commands.Cog):
 
 
 			async def on_timeout(self):
-				self.children[0].label = 'Retribuir (Expirado)'
+				self.children[0].label = f'Retribuir (Expirado)'
+				self.children[0].emoji = Emojis.block
 				self.children[0].style = disnake.ButtonStyle.grey
 				self.children[0].disabled = True
 
 				await self.inter.edit_original_message(view=self)
 
 
-			@disnake.ui.button(label='Retribuir', style=disnake.ButtonStyle.primary)
+			@disnake.ui.button(label='Retribuir', style=disnake.ButtonStyle.primary, emoji=Emojis.reverse)
 			async def retribue(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 				if interaction.author.id != user.id:
-					await interaction.send(f'Ei!, apenas {user.mention} pode usar isso!', ephemeral=True)
+					await interaction.send(f'{Emojis.error} Ei!, apenas {user.mention} pode usar isso!', ephemeral=True)
 				else:
 					self.value = True
 					button.label = 'Retribuído'
@@ -215,10 +215,10 @@ class Entertainment(commands.Cog):
 				timestamp=datetime.datetime.now()
 			)
 
-			embed_retribued.set_footer(text=f'Fonte: {name} (by nekos.best) | {user.display_name}', icon_url=user.display_avatar)
+			embed_retribued.set_footer(text=f'⛲ Fonte: {name} (by nekos.best) | {user.display_name}', icon_url=user.display_avatar)
 			embed_retribued.set_image(url=url)
 
-			await inter.send(content=f'{inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued)
+			await inter.send(content=f'{Emojis.reverse} {inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued)
 			
 
 	@commands.bot_has_permissions(manage_webhooks=True)
@@ -259,7 +259,7 @@ class Entertainment(commands.Cog):
 		else:
 			webhook = await channel.create_webhook(name="Bot Webhook")
 		
-		await inter.edit_original_message(content=f'Contactando {oracle}...')
+		await inter.edit_original_message(content=f':telephone: Contactando {oracle}...')
 
 		content = f'{inter.author.mention}, *"{question}"* \n\n{choice(self.oracle_phrases)}'
 

@@ -35,13 +35,12 @@ class Colors:
 
 
 class Emojis:
-	success = '<:Y_:987924991557374002> | '
-	neutral = '<:nan:987925016823889920> | '
-	error = '<:X_:987925044623704085> | '
-	disnake_icon = '<:disnake:987925228397146182> | '
-	python_icon = '<:py:987925080191402064> | '
-	botTag = '<:bot_tag:987925288384102450>'
-	tools = '🛠️ | '
+	success = '<:Y_:987924991557374002>'
+	neutral = '<:nan:987925016823889920>'
+	error = '<:X_:987925044623704085>'
+	disnake_icon = '<:disnake:987925228397146182>'
+	python_icon = '<:py:987925080191402064>'
+	bot_tag = '<:bot_tag:1023267356417458266>'
 
 	icon_ban = '<:Icon_ban:1017293963406884867>'
 	beta1 = '<:beta1:1017294298275926027>' 
@@ -58,6 +57,13 @@ class Emojis:
 	icon_warn_yellow = '<:icon_warn_yellow:1017293540767846421>'
 	icon_x_red = '<:icon_x_red:1017293727556964423>'
 	spotify = '<:spotify:1017293041666629735>'
+	trash = '<:trash:1066030051411361873>'
+	dot = '<:dot:1019072815233765396>'
+	dance = '<a:dance:1066043138491306134>'
+	reverse = '<:reverse:1066045215795843212>'
+	block = '<:block:1066046626671628418>'
+	monoculo = '<:monoculo:1066057929247179005>'
+	boost = '<a:boost:1066061313874329740>'
 
 
 class MediaUrl:

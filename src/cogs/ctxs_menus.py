@@ -18,7 +18,7 @@ class CTXCMD(commands.Cog):
 		color = await GetColor.general_color_url(user.display_avatar.with_size(16))
 		
 		embed = EB(color=color)
-		embed.title = f'Avatar de {user}'
+		embed.title = f':smirk_cat: Avatar de {user}'
 		embed.set_image(url=user.display_avatar.url)
 		embed.timestamp=datetime.datetime.now()
 		embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)

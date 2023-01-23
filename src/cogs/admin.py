@@ -6,6 +6,7 @@ from disnake import Localized
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
+from src.utils.assets import Emojis
 from src.utils.newassets import DefaultColors
 
 
@@ -53,14 +54,15 @@ class Administration(commands.Cog):
 					count_members[str(message.author)] = 1
 				new_string = []
 				deleted_messages = 0
+
 				for author, message_deleted in list(count_members.items()):
-					new_string.append(f'- **`{author}`**: {message_deleted}')
+					new_string.append(f'{Emojis.dot} **`{author}`**: {message_deleted}')
 					deleted_messages += message_deleted
 			final_string = f'\n'.join(new_string)
 			
 
 			embed = EB(color=DefaultColors.GREEN)
-			embed.title = f'{deleted_messages} Mensagens apagadas!'
+			embed.title = f'{Emojis.trash} {deleted_messages} Mensagens apagadas!'
 			embed.description = final_string
 			embed.timestamp = datetime.datetime.now()
 			embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
@@ -69,7 +71,7 @@ class Administration(commands.Cog):
 			await inter.channel.send(embed=embed, delete_after=15.0)
 		except:
 			embed = EB(color=DefaultColors.RED)
-			embed.title='Não foi possivel apagar as mensagens.'
+			embed.title=f'{Emojis.error} Não foi possivel apagar as mensagens.'
 			embed.timestamp = datetime.datetime.now()
 			embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
 
@@ -107,16 +109,16 @@ class Administration(commands.Cog):
 			channel = inter.channel
 		
 		if not isinstance(channel, disnake.TextChannel):
-			await inter.send('canal inválido!', ephemeral=True)
+			await inter.send(f'{Emojis.error} canal inválido!', ephemeral=True)
 			return
 		
 		channel_webhooks = await channel.webhooks()
 		
 		for webhook in channel_webhooks:
-			if webhook.user == self.bot.user and webhook.name == "Bot Webhook":
+			if webhook.user == self.bot.user and webhook.name == "Vex Webhook":
 				break
 		else:
-			webhook = await channel.create_webhook(name="Bot Webhook")
+			webhook = await channel.create_webhook(name="Vex Webhook")
 		
 		await inter.delete_original_message()
 		
