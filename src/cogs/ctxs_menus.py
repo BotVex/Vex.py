@@ -5,7 +5,7 @@ from disnake import Localized
 from disnake.ext import commands
 EB = disnake.Embed
 
-from src.utils.newassets import GetColor
+from src.utils import GetColor
 
 
 class CTXCMD(commands.Cog):

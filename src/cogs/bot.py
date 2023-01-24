@@ -9,7 +9,7 @@ from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from src.utils.newassets import Emojis, DefaultColors
+from src.utils import Emojis, Colors
 
 
 class Bot(commands.Cog):
@@ -103,7 +103,7 @@ class Bot(commands.Cog):
 
 
 		def get_embed_color(observate: int, limiar: list[int, int, int]):
-			return DefaultColors.GREEN if observate < limiar[0] else DefaultColors.YELLOW if observate >= limiar[1] and observate < limiar[2] else DefaultColors.RED
+			return Colors.GREEN if observate < limiar[0] else Colors.YELLOW if observate >= limiar[1] and observate < limiar[2] else Colors.RED
 
 
 		bot_embed = EB(color=self.bot.default_color)
@@ -111,7 +111,7 @@ class Bot(commands.Cog):
 		bot_embed.set_thumbnail(url=self.bot.user.display_avatar)
 		bot_embed.set_footer(text=f'made with ❤️ by {self.bot.get_user(self.bot.owner_id)}', icon_url=self.bot.get_user(self.bot.owner_id).display_avatar)
 
-		pyt_embed = EB(color=DefaultColors.PYTHON_BLUE)
+		pyt_embed = EB(color=Colors.PYTHON_BLUE)
 		pyt_embed.add_field(name='Python', value=pyt_info, inline=False)
 
 		color = get_embed_color(round(psutil.cpu_percent(interval=1)), [50, 50, 90])
@@ -122,7 +122,7 @@ class Bot(commands.Cog):
 		ram_embed = EB(color=color)
 		ram_embed.add_field(name='RAM', value=mem_info, inline=False)
 
-		net_embed = EB(color=DefaultColors.BLUE)
+		net_embed = EB(color=Colors.BLUE)
 		net_embed.add_field(name='Network', value=net_info, inline=False)
 
 		color = get_embed_color(round(self.bot.get_shard(inter.guild.shard_id).latency * 1000), [50, 50, 300])
@@ -134,7 +134,7 @@ class Bot(commands.Cog):
 		if inter.guild.icon is not None:
 			guild_embed.set_thumbnail(url=inter.guild.icon)
 		
-		gth_embed = EB(color=DefaultColors.BLACK)
+		gth_embed = EB(color=Colors.BLACK)
 		gth_embed.title = github['repo_name']
 		gth_embed.url = github['repo_url']
 		gth_embed.description = github["repo_desc"]

@@ -6,8 +6,7 @@ from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from src.utils.assets import Emojis
-from src.utils.newassets import DefaultColors, Icons
+from src.utils import Emojis, Colors
 
 
 class Errors(commands.Cog):
@@ -36,42 +35,42 @@ class Errors(commands.Cog):
 				waiting_time = str(second) + ' segundo' if second <= 1 else str(second) + ' segundos'
 
 			embed = disnake.Embed(
-					title=f'{Emojis.error} Comando em cooldown!',
+					title=f'{Emojis.ERROR} Comando em cooldown!',
 					description=f'{inter.author.mention}, este comando está em cooldown, você só poderá executá-lo novamente em `{waiting_time}`.',
-					color=DefaultColors.RED)
+					color=Colors.RED)
 			embed.set_footer(text='Você está executando comandos rapidamente!')
 			await inter.send(embed=embed, ephemeral=True)
 		
 		
 		elif isinstance(error, commands.NotOwner):
 				embed = disnake.Embed(
-					title=f'{Emojis.error} Não desenvolvedor!',
+					title=f'{Emojis.ERROR} Não desenvolvedor!',
 					description='Apenas pessoas especiais podem utilizar este comando.',
-					color=DefaultColors.RED)
+					color=Colors.RED)
 				await inter.send(embed=embed, ephemeral=True)
 
 		
 		elif isinstance(error, commands.MissingPermissions):
 				embed = EB(
-						title=f'{Emojis.error} Sem permissão!',
+						title=f'{Emojis.ERROR} Sem permissão!',
 						description=f'Eu não tenho as permissões nescessárias para executar este comando!\n\n{"Você preciza das seguintes permissões: `" + ", ".join(error.missing_permissions)+"`" if len(error.missing_permissions) != 1 else "Você preciza da seguinte permissão: `" + ", ".join(error.missing_permissions)+"`"}',
-						color=DefaultColors.RED)
+						color=Colors.RED)
 				await inter.send(embed=embed, ephemeral=True)
 		
 		
 		elif isinstance(error, commands.BotMissingPermissions):
 				embed = EB(
-					title=f'{Emojis.error} Não autorizado!',
+					title=f'{Emojis.ERROR} Não autorizado!',
 						description=f'Eu não tenho as permissões nescessárias para executar este comando!\n\n{"Eu precizo das seguintes permissões: `" + ", ".join(error.missing_permissions)+"`" if len(error.missing_permissions) != 1 else "Eu precizo da seguinte permissão: `" + ", ".join(error.missing_permissions)+"`"}',
-						color=DefaultColors.RED)
+						color=Colors.RED)
 				await inter.send(embed=embed, ephemeral=True)
 		
 		
 		elif isinstance(error, commands.NoPrivateMessage):
 				embed = EB(
-					title=f'{Emojis.error} Apenas para servidores!',
+					title=f'{Emojis.ERROR} Apenas para servidores!',
 						description='Este comando só pode ser utilizado em servidores!', 
-						color=DefaultColors.RED)
+						color=Colors.RED)
 				await inter.send(embed=embed, ephemeral=True)
 		else:
 			log(error)
