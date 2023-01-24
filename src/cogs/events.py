@@ -12,7 +12,7 @@ from disnake.ext import commands, tasks
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from src.utils.newassets import GetColor, ColorConverter
+from src.utils import GetColor, ColorConverter
 
 
 class Events(commands.Cog):

@@ -1,5 +1,4 @@
 import json
-import aiohttp
 import datetime
  
 from random import choice
@@ -13,8 +12,7 @@ from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from src.utils.assets import Emojis
-from src.utils.newassets import GetColor, Icons
+from src.utils import Emojis, GetColor
 
 
 class Entertainment(commands.Cog):
@@ -122,7 +120,7 @@ class Entertainment(commands.Cog):
 			case 'punch':
 				message = f':punch: | {inter.author.mention} deu um soco em {user.mention}!'
 			case 'dance':
-				message = f'{Emojis.dance} | {inter.author.mention} dançou com {user.mention}!'
+				message = f'{Emojis.DANCE} | {inter.author.mention} dançou com {user.mention}!'
 			case 'bite':
 				message = f':fork_and_knife: | {inter.author.mention} mordeu {user.mention}!'
 			case 'shoot':
@@ -160,7 +158,7 @@ class Entertainment(commands.Cog):
 				case 'punch':
 					message = f':punch: | {inter.author.mention} deu um soco em si mesmo?\nEi ei, sem essa.'
 				case 'dance':
-					message = f'{Emojis.dance} | {inter.author.mention} dançou com ninguém?\n{self.bot.user.mention} dançou {inter.author.mention}!'
+					message = f'{Emojis.DANCE} | {inter.author.mention} dançou com ninguém?\n{self.bot.user.mention} dançou {inter.author.mention}!'
 				case 'bite':
 					message = f':fork_and_knife: | {inter.author.mention} mordeu a si mesmo?\nVirou cachorro agora, é?'
 				case 'shoot':
@@ -177,17 +175,17 @@ class Entertainment(commands.Cog):
 
 			async def on_timeout(self):
 				self.children[0].label = f'Retribuir (Expirado)'
-				self.children[0].emoji = Emojis.block
+				self.children[0].emoji = Emojis.BLOCK
 				self.children[0].style = disnake.ButtonStyle.grey
 				self.children[0].disabled = True
 
 				await self.inter.edit_original_message(view=self)
 
 
-			@disnake.ui.button(label='Retribuir', style=disnake.ButtonStyle.primary, emoji=Emojis.reverse)
+			@disnake.ui.button(label='Retribuir', style=disnake.ButtonStyle.primary, emoji=Emojis.REVERSE)
 			async def retribue(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
 				if interaction.author.id != user.id:
-					await interaction.send(f'{Emojis.error} Ei!, apenas {user.mention} pode usar isso!', ephemeral=True)
+					await interaction.send(f'{Emojis.ERROR} Ei!, apenas {user.mention} pode usar isso!', ephemeral=True)
 				else:
 					self.value = True
 					button.label = 'Retribuído'
@@ -218,53 +216,8 @@ class Entertainment(commands.Cog):
 			embed_retribued.set_footer(text=f'⛲ Fonte: {name} (by nekos.best) | {user.display_name}', icon_url=user.display_avatar)
 			embed_retribued.set_image(url=url)
 
-			await inter.send(content=f'{Emojis.reverse} {inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued)
-			
-
-	@commands.bot_has_permissions(manage_webhooks=True)
-	@fun.sub_command(
-		name=Localized('oracle', key='ENT_FUN_CMD_ORACLE_NAME'),
-		description=Localized('Choose an oracle and ask you a question!', key='ENT_FUN_CMD_ORACLE_DESC'),
-		options=[
-			disnake.Option(
-				name='oracle',
-				description=Localized('select an oracle.', key='ENT_FUN_CMD_ORACLE_ORACLE'),
-				choices=[
-					disnake.OptionChoice('Ben 10', 'Ben 10'),
-					disnake.OptionChoice('Finn', 'Finn'),
-					disnake.OptionChoice('Vovó Juju', 'Vovó Juju')
-					],
-				type=disnake.OptionType.string,
-				required=True
-				),
-			disnake.Option(
-				name='question',
-				description=Localized('Enter a question.', key='ENT_FUN_CMD_ORACLE_QUESTION'),
-				type=disnake.OptionType.string,
-				required=True
-				)
-			])
-	@commands.cooldown(1, 10, commands.BucketType.user)
-	async def oracle(self, inter: ACI, oracle: str, question: str):
-		
-		await inter.response.defer()
-		
-		channel = inter.channel
-		
-		channel_webhooks = await channel.webhooks()
-		
-		for webhook in channel_webhooks:
-			if webhook.user == self.bot.user and webhook.name == "Bot Webhook":
-				break
-		else:
-			webhook = await channel.create_webhook(name="Bot Webhook")
-		
-		await inter.edit_original_message(content=f':telephone: Contactando {oracle}...')
-
-		content = f'{inter.author.mention}, *"{question}"* \n\n{choice(self.oracle_phrases)}'
-
-		await webhook.send(username=oracle, content=content, avatar_url=Icons.get_oracle(oracle))
-
+			await inter.send(content=f'{Emojis.REVERSE} {inter.author.mention}, {user.mention} Retribuiu!', embed=embed_retribued)
+	
 	
 	@fun.sub_command(
 		name=Localized('owo', key='ENT_FUN_CMD_OWO_NAME'),

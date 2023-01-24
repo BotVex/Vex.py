@@ -2,20 +2,19 @@ import io
 import qrcode
 import aiohttp
 import datetime
+
 import tempyrature
+T = tempyrature.Converter
+
 from typing import Union
 
 import disnake
-from disnake.ext import commands
 from disnake import Localized
-
-from src.utils.assets import Emojis
-from src.utils.newassets import GetColor
-
+from disnake.ext import commands
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-T = tempyrature.Converter
+from src.utils import Emojis, GetColor
 
 
 class Tools(commands.Cog):
@@ -71,7 +70,7 @@ class Tools(commands.Cog):
 			await inter.send(embed=embed, view=OpenInBrowser())
 			return
 		else:
-			await inter.send(f'{Emojis.error} O servidor não possuí um ícone.', ephemeral=True)
+			await inter.send(f'{Emojis.ERROR} O servidor não possuí um ícone.', ephemeral=True)
 			return
 	
 	
@@ -103,7 +102,7 @@ class Tools(commands.Cog):
 			await inter.send(embed=embed, view=OpenInBrowser())
 			return
 		else:
-			await inter.response.send_message(f'{Emojis.error} O servidor não possuí um banner.', ephemeral=True)
+			await inter.response.send_message(f'{Emojis.ERROR} O servidor não possuí um banner.', ephemeral=True)
 			return
 
 	
@@ -219,7 +218,7 @@ class Tools(commands.Cog):
 	
 				await inter.send(embed=embed, view=Link())
 			else:
-				await inter.send(f'{Emojis.error} {user.display_name} não possui um banner', ephemeral=True)		
+				await inter.send(f'{Emojis.ERROR} {user.display_name} não possui um banner', ephemeral=True)		
 	
 
 	#user info
@@ -243,7 +242,7 @@ class Tools(commands.Cog):
 			user = inter.author
 		
 		if user.bot is True:
-			usertag = f'`{user}` {Emojis.bot_tag}'
+			usertag = f'`{user}` {Emojis.BOT_TAG}'
 
 		else:
 			usertag = f'`{user}`'
@@ -264,7 +263,7 @@ class Tools(commands.Cog):
 		_color = await GetColor.general_color_url(avatar.with_size(16))
 		
 		user_embed = EB(color=_color)
-		user_embed.title = f'{Emojis.monoculo} Informações do usuário:' 
+		user_embed.title = f'{Emojis.MONOCULO} Informações do usuário:' 
 		user_embed.set_thumbnail(url=avatar)
 		user_embed.add_field(name=':label: Tag:', value=usertag, inline=False)
 		user_embed.add_field(name=':identification_card: Nome:', value=username, inline=True)
@@ -306,7 +305,7 @@ class Tools(commands.Cog):
 			if member.premium_since is not None:
 				premium_since_time = f'<t:{int(round(member.premium_since.timestamp()))}:f> (<t:{int(round(member.premium_since.timestamp()))}:R>)'
 				
-				member_embed.add_field(name=f'{Emojis.boost} Impulsionando o servidor desde:', value=premium_since_time, inline=True)
+				member_embed.add_field(name=f'{Emojis.BOOST} Impulsionando o servidor desde:', value=premium_since_time, inline=True)
 			
 			if member.guild_avatar is not None:
 				member_embed.set_thumbnail(url=member.guild_avatar)
@@ -419,7 +418,7 @@ class Tools(commands.Cog):
 		await inter.response.defer()
 
 		if to_scale == scale:
-			await inter.send(f'{Emojis.error} Você não pode converter uma temperatura para ela mesma.', ephemeral=True)
+			await inter.send(f'{Emojis.ERROR} Você não pode converter uma temperatura para ela mesma.', ephemeral=True)
 			return
 		
 		else:

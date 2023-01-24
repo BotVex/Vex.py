@@ -6,8 +6,7 @@ from disnake import Localized
 EB = disnake.Embed
 ACI = disnake.ApplicationCommandInteraction
 
-from src.utils.assets import Emojis
-from src.utils.newassets import DefaultColors
+from src.utils import Emojis, Colors
 
 
 class Administration(commands.Cog):
@@ -56,13 +55,13 @@ class Administration(commands.Cog):
 				deleted_messages = 0
 
 				for author, message_deleted in list(count_members.items()):
-					new_string.append(f'{Emojis.dot} **`{author}`**: {message_deleted}')
+					new_string.append(f'{Emojis.DOT} **`{author}`**: {message_deleted}')
 					deleted_messages += message_deleted
 			final_string = f'\n'.join(new_string)
 			
 
-			embed = EB(color=DefaultColors.GREEN)
-			embed.title = f'{Emojis.trash} {deleted_messages} Mensagens apagadas!'
+			embed = EB(color=Colors.GREEN)
+			embed.title = f'{Emojis.TRASH} {deleted_messages} Mensagens apagadas!'
 			embed.description = final_string
 			embed.timestamp = datetime.datetime.now()
 			embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
@@ -70,8 +69,8 @@ class Administration(commands.Cog):
 			await inter.channel.purge(limit=amount)
 			await inter.channel.send(embed=embed, delete_after=15.0)
 		except:
-			embed = EB(color=DefaultColors.RED)
-			embed.title=f'{Emojis.error} Não foi possivel apagar as mensagens.'
+			embed = EB(color=Colors.RED)
+			embed.title=f'{Emojis.ERROR} Não foi possivel apagar as mensagens.'
 			embed.timestamp = datetime.datetime.now()
 			embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
 
@@ -109,7 +108,7 @@ class Administration(commands.Cog):
 			channel = inter.channel
 		
 		if not isinstance(channel, disnake.TextChannel):
-			await inter.send(f'{Emojis.error} canal inválido!', ephemeral=True)
+			await inter.send(f'{Emojis.ERROR} canal inválido!', ephemeral=True)
 			return
 		
 		channel_webhooks = await channel.webhooks()
