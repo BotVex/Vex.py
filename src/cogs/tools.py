@@ -41,6 +41,12 @@ class Tools(commands.Cog):
 	async def convert(self, inter: ACI):
 		pass
 
+
+	@commands.slash_command(name=Localized('emoji', key='TOOLS_EMOJI_NAME'), dm_permission=True)
+	async def emoji(self, inter: ACI):
+		pass
+
+
 	#server icon
 	@commands.cooldown(2, 10, commands.BucketType.user)
 	@server.sub_command(
@@ -237,7 +243,7 @@ class Tools(commands.Cog):
 		await inter.response.defer()
 		
 		embeds = []
-		
+
 		if user is None:
 			user = inter.author
 		
@@ -311,7 +317,7 @@ class Tools(commands.Cog):
 				member_embed.set_thumbnail(url=member.guild_avatar)
 			
 			embeds.append(member_embed)
-		
+			
 		if user.bot is True:
 			
 			bot_embed = EB(color=_color)
@@ -456,54 +462,21 @@ class Tools(commands.Cog):
 			await inter.send(embed=embed)
 
 
-	#invite info
-	# @commands.cooldown(2, 10, commands.BucketType.user)
-	# @invite.sub_command(
-	# 	name=Localized('info', key='TOOLS_INFO_CMD_INFO_NAME'),
-	# 	description=Localized('View link information from a server.', key='TOOLS_INVITE_CMD_INFO_DESC'),
-	# 	options=[
-	# 		disnake.Option(
-	# 			name='invite',
-	# 			description=Localized('Discord server invite.', key='TOOLS_INVITE_CMD_INFO_INVITE'),
-	# 			type=disnake.OptionType.string,
-	# 			required=True)
-	# 		])
-	# async def info(self, inter: ACI, invite: str):
-	# 	await inter.response.defer()
-
-	# 	try:
-	# 		invite_obj = await self.bot.fetch_invite(invite)
-	# 	except:
-	# 		embed = EB(color=DefaultColors.RED)
-	# 		embed.title('Convite inválido!')
-	# 		embed.description(f'O convite `{invite}` expirou ou não existe!')
-	# 		embed.timestamp=datetime.datetime.now()
-	# 		embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
-			
-	# 		await inter.send(embed=embed, ephemeral=True)
-	# 		return
-		
-	# 	color = await GetColor.general_color_url(inter.author.display_avatar.with_size(16)) if invite_obj.guild.icon is None else await GetColor.general_color_url(str(invite_obj.guild.icon).replace('?size=1024', '?size=16'))
-
-	# 	embed = EB(color=color)
-	# 	embed.title = invite_obj.guild.name
-	# 	embed.add_field('ID:', f'`{invite_obj.guild.id}`', inline=True)
-	# 	embed.add_field('Membros:', f':bust_in_silhouette: Total: `{invite_obj.approximate_member_count}`\n:green_circle: Online: `{invite_obj.approximate_presence_count}`', inline=True)
-	# 	embed.add_field('Canal:', f'`#{invite_obj.channel} ({invite_obj.channel.id})`', inline=False)
-	# 	embed.timestamp = datetime.datetime.now()
-	# 	embed.set_footer(text=inter.author.display_name, icon_url=inter.author.display_avatar)
-		
-	# 	if invite_obj.inviter is not None:
-	# 		embed.add_field('Convite por: ', f'`{invite_obj.inviter} ({invite_obj.inviter.id})`', inline=False)
-		
-	# 	if invite_obj.guild.icon is not None:
-	# 		embed.set_thumbnail(url=invite_obj.guild.icon)
-		
-	# 	if invite_obj.guild.splash is not None:
-	# 		embed.set_image(url=invite_obj.guild.splash.url)
-
-	# 	await inter.send(embed=embed)
-
+	#emoji info
+	@commands.cooldown(2, 10, commands.BucketType.user)
+	@convert.sub_command(
+		name=Localized('info', key='TOOLS_EMOJI_CMD_INFO_NAME'),
+		description=Localized('', key='TOOLS_EMOJI_CMD_INFO_DESC'),
+		options=[
+			disnake.Option(
+				name='value',
+				description=Localized('The temperature value.', key='TOOLS_CONVERT_CMD_TEMPERATURE_FROM_VALUE_DESC'),
+				type=disnake.OptionType.integer,
+				required=True)
+			]
+		)
+	async def info(self, inter: ACI, value: int):
+		await inter.response.defer()
 
 	#todo: adicionar os comandos de cores novamente
 
