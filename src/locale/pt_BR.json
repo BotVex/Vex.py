@@ -170,5 +170,8 @@
   "TOOLS_INVITE_NAME":"convite",
   "TOOLS_INFO_CMD_INFO_NAME":"info",
   "TOOLS_INVITE_CMD_INFO_DESC":"Veja informações de um convite de um servidor.",
-  "TOOLS_INVITE_CMD_INFO_INVITE":"O convite de um servidor do Discord."
+  "TOOLS_INVITE_CMD_INFO_INVITE":"O convite de um servidor do Discord.",
+  "TOOLS_EMOJI_NAME":"emoji",
+  "TOOLS_EMOJI_CMD_INFO_NAME":"info",
+  "TOOLS_EMOJI_CMD_INFO_DESC":"Veja informações sobre um emoji."
 }
