@@ -466,16 +466,16 @@ class Tools(commands.Cog):
 	@commands.cooldown(2, 10, commands.BucketType.user)
 	@convert.sub_command(
 		name=Localized('info', key='TOOLS_EMOJI_CMD_INFO_NAME'),
-		description=Localized('', key='TOOLS_EMOJI_CMD_INFO_DESC'),
+		description=Localized('View information about an emoji.', key='TOOLS_EMOJI_CMD_INFO_DESC'),
 		options=[
 			disnake.Option(
-				name='value',
-				description=Localized('The temperature value.', key='TOOLS_CONVERT_CMD_TEMPERATURE_FROM_VALUE_DESC'),
-				type=disnake.OptionType.integer,
+				name='emoji',
+				description=Localized('Enter some emoji.', key='TOOLS_EMOJI_CMD_INFO_EMOJI'),
+				type=disnake.OptionType.string,
 				required=True)
 			]
 		)
-	async def info(self, inter: ACI, value: int):
+	async def info(self, inter: ACI, emoji: str):
 		await inter.response.defer()
 
 	#todo: adicionar os comandos de cores novamente
