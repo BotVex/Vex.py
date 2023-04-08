@@ -464,7 +464,7 @@ class Tools(commands.Cog):
 
 	#emoji info
 	@commands.cooldown(2, 10, commands.BucketType.user)
-	@convert.sub_command(
+	@emoji.sub_command(
 		name=Localized('info', key='TOOLS_EMOJI_CMD_INFO_NAME'),
 		description=Localized('View information about an emoji.', key='TOOLS_EMOJI_CMD_INFO_DESC'),
 		options=[
