@@ -19,7 +19,9 @@ Vex é um bot brasileiro para o Discord, a Vex é focada em diversão e entreten
 
 Ela possuí diversos comandos, todos organizados em `cogs, comandos, grupo de subcomandos e subcomandos`.
 
-Também existem **tasks** que fazem coisas incríveis de tempos em tempos, por exemplo, descobrir a cor do avatar do bot e aplica isso como uma cor padrão do bot;
+Também existem **tasks** que fazem coisas incríveis de tempos em tempos, por exemplo, descobrir a cor do avatar do bot e aplica isso como uma cor padrão do bot.
+
+O código é ✨ embelezado ✨ com o <a href="https://github.com/psf/black">psf/black</a>.
 
 **Existem dezenas de outras coisas iradas embutidas na Vex, dê uma explorada!**
 
