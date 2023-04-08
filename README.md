@@ -10,6 +10,7 @@
   <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/BotVex/Vex.py?style=for-the-badge">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/BotVex/Vex.py?style=for-the-badge">
   <img alt="GitHub" src="https://img.shields.io/github/license/BotVex/Vex.py?style=for-the-badge">
+  <img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge">
 </div>
 
 <hr>
