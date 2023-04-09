@@ -597,9 +597,18 @@ class Tools(commands.Cog):
         ),
     )
     async def info(self, inter: ACI):
-        emoji = choice(self.bot.emojis)
+        if not len(inter.guild.emojis) == 0:
+            emoji = choice(inter.guild.emojis)
 
-        await inter.send(emoji)
+            color = await GetColor.general_color_url(emoji.url)
+
+            emoji_info = EB(color=color)
+            emoji_info.title = emoji.name
+            emoji_info.set_author(name=emoji.guild.name, icon_url=emoji.guild.icon)
+
+            await inter.send(str(emoji), embed=emoji_info)
+        else:
+            await inter.send("Parece que este servidor não possuí nemhum emoji :(")
 
     # todo: adicionar os comandos de cores novamente
 
