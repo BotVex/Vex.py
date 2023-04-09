@@ -8,9 +8,9 @@ load_dotenv()
 with open("config.toml", "rb") as f:
     config = tomllib.load(f)
 
-OWNER_ID = config.get("owner", {}).get("id")
-GUILD_ID = config.get("server", {}).get("guild_id")
-
 EXTENSIONS = config.get("extensions", {}).get("extensions")
+
+OWNER_ID = int(os.environ["OWNER_ID"])
+GUILD_ID = int(os.environ["GUILD_ID"])
 
 TOKEN = os.environ["TOKEN"]
