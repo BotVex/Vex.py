@@ -63,4 +63,4 @@
   <li>Submit a pull request</li>
 </ol>
 <h2>License</h2>
-<p>Vex is under the <code>Apache-2.0 license</code>. See <a href="./LICENSE">LICENSE</a> for more details.</p>
+<p>Vex is under the <code>Apache-2.0 license</code>. See <a href="./LICENCE">LICENCE</a> for more details.</p>

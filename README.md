@@ -70,4 +70,4 @@
 </ol>
 
 <h2>Licença</h2>
-<p>A vex está sob licença <code>Apache-2.0 license</code>. Veja <a href="./LICENSE">LICENCE</a> para mais detalhes.</p>
+<p>A vex está sob licença <code>Apache-2.0 license</code>. Veja <a href="./LICENCE">LICENCE</a> para mais detalhes.</p>
