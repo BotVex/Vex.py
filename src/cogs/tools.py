@@ -608,7 +608,9 @@ class Tools(commands.Cog):
 
             await inter.send(str(emoji), embed=emoji_info)
         else:
-            await inter.send("Parece que este servidor não possuí nemhum emoji :(")
+            await inter.send(
+                "Parece que este servidor não possui nemhum emoji :(", ephemeral=True
+            )
 
     # todo: adicionar os comandos de cores novamente
 
