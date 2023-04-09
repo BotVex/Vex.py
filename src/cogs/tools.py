@@ -1,4 +1,5 @@
 import io
+from random import choice
 import qrcode
 import aiohttp
 import datetime
@@ -590,23 +591,26 @@ class Tools(commands.Cog):
     # emoji info
     @commands.cooldown(2, 10, commands.BucketType.user)
     @emoji.sub_command(
-        name=Localized("info", key="TOOLS_EMOJI_CMD_INFO_NAME"),
+        name=Localized("random", key="TOOLS_EMOJI_CMD_RANDOM_NAME"),
         description=Localized(
-            "View information about an emoji.", key="TOOLS_EMOJI_CMD_INFO_DESC"
+            "I send a random emoji, no more.", key="TOOLS_EMOJI_CMD_RANDOM_DESC"
         ),
-        options=[
-            disnake.Option(
-                name="emoji",
-                description=Localized(
-                    "Enter some emoji.", key="TOOLS_EMOJI_CMD_INFO_EMOJI"
-                ),
-                type=disnake.OptionType.string,
-                required=True,
-            )
-        ],
     )
-    async def info(self, inter: ACI, emoji: str):
-        await inter.response.defer()
+    async def info(self, inter: ACI):
+        if not len(inter.guild.emojis) == 0:
+            emoji = choice(inter.guild.emojis)
+
+            color = await GetColor.general_color_url(emoji.url)
+
+            emoji_info = EB(color=color)
+            emoji_info.title = emoji.name
+            emoji_info.set_author(name=emoji.guild.name, icon_url=emoji.guild.icon)
+
+            await inter.send(str(emoji), embed=emoji_info)
+        else:
+            await inter.send(
+                "Parece que este servidor não possui nemhum emoji :(", ephemeral=True
+            )
 
     # todo: adicionar os comandos de cores novamente
 
