@@ -42,7 +42,6 @@
   <li>
     <p>Set up environment variables:</p>
     <p>Create a file named <code>.env</code> with the <code>TOKEN</code> variable, which can be obtained <a href="https://discord.com/developers/applications">here</a>, <code>OWNER_ID</code>, which is the bot owner's ID, and <code>GUILD_ID</code>, which is the support server ID.</p>
-    <pre><code>python main.py</code></pre>
   </li>
   <li>
     <p>Set up the application:</p>
