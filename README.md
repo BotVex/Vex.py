@@ -28,7 +28,7 @@
 <h1 align="center">Olá, eu sou a Vex!</h1>
 
 <div align="center">
-  <img align="right" src="https://user-images.githubusercontent.com/88998991/230775419-78927307-dd68-4cb7-9c4a-d3d1c45b83e0.png" width="200px" alt="Vex avatar" draggable="false"></img>
+  <img align="right" src="https://user-images.githubusercontent.com/88998991/233083029-3fc5b1e6-eb74-4425-b935-9ab043bf0a9e.png" width="200px" alt="Vex avatar" draggable="false"></img>
   <p align="left">Sou um simples bot brasileiro 🇧🇷 para o Discord, focada em diversão e entretenimento!</p>
   <p align="left">Tenho vários comandos, alguns úteis, outros não 😅</p>
 </div>
