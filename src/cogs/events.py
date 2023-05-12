@@ -4,9 +4,7 @@ from time import time
 from random import choice
 from aiohttp import ClientSession
 
-from src.logger import Log
-
-log = Log()
+from src.logger import log
 
 import disnake
 from disnake.ext import commands, tasks
@@ -63,7 +61,7 @@ class Events(commands.Cog):
                     },
                 }
 
-                log.success(f"information from Github was obtained")
+                log.info(f"information from Github was obtained")
 
     @commands.Cog.listener()
     async def on_connect(self):
@@ -80,9 +78,9 @@ class Events(commands.Cog):
                 ),
             )
 
-        log.success(
-            f"starting presence [slate_blue1]{activity_name}[/] defined in all shards"
-        )
+            log.info(
+                f"presence [slate_blue1]{activity_name}[/] defined in shard {shard_id}"
+            )
 
         if self.get_github_information_task.is_running():
             pass
@@ -155,8 +153,8 @@ class Events(commands.Cog):
 
     @tasks.loop(minutes=10.0)
     async def status_task(self):
-        with open("src/data/games.json") as games:
-            game_list = json.loads(games.read())
+        async with open("src/data/games.json") as games:
+            game_list = await json.loads(games.read())
 
         game = choice(game_list)
 
@@ -173,19 +171,19 @@ class Events(commands.Cog):
                 ),
             )
 
-            log.success(
-                f"presence [slate_blue1]{activity_name}[/] defined in all shards"
+            log.info(
+                f"presence [slate_blue1]{activity_name}[/] defined in shard {shard_id}"
             )
 
     @commands.Cog.listener()
     async def on_ready(self):
         log.info("client online")
-        log.success(
-            f"[cyan1]{self.bot.user}[/] [bold green]online[/] - [yellow1]{len(self.bot.guilds)} servers[/]"
+        log.info(
+            f"[cyan1]{self.bot.user}[/] [bold green]online[/] - [yellow1]{len(self.bot.guilds)} guilds[/]"
         )
 
         if self.status_task.is_running():
-            log.info("status task was already running")
+            pass
         else:
             self.status_task.start()
             log.info("status task started")

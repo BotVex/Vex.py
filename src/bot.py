@@ -1,9 +1,8 @@
 from disnake import Intents
 from disnake.ext import commands
 
-from .logger import Log
+from .logger import log
 
-log = Log()
 from .config import OWNER_ID, EXTENSIONS, TOKEN
 
 
@@ -49,21 +48,23 @@ class Bot(commands.AutoShardedInteractionBot):
 
     def setup(self) -> None:
         try:
+            log.info("loading locales...")
             self.i18n.load("src/locale/")
-            log.success("locales loaded")
+            log.info("locales loaded!")
         except Exception as e:
-            log.error(f"falied on load locales: \n{e}")
+            log.error(f"falied to load locales: \n{e}")
 
         def load_extensions(extensions: list) -> None:
             for extension in extensions:
                 try:
                     self.load_extension(f"src.cogs.{extension}")
-                    log.info(f"EXTENSION: [slate_blue1]{extension}[/] loaded")
+                    log.info(f"\tEXTENSION: [slate_blue1]{extension}[/] loaded!")
                 except Exception as e:
+                    pass
                     log.error(f"[red1]EXTENSION: [b]{extension}[/] falied[/]\n{e}")
-            log.success("extensions loaded")
+            log.info("all extensions loaded!")
 
-        log.info("loading extensions")
+        log.info("loading extensions...")
         load_extensions(EXTENSIONS)
 
     def run(self) -> None:
