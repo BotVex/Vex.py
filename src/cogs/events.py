@@ -153,7 +153,7 @@ class Events(commands.Cog):
 
     @tasks.loop(minutes=10.0)
     async def status_task(self):
-        async with open("src/data/games.json") as games:
+        with open("src/data/games.json") as games:
             game_list = await json.loads(games.read())
 
         game = choice(game_list)
